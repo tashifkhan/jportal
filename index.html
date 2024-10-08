@@ -12,7 +12,7 @@
     <script>
         const SERVICE_WORKER_PATH = "sw.js";
         const REGISTRATION_OPTIONS = {
-            scope: "/jpee/",
+            scope: "/",
         };
 
         async function registerServiceWorker() {
@@ -137,19 +137,48 @@
             await micropip.install("pyjiit");
 
             let attendance = await pyodide.runPythonAsync(`
+                from pyodide.ffi import to_js
+                from js import localStorage
+                import json
+
+                class CachedAttendance:
+                    def __init__(self, webportal):
+                        self.webportal = webportal
+
+                    def get_attendance(self, header, sem):
+                        # Create a unique key for this attendance request
+                        cache_key = f"attendance_{header}_{sem}"
+
+                        # Check if the attendance data is in the cache
+                        cached_data = localStorage.getItem(cache_key)
+                        if cached_data:
+                            print("using cached data")
+                            return json.loads(cached_data)
+
+                        # If not in cache, fetch the attendance data
+                        print("fetching new data")
+                        attendance = self.webportal.get_attendance(header, sem)
+
+                        # Cache the attendance data
+                        localStorage.setItem(cache_key, json.dumps(attendance))
+
+                        return attendance
+
+                # Usage in your main Python code
                 from pyjiit import Webportal
                 from pyjiit.default import CAPTCHA
 
-                USERNAME = "${localStorage.getItem("username")}"
-                PASSWORD = "${localStorage.getItem("password")}"
+                USERNAME = "${localStorage.getItem('username')}"
+                PASSWORD = "${localStorage.getItem('password')}"
+
                 w = Webportal()
-                print(w)
                 s = w.student_login(USERNAME, PASSWORD, CAPTCHA)
                 meta = w.get_attendance_meta()
                 header = meta.latest_header()
                 sem = meta.latest_semester()
 
-                attendance = w.get_attendance(header, sem)
+                cached_attendance = CachedAttendance(w)
+                attendance = cached_attendance.get_attendance(header, sem)
                 print(attendance)
                 attendance
             `);

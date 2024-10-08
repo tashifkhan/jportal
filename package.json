@@ -1,0 +1,30 @@
+{
+  "name": "jpee",
+  "version": "0.0.1",
+  "description": "RESTful API for JIIT Webportal ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeblech/jpee.git"
+  },
+  "keywords": [
+    "jaypee",
+    "jpee",
+    "jayp",
+    "jiit",
+    "pyjiit",
+    "jsjiit"
+  ],
+  "author": "codeblech",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codeblech/jpee/issues"
+  },
+  "homepage": "https://github.com/codeblech/jpee#readme",
+  "dependencies": {
+    "xhr-shim": "^0.1.3"
+  }
+}

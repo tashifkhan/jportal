@@ -1,5 +1,9 @@
+importScripts("./node_modules/xhr-shim/src/index.js");
+self.XMLHttpRequest = self.XMLHttpRequestShim;
+importScripts("https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js");
+importScripts("https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.asm.js");
 // Define the cache name
-const CACHE_NAME = "jiit-site-cache-v1";
+const CACHE_NAME = "jiit-site-cache-v0.1";
 
 // Define the files you want to cache
 const ASSETS_TO_CACHE = [
@@ -21,9 +25,11 @@ self.addEventListener("install", (event) => {
 
 // Event listener for fetch - serve cached files when available
 self.addEventListener("fetch", (event) => {
+  console.log("Fetch event for ", event.request.url);
   event.respondWith(
     caches.match(event.request).then((response) => {
       // Serve from cache if available
+      console.log("Found ", response, " in cache");
       if (response) {
         return response;
       }
@@ -33,6 +39,7 @@ self.addEventListener("fetch", (event) => {
 
       return fetch(fetchRequest)
         .then((fetchResponse) => {
+          console.log("Response from network is: ", fetchResponse);
           // Check if the response is valid and has a status of 200, and is a basic request (not a third-party request)
           if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== "basic") {
             return fetchResponse;
@@ -43,6 +50,7 @@ self.addEventListener("fetch", (event) => {
 
           // Cache the new response
           caches.open(CACHE_NAME).then((cache) => {
+            console.log("Caching new response: ", responseToCache);
             cache.put(event.request, responseToCache);
           });
 
