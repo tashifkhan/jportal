@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icons/circle.svg">
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
     <script>
         const SERVICE_WORKER_PATH = "sw.js";
         const REGISTRATION_OPTIONS = {
@@ -74,7 +73,10 @@
             <button>Subjects</button>
         </nav>
     </footer>
-
+    <script src="utils.js"></script>
+    <script src="encryption.js"></script>
+    <script src="wrapper.js"></script>
+    <script src="attendance.js"></script>
     <script type="text/javascript">
         // Function to save credentials in localStorage
         function saveCredentials(username, password) {
@@ -131,62 +133,27 @@
         }
 
         async function main() {
-            let pyodide = await loadPyodide();
-            await pyodide.loadPackage("micropip");
-            const micropip = pyodide.pyimport("micropip");
-            await micropip.install("pyjiit");
+            let username = localStorage.getItem('username');
+            let password = localStorage.getItem('password');
 
-            let attendance = await pyodide.runPythonAsync(`
-                from pyodide.ffi import to_js
-                from js import localStorage
-                import json
+            try {
+                const meta = await get_attendance_meta(username, password);
+                let sem = meta.latestSemester();
+                let header = meta.latestHeader();
+                console.log("Latest semester:", sem);
+                console.log("Latest header:", header);
 
-                class CachedAttendance:
-                    def __init__(self, webportal):
-                        self.webportal = webportal
+                const attendance = await get_attendance(header, sem);
+                console.log("Attendance fetched successfully");
 
-                    def get_attendance(self, header, sem):
-                        # Create a unique key for this attendance request
-                        cache_key = f"attendance_{header}_{sem}"
+                // const attendanceJS = await attendance.toJs();
+                // console.log("Attendance converted to JS object:", attendanceJS);
 
-                        # Check if the attendance data is in the cache
-                        cached_data = localStorage.getItem(cache_key)
-                        if cached_data:
-                            print("using cached data")
-                            return json.loads(cached_data)
-
-                        # If not in cache, fetch the attendance data
-                        print("fetching new data")
-                        attendance = self.webportal.get_attendance(header, sem)
-
-                        # Cache the attendance data
-                        localStorage.setItem(cache_key, json.dumps(attendance))
-
-                        return attendance
-
-                # Usage in your main Python code
-                from pyjiit import Webportal
-                from pyjiit.default import CAPTCHA
-
-                USERNAME = "${localStorage.getItem('username')}"
-                PASSWORD = "${localStorage.getItem('password')}"
-
-                w = Webportal()
-                s = w.student_login(USERNAME, PASSWORD, CAPTCHA)
-                meta = w.get_attendance_meta()
-                header = meta.latest_header()
-                sem = meta.latest_semester()
-
-                cached_attendance = CachedAttendance(w)
-                attendance = cached_attendance.get_attendance(header, sem)
-                print(attendance)
-                attendance
-            `);
-
-            // Convert the Python object to a JavaScript object
-            let attendanceJS = attendance.toJs();
-
-            console.log(attendanceJS);
+                // Now that we have attendanceJS, we can render the subjects
+                renderSubjects(attendance.studentattendancelist);
+            } catch (error) {
+                console.error("Error in main function:", error);
+            }
 
             // Function to create and render subjects
             function renderSubjects(subjects) {
@@ -253,9 +220,6 @@
                     circle.innerHTML = `${percent}%`;
                 });
             }
-
-            // Call the render function with the JSON data
-            renderSubjects(attendanceJS.studentattendancelist);
         }
 
         // Initialize the login form and check for stored credentials after the DOM is fully loaded
