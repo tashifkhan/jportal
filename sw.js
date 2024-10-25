@@ -1,16 +1,11 @@
-importScripts("./node_modules/xhr-shim/src/index.js");
-self.XMLHttpRequest = self.XMLHttpRequestShim;
-importScripts("https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js");
-importScripts("https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.asm.js");
 // Define the cache name
-const CACHE_NAME = "jiit-site-cache-v0.1";
+const CACHE_NAME = "jiit-site-cache-v0.2";
 
 // Define the files you want to cache
 const ASSETS_TO_CACHE = [
   "/", // Root of the site
   "/style.css", // Stylesheet
   "/icons/circle.svg", // Icon
-  "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js", // Pyodide JS file
 ];
 
 // Event listener for install - caching static assets
