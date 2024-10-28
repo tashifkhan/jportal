@@ -63,10 +63,10 @@
             <button>Subjects</button>
         </nav>
     </footer>
-    <script src="utils.js"></script>
-    <script src="encryption.js"></script>
-    <script src="wrapper.js"></script>
-    <script src="attendance.js"></script>
+    <script src="jsjiit/utils.js"></script>
+    <script src="jsjiit/encryption.js"></script>
+    <script src="jsjiit/wrapper.js"></script>
+    <script src="jsjiit/attendance.js"></script>
     <script type="text/javascript">
         // Function to save credentials in localStorage
         function saveCredentials(username, password) {
@@ -167,25 +167,27 @@
                     console.log("Using cached attendance");
                     const {data: cachedData, timestamp} = JSON.parse(cached);
                     attendance = cachedData;
-                } else {
-                    console.log("Fetching fresh attendance");
-
-                    const meta = await get_attendance_meta(username, password);
-                    // Not using sem from cache here because it might be stale
-                    let sem = meta.latestSemester();
-                    console.log("Latest semester:", sem);
-                    await saveSemesterToCache(sem);
-
-                    let header = meta.latestHeader();
-                    console.log("Latest header:", header);
-
-                    attendance = await get_attendance(header, sem);
-                    await saveAttendanceToCache(attendance, username, sem);
+                    renderSubjects(attendance.studentattendancelist);
                 }
+                console.log("Fetching fresh attendance");
+
+                const meta = await get_attendance_meta(username, password);
+                // Not using sem from cache here because it might be stale
+                sem = meta.latestSemester();
+                console.log("Latest semester:", sem);
+                await saveSemesterToCache(sem);
+
+                let header = meta.latestHeader();
+                console.log("Latest header:", header);
+
+                attendance = await get_attendance(header, sem);
+                await saveAttendanceToCache(attendance, username, sem);
+                renderSubjects(attendance.studentattendancelist);
+
             } catch (error) {
                 console.error("Error in main function:", error);
             }
-            renderSubjects(attendance.studentattendancelist);
+
 
 
             // Function to create and render subjects
