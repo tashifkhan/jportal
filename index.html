@@ -10,31 +10,21 @@
     <link rel="icon" href="icons/circle.svg">
     <script>
         const SERVICE_WORKER_PATH = "sw.js";
-        const REGISTRATION_OPTIONS = {
-            scope: "/jpee/",
-        };
+        // const REGISTRATION_OPTIONS = {
+        //     scope: "/",
+        // };
 
-        async function registerServiceWorker() {
-            if ("serviceWorker" in navigator) {
-                try {
-                    const registration = await navigator.serviceWorker.register(
-                        SERVICE_WORKER_PATH,
-                        REGISTRATION_OPTIONS,
-                    );
-                    if (registration.installing) {
-                        console.log("Service worker installing");
-                    } else if (registration.waiting) {
-                        console.log("Service worker installed");
-                    } else if (registration.active) {
-                        console.log("Service worker active");
-                    }
-                } catch (error) {
-                    console.error(`Registration failed with ${error}`);
-                }
+        if ("serviceWorker" in navigator) {
+            try {
+                navigator.serviceWorker.register(
+                    SERVICE_WORKER_PATH,
+                    // REGISTRATION_OPTIONS,
+                );
+                console.log("Service worker registered");
+            } catch (error) {
+                console.error(`Registration failed with ${error}`);
             }
         }
-
-        registerServiceWorker();
     </script>
 </head>
 
@@ -116,7 +106,7 @@
             document.getElementById('user-login-form').addEventListener('submit', function (event) {
                 event.preventDefault(); // Prevent form from refreshing the page
 
-                console.log("Login button clicked");
+                // console.log("Login button clicked");
 
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
@@ -131,29 +121,72 @@
                 }
             });
         }
+        async function saveAttendanceToCache(attendance, username, sem) {
+            const ATTENDANCE_CACHE_KEY = `attendance-${username}-${sem["registration_code"]}`;
+            console.log("Saving attendance to cache with key", ATTENDANCE_CACHE_KEY);
+            localStorage.setItem(ATTENDANCE_CACHE_KEY, JSON.stringify({
+                data: attendance,
+                timestamp: Date.now()
+            }))
+        }
+        async function getAttendanceFromCache(username, sem) {
+            const ATTENDANCE_CACHE_KEY = `attendance-${username}-${sem["registration_code"]}`;
+            console.log("Getting attendance from cache with key", ATTENDANCE_CACHE_KEY);
+            return localStorage.getItem(ATTENDANCE_CACHE_KEY);
+        }
+
+        async function saveSemesterToCache(sem) {
+            console.log("Saving semester to cache", sem);
+            localStorage.setItem("latestSemester", JSON.stringify(sem));
+        }
+
+        async function getSemesterFromCache() {
+            console.log("Getting semester from cache");
+            const sem = localStorage.getItem("latestSemester");
+            return sem ? JSON.parse(sem) : null;
+        }
 
         async function main() {
             let username = localStorage.getItem('username');
             let password = localStorage.getItem('password');
 
+            let attendance;
             try {
-                const meta = await get_attendance_meta(username, password);
-                let sem = meta.latestSemester();
-                let header = meta.latestHeader();
-                console.log("Latest semester:", sem);
-                console.log("Latest header:", header);
+                // if sem is not cached, it would have to be fetched from the server.
+                // that requries api calls to pretoken-check, generate-token1, & getstudentInforegistrationforattendence.
+                // that takes much longer (3-4s) and leads bad UX
+                let sem = await getSemesterFromCache();
+                if (!sem) {
+                    console.log("Semester not cached, fetching from server");
+                    const meta = await get_attendance_meta(username, password);
+                    sem = meta.latestSemester();
+                    await saveSemesterToCache(sem);
+                }
+                const cached = await getAttendanceFromCache(username, sem);
+                if (cached) {
+                    console.log("Using cached attendance");
+                    const {data: cachedData, timestamp} = JSON.parse(cached);
+                    attendance = cachedData;
+                } else {
+                    console.log("Fetching fresh attendance");
 
-                const attendance = await get_attendance(header, sem);
-                console.log("Attendance fetched successfully");
+                    const meta = await get_attendance_meta(username, password);
+                    // Not using sem from cache here because it might be stale
+                    let sem = meta.latestSemester();
+                    console.log("Latest semester:", sem);
+                    await saveSemesterToCache(sem);
 
-                // const attendanceJS = await attendance.toJs();
-                // console.log("Attendance converted to JS object:", attendanceJS);
+                    let header = meta.latestHeader();
+                    console.log("Latest header:", header);
 
-                // Now that we have attendanceJS, we can render the subjects
-                renderSubjects(attendance.studentattendancelist);
+                    attendance = await get_attendance(header, sem);
+                    await saveAttendanceToCache(attendance, username, sem);
+                }
             } catch (error) {
                 console.error("Error in main function:", error);
             }
+            renderSubjects(attendance.studentattendancelist);
+
 
             // Function to create and render subjects
             function renderSubjects(subjects) {

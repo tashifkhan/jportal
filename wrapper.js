@@ -38,7 +38,7 @@ async function __hit(method, url, options = {}, passed_headers = {}) {
 
   // Check if authentication is required
   if (options.authenticated) {
-    console.log("headers needed");
+    // console.log("headers needed");
     headers = passed_headers;
     delete options.authenticated;
   } else {
@@ -67,10 +67,11 @@ async function __hit(method, url, options = {}, passed_headers = {}) {
     fetchOptions.body = options.body;
   }
 
-  console.log(fetchOptions);
+  // console.log(fetchOptions);
 
   try {
     // Make the request using fetch
+    console.log("fetching", url, "with options", fetchOptions);
     const response = await fetch(url, fetchOptions);
 
     // Convert the response to JSON
@@ -80,7 +81,7 @@ async function __hit(method, url, options = {}, passed_headers = {}) {
     if (resp.status && resp.status.responseStatus !== "Success") {
       throw new exception(`status:\n${JSON.stringify(resp.status, null, 2)}`);
     }
-    console.log(resp);
+    // console.log(resp);
     return resp;
   } catch (error) {
     // Handle error
@@ -153,8 +154,8 @@ async function get_attendance_meta(username, password) {
   const localname = await generateLocalName();
   let _headers = session.getHeaders(localname);
   resp = await __hit("POST", API + ENDPOINT, { json: payload, authenticated: true }, _headers);
-  console.log("attendance meta");
-  console.log(resp);
+  // console.log("attendance meta");
+  // console.log(resp);
 
   return new AttendanceMeta(resp["response"]);
 }
@@ -170,8 +171,8 @@ async function get_attendance(header, semester) {
     registrationid: semester.registration_id,
     stynumber: header.stynumber,
   };
-  console.log("payload")
-  console.log(payload);
+  // console.log("payload")
+  // console.log(payload);
 
   const localname = await generateLocalName();
   let _headers = session.getHeaders(localname);
