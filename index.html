@@ -10,9 +10,9 @@
     <link rel="icon" href="icons/circle.svg">
     <script>
         const SERVICE_WORKER_PATH = "sw.js";
-        // const REGISTRATION_OPTIONS = {
-        //     scope: "/",
-        // };
+        const REGISTRATION_OPTIONS = {
+            scope: "/jportal/",
+        };
 
         if ("serviceWorker" in navigator) {
             try {
