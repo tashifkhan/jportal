@@ -2,7 +2,7 @@
     "name": "JIIT Web App",
     "short_name": "JIIT",
     "description": "A web portal for students to view attendance and grades.",
-    "start_url": "/jpee/",
+    "start_url": "/jportal/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#3498db",
