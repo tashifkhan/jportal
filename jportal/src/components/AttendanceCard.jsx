@@ -11,9 +11,9 @@ const AttendanceCard = ({ subject }) => {
   const displayName = name.replace(/\s*\([^)]*\)\s*$/, '');
 
   return (
-    <div className="flex justify-between items-center py-4 border-b border-gray-700">
+    <div className="flex justify-between items-center py-1 border-b border-gray-700">
       <div className="flex-1 mr-4">
-        <h2 className="text-sm font-semibold mb-1 max-[390px]:text-xs ">{displayName}</h2>
+        <h2 className="text-sm font-semibold max-[390px]:text-xs ">{displayName}</h2>
         {lecture && <p className="text-sm">Lecture: {lecture}%</p>}
         {tutorial && <p className="text-sm">Tutorial: {tutorial}%</p>}
         {practical && <p className="text-sm">Practical: {practical}%</p>}

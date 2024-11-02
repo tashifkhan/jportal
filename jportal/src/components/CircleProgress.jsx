@@ -2,8 +2,8 @@ import React from "react";
 
 
 function CircleProgress({ percentage, className = "" }) {
-  const strokeWidth = 4;
-  const defaultRadius = 18;
+  const strokeWidth = 3;
+  const defaultRadius = 15;
   const smallRadius = 14;
   const radius = defaultRadius;
   const circumference = 2 * Math.PI * radius;
@@ -11,7 +11,7 @@ function CircleProgress({ percentage, className = "" }) {
 
   return (
     <svg
-      className={`w-[80px] h-[80px] max-[399px]:w-[60px] max-[399px]:h-[60px] ${className}`}
+      className={`w-[80px] h-[80px] ${className}`}
       viewBox="0 0 50 50"
       preserveAspectRatio="xMidYMid meet"
     >
@@ -34,7 +34,7 @@ function CircleProgress({ percentage, className = "" }) {
         y="50%"
         dominantBaseline="middle"
         textAnchor="middle"
-        className="text-[14px] max-[375px]:text-[12px] fill-white font-medium"
+        className="text-[13px] max-[375px]:text-[12px] fill-white font-medium"
       >
         {percentage}
       </text>

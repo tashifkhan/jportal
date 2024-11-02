@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AttendanceCard from "./AttendanceCard";
+import Header from "./Header";
 
 const Attendance = ({ w }) => {
   const [attendanceData, setAttendanceData] = useState(null);
@@ -42,11 +43,14 @@ const Attendance = ({ w }) => {
   });
 
   return (
-    <div className="bg-[#191c20] text-white p-6 font-sans">
-      {subjects.map((subject, index) => (
-        <AttendanceCard key={index} subject={subject} />
-      ))}
-    </div>
+    <>
+      <Header />
+      <div className="bg-[#191c20] text-white p-6 font-sans">
+        {subjects.map((subject, index) => (
+          <AttendanceCard key={index} subject={subject} />
+        ))}
+      </div>
+      </>
   );
 };
 

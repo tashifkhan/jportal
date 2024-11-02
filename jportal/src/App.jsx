@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Login from './components/Login'
 import Attendance from './components/Attendance'
 import Grades from './components/Grades'
@@ -9,16 +9,19 @@ import Profile from './components/Profile'
 import Navbar from './components/Navbar'
 import './App.css'
 import { WebPortal } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.8/dist/jsjiit.esm.js";
+import Header from './components/Header';
 
 // Create WebPortal instance at the top level
 const w = new WebPortal();
 
 // Create a wrapper component to use the useNavigate hook
-function AuthenticatedApp({ w }) {
+function AuthenticatedApp({ w, setIsAuthenticated }) {
   return (
     <div className="min-h-screen pb-14">
+      <Header setIsAuthenticated={setIsAuthenticated} />
       <Routes>
         <Route path="/" element={<Navigate to="/attendance" />} />
+        <Route path="/login" element={<Navigate to="/attendance" />} />
         <Route path="/attendance" element={<Attendance w={w} />} />
         <Route path="/grades" element={<Grades w={w} />} />
         <Route path="/exams" element={<Exams w={w} />} />
@@ -74,7 +77,7 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-[#191c20] text-white">
+    return <div className="h-screen flex items-center justify-center bg-[#191c20] text-white">
       Loading...
     </div>;
   }
@@ -82,12 +85,16 @@ function App() {
   return (
     <BrowserRouter>
       {!isAuthenticated || !w.session ? (
-        <LoginWrapper
-          onLoginSuccess={() => setIsAuthenticated(true)}
-          w={w}
-        />
+        <Routes>
+          <Route path="*" element={
+            <LoginWrapper
+              onLoginSuccess={() => setIsAuthenticated(true)}
+              w={w}
+            />
+          } />
+        </Routes>
       ) : (
-        <AuthenticatedApp w={w} />
+        <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
       )}
     </BrowserRouter>
   );

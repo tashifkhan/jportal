@@ -30,8 +30,10 @@ export default function Exams({ w }) {
   }
 
   return (
-    <div className="space-y-4">
-      <Select onValueChange={handleSemesterChange}>
+    <div className="mt-1 p-6">
+      <h2 className="text-2xl text-center font-bold lg:text-3xl mb-2">Exam Events</h2>
+
+      <Select onValueChange={handleSemesterChange} >
         <SelectTrigger>
           <SelectValue placeholder="Select semester" />
         </SelectTrigger>
@@ -45,6 +47,7 @@ export default function Exams({ w }) {
       </Select>
 
       {selectedSem && (
+        <div className="mt-2">
         <Select>
           <SelectTrigger>
             <SelectValue placeholder="Select exam event" />
@@ -56,7 +59,8 @@ export default function Exams({ w }) {
               </SelectItem>
             ))}
           </SelectContent>
-        </Select>
+          </Select>
+        </div>
       )}
     </div>
   )

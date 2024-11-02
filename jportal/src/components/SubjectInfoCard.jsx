@@ -1,14 +1,14 @@
 function SubjectInfoCard({ subject }) {
   return (
-    <div className="flex justify-between items-center py-4 border-b border-gray-700">
-      <div className="flex-1 mb-4 lg:mb-0 mr-4">
-        <h2 className="text-lg lg:text-xl font-semibold mb-1">{subject.name}</h2>
-        <p className="text-sm lg:text-base mb-2">
+    <div className="flex justify-between items-center py-1 border-b border-gray-700">
+      <div className="flex-1 lg:mb-0 mr-4">
+        <h2 className="text-lg lg:text-xl font-semibold max-[390px]:text-xs max-[500px]:text-sm">{subject.name}</h2>
+        <p className="text-sm lg:text-base max-[390px]:text-xs">
           {subject.code}
           {subject.isAudit && " • Audit"}
         </p>
         {subject.components.map((component, idx) => (
-          <p key={idx} className="text-sm lg:text-base">
+          <p key={idx} className="text-sm lg:text-base max-[390px]:text-xs">
             {component.type === 'L' && 'Lecture'}
             {component.type === 'T' && 'Tutorial'}
             {component.type === 'P' && 'Practical'}
@@ -16,7 +16,7 @@ function SubjectInfoCard({ subject }) {
           </p>
         ))}
       </div>
-      <div className="text-4xl font-bold">
+      <div className="text-3xl font-bold max-[390px]:text-2xl">
         {subject.credits.toFixed(1)}
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SubjectInfoCard from "./SubjectInfoCard";
+import Header from "./Header";
 
 export default function Subjects({ w }) {
   const [subjectData, setSubjectData] = useState(null);
@@ -56,17 +57,20 @@ export default function Subjects({ w }) {
   }, {});
 
   return (
-    <div className="bg-[#191c20] text-white p-6 font-sans">
-      <div className="mb-4">
+    <>
+      <Header />
+      <div className="bg-[#191c20] text-white p-6 font-sans ">
+        <div className="mb-4">
         <h1 className="text-2xl font-bold lg:text-3xl">Registered Subjects</h1>
         <p className="text-sm lg:text-base">Total Credits: {subjectData.total_credits}</p>
       </div>
 
-      <div className="space-y-2 lg:space-y-4">
+      <div className="lg:space-y-4">
         {Object.values(groupedSubjects).map((subject) => (
           <SubjectInfoCard key={subject.code} subject={subject} />
         ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
