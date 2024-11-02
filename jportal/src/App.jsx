@@ -1,44 +1,28 @@
-import Navbar from './components/navbar'
+import { useState, useEffect } from 'react'
+import Login from './components/Login'
+import Attendance from './components/Attendance'
 
 function App() {
-  const data = [{
-    name: "COA",
-    lecture: "Dr. A.A.A",
-    tutorial: "192"
-  },{
-    name: "COA",
-    lecture: "Dr. A.A.A",
-    tutorial: "192"
-  },{
-    name: "COA",
-    lecture: "Dr. A.A.A",
-    tutorial: "192"
-  },{
-    name: "COA",
-    lecture: "Dr. A.A.A",
-    tutorial: "192"
-  },{
-    name: "COA",
-    lecture: "Dr. A.A.A",
-    tutorial: "192"
-  },{
-    name: "COA",
-    lecture: "Dr. A.A.A",
-    tutorial: "192"
-  },]
-  return (
-    <div>
-      {data.map((item, index) => (
-        <div key={index}>
-          <p>{item.name}</p>
-          <p>{item.lecture}</p>
-          <p>{item.tutorial}</p>
-        </div>
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-      ))}
-    <Navbar />
-    </div>
+  // Check if user is already logged in
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    const password = localStorage.getItem("password");
+    if (username && password) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  return (
+    <>
+      {isAuthenticated ? (
+        <Attendance />
+      ) : (
+        <Login onLoginSuccess={() => setIsAuthenticated(true)} />
+      )}
+    </>
   )
 }
 
-export default App
+export default App;
