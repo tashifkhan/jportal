@@ -16,7 +16,7 @@ const w = new WebPortal();
 // Create a wrapper component to use the useNavigate hook
 function AuthenticatedApp({ w }) {
   return (
-    <div className="min-h-screen pb-16">
+    <div className="min-h-screen pb-14">
       <Routes>
         <Route path="/" element={<Navigate to="/attendance" />} />
         <Route path="/attendance" element={<Attendance w={w} />} />
