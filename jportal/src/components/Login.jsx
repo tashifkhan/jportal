@@ -24,7 +24,7 @@ const formSchema = z.object({
   }),
 })
 
-function Login({ onLoginSuccess }) {
+export default function Login({ onLoginSuccess, w }) {
   const [loginStatus, setLoginStatus] = useState({
     isLoading: false,
     error: null,
@@ -46,8 +46,7 @@ function Login({ onLoginSuccess }) {
 
     const performLogin = async () => {
       try {
-        const portal = new WebPortal();
-        await portal.student_login(
+        await w.student_login(
           loginStatus.credentials.enrollmentNumber,
           loginStatus.credentials.password
         );
@@ -134,5 +133,3 @@ function Login({ onLoginSuccess }) {
     </div>
   )
 }
-
-export default Login;
