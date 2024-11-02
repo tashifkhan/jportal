@@ -12,7 +12,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { WebPortal } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.8/dist/jsjiit.esm.js";
 
 // Define the form schema
 const formSchema = z.object({
@@ -82,11 +81,11 @@ export default function Login({ onLoginSuccess, w }) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center bg-[#191c20]">
       <div className="w-full max-w-md space-y-6 p-6">
-        <div className="space-y-2 text-center">
+        <div className="space-y-2 text-center text-white">
           <h1 className="text-2xl font-bold">Login</h1>
-          <p className="text-gray-500">Enter your credentials to sign in</p>
+          <p>Enter your credentials to sign in</p>
           {loginStatus.error && (
             <p className="text-red-500">{loginStatus.error}</p>
           )}
@@ -99,7 +98,7 @@ export default function Login({ onLoginSuccess, w }) {
               name="enrollmentNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enrollment Number</FormLabel>
+                  <FormLabel className="text-white">Enrollment Number</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter enrollment number" {...field} />
                   </FormControl>
@@ -112,7 +111,7 @@ export default function Login({ onLoginSuccess, w }) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-white">Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="Enter password" {...field} />
                   </FormControl>
@@ -122,7 +121,8 @@ export default function Login({ onLoginSuccess, w }) {
             />
             <Button
               type="submit"
-              className="w-full"
+              variant="outline"
+              className="w-full bg-white text-[#191c20]"
               disabled={loginStatus.isLoading}
             >
               {loginStatus.isLoading ? "Signing in..." : "Sign in"}
