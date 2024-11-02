@@ -20,7 +20,7 @@ const Header = ({ setIsAuthenticated }) => {
         </h1>
         <div className='hover:bg-gray-700 rounded-xl px-2'>
         <img
-          src='/public/icons/logout.svg'
+          src='/icons/logout.svg'
           alt="Logout"
           onClick={handleLogout}
           className="w-6 h-6 cursor-pointer hover:opacity-80 transition-opacity"

@@ -2,11 +2,11 @@ import { NavLink } from 'react-router-dom'
 
 function Navbar() {
   const navItems = [
-    { name: 'ATTENDANCE', path: '/attendance', icon: '/icons/house-solid.svg' },
-    { name: '  GRADES  ', path: '/grades', icon: '/icons/house-solid.svg' },
-    { name: '  EXAMS', path: '/exams', icon: '/icons/house-solid.svg' },
-    { name: ' SUBJECTS ', path: '/subjects', icon: '/icons/house-solid.svg' },
-    { name: ' PROFILE ', path: '/profile', icon: '/icons/house-solid.svg' },
+    { name: 'ATTENDANCE', path: '/attendance', icon: '/icons/attendance.svg' },
+    { name: '  GRADES  ', path: '/grades', icon: '/icons/grades.svg' },
+    { name: '  EXAMS', path: '/exams', icon: '/icons/exams.svg' },
+    { name: ' SUBJECTS ', path: '/subjects', icon: '/icons/subjects.svg' },
+    { name: ' PROFILE ', path: '/profile', icon: '/icons/profile.svg' },
   ];
 
   return (
