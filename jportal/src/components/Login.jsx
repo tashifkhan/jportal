@@ -52,7 +52,7 @@ function Login({ onLoginSuccess }) {
           loginStatus.credentials.password
         );
 
-        // Only store credentials after successful login
+        // Store credentials in localStorage
         localStorage.setItem("username", loginStatus.credentials.enrollmentNumber);
         localStorage.setItem("password", loginStatus.credentials.password);
 
@@ -60,10 +60,6 @@ function Login({ onLoginSuccess }) {
         setLoginStatus(prev => ({ ...prev, isLoading: false }));
         onLoginSuccess();
       } catch (error) {
-        // Clear any existing credentials on login failure
-        localStorage.removeItem("username");
-        localStorage.removeItem("password");
-
         console.error("Login failed:", error);
         setLoginStatus(prev => ({
           ...prev,
