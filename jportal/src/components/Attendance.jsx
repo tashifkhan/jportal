@@ -22,7 +22,7 @@ const Attendance = ({ w }) => {
   }, [w]);
 
   if (!attendanceData) {
-    return <div className="bg-[#191c20] text-white p-6 font-sans">Loading...</div>;
+    return <div className="h-screen flex items-center justify-center bg-[#191c20] text-white">Loading...</div>;
   }
 
   // Map API data to structure expected by SubjectAttendance
@@ -43,14 +43,11 @@ const Attendance = ({ w }) => {
   });
 
   return (
-    <>
-      <Header />
       <div className="bg-[#191c20] text-white p-6 font-sans">
         {subjects.map((subject, index) => (
           <AttendanceCard key={index} subject={subject} />
         ))}
       </div>
-      </>
   );
 };
 

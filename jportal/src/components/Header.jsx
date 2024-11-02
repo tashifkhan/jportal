@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button"
 
 const Header = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
@@ -18,13 +17,14 @@ const Header = ({ setIsAuthenticated }) => {
         <h1 className="text-white text-2xl font-bold lg:text-3xl font-sans">
           JPortal
         </h1>
-        <Button
-          variant="outline"
+        <div className='hover:bg-gray-700 rounded-xl p-2'>
+        <img
+          src='/public/icons/logout.svg'
+          alt="Logout"
           onClick={handleLogout}
-          className="text-white hover:text-[#191c20]"
-        >
-          Logout
-        </Button>
+          className="w-6 h-6 cursor-pointer hover:opacity-80 transition-opacity"
+        />
+        </div>
       </div>
     </header>
   );

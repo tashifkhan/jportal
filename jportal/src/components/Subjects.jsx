@@ -26,7 +26,7 @@ export default function Subjects({ w }) {
   }, [w]);
 
   if (loading) {
-    return <div className="bg-[#191c20] text-white p-6">Loading...</div>;
+    return <div className="h-screen flex items-center justify-center bg-[#191c20] text-white">Loading...</div>;
   }
 
   if (error) {
@@ -57,20 +57,17 @@ export default function Subjects({ w }) {
   }, {});
 
   return (
-    <>
-      <Header />
-      <div className="bg-[#191c20] text-white p-6 font-sans ">
-        <div className="mb-4">
-        <h1 className="text-2xl font-bold lg:text-3xl">Registered Subjects</h1>
-        <p className="text-sm lg:text-base">Total Credits: {subjectData.total_credits}</p>
-      </div>
+    <div className="bg-[#191c20] text-white p-6 font-sans ">
+      <div className="mb-4">
+      <h1 className="text-2xl font-bold lg:text-3xl">Registered Subjects</h1>
+      <p className="text-sm lg:text-base">Total Credits: {subjectData.total_credits}</p>
+    </div>
 
-      <div className="lg:space-y-4">
-        {Object.values(groupedSubjects).map((subject) => (
-          <SubjectInfoCard key={subject.code} subject={subject} />
-        ))}
-        </div>
+    <div className="lg:space-y-4">
+      {Object.values(groupedSubjects).map((subject) => (
+        <SubjectInfoCard key={subject.code} subject={subject} />
+      ))}
       </div>
-    </>
+    </div>
   );
 }
