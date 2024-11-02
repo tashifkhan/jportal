@@ -16,16 +16,37 @@ const w = new WebPortal();
 
 // Create a wrapper component to use the useNavigate hook
 function AuthenticatedApp({ w, setIsAuthenticated }) {
+  const [attendanceData, setAttendanceData] = useState(null);
+  const [subjectData, setSubjectData] = useState(null);
+
   return (
     <div className="min-h-screen pb-14">
       <Header setIsAuthenticated={setIsAuthenticated} />
       <Routes>
         <Route path="/" element={<Navigate to="/attendance" />} />
         <Route path="/login" element={<Navigate to="/attendance" />} />
-        <Route path="/attendance" element={<Attendance w={w} />} />
+        <Route
+          path="/attendance"
+          element={
+            <Attendance
+              w={w}
+              attendanceData={attendanceData}
+              setAttendanceData={setAttendanceData}
+            />
+          }
+        />
         <Route path="/grades" element={<Grades w={w} />} />
         <Route path="/exams" element={<Exams w={w} />} />
-        <Route path="/subjects" element={<Subjects w={w} />} />
+        <Route
+          path="/subjects"
+          element={
+            <Subjects
+              w={w}
+              subjectData={subjectData}
+              setSubjectData={setSubjectData}
+            />
+          }
+        />
         <Route path="/profile" element={<Profile w={w} />} />
       </Routes>
       <Navbar />

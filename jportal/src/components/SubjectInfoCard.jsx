@@ -2,7 +2,7 @@ function SubjectInfoCard({ subject }) {
   return (
     <div className="flex justify-between items-center py-1 border-b border-gray-700">
       <div className="flex-1 lg:mb-0 mr-4">
-        <h2 className="text-lg lg:text-xl font-semibold max-[390px]:text-xs max-[500px]:text-sm">{subject.name}</h2>
+        <h2 className="text-sm font-semibold max-[390px]:text-xs">{subject.name}</h2>
         <p className="text-sm lg:text-base max-[390px]:text-xs">
           {subject.code}
           {subject.isAudit && " • Audit"}

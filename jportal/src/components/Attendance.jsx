@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import AttendanceCard from "./AttendanceCard";
-import Header from "./Header";
 
-const Attendance = ({ w }) => {
-  const [attendanceData, setAttendanceData] = useState(null);
-
+const Attendance = ({ w, attendanceData, setAttendanceData }) => {
   useEffect(() => {
     const fetchAttendance = async () => {
+      if (attendanceData) return;
+
       try {
         const meta = await w.get_attendance_meta()
         let header = meta.latest_header();
@@ -19,7 +18,7 @@ const Attendance = ({ w }) => {
     };
 
     fetchAttendance();
-  }, [w]);
+  }, [w, attendanceData, setAttendanceData]);
 
   if (!attendanceData) {
     return <div className="h-screen flex items-center justify-center bg-[#191c20] text-white">Loading...</div>;
@@ -43,7 +42,7 @@ const Attendance = ({ w }) => {
   });
 
   return (
-      <div className="bg-[#191c20] text-white p-6 font-sans">
+      <div className="bg-[#191c20] text-white py-2 px-2 font-sans">
         {subjects.map((subject, index) => (
           <AttendanceCard key={index} subject={subject} />
         ))}

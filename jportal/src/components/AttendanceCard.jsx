@@ -14,9 +14,9 @@ const AttendanceCard = ({ subject }) => {
     <div className="flex justify-between items-center py-1 border-b border-gray-700">
       <div className="flex-1 mr-4">
         <h2 className="text-sm font-semibold max-[390px]:text-xs ">{displayName}</h2>
-        {lecture && <p className="text-sm">Lecture: {lecture}%</p>}
-        {tutorial && <p className="text-sm">Tutorial: {tutorial}%</p>}
-        {practical && <p className="text-sm">Practical: {practical}%</p>}
+        {lecture && <p className="text-sm lg:text-base max-[390px]:text-xs">Lecture: {lecture}%</p>}
+        {tutorial && <p className="text-sm lg:text-base max-[390px]:text-xs">Tutorial: {tutorial}%</p>}
+        {practical && <p className="text-sm lg:text-base max-[390px]:text-xs">Practical: {practical}%</p>}
       </div>
       <div className="flex items-center gap-2">
         <div className="text-center">

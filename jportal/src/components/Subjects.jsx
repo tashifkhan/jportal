@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import SubjectInfoCard from "./SubjectInfoCard";
-import Header from "./Header";
 
-export default function Subjects({ w }) {
-  const [subjectData, setSubjectData] = useState(null);
-  const [loading, setLoading] = useState(true);
+export default function Subjects({ w, subjectData, setSubjectData }) {
+  const [loading, setLoading] = useState(!subjectData);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchSubjects = async () => {
+      if (subjectData) return;
+
       try {
         const registeredSems = await w.get_registered_semesters();
         const latestSem = registeredSems[0];
@@ -23,7 +23,7 @@ export default function Subjects({ w }) {
     };
 
     fetchSubjects();
-  }, [w]);
+  }, [w, subjectData, setSubjectData]);
 
   if (loading) {
     return <div className="h-screen flex items-center justify-center bg-[#191c20] text-white">Loading...</div>;
@@ -57,16 +57,15 @@ export default function Subjects({ w }) {
   }, {});
 
   return (
-    <div className="bg-[#191c20] text-white p-6 font-sans ">
+    <div className="bg-[#191c20] text-white py-2 px-2 font-sans ">
       <div className="mb-4">
-      <h1 className="text-2xl font-bold lg:text-3xl">Registered Subjects</h1>
       <p className="text-sm lg:text-base">Total Credits: {subjectData.total_credits}</p>
-    </div>
 
     <div className="lg:space-y-4">
       {Object.values(groupedSubjects).map((subject) => (
         <SubjectInfoCard key={subject.code} subject={subject} />
       ))}
+      </div>
       </div>
     </div>
   );
