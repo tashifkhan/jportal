@@ -1,28 +1,28 @@
 {
-    "name": "JIIT Web App",
-    "short_name": "JIIT",
+    "name": "JPortal",
+    "short_name": "JPortal",
     "description": "A web portal for students to view attendance and grades.",
     "start_url": "/jportal/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#3498db",
+    "background_color": "#191c20",
+    "theme_color": "#242a32",
     "orientation": "portrait",
     "icons": [
         {
-            "src": "circle.ico",
+            "src": "pwa-icons/circle.ico",
             "sizes": "48x48"
         },
         {
-            "src": "icons/circle.svg",
+            "src": "pwa-icons/circle.svg",
             "sizes": "72x72 96x96",
             "purpose": "maskable"
         },
         {
-            "src": "icons/tire.svg",
+            "src": "pwa-icons/tire.svg",
             "sizes": "128x128 256x256"
         },
         {
-            "src": "icons/wheel.svg",
+            "src": "pwa-icons/wheel.svg",
             "sizes": "512x512"
         }
     ]
