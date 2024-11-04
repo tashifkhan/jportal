@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Login from './components/Login'
 import Attendance from './components/Attendance'
 import Grades from './components/Grades'
@@ -104,7 +104,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <Router>
       {!isAuthenticated || !w.session ? (
         <Routes>
           <Route path="*" element={
@@ -117,7 +117,7 @@ function App() {
       ) : (
         <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
       )}
-    </BrowserRouter>
+    </Router>
   );
 }
 
