@@ -13,6 +13,7 @@ export default function Grades({ w }) {
   const [gradeData, setGradeData] = useState(null);
   const [semesters, setSemesters] = useState([]);
   const [selectedSem, setSelectedSem] = useState(null);
+  const [gradesLoading, setGradesLoading] = useState(false);
 
   useEffect(() => {
     const fetchSemesters = async () => {
@@ -36,7 +37,7 @@ export default function Grades({ w }) {
   }, [w]);
 
   const handleSemesterChange = async (value) => {
-    setLoading(true);
+    setGradesLoading(true);
     try {
       const semester = semesters.find(sem => sem.registration_id === value);
       setSelectedSem(semester);
@@ -46,7 +47,7 @@ export default function Grades({ w }) {
       setError("Failed to fetch grade data");
       console.error(err);
     } finally {
-      setLoading(false);
+      setGradesLoading(false);
     }
   };
 
@@ -69,9 +70,11 @@ export default function Grades({ w }) {
 
   return (
     <div className="bg-[#191c20] text-white p-4 font-sans">
-      <Select onValueChange={handleSemesterChange}>
+      <Select onValueChange={handleSemesterChange} value={selectedSem?.registration_id}>
         <SelectTrigger className="bg-[#191c20] text-white border-white">
-          <SelectValue placeholder="Select semester" />
+          <SelectValue placeholder="Select semester">
+            {selectedSem?.registration_code}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent className="bg-[#191c20] text-white border-white">
           {semesters.map((sem) => (
@@ -82,8 +85,12 @@ export default function Grades({ w }) {
         </SelectContent>
       </Select>
 
-      {selectedSem && !gradeData && (
-        <div className="bg-[#191c20] text-white p-6 mt-4">No grade data available</div>
+      {gradesLoading ? (
+        <div className="flex items-center justify-center py-4">Loading grades...</div>
+      ) : (
+        selectedSem && !gradeData && (
+          <div className="bg-[#191c20] text-white p-6 mt-4">No grade data available</div>
+        )
       )}
 
       {selectedSem && gradeData && (

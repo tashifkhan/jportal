@@ -38,7 +38,7 @@ export default function Subjects({ w, subjectData, setSubjectData }) {
   }
 
   // Group subjects by their base subject code (excluding the component part)
-  const groupedSubjects = subjectData.subjects.reduce((acc, subject) => {
+  const groupedSubjects = subjectData?.subjects?.reduce((acc, subject) => {
     const baseCode = subject.subject_code;
     if (!acc[baseCode]) {
       acc[baseCode] = {
@@ -54,18 +54,18 @@ export default function Subjects({ w, subjectData, setSubjectData }) {
       teacher: subject.employee_name
     });
     return acc;
-  }, {});
+  }, {}) || {};
 
   return (
     <div className="bg-[#191c20] text-white py-2 px-2 font-sans ">
       <div className="mb-4">
-      <p className="text-sm lg:text-base">Total Credits: {subjectData.total_credits}</p>
+        <p className="text-sm lg:text-base">Total Credits: {subjectData?.total_credits || 0}</p>
 
-    <div className="lg:space-y-4">
-      {Object.values(groupedSubjects).map((subject) => (
-        <SubjectInfoCard key={subject.code} subject={subject} />
-      ))}
-      </div>
+        <div className="lg:space-y-4">
+          {Object.values(groupedSubjects).map((subject) => (
+            <SubjectInfoCard key={subject.code} subject={subject} />
+          ))}
+        </div>
       </div>
     </div>
   );
