@@ -105,7 +105,7 @@ export default function Login({ onLoginSuccess, w }) {
                 <FormItem>
                   <FormLabel className="text-white">Enrollment Number</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter enrollment number" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,12 +118,13 @@ export default function Login({ onLoginSuccess, w }) {
                 <FormItem>
                   <FormLabel className="text-white">Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Enter password" {...field} />
+                    <Input type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            <div></div><div></div>
             <Button
               type="submit"
               variant="outline"
