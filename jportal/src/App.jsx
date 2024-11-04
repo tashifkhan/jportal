@@ -8,7 +8,7 @@ import Subjects from './components/Subjects'
 import Profile from './components/Profile'
 import Navbar from './components/Navbar'
 import './App.css'
-import { WebPortal } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.8/dist/jsjiit.esm.js";
+import { WebPortal } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.11/dist/jsjiit.esm.js";
 import Header from './components/Header';
 
 // Create WebPortal instance at the top level

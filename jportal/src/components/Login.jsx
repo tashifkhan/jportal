@@ -55,14 +55,19 @@ export default function Login({ onLoginSuccess, w }) {
         localStorage.setItem("password", loginStatus.credentials.password);
 
         console.log("Login successful");
-        setLoginStatus(prev => ({ ...prev, isLoading: false }));
+        setLoginStatus(prev => ({
+          ...prev,
+          isLoading: false,
+          credentials: null,
+        }));
         onLoginSuccess();
       } catch (error) {
         console.error("Login failed:", error);
         setLoginStatus(prev => ({
           ...prev,
           isLoading: false,
-          error: "Login failed. Please check your credentials."
+          error: "Login failed. Please check your credentials.",
+          credentials: null,
         }));
       }
     };
