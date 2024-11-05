@@ -2,9 +2,9 @@ import React from "react";
 import CircleProgress from "./CircleProgress";
 
 const AttendanceCard = ({ subject }) => {
-  const { name, type, attendance, lecture, tutorial, practical } = subject;
-  const attendancePercentage = attendance.total > 0
-    ? ((attendance.attended / attendance.total) * 100).toFixed(0)
+  const { name, attendance, combined, lecture, tutorial, practical } = subject;
+  const attendancePercentage = combined > 0
+    ? combined.toFixed(0)
     : "100";  // Default to 100% if no attendance data
 
   // Remove text within parentheses (Subject Code) from the subjectname

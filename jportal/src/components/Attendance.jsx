@@ -70,15 +70,15 @@ const Attendance = ({ w, attendanceData, setAttendanceData }) => {
   }
 
   const subjects = attendanceData?.studentattendancelist?.map((item) => {
-    const { subjectcode, Ltotalclass, Ltotalpres, Lpercentage, Ttotalclass, Ttotalpres, Tpercentage, Ptotalclass, Ptotalpres, Ppercentage } = item;
+    const { subjectcode, Ltotalclass, Ltotalpres, Lpercentage, Ttotalclass, Ttotalpres, Tpercentage, Ptotalclass, Ptotalpres, Ppercentage, LTpercantage } = item;
 
     return {
       name: subjectcode,
-      type: Ltotalclass ? "Lecture" : Ptotalclass ? "Practical" : "Lecture & Practical",
       attendance: {
         attended: Ltotalpres || Ttotalpres || Ptotalpres || 0,
         total: Ltotalclass || Ttotalclass || Ptotalclass || 0
       },
+      combined: LTpercantage,
       lecture: Lpercentage,
       tutorial: Tpercentage,
       practical: Ppercentage,
