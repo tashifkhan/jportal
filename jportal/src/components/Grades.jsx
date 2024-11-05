@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
   LineChart,
   Line,
   XAxis,
@@ -51,16 +44,16 @@ export default function Grades({ w, gradesData, setGradesData, semesterData, set
   }
 
   return (
-    <div className="text-white py-4 px-3 font-sans">
-      <div className="mb-8 bg-[#2d3238] rounded-lg p-4 shadow-md">
-        <ResponsiveContainer width="100%" height={300}>
+    <div className="text-white py-2 px-3 font-sans">
+      <div className="mb-4 rounded-lg p-2">
+        <ResponsiveContainer width="100%" height={250}>
           <LineChart
             data={semesterData}
             margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 25,
+              top: 10,
+              right: 20,
+              left: 10,
+              bottom: 20,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -88,7 +81,7 @@ export default function Grades({ w, gradesData, setGradesData, semesterData, set
             />
             <Legend
               verticalAlign="top"
-              height={36}
+              height={24}
             />
             <Line
               type="monotone"
@@ -110,33 +103,26 @@ export default function Grades({ w, gradesData, setGradesData, semesterData, set
         </ResponsiveContainer>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-2">
         {semesterData.map((sem) => (
           <div
             key={sem.stynumber}
-            className="bg-[#2d3238] rounded-lg p-4 shadow-md"
+            className="flex justify-between items-center py-1 border-b border-gray-700"
           >
-            <div className="flex items-center gap-4">
-              <div className="text-2xl font-bold text-gray-400 w-8">
-                {sem.stynumber}
+            <div className="flex-1">
+              <h2 className="text-sm font-semibold">Semester {sem.stynumber}</h2>
+              <p className="text-sm text-gray-400">
+                GP: {sem.earnedgradepoints.toFixed(1)}/{sem.totalcoursecredit * 10}
+              </p>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="text-center">
+                <div className="text-xl font-bold text-green-400">{sem.sgpa}</div>
+                <div className="text-xs text-gray-400">SGPA</div>
               </div>
-
-              <div className="flex-1 grid grid-cols-2 gap-4">
-                <div>
-                  <div className="text-2xl font-bold text-green-400">{sem.sgpa}</div>
-                  <div className="text-sm text-gray-400">SGPA</div>
-                </div>
-
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-400">{sem.cgpa}</div>
-                  <div className="text-sm text-gray-400">CGPA</div>
-                </div>
-
-                <div className="col-span-2">
-                  <div className="text-sm text-gray-400">
-                    Grade Points: {sem.earnedgradepoints} / {sem.totalcoursecredit * 10}
-                  </div>
-                </div>
+              <div className="text-center">
+                <div className="text-xl font-bold text-blue-400">{sem.cgpa}</div>
+                <div className="text-xs text-gray-400">CGPA</div>
               </div>
             </div>
           </div>
