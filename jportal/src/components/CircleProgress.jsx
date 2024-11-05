@@ -1,13 +1,24 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 
 function CircleProgress({ percentage, className = "" }) {
   const strokeWidth = 3;
   const defaultRadius = 15;
-  const smallRadius = 14;
   const radius = defaultRadius;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (percentage / 100) * circumference;
+
+  const [offset, setOffset] = useState(circumference);
+
+  useEffect(() => {
+    // Start with empty circle (0%)
+    setOffset(circumference - (0 / 100) * circumference);
+
+    // Animate to actual percentage after a brief delay
+    const timer = setTimeout(() => {
+      setOffset(circumference - (percentage / 100) * circumference);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [percentage, circumference]);
 
   return (
     <svg
@@ -26,7 +37,7 @@ function CircleProgress({ percentage, className = "" }) {
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="butt"
-          className="transition-all duration-500 ease-in-out"
+          className="transition-all duration-1000 ease-out"
         />
       </g>
       <text

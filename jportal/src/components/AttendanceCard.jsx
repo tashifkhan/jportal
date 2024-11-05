@@ -25,7 +25,7 @@ const AttendanceCard = ({ subject }) => {
           <div className="text-sm">{attendance.total}</div>
         </div>
         <div className="flex flex-col items-center">
-          <CircleProgress percentage={attendancePercentage} />
+          <CircleProgress key={Date.now()} percentage={attendancePercentage} />
           {classesNeeded > 0 ? (
             <div className="text-xs mt-1 text-gray-400">
               Attend {classesNeeded}

@@ -44,15 +44,15 @@ export default function Grades({ w, gradesData, setGradesData, semesterData, set
   }
 
   return (
-    <div className="text-white py-2 px-3 font-sans">
-      <div className="mb-4 rounded-lg p-2">
+    <div className="text-white py-2 px-3 font-sans flex flex-col items-center">
+      <div className="mb-4 rounded-lg pb-2 w-full max-w-4xl ">
         <ResponsiveContainer width="100%" height={250}>
           <LineChart
             data={semesterData}
             margin={{
               top: 10,
-              right: 20,
-              left: 10,
+              right: 10,
+              left: 0,
               bottom: 20,
             }}
           >
@@ -103,7 +103,7 @@ export default function Grades({ w, gradesData, setGradesData, semesterData, set
         </ResponsiveContainer>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 w-full max-w-4xl">
         {semesterData.map((sem) => (
           <div
             key={sem.stynumber}
