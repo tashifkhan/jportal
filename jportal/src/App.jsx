@@ -31,6 +31,18 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   const [selectedGradesSem, setSelectedGradesSem] = useState(null);
   const [selectedSubjectsSem, setSelectedSubjectsSem] = useState(null);
 
+  // Add attendance goal state
+  const [attendanceGoal, setAttendanceGoal] = useState(() => {
+    const savedGoal = localStorage.getItem('attendanceGoal');
+    return savedGoal ? parseInt(savedGoal) : 75; // Default to 75% if not set
+  });
+
+  // Add effect to save goal to localStorage when it changes
+  useEffect
+  (() => {
+    localStorage.setItem('attendanceGoal', attendanceGoal.toString());
+  }, [attendanceGoal]);
+
   return (
     <div className="min-h-screen pb-14">
       <Header setIsAuthenticated={setIsAuthenticated} />
@@ -48,6 +60,8 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               setSemestersData={setAttendanceSemestersData}
               selectedSem={selectedAttendanceSem}
               setSelectedSem={setSelectedAttendanceSem}
+              attendanceGoal={attendanceGoal}
+              setAttendanceGoal={setAttendanceGoal}
             />
           }
         />
@@ -58,10 +72,8 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               w={w}
               gradesData={gradesData}
               setGradesData={setGradesData}
-              semestersData={gradesSemesterData}
-              setSemestersData={setGradesSemesterData}
-              selectedSem={selectedGradesSem}
-              setSelectedSem={setSelectedGradesSem}
+              semesterData={gradesSemesterData}
+              setSemesterData={setGradesSemesterData}
             />
           }
         />

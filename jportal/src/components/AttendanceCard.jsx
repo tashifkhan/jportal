@@ -2,7 +2,7 @@ import React from "react";
 import CircleProgress from "./CircleProgress";
 
 const AttendanceCard = ({ subject }) => {
-  const { name, attendance, combined, lecture, tutorial, practical } = subject;
+  const { name, attendance, combined, lecture, tutorial, practical, classesNeeded, classesCanMiss } = subject;
   const attendancePercentage = combined > 0
     ? combined.toFixed(0)
     : "100";  // Default to 100% if no attendance data
@@ -24,7 +24,18 @@ const AttendanceCard = ({ subject }) => {
           <div className="h-px w-full bg-gray-700"></div>
           <div className="text-sm">{attendance.total}</div>
         </div>
-        <CircleProgress percentage={attendancePercentage} />
+        <div className="flex flex-col items-center">
+          <CircleProgress percentage={attendancePercentage} />
+          {classesNeeded > 0 ? (
+            <div className="text-xs mt-1 text-gray-400">
+              Attend {classesNeeded}
+            </div>
+          ) : classesCanMiss > 0 && (
+            <div className="text-xs mt-1 text-gray-400">
+              Can miss {classesCanMiss}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

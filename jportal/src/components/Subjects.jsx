@@ -103,7 +103,7 @@ export default function Subjects({ w, subjectData, setSubjectData, semestersData
   }, {}) || {};
 
   return (
-    <div className="text-white py-2 px-2 font-sans">
+    <div className="text-white py-2 px-3 font-sans">
       <Select
         onValueChange={handleSemesterChange}
         value={selectedSem?.registration_id}

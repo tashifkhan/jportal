@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
 
 const Attendance = ({
   w,
@@ -15,7 +16,9 @@ const Attendance = ({
   semestersData,
   setSemestersData,
   selectedSem,
-  setSelectedSem
+  setSelectedSem,
+  attendanceGoal,
+  setAttendanceGoal
 }) => {
   const [loading, setLoading] = useState(!semestersData);
   const [attendanceLoading, setAttendanceLoading] = useState(!attendanceData);
@@ -88,42 +91,71 @@ const Attendance = ({
     }
   };
 
+  const handleGoalChange = (e) => {
+    const value = e.target.value === '' ? '' : parseInt(e.target.value);
+    if (value === '' || (!isNaN(value) && value > 0 && value <= 100)) {
+      setAttendanceGoal(value);
+    }
+  };
+
   const subjects = selectedSem && attendanceData[selectedSem.registration_id]?.studentattendancelist?.map((item) => {
     const { subjectcode, Ltotalclass, Ltotalpres, Lpercentage, Ttotalclass, Ttotalpres, Tpercentage, Ptotalclass, Ptotalpres, Ppercentage, LTpercantage } = item;
+
+    const { attended, total } = {
+      attended: Ltotalpres || Ttotalpres || Ptotalpres || 0,
+      total: Ltotalclass || Ttotalclass || Ptotalclass || 0
+    };
+
+    const currentPercentage = (attended / total) * 100;
+    const classesNeeded = attendanceGoal ? Math.ceil((attendanceGoal * total - 100 * attended) / (100 - attendanceGoal)) : null;
+    const classesCanMiss = attendanceGoal ? Math.floor((100 * attended - attendanceGoal * total) / attendanceGoal) : null;
 
     return {
       name: subjectcode,
       attendance: {
-        attended: Ltotalpres || Ttotalpres || Ptotalpres || 0,
-        total: Ltotalclass || Ttotalclass || Ptotalclass || 0
+        attended,
+        total
       },
       combined: LTpercantage,
       lecture: Lpercentage,
       tutorial: Tpercentage,
       practical: Ppercentage,
+      classesNeeded: classesNeeded > 0 ? classesNeeded : 0,
+      classesCanMiss: classesCanMiss > 0 ? classesCanMiss : 0
     };
   }) || [];
 
   return (
-    <div className="text-white py-2 px-2 font-sans">
-      <Select
-        onValueChange={handleSemesterChange}
-        value={selectedSem?.registration_id}
-        // disabled={loading}
-      >
-        <SelectTrigger className="bg-[#191c20] text-white border-white">
-          <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
-            {selectedSem?.registration_code}
-          </SelectValue>
-        </SelectTrigger>
-        <SelectContent className="bg-[#191c20] text-white border-white">
-          {semestersData?.semesters?.map((sem) => (
-            <SelectItem key={sem.registration_id} value={sem.registration_id}>
-              {sem.registration_code}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+    <div className="text-white py-2 px-3 font-sans">
+      <div className="flex gap-2">
+        <Select
+          onValueChange={handleSemesterChange}
+          value={selectedSem?.registration_id}
+          // disabled={loading}
+        >
+          <SelectTrigger className="bg-[#191c20] text-white border-white">
+            <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
+              {selectedSem?.registration_code}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent className="bg-[#191c20] text-white border-white">
+            {semestersData?.semesters?.map((sem) => (
+              <SelectItem key={sem.registration_id} value={sem.registration_id}>
+                {sem.registration_code}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Input
+          type="number"
+          value={attendanceGoal}
+          onChange={handleGoalChange}
+          min="-1"
+          max="100"
+          className="w-32 bg-[#191c20] text-white border-white"
+          placeholder="Goal %"
+        />
+      </div>
 
       <div className="mt-4">
         {loading || attendanceLoading ? (
