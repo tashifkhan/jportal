@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
 import { HashRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import Header from './components/Header';
+import Navbar from './components/Navbar'
 import Login from './components/Login'
 import Attendance from './components/Attendance'
 import Grades from './components/Grades'
 import Exams from './components/Exams'
 import Subjects from './components/Subjects'
 import Profile from './components/Profile'
-import Navbar from './components/Navbar'
 import './App.css'
+
 import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.12/dist/jsjiit.esm.js";
-import Header from './components/Header';
+
 
 // Create WebPortal instance at the top level
 const w = new WebPortal();
@@ -85,7 +87,7 @@ function App() {
           }
         }
       } catch (error) {
-        
+
         console.error("Auto-login failed:", error);
         localStorage.removeItem("username");
         localStorage.removeItem("password");
