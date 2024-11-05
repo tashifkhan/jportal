@@ -7,42 +7,74 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export default function Grades({ w }) {
-  const [loading, setLoading] = useState(true);
+export default function Grades({
+  w,
+  semestersData,
+  setSemestersData,
+  gradesData,
+  setGradesData,
+  selectedSem,
+  setSelectedSem
+}) {
+  const [loading, setLoading] = useState(!semestersData);
   const [error, setError] = useState(null);
-  const [gradeData, setGradeData] = useState(null);
-  const [semesters, setSemesters] = useState([]);
-  const [selectedSem, setSelectedSem] = useState(null);
-  const [gradesLoading, setGradesLoading] = useState(false);
+  const [gradesLoading, setGradesLoading] = useState(!gradesData);
 
   useEffect(() => {
     const fetchSemesters = async () => {
+      if (semestersData) {
+        if (semestersData.length > 0 && !selectedSem) {
+          setSelectedSem(semestersData[0]);
+          if (!gradesData?.[semestersData[0].registration_id]) {
+            await handleSemesterChange(semestersData[0].registration_id);
+          }
+        }
+        return;
+      }
+
       try {
         const semesterData = await w.get_semesters_for_grade_card();
-        setSemesters(semesterData);
+        setSemestersData(semesterData);
+
         if (semesterData.length > 0) {
           const firstSemester = semesterData[0];
           setSelectedSem(firstSemester);
-          const data = await w.get_grade_card(firstSemester);
-          setGradeData(data);
+
+          if (!gradesData?.[firstSemester.registration_id]) {
+            const data = await w.get_grade_card(firstSemester);
+            setGradesData(prev => ({
+              ...prev,
+              [firstSemester.registration_id]: data
+            }));
+          }
         }
       } catch (err) {
         setError("Failed to fetch semesters");
         console.error(err);
       } finally {
         setLoading(false);
+        setGradesLoading(false);
       }
     };
     fetchSemesters();
-  }, [w]);
+  }, [w, semestersData, setSemestersData, gradesData, setGradesData]);
 
   const handleSemesterChange = async (value) => {
     setGradesLoading(true);
     try {
-      const semester = semesters.find(sem => sem.registration_id === value);
+      const semester = semestersData.find(sem => sem.registration_id === value);
       setSelectedSem(semester);
+
+      if (gradesData?.[value]) {
+        setGradesLoading(false);
+        return;
+      }
+
       const data = await w.get_grade_card(semester);
-      setGradeData(data);
+      setGradesData(prev => ({
+        ...prev,
+        [value]: data
+      }));
     } catch (err) {
       setError("Failed to fetch grade data");
       console.error(err);
@@ -59,13 +91,14 @@ export default function Grades({ w }) {
     return <div className="bg-[#191c20] text-white p-6">{error}</div>;
   }
 
-  if (!gradeData) {
+  const currentGradeData = selectedSem && gradesData?.[selectedSem.registration_id];
+  if (!currentGradeData) {
     return <div className="bg-[#191c20] text-white p-6">No grade data available</div>;
   }
 
-  // Calculate SGPA
-  const totalPoints = gradeData.gradecard.reduce((sum, subject) => sum + subject.pointsecured, 0);
-  const totalCredits = gradeData.gradecard.reduce((sum, subject) => sum + subject.coursecreditpoint, 0);
+  // Calculate SGPA using currentGradeData
+  const totalPoints = currentGradeData.gradecard.reduce((sum, subject) => sum + subject.pointsecured, 0);
+  const totalCredits = currentGradeData.gradecard.reduce((sum, subject) => sum + subject.coursecreditpoint, 0);
   const sgpa = (totalPoints / totalCredits).toFixed(2);
 
   return (
@@ -77,7 +110,7 @@ export default function Grades({ w }) {
           </SelectValue>
         </SelectTrigger>
         <SelectContent className="bg-[#191c20] text-white border-white">
-          {semesters.map((sem) => (
+          {semestersData.map((sem) => (
             <SelectItem key={sem.registration_id} value={sem.registration_id}>
               {sem.registration_code}
             </SelectItem>
@@ -88,14 +121,14 @@ export default function Grades({ w }) {
       {gradesLoading ? (
         <div className="flex items-center justify-center py-4">Loading grades...</div>
       ) : (
-        selectedSem && !gradeData && (
+        selectedSem && !currentGradeData && (
           <div className="bg-[#191c20] text-white p-6 mt-4">No grade data available</div>
         )
       )}
 
-      {selectedSem && gradeData && (
+      {selectedSem && currentGradeData && (
         <div className="space-y-4">
-          {gradeData.gradecard.map((subject) => (
+          {currentGradeData.gradecard.map((subject) => (
             <div
               key={subject.subjectcode}
               className="bg-[#2d3238] rounded-lg p-4 shadow-md"

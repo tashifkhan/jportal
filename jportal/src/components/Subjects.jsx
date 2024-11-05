@@ -8,8 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export default function Subjects({ w, subjectData, setSubjectData, semestersData, setSemestersData }) {
-  const [selectedSem, setSelectedSem] = useState(null);
+export default function Subjects({ w, subjectData, setSubjectData, semestersData, setSemestersData, selectedSem, setSelectedSem }) {
   const [loading, setLoading] = useState(!semestersData);
   const [subjectsLoading, setSubjectsLoading] = useState(!subjectData);
 

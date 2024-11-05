@@ -19,9 +19,17 @@ const w = new WebPortal();
 // Create a wrapper component to use the useNavigate hook
 function AuthenticatedApp({ w, setIsAuthenticated }) {
   const [attendanceData, setAttendanceData] = useState({});
-  const [subjectData, setSubjectData] = useState({});
   const [attendanceSemestersData, setAttendanceSemestersData] = useState(null);
+
+  const [subjectData, setSubjectData] = useState({});
   const [subjectSemestersData, setSubjectSemestersData] = useState(null);
+
+  const [gradesData, setGradesData] = useState({});
+  const [gradesSemesterData, setGradesSemesterData] = useState(null);
+
+  const [selectedAttendanceSem, setSelectedAttendanceSem] = useState(null);
+  const [selectedGradesSem, setSelectedGradesSem] = useState(null);
+  const [selectedSubjectsSem, setSelectedSubjectsSem] = useState(null);
 
   return (
     <div className="min-h-screen pb-14">
@@ -38,10 +46,25 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               setAttendanceData={setAttendanceData}
               semestersData={attendanceSemestersData}
               setSemestersData={setAttendanceSemestersData}
+              selectedSem={selectedAttendanceSem}
+              setSelectedSem={setSelectedAttendanceSem}
             />
           }
         />
-        <Route path="/grades" element={<Grades w={w} />} />
+        <Route
+          path="/grades"
+          element={
+            <Grades
+              w={w}
+              gradesData={gradesData}
+              setGradesData={setGradesData}
+              semestersData={gradesSemesterData}
+              setSemestersData={setGradesSemesterData}
+              selectedSem={selectedGradesSem}
+              setSelectedSem={setSelectedGradesSem}
+            />
+          }
+        />
         <Route path="/exams" element={<Exams w={w} />} />
         <Route
           path="/subjects"
@@ -52,6 +75,8 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               setSubjectData={setSubjectData}
               semestersData={subjectSemestersData}
               setSemestersData={setSubjectSemestersData}
+              selectedSem={selectedSubjectsSem}
+              setSelectedSem={setSelectedSubjectsSem}
             />
           }
         />

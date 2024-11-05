@@ -8,8 +8,15 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const Attendance = ({ w, attendanceData, setAttendanceData, semestersData, setSemestersData }) => {
-  const [selectedSem, setSelectedSem] = useState(null);
+const Attendance = ({
+  w,
+  attendanceData,
+  setAttendanceData,
+  semestersData,
+  setSemestersData,
+  selectedSem,
+  setSelectedSem
+}) => {
   const [loading, setLoading] = useState(!semestersData);
   const [attendanceLoading, setAttendanceLoading] = useState(!attendanceData);
 
