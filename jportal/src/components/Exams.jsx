@@ -30,7 +30,7 @@ export default function Exams({ w }) {
   }
 
   return (
-    <div className="p-6 bg-[#191c20] h-screen">
+    <div className="p-6 h-screen">
 
       <Select onValueChange={handleSemesterChange}>
         <SelectTrigger className="bg-[#191c20] text-white border-white">

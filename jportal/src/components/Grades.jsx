@@ -69,7 +69,7 @@ export default function Grades({ w }) {
   const sgpa = (totalPoints / totalCredits).toFixed(2);
 
   return (
-    <div className="bg-[#191c20] text-white p-4 font-sans">
+    <div className="text-white p-4 font-sans">
       <Select onValueChange={handleSemesterChange} value={selectedSem?.registration_id}>
         <SelectTrigger className="bg-[#191c20] text-white border-white">
           <SelectValue placeholder="Select semester">

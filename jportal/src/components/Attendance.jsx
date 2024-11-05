@@ -8,56 +8,72 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const Attendance = ({ w, attendanceData, setAttendanceData }) => {
-  const [semesters, setSemesters] = useState([]);
+const Attendance = ({ w, attendanceData, setAttendanceData, semestersData, setSemestersData }) => {
   const [selectedSem, setSelectedSem] = useState(null);
-  const [loading, setLoading] = useState(!attendanceData);
+  const [loading, setLoading] = useState(!semestersData);
   const [attendanceLoading, setAttendanceLoading] = useState(!attendanceData);
 
   useEffect(() => {
     const fetchSemesters = async () => {
+      if (semestersData) {
+        if (semestersData.semesters.length > 0 && !selectedSem) {
+          setSelectedSem(semestersData.latest_semester);
+        }
+        return;
+      }
+
+      setLoading(true);
+      setAttendanceLoading(true);
       try {
         const meta = await w.get_attendance_meta();
         const header = meta.latest_header();
-        setSemesters(meta.semesters);
+        const latestSem = meta.latest_semester();
 
-        if (attendanceData) {
-          const currentSem = meta.semesters.find(
-            sem => sem.registration_id === attendanceData.registration_id
-          );
-          setSelectedSem(currentSem);
-          setLoading(false);
-          setAttendanceLoading(false);
-          return;
-        }
+        setSemestersData({
+          semesters: meta.semesters,
+          latest_header: header,
+          latest_semester: latestSem
+        });
 
-        setLoading(false);
+        setSelectedSem(latestSem);
 
-        if (meta.semesters.length > 0) {
-          const latestSem = meta.latest_semester();
-          setSelectedSem(latestSem);
+        if (!attendanceData[latestSem.registration_id]) {
           const data = await w.get_attendance(header, latestSem);
-          setAttendanceData(data);
+          setAttendanceData(prev => ({
+            ...prev,
+            [latestSem.registration_id]: data
+          }));
         }
       } catch (error) {
         console.error("Failed to fetch attendance:", error);
       } finally {
+        setLoading(false);
         setAttendanceLoading(false);
       }
     };
 
     fetchSemesters();
-  }, [w, attendanceData, setAttendanceData]);
+  }, [w, setAttendanceData, semestersData, setSemestersData]);
 
   const handleSemesterChange = async (value) => {
     setAttendanceLoading(true);
     try {
+      if (attendanceData[value]) {
+        const semester = semestersData.semesters.find(sem => sem.registration_id === value);
+        setSelectedSem(semester);
+        setAttendanceLoading(false);
+        return;
+      }
+
       const meta = await w.get_attendance_meta();
       const header = meta.latest_header();
-      const semester = semesters.find(sem => sem.registration_id === value);
+      const semester = semestersData.semesters.find(sem => sem.registration_id === value);
       setSelectedSem(semester);
       const data = await w.get_attendance(header, semester);
-      setAttendanceData({ ...data, registration_id: semester.registration_id });
+      setAttendanceData(prev => ({
+        ...prev,
+        [value]: data
+      }));
     } catch (error) {
       console.error("Failed to fetch attendance:", error);
     } finally {
@@ -65,11 +81,7 @@ const Attendance = ({ w, attendanceData, setAttendanceData }) => {
     }
   };
 
-  if (loading) {
-    return <div className="h-screen flex items-center justify-center bg-[#191c20] text-white">Loading...</div>;
-  }
-
-  const subjects = attendanceData?.studentattendancelist?.map((item) => {
+  const subjects = selectedSem && attendanceData[selectedSem.registration_id]?.studentattendancelist?.map((item) => {
     const { subjectcode, Ltotalclass, Ltotalpres, Lpercentage, Ttotalclass, Ttotalpres, Tpercentage, Ptotalclass, Ptotalpres, Ppercentage, LTpercantage } = item;
 
     return {
@@ -86,18 +98,19 @@ const Attendance = ({ w, attendanceData, setAttendanceData }) => {
   }) || [];
 
   return (
-    <div className="bg-[#191c20] text-white py-2 px-2 font-sans">
+    <div className="text-white py-2 px-2 font-sans">
       <Select
         onValueChange={handleSemesterChange}
         value={selectedSem?.registration_id}
+        // disabled={loading}
       >
         <SelectTrigger className="bg-[#191c20] text-white border-white">
-          <SelectValue placeholder="Select semester">
+          <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
             {selectedSem?.registration_code}
           </SelectValue>
         </SelectTrigger>
         <SelectContent className="bg-[#191c20] text-white border-white">
-          {semesters.map((sem) => (
+          {semestersData?.semesters?.map((sem) => (
             <SelectItem key={sem.registration_id} value={sem.registration_id}>
               {sem.registration_code}
             </SelectItem>
@@ -106,7 +119,7 @@ const Attendance = ({ w, attendanceData, setAttendanceData }) => {
       </Select>
 
       <div className="mt-4">
-        {attendanceLoading ? (
+        {loading || attendanceLoading ? (
           <div className="flex items-center justify-center py-4 h-screen">Loading attendance...</div>
         ) : (
           subjects.map((subject) => (

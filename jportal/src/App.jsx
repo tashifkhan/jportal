@@ -18,8 +18,9 @@ const w = new WebPortal();
 
 // Create a wrapper component to use the useNavigate hook
 function AuthenticatedApp({ w, setIsAuthenticated }) {
-  const [attendanceData, setAttendanceData] = useState(null);
-  const [subjectData, setSubjectData] = useState(null);
+  const [attendanceData, setAttendanceData] = useState({});
+  const [subjectData, setSubjectData] = useState({});
+  const [semestersData, setSemestersData] = useState(null);
 
   return (
     <div className="min-h-screen pb-14">
@@ -34,6 +35,8 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               w={w}
               attendanceData={attendanceData}
               setAttendanceData={setAttendanceData}
+              semestersData={semestersData}
+              setSemestersData={setSemestersData}
             />
           }
         />
@@ -46,6 +49,8 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               w={w}
               subjectData={subjectData}
               setSubjectData={setSubjectData}
+              semestersData={semestersData}
+              setSemestersData={setSemestersData}
             />
           }
         />
@@ -59,12 +64,17 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
 function LoginWrapper({ onLoginSuccess, w }) {
   const navigate = useNavigate();
 
+  const handleLoginSuccess = () => {
+    onLoginSuccess();
+    // Add a small delay to ensure state updates before navigation
+    setTimeout(() => {
+      navigate('/attendance');
+    }, 100);
+  };
+
   return (
     <Login
-      onLoginSuccess={() => {
-        onLoginSuccess();
-        navigate('/attendance');
-      }}
+      onLoginSuccess={handleLoginSuccess}
       w={w}
     />
   );
@@ -101,25 +111,27 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <div className="h-screen flex items-center justify-center bg-[#191c20] text-white">
+    return <div className="min-h-screen flex items-center justify-center bg-[#191c20] text-white">
       Loading...
     </div>;
   }
 
   return (
     <Router>
-      {!isAuthenticated || !w.session ? (
-        <Routes>
-          <Route path="*" element={
-            <LoginWrapper
-              onLoginSuccess={() => setIsAuthenticated(true)}
-              w={w}
-            />
-          } />
-        </Routes>
-      ) : (
-        <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
-      )}
+      <div className="min-h-screen bg-[#191c20]">
+        {!isAuthenticated || !w.session ? (
+          <Routes>
+            <Route path="*" element={
+              <LoginWrapper
+                onLoginSuccess={() => setIsAuthenticated(true)}
+                w={w}
+              />
+            } />
+          </Routes>
+        ) : (
+          <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
+        )}
+      </div>
     </Router>
   );
 }

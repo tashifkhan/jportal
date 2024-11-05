@@ -1,44 +1,91 @@
 import React, { useState, useEffect } from "react";
 import SubjectInfoCard from "./SubjectInfoCard";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-export default function Subjects({ w, subjectData, setSubjectData }) {
-  const [loading, setLoading] = useState(!subjectData);
-  const [error, setError] = useState(null);
+export default function Subjects({ w, subjectData, setSubjectData, semestersData, setSemestersData }) {
+  const [selectedSem, setSelectedSem] = useState(null);
+  const [loading, setLoading] = useState(!semestersData);
+  const [subjectsLoading, setSubjectsLoading] = useState(!subjectData);
 
   useEffect(() => {
-    const fetchSubjects = async () => {
-      if (subjectData) return;
+    const fetchSemesters = async () => {
+      if (semestersData) {
+        if (semestersData.semesters.length > 0 && !selectedSem) {
+          setSelectedSem(semestersData.latest_semester);
 
+          if (!subjectData?.[semestersData.latest_semester.registration_id]) {
+            const data = await w.get_registered_subjects_and_faculties(semestersData.latest_semester);
+            setSubjectData(prev => ({
+              ...prev,
+              [semestersData.latest_semester.registration_id]: data
+            }));
+          }
+        }
+        return;
+      }
+
+      setLoading(true);
+      setSubjectsLoading(true);
       try {
         const registeredSems = await w.get_registered_semesters();
         const latestSem = registeredSems[0];
-        const registeredSubjects = await w.get_registered_subjects_and_faculties(latestSem);
-        setSubjectData(registeredSubjects);
+
+        setSemestersData({
+          semesters: registeredSems,
+          latest_semester: latestSem
+        });
+
+        setSelectedSem(latestSem);
+
+        if (!subjectData?.[latestSem.registration_id]) {
+          const data = await w.get_registered_subjects_and_faculties(latestSem);
+          setSubjectData(prev => ({
+            ...prev,
+            [latestSem.registration_id]: data
+          }));
+        }
       } catch (err) {
-        setError("Failed to fetch subject data");
         console.error(err);
       } finally {
         setLoading(false);
+        setSubjectsLoading(false);
       }
     };
 
-    fetchSubjects();
-  }, [w, subjectData, setSubjectData]);
+    fetchSemesters();
+  }, [w, setSubjectData, semestersData, setSemestersData]);
 
-  if (loading) {
-    return <div className="h-screen flex items-center justify-center bg-[#191c20] text-white">Loading...</div>;
-  }
+  const handleSemesterChange = async (value) => {
+    setSubjectsLoading(true);
+    try {
+      const semester = semestersData?.semesters?.find(sem => sem.registration_id === value);
+      setSelectedSem(semester);
 
-  if (error) {
-    return <div className="bg-[#191c20] text-white p-6">{error}</div>;
-  }
+      if (subjectData?.[semester.registration_id]) {
+        setSubjectsLoading(false);
+        return;
+      }
 
-  if (!subjectData) {
-    return <div className="bg-[#191c20] text-white p-6">No subject data available</div>;
-  }
+      const data = await w.get_registered_subjects_and_faculties(semester);
+      setSubjectData(prev => ({
+        ...prev,
+        [semester.registration_id]: data
+      }));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSubjectsLoading(false);
+    }
+  };
 
-  // Group subjects by their base subject code (excluding the component part)
-  const groupedSubjects = subjectData?.subjects?.reduce((acc, subject) => {
+  const currentSubjects = selectedSem && subjectData?.[selectedSem.registration_id];
+  const groupedSubjects = currentSubjects?.subjects?.reduce((acc, subject) => {
     const baseCode = subject.subject_code;
     if (!acc[baseCode]) {
       acc[baseCode] = {
@@ -57,15 +104,38 @@ export default function Subjects({ w, subjectData, setSubjectData }) {
   }, {}) || {};
 
   return (
-    <div className="bg-[#191c20] text-white py-2 px-2 font-sans ">
-      <div className="mb-4">
-        <p className="text-sm lg:text-base">Total Credits: {subjectData?.total_credits || 0}</p>
-
-        <div className="lg:space-y-4">
-          {Object.values(groupedSubjects).map((subject) => (
-            <SubjectInfoCard key={subject.code} subject={subject} />
+    <div className="text-white py-2 px-2 font-sans">
+      <Select
+        onValueChange={handleSemesterChange}
+        value={selectedSem?.registration_id}
+        disabled={loading}
+      >
+        <SelectTrigger className="bg-[#191c20] text-white border-white">
+          <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
+            {selectedSem?.registration_code}
+          </SelectValue>
+        </SelectTrigger>
+        <SelectContent className="bg-[#191c20] text-white border-white">
+          {semestersData?.semesters?.map((sem) => (
+            <SelectItem key={sem.registration_id} value={sem.registration_id}>
+              {sem.registration_code}
+            </SelectItem>
           ))}
-        </div>
+        </SelectContent>
+      </Select>
+
+      <div className="mb-4 mt-4">
+        <p className="text-sm lg:text-base">Total Credits: {currentSubjects?.total_credits || 0}</p>
+
+        {subjectsLoading ? (
+          <div className="flex items-center justify-center py-4">Loading subjects...</div>
+        ) : (
+          <div className="lg:space-y-4">
+            {Object.values(groupedSubjects).map((subject) => (
+              <SubjectInfoCard key={subject.code} subject={subject} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

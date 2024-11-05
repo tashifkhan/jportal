@@ -84,7 +84,7 @@ export default function Login({ onLoginSuccess, w }) {
 
     setLoginStatus(prev => ({ ...prev, isLoading: true }));
     performLogin();
-  }, [loginStatus.credentials, onLoginSuccess]);
+  }, [loginStatus.credentials, onLoginSuccess, w]);
 
   // Clean form submission
   function onSubmit(values) {
@@ -96,7 +96,7 @@ export default function Login({ onLoginSuccess, w }) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#191c20]">
+    <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-md space-y-6 p-6">
         <div className="space-y-2 text-center text-white">
           <h1 className="text-2xl font-bold">Login</h1>
