@@ -7,7 +7,7 @@ const AttendanceCard = ({ subject }) => {
     ? ((attendance.attended / attendance.total) * 100).toFixed(0)
     : "100";  // Default to 100% if no attendance data
 
-  // Remove text within parentheses from the name
+  // Remove text within parentheses (Subject Code) from the subjectname
   const displayName = name.replace(/\s*\([^)]*\)\s*$/, '');
 
   return (

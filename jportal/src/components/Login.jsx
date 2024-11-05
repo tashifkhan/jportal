@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.12/dist/jsjiit.esm.js";
 
 // Define the form schema
 const formSchema = z.object({
@@ -62,13 +63,22 @@ export default function Login({ onLoginSuccess, w }) {
         }));
         onLoginSuccess();
       } catch (error) {
-        console.error("Login failed:", error);
-        setLoginStatus(prev => ({
-          ...prev,
-          isLoading: false,
-          error: "Login failed. Please check your credentials.",
-          credentials: null,
-        }));
+        if (error instanceof LoginError) {
+          setLoginStatus(prev => ({
+            ...prev,
+            isLoading: false,
+            error: "JIIT Web Portal server is temporarily unavailable. Please try again later.",
+            credentials: null,
+          }));
+        } else {
+          console.error("Login failed:", error);
+          setLoginStatus(prev => ({
+            ...prev,
+            isLoading: false,
+            error: "Login failed. Please check your credentials.",
+            credentials: null,
+          }));
+        }
       }
     };
 
