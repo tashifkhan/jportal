@@ -20,7 +20,8 @@ const w = new WebPortal();
 function AuthenticatedApp({ w, setIsAuthenticated }) {
   const [attendanceData, setAttendanceData] = useState({});
   const [subjectData, setSubjectData] = useState({});
-  const [semestersData, setSemestersData] = useState(null);
+  const [attendanceSemestersData, setAttendanceSemestersData] = useState(null);
+  const [subjectSemestersData, setSubjectSemestersData] = useState(null);
 
   return (
     <div className="min-h-screen pb-14">
@@ -35,8 +36,8 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               w={w}
               attendanceData={attendanceData}
               setAttendanceData={setAttendanceData}
-              semestersData={semestersData}
-              setSemestersData={setSemestersData}
+              semestersData={attendanceSemestersData}
+              setSemestersData={setAttendanceSemestersData}
             />
           }
         />
@@ -49,8 +50,8 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               w={w}
               subjectData={subjectData}
               setSubjectData={setSubjectData}
-              semestersData={semestersData}
-              setSemestersData={setSemestersData}
+              semestersData={subjectSemestersData}
+              setSemestersData={setSubjectSemestersData}
             />
           }
         />
