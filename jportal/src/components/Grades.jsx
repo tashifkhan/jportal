@@ -130,7 +130,7 @@ export default function Grades({
   }
 
   return (
-    <div className="text-white py-2 px-3 font-sans">
+    <div className="text-white pt-2 pb-4 px-3 font-sans">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2 mb-4 bg-[#191c20]">
           <TabsTrigger

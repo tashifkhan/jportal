@@ -11,7 +11,7 @@ function Navbar() {
   ];
 
   return (
-    <div className='flex items-center justify-between sm:gap-0 gap-2 w-screen fixed bottom-0 left-0 bg-[#242a32] py-2 px-4'>
+    <div className='flex items-center justify-between sm:gap-0 gap-2 w-screen fixed bottom-0 left-0 bg-[#242a32] py-4 px-4'>
       {navItems.map((item) => (
         <NavLink
           key={item.name}

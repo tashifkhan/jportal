@@ -186,7 +186,7 @@ const Attendance = ({
   };
 
   return (
-    <div className="text-white py-2 px-3 font-sans">
+    <div className="text-white pt-2 pb-4 px-3 font-sans">
       <div className="flex gap-2">
         <Select
           onValueChange={handleSemesterChange}
