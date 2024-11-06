@@ -56,7 +56,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   const [gradeCards, setGradeCards] = useState({});
 
   return (
-    <div className="min-h-screen pb-14">
+    <div className="min-h-screen pb-14 select-none">
       <Header setIsAuthenticated={setIsAuthenticated} />
       <Routes>
         <Route path="/" element={<Navigate to="/attendance" />} />
@@ -189,7 +189,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-[#191c20]">
+      <div className="min-h-screen bg-[#191c20] select-none">
         {!isAuthenticated || !w.session ? (
           <Routes>
             <Route path="*" element={
