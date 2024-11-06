@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-export default function Profile({ w }) {
+export default function Profile({ w, profileData, setProfileData }) {
   const [loading, setLoading] = useState(true);
-  const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -24,7 +23,7 @@ export default function Profile({ w }) {
     };
 
     fetchProfileData();
-  }, [w, profileData]);
+  }, [w, profileData, setProfileData]);
 
   if (loading) {
     return (

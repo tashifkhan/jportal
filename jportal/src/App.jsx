@@ -43,6 +43,9 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
     localStorage.setItem('attendanceGoal', attendanceGoal.toString());
   }, [attendanceGoal]);
 
+  // Add new profile data state
+  const [profileData, setProfileData] = useState(null);
+
   return (
     <div className="min-h-screen pb-14">
       <Header setIsAuthenticated={setIsAuthenticated} />
@@ -92,7 +95,13 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
             />
           }
         />
-        <Route path="/profile" element={<Profile w={w} />} />
+        <Route path="/profile" element={
+          <Profile
+            w={w}
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
+        } />
       </Routes>
       <Navbar />
     </div>
