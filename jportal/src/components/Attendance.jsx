@@ -102,8 +102,8 @@ const Attendance = ({
     const { subjectcode, Ltotalclass, Ltotalpres, Lpercentage, Ttotalclass, Ttotalpres, Tpercentage, Ptotalclass, Ptotalpres, Ppercentage, LTpercantage } = item;
 
     const { attended, total } = {
-      attended: Ltotalpres || Ttotalpres || Ptotalpres || 0,
-      total: Ltotalclass || Ttotalclass || Ptotalclass || 0
+      attended: (Ltotalpres || 0) + (Ttotalpres || 0) + (Ptotalpres || 0),
+      total: (Ltotalclass || 0) + (Ttotalclass || 0) + (Ptotalclass || 0)
     };
 
     const currentPercentage = (attended / total) * 100;

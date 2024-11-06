@@ -154,7 +154,7 @@ export default function Grades({
                 <LineChart
                   data={semesterData}
                   margin={{
-                    top: 10,
+                    top: 0,
                     right: 10,
                     left: 0,
                     bottom: 20,
@@ -185,7 +185,7 @@ export default function Grades({
                   />
                   <Legend
                     verticalAlign="top"
-                    height={24}
+                    height={36}
                   />
                   <Line
                     type="monotone"
@@ -225,7 +225,7 @@ export default function Grades({
                       <div className="text-xs text-gray-400">SGPA</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold">{sem.cgpa}</div>
+                      <div className="text-xl font-bold text-blue-400">{sem.cgpa}</div>
                       <div className="text-xs text-gray-400">CGPA</div>
                     </div>
                   </div>
