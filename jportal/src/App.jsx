@@ -61,7 +61,9 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
 
   return (
     <div className="min-h-screen pb-14 select-none">
-      <Header setIsAuthenticated={setIsAuthenticated} />
+      <div className="sticky top-0 z-30 bg-[#191c20]">
+        <Header setIsAuthenticated={setIsAuthenticated} />
+      </div>
       <Routes>
         <Route path="/" element={<Navigate to="/attendance" />} />
         <Route path="/login" element={<Navigate to="/attendance" />} />
@@ -174,7 +176,10 @@ function App() {
       } catch (error) {
         if (error instanceof LoginError && error.message.includes("JIIT Web Portal server is temporarily unavailable")) {
           setError("JIIT Web Portal server is temporarily unavailable. Please try again later.");
-        } else {
+        } else if (error instanceof LoginError && error.message.includes("Failed to fetch")) {
+          setError("Please check your internet connection. If connected, JIIT Web Portal server is temporarily unavailable.");
+        }
+        else {
           console.error("Auto-login failed:", error);
           setError("Auto-login failed. Please login again.");
         }

@@ -186,38 +186,39 @@ const Attendance = ({
   };
 
   return (
-    <div className="text-white pt-2 pb-4 px-3 font-sans">
-      <div className="flex gap-2">
-        <Select
-          onValueChange={handleSemesterChange}
-          value={selectedSem?.registration_id}
-          // disabled={loading}
-        >
-          <SelectTrigger className="bg-[#191c20] text-white border-white">
-            <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
-              {selectedSem?.registration_code}
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent className="bg-[#191c20] text-white border-white">
-            {semestersData?.semesters?.map((sem) => (
-              <SelectItem key={sem.registration_id} value={sem.registration_id}>
-                {sem.registration_code}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Input
-          type="number"
-          value={attendanceGoal}
-          onChange={handleGoalChange}
-          min="-1"
-          max="100"
-          className="w-32 bg-[#191c20] text-white border-white"
-          placeholder="Goal %"
-        />
+    <div className="text-white font-sans">
+      <div className="sticky top-14 bg-[#0f1011] z-20">
+        <div className="flex gap-2 py-2 px-3">
+          <Select
+            onValueChange={handleSemesterChange}
+            value={selectedSem?.registration_id}
+          >
+            <SelectTrigger className="bg-[#191c20] text-white border-white">
+              <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
+                {selectedSem?.registration_code}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent className="bg-[#191c20] text-white border-white">
+              {semestersData?.semesters?.map((sem) => (
+                <SelectItem key={sem.registration_id} value={sem.registration_id}>
+                  {sem.registration_code}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Input
+            type="number"
+            value={attendanceGoal}
+            onChange={handleGoalChange}
+            min="-1"
+            max="100"
+            className="w-32 bg-[#191c20] text-white border-white"
+            placeholder="Goal %"
+          />
+        </div>
       </div>
 
-      <div className="mt-4">
+      <div className="px-3 pb-4">
         {loading || attendanceLoading ? (
           <div className="flex items-center justify-center py-4 h-screen">Loading attendance...</div>
         ) : selectedSem && attendanceData[selectedSem.registration_id]?.error ? (

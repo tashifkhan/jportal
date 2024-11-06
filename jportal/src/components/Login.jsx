@@ -71,6 +71,13 @@ export default function Login({ onLoginSuccess, w }) {
             error: "JIIT Web Portal server is temporarily unavailable. Please try again later.",
             credentials: null,
           }));
+        } else if (error instanceof LoginError && error.message.includes("Failed to fetch")) {
+          setLoginStatus(prev => ({
+            ...prev,
+            isLoading: false,
+            error: "Please check your internet connection. If connected, JIIT Web Portal server is temporarily unavailable.",
+            credentials: null,
+          }));
         } else {
           console.error("Login failed:", error);
           setLoginStatus(prev => ({
