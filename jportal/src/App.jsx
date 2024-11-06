@@ -10,7 +10,7 @@ import Subjects from './components/Subjects'
 import Profile from './components/Profile'
 import './App.css'
 
-import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.12/dist/jsjiit.esm.js";
+import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.13/dist/jsjiit.esm.js";
 
 
 // Create WebPortal instance at the top level
@@ -121,6 +121,7 @@ function LoginWrapper({ onLoginSuccess, w }) {
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -135,8 +136,12 @@ function App() {
           }
         }
       } catch (error) {
-
-        console.error("Auto-login failed:", error);
+        if (error instanceof LoginError) {
+          setError("JIIT Web Portal server is temporarily unavailable. Please try again later.");
+        } else {
+          console.error("Auto-login failed:", error);
+          setError("Auto-login failed. Please login again.");
+        }
         localStorage.removeItem("username");
         localStorage.removeItem("password");
         setIsAuthenticated(false);
@@ -160,10 +165,13 @@ function App() {
         {!isAuthenticated || !w.session ? (
           <Routes>
             <Route path="*" element={
-              <LoginWrapper
-                onLoginSuccess={() => setIsAuthenticated(true)}
-                w={w}
-              />
+              <>
+                {error && <div className="text-red-500 text-center pt-4">{error}</div>}
+                <LoginWrapper
+                  onLoginSuccess={() => setIsAuthenticated(true)}
+                  w={w}
+                />
+              </>
             } />
           </Routes>
         ) : (
