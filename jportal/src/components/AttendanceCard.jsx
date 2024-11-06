@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CircleProgress from "./CircleProgress";
 import {
   Sheet,
@@ -19,10 +19,14 @@ const AttendanceCard = ({
   const attendancePercentage = combined > 0 ? combined.toFixed(0) : "100";
   const displayName = name.replace(/\s*\([^)]*\)\s*$/, '');
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleClick = async () => {
     setSelectedSubject(subject);
     if (!subjectAttendanceData[subject.name]) {
+      setIsLoading(true);
       await fetchSubjectAttendance(subject);
+      setIsLoading(false);
     }
   };
 
@@ -77,14 +81,14 @@ const AttendanceCard = ({
       </div>
 
       <Sheet open={selectedSubject?.name === subject.name} onOpenChange={() => setSelectedSubject(null)}>
-        <SheetContent side="bottom" className="h-[90vh] bg-[#191c20] text-white border-white/20">
+        <SheetContent side="bottom" className="h-[60vh] bg-[#191c20] text-white border-white/20">
           <SheetHeader>
             <SheetTitle className="text-white">{displayName}</SheetTitle>
           </SheetHeader>
           <div className="py-4">
             <Calendar
               mode="multiple"
-              selected={[]}
+              selected={undefined}
               modifiers={{
                 present: (date) => getDayStatus(date) === true,
                 absent: (date) => getDayStatus(date) === false
@@ -93,7 +97,7 @@ const AttendanceCard = ({
                 present: { backgroundColor: 'rgba(34, 197, 94, 0.2)' },
                 absent: { backgroundColor: 'rgba(239, 68, 68, 0.2)' }
               }}
-              className="text-white"
+              className={`text-white ${isLoading ? 'animate-pulse' : ''}`}
             />
           </div>
         </SheetContent>

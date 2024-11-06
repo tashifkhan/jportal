@@ -49,14 +49,31 @@ const Attendance = ({
           latest_semester: latestSem
         });
 
-        setSelectedSem(latestSem);
-
-        if (!attendanceData[latestSem.registration_id]) {
+        try {
           const data = await w.get_attendance(header, latestSem);
           setAttendanceData(prev => ({
             ...prev,
             [latestSem.registration_id]: data
           }));
+          setSelectedSem(latestSem);
+        } catch (error) {
+          console.log(error.message);
+          console.log(error.status);
+          if (error.message.includes("NO Attendance Found")) {
+            // If latest semester has no attendance, try the previous one
+            const previousSem = meta.semesters[1]; // Index 1 is the second most recent semester
+            if (previousSem) {
+              const data = await w.get_attendance(header, previousSem);
+              setAttendanceData(prev => ({
+                ...prev,
+                [previousSem.registration_id]: data
+              }));
+              setSelectedSem(previousSem);
+              console.log(previousSem);
+            }
+          } else {
+            throw error;
+          }
         }
       } catch (error) {
         console.error("Failed to fetch attendance:", error);
@@ -82,14 +99,24 @@ const Attendance = ({
       const meta = await w.get_attendance_meta();
       const header = meta.latest_header();
       const semester = semestersData.semesters.find(sem => sem.registration_id === value);
-      setSelectedSem(semester);
       const data = await w.get_attendance(header, semester);
       setAttendanceData(prev => ({
         ...prev,
         [value]: data
       }));
+      setSelectedSem(semester);
     } catch (error) {
-      console.error("Failed to fetch attendance:", error);
+      if (error.message.includes("NO Attendance Found")) {
+        // Show message that attendance is not available for this semester
+        setAttendanceData(prev => ({
+          ...prev,
+          [value]: { error: "Attendance not available for this semester" }
+        }));
+        const semester = semestersData.semesters.find(sem => sem.registration_id === value);
+        setSelectedSem(semester);
+      } else {
+        console.error("Failed to fetch attendance:", error);
+      }
     } finally {
       setAttendanceLoading(false);
     }
@@ -193,6 +220,10 @@ const Attendance = ({
       <div className="mt-4">
         {loading || attendanceLoading ? (
           <div className="flex items-center justify-center py-4 h-screen">Loading attendance...</div>
+        ) : selectedSem && attendanceData[selectedSem.registration_id]?.error ? (
+          <div className="flex items-center justify-center py-4">
+            {attendanceData[selectedSem.registration_id].error}
+          </div>
         ) : (
           subjects.map((subject) => (
             <AttendanceCard
