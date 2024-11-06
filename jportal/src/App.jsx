@@ -46,6 +46,15 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   // Add new profile data state
   const [profileData, setProfileData] = useState(null);
 
+  // Add new state for grades component
+  const [activeGradesTab, setActiveGradesTab] = useState("overview");
+  const [gradeCardSemesters, setGradeCardSemesters] = useState([]);
+  const [selectedGradeCardSem, setSelectedGradeCardSem] = useState(null);
+  const [gradeCard, setGradeCard] = useState(null);
+
+  // Add new state for storing grade cards
+  const [gradeCards, setGradeCards] = useState({});
+
   return (
     <div className="min-h-screen pb-14">
       <Header setIsAuthenticated={setIsAuthenticated} />
@@ -77,6 +86,16 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               setGradesData={setGradesData}
               semesterData={gradesSemesterData}
               setSemesterData={setGradesSemesterData}
+              activeTab={activeGradesTab}
+              setActiveTab={setActiveGradesTab}
+              gradeCardSemesters={gradeCardSemesters}
+              setGradeCardSemesters={setGradeCardSemesters}
+              selectedGradeCardSem={selectedGradeCardSem}
+              setSelectedGradeCardSem={setSelectedGradeCardSem}
+              gradeCard={gradeCard}
+              setGradeCard={setGradeCard}
+              gradeCards={gradeCards}
+              setGradeCards={setGradeCards}
             />
           }
         />

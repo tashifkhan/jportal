@@ -6,7 +6,7 @@ function Navbar() {
     { name: 'ATTENDANCE', path: '/attendance', icon: `/${BASE_NAME}/icons/attendance.svg` },
     { name: '  GRADES  ', path: '/grades', icon: `/${BASE_NAME}/icons/grades.svg` },
     { name: '  EXAMS', path: '/exams', icon: `/${BASE_NAME}/icons/exams.svg` },
-    { name: ' SUBJECTS ', path: '/subjects', icon: `/${BASE_NAME}/icons/subjects.svg` },
+    { name: ' SUBJECTS ', path: '/subjects', icon: `/${BASE_NAME}/icons/subjects1.svg` },
     { name: ' PROFILE ', path: '/profile', icon: `/${BASE_NAME}/icons/profile.svg` },
   ];
 
