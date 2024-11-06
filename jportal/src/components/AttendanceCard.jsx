@@ -20,6 +20,7 @@ const AttendanceCard = ({
   const displayName = name.replace(/\s*\([^)]*\)\s*$/, '');
 
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleClick = async () => {
     setSelectedSubject(subject);
@@ -46,6 +47,29 @@ const AttendanceCard = ({
 
     if (attendances.length === 0) return null;
     return attendances.map(a => a.present === "Present");
+  };
+
+  // Add this function to format the date string for display
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString();
+  };
+
+  // Modify getClassesForDate to handle string date
+  const getClassesForDate = (dateStr) => {
+    if (!subjectAttendanceData[subject.name] || !dateStr) return [];
+
+    const date = new Date(dateStr);
+    const formattedDateStr = date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+
+    return subjectAttendanceData[subject.name].filter(
+      a => a.datetime.startsWith(formattedDateStr)
+    );
   };
 
   return (
@@ -81,14 +105,17 @@ const AttendanceCard = ({
         </div>
       </div>
 
-      <Sheet open={selectedSubject?.name === subject.name} onOpenChange={() => setSelectedSubject(null)}>
+      <Sheet open={selectedSubject?.name === subject.name} onOpenChange={() => {
+        setSelectedSubject(null);
+        setSelectedDate(null);
+      }}>
         <SheetContent side="bottom" className="h-[70vh] bg-[#191c20] text-white border-0">
           <SheetHeader>
-            <SheetTitle className="text-white">{}</SheetTitle>
+            {/* <SheetTitle className="text-white">{}</SheetTitle> */}
           </SheetHeader>
           <div className="py-4">
             <Calendar
-              mode="multiple"
+              mode="single"
               modifiers={{
                 presentSingle: (date) => {
                   const statuses = getDayStatus(date);
@@ -131,7 +158,8 @@ const AttendanceCard = ({
                   return statuses?.length === 3 &&
                          statuses.filter(s => s === true).length ===
                          statuses.filter(s => s === false).length;
-                }
+                },
+                selected: (date) => date === selectedDate,
               }}
               modifiersStyles={{
                 presentSingle: {
@@ -173,10 +201,44 @@ const AttendanceCard = ({
                 mixedTripleEqual: {
                   background: 'conic-gradient(rgba(34, 197, 94, 0.4) 0deg 120deg, rgba(239, 68, 68, 0.4) 120deg 240deg, rgba(34, 197, 94, 0.4) 240deg 360deg)',
                   borderRadius: '50%'
-                }
+                },
+                selected: {
+                  backgroundColor: '#FFFF00', // yellow hex
+                  borderRadius: '50%',
+                  color: 'white',
+                },
               }}
+              selected={selectedDate}
+              onSelect={(date) => setSelectedDate(date)}
               className={`text-white ${isLoading ? 'animate-pulse' : ''}`}
             />
+
+            {/* Add this section to display class data */}
+            {selectedDate && (
+              <div className="mt-4 space-y-2">
+                {getClassesForDate(selectedDate).map((classData, index) => (
+                  <div
+                    key={index}
+                    className={`p-2 rounded ${
+                      classData.present === "Present"
+                        ? "bg-green-900/40"
+                        : "bg-red-900/40"
+                    }`}
+                  >
+                    <p className="text-sm">
+                      {classData.attendanceby}
+                    </p>
+
+                      <p className="text-xs text-gray-400">
+                    {classData.classtype} - {classData.present}
+                      </p>
+                    <p className="text-xs text-gray-400">
+                      {classData.datetime}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </SheetContent>
       </Sheet>
