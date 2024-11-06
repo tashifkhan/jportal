@@ -55,6 +55,10 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   // Add new state for storing grade cards
   const [gradeCards, setGradeCards] = useState({});
 
+  // Add new states for subject attendance
+  const [subjectAttendanceData, setSubjectAttendanceData] = useState({});
+  const [selectedSubject, setSelectedSubject] = useState(null);
+
   return (
     <div className="min-h-screen pb-14 select-none">
       <Header setIsAuthenticated={setIsAuthenticated} />
@@ -74,6 +78,10 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               setSelectedSem={setSelectedAttendanceSem}
               attendanceGoal={attendanceGoal}
               setAttendanceGoal={setAttendanceGoal}
+              subjectAttendanceData={subjectAttendanceData}
+              setSubjectAttendanceData={setSubjectAttendanceData}
+              selectedSubject={selectedSubject}
+              setSelectedSubject={setSelectedSubject}
             />
           }
         />

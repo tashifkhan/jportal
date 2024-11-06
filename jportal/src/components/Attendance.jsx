@@ -18,7 +18,11 @@ const Attendance = ({
   selectedSem,
   setSelectedSem,
   attendanceGoal,
-  setAttendanceGoal
+  setAttendanceGoal,
+  subjectAttendanceData,
+  setSubjectAttendanceData,
+  selectedSubject,
+  setSelectedSubject
 }) => {
   const [loading, setLoading] = useState(!semestersData);
   const [attendanceLoading, setAttendanceLoading] = useState(!attendanceData);
@@ -125,6 +129,35 @@ const Attendance = ({
     };
   }) || [];
 
+  const fetchSubjectAttendance = async (subject) => {
+    try {
+      const attendance = attendanceData[selectedSem.registration_id];
+      const subjectData = attendance.studentattendancelist.find(
+        s => s.subjectcode === subject.name
+      );
+
+      if (!subjectData) return;
+
+      const subjectcomponentids = ['Lsubjectcomponentid', 'Psubjectcomponentid', 'Tsubjectcomponentid']
+        .filter(id => subjectData[id])
+        .map(id => subjectData[id]);
+
+      const data = await w.get_subject_daily_attendance(
+        selectedSem,
+        subjectData.subjectid,
+        subjectData.individualsubjectcode,
+        subjectcomponentids
+      );
+
+      setSubjectAttendanceData(prev => ({
+        ...prev,
+        [subject.name]: data.studentAttdsummarylist
+      }));
+    } catch (error) {
+      console.error("Failed to fetch subject attendance:", error);
+    }
+  };
+
   return (
     <div className="text-white py-2 px-3 font-sans">
       <div className="flex gap-2">
@@ -162,7 +195,14 @@ const Attendance = ({
           <div className="flex items-center justify-center py-4 h-screen">Loading attendance...</div>
         ) : (
           subjects.map((subject) => (
-            <AttendanceCard key={subject.name} subject={subject} />
+            <AttendanceCard
+              key={subject.name}
+              subject={subject}
+              selectedSubject={selectedSubject}
+              setSelectedSubject={setSelectedSubject}
+              subjectAttendanceData={subjectAttendanceData}
+              fetchSubjectAttendance={fetchSubjectAttendance}
+            />
           ))
         )}
       </div>
