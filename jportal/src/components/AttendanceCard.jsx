@@ -163,43 +163,43 @@ const AttendanceCard = ({
               }}
               modifiersStyles={{
                 presentSingle: {
-                  backgroundColor: 'rgba(34, 197, 94, 0.4)',
+                  backgroundColor: 'rgba(22, 163, 72, 0.4)',
                   borderRadius: '50%'
                 },
                 absentSingle: {
-                  backgroundColor: 'rgba(239, 68, 68, 0.4)',
+                  backgroundColor: 'rgba(220, 38, 38, 0.4)',
                   borderRadius: '50%'
                 },
                 presentDouble: {
-                  backgroundColor: 'rgba(34, 197, 94, 0.4)',
+                  backgroundColor: 'rgba(22, 163, 72, 0.4)',
                   borderRadius: '50%'
                 },
                 absentDouble: {
-                  backgroundColor: 'rgba(239, 68, 68, 0.4)',
+                  backgroundColor: 'rgba(220, 38, 38, 0.4)',
                   borderRadius: '50%'
                 },
                 mixedDouble: {
-                  background: 'linear-gradient(90deg, rgba(34, 197, 94, 0.4) 50%, rgba(239, 68, 68, 0.4) 50%)',
+                  background: 'linear-gradient(90deg, rgba(22, 163, 72, 0.4) 50%, rgba(220, 38, 38, 0.4) 50%)',
                   borderRadius: '50%'
                 },
                 presentTriple: {
-                  backgroundColor: 'rgba(34, 197, 94, 0.4)',
+                  backgroundColor: 'rgba(22, 163, 72, 0.4)',
                   borderRadius: '50%'
                 },
                 absentTriple: {
-                  backgroundColor: 'rgba(239, 68, 68, 0.4)',
+                  backgroundColor: 'rgba(220, 38, 38, 0.4)',
                   borderRadius: '50%'
                 },
                 mixedTripleAllPresent: {
-                  background: 'conic-gradient(rgba(34, 197, 94, 0.4) 0deg 240deg, rgba(239, 68, 68, 0.4) 240deg 360deg)',
+                  background: 'conic-gradient(rgba(22, 163, 72, 0.4) 0deg 240deg, rgba(220, 38, 38, 0.4) 240deg 360deg)',
                   borderRadius: '50%'
                 },
                 mixedTripleAllAbsent: {
-                  background: 'conic-gradient(rgba(239, 68, 68, 0.4) 0deg 240deg, rgba(34, 197, 94, 0.4) 240deg 360deg)',
+                  background: 'conic-gradient(rgba(220, 38, 38, 0.4) 0deg 240deg, rgba(22, 163, 72, 0.4) 240deg 360deg)',
                   borderRadius: '50%'
                 },
                 mixedTripleEqual: {
-                  background: 'conic-gradient(rgba(34, 197, 94, 0.4) 0deg 120deg, rgba(239, 68, 68, 0.4) 120deg 240deg, rgba(34, 197, 94, 0.4) 240deg 360deg)',
+                  background: 'conic-gradient(rgba(22, 163, 72, 0.4) 0deg 120deg, rgba(220, 38, 38, 0.4) 120deg 240deg, rgba(22, 163, 72, 0.4) 240deg 360deg)',
                   borderRadius: '50%'
                 },
                 selected: {
@@ -210,7 +210,7 @@ const AttendanceCard = ({
               }}
               selected={selectedDate}
               onSelect={(date) => setSelectedDate(date)}
-              className={`text-white ${isLoading ? 'animate-pulse' : ''}`}
+              className={`pb-2 text-white ${isLoading ? 'animate-pulse' : ''}`}
             />
 
             {/* Add this section to display class data */}
@@ -221,8 +221,8 @@ const AttendanceCard = ({
                     key={index}
                     className={`p-2 rounded ${
                       classData.present === "Present"
-                        ? "bg-green-900/40"
-                        : "bg-red-900/40"
+                        ? "bg-green-600/40"
+                        : "bg-red-600/40"
                     }`}
                   >
                     <p className="text-sm">

@@ -10,7 +10,7 @@ import Subjects from './components/Subjects'
 import Profile from './components/Profile'
 import './App.css'
 
-import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.13/dist/jsjiit.esm.js";
+import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.15/dist/jsjiit.esm.js";
 
 
 // Create WebPortal instance at the top level
@@ -172,7 +172,7 @@ function App() {
           }
         }
       } catch (error) {
-        if (error instanceof LoginError) {
+        if (error instanceof LoginError && error.message.includes("JIIT Web Portal server is temporarily unavailable")) {
           setError("JIIT Web Portal server is temporarily unavailable. Please try again later.");
         } else {
           console.error("Auto-login failed:", error);

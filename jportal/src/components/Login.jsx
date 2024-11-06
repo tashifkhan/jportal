@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.12/dist/jsjiit.esm.js";
+import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.15/dist/jsjiit.esm.js";
 
 // Define the form schema
 const formSchema = z.object({
@@ -63,7 +63,8 @@ export default function Login({ onLoginSuccess, w }) {
         }));
         onLoginSuccess();
       } catch (error) {
-        if (error instanceof LoginError) {
+        if (error instanceof LoginError && error.message.includes("JIIT Web Portal server is temporarily unavailable")) {
+          console.error("Server is temporarily unavailable")
           setLoginStatus(prev => ({
             ...prev,
             isLoading: false,
