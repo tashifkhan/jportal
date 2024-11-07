@@ -61,7 +61,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
 
   return (
     <div className="min-h-screen pb-14 select-none">
-      <div className="sticky top-0 z-30 bg-[#191c20]">
+      <div className="sticky top-0 z-30 bg-[#191c20] -mt-[2px]">
         <Header setIsAuthenticated={setIsAuthenticated} />
       </div>
       <Routes>

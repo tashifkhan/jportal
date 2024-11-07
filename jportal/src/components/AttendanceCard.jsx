@@ -113,7 +113,7 @@ const AttendanceCard = ({
           <SheetHeader>
             {/* <SheetTitle className="text-white">{}</SheetTitle> */}
           </SheetHeader>
-          <div className="py-4">
+          <div className="py-4 flex justify-center">
             <Calendar
               mode="single"
               modifiers={{
