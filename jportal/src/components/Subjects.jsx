@@ -103,27 +103,31 @@ export default function Subjects({ w, subjectData, setSubjectData, semestersData
   }, {}) || {};
 
   return (
-    <div className="text-white pt-2 pb-4 px-3 font-sans">
-      <Select
-        onValueChange={handleSemesterChange}
-        value={selectedSem?.registration_id}
-        disabled={loading}
-      >
-        <SelectTrigger className="bg-[#191c20] text-white border-white">
-          <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
-            {selectedSem?.registration_code}
-          </SelectValue>
-        </SelectTrigger>
-        <SelectContent className="bg-[#191c20] text-white border-white">
-          {semestersData?.semesters?.map((sem) => (
-            <SelectItem key={sem.registration_id} value={sem.registration_id}>
-              {sem.registration_code}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+    <div className="text-white font-sans">
+      <div className="sticky top-14 bg-[#191c20] z-20">
+        <div className="py-2 px-3">
+          <Select
+            onValueChange={handleSemesterChange}
+            value={selectedSem?.registration_id}
+            disabled={loading}
+          >
+            <SelectTrigger className="bg-[#191c20] text-white border-white">
+              <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
+                {selectedSem?.registration_code}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent className="bg-[#191c20] text-white border-white">
+              {semestersData?.semesters?.map((sem) => (
+                <SelectItem key={sem.registration_id} value={sem.registration_id}>
+                  {sem.registration_code}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
 
-      <div className="mb-4 mt-4">
+      <div className="px-3 pb-4">
         <p className="text-sm lg:text-base">Total Credits: {currentSubjects?.total_credits || 0}</p>
 
         {subjectsLoading ? (
