@@ -64,7 +64,7 @@ export default function Login({ onLoginSuccess, w }) {
         onLoginSuccess();
       } catch (error) {
         if (error instanceof LoginError && error.message.includes("JIIT Web Portal server is temporarily unavailable")) {
-          console.error("Server is temporarily unavailable")
+          console.error("JIIT Web Portal server is temporarily unavailable")
           setLoginStatus(prev => ({
             ...prev,
             isLoading: false,
@@ -75,7 +75,7 @@ export default function Login({ onLoginSuccess, w }) {
           setLoginStatus(prev => ({
             ...prev,
             isLoading: false,
-            error: "Please check your internet connection. If connected, JIIT Web Portal server is temporarily unavailable.",
+            error: "Please check your internet connection. If connected, JIIT Web Portal server is unavailable.",
             credentials: null,
           }));
         } else {
