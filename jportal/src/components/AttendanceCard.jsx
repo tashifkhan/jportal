@@ -203,11 +203,6 @@ const AttendanceCard = ({
                     background: 'conic-gradient(rgba(22, 163, 72, 0.4) 0deg 120deg, rgba(220, 38, 38, 0.4) 120deg 240deg, rgba(22, 163, 72, 0.4) 240deg 360deg)',
                     borderRadius: '50%'
                   },
-                  selected: {
-                    backgroundColor: '#FFFF00', // yellow hex
-                    borderRadius: '50%',
-                    color: 'white',
-                  },
                 }}
                 selected={selectedDate}
                 onSelect={(date) => setSelectedDate(date)}

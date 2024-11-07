@@ -12,6 +12,14 @@ import {
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import GradeCard from "./GradeCard";
+import { Button } from "@/components/ui/button"
+import { Download } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 export default function Grades({
   w,
@@ -33,6 +41,8 @@ export default function Grades({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [gradeCardLoading, setGradeCardLoading] = useState(false);
+  const [marksSemesters, setMarksSemesters] = useState([]);
+  const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,6 +93,20 @@ export default function Grades({
     fetchGradeCardSemesters();
   }, [w, gradeCardSemesters.length, setGradeCardSemesters, selectedGradeCardSem]);
 
+  useEffect(() => {
+    const fetchMarksSemesters = async () => {
+      if (marksSemesters.length === 0) {
+        try {
+          const sems = await w.get_semesters_for_marks();
+          setMarksSemesters(sems);
+        } catch (err) {
+          console.error("Failed to fetch marks semesters:", err);
+        }
+      }
+    };
+    fetchMarksSemesters();
+  }, [w, marksSemesters.length]);
+
   const handleSemesterChange = async (value) => {
     setGradeCardLoading(true);
     try {
@@ -119,6 +143,15 @@ export default function Grades({
       'F': 'text-red-500'
     };
     return gradeColors[grade] || 'text-white';
+  };
+
+  const handleDownloadMarks = async (semester) => {
+    try {
+      await w.download_marks(semester);
+      setIsDownloadDialogOpen(false);
+    } catch (err) {
+      console.error("Failed to download marks:", err);
+    }
   };
 
   if (loading) {
@@ -268,6 +301,37 @@ export default function Grades({
           </div>
         </TabsContent>
       </Tabs>
+
+      <div className="w-full flex justify-end my-4 max-w-4xl">
+        <Button
+          variant="secondary"
+          className="flex items-center gap-2 text-gray-300 hover:text-white border-gray-600 hover:border-gray-400 bg-[#191c20] hover:bg-[#1f2937] px-0"
+          onClick={() => setIsDownloadDialogOpen(true)}
+        >
+          <Download className="h-4 w-4" />
+          Download Marks
+        </Button>
+      </div>
+
+      <Dialog open={isDownloadDialogOpen} onOpenChange={setIsDownloadDialogOpen}>
+        <DialogContent className="bg-[#191c20] text-white border-none">
+          <DialogHeader>
+            <DialogTitle className="text-gray-200">Download Marks</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-2">
+            {marksSemesters.map((sem) => (
+              <Button
+                key={sem.registration_id}
+                variant="outline"
+                className="w-full text-gray-300 hover:text-white  bg-[#191c20] hover:bg-[#1f2937] border-none"
+                onClick={() => handleDownloadMarks(sem)}
+              >
+                {sem.registration_code}
+              </Button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
