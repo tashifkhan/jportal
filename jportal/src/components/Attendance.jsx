@@ -220,7 +220,9 @@ const Attendance = ({
 
       <div className="px-3 pb-4">
         {loading || attendanceLoading ? (
-          <div className="flex items-center justify-center py-4 h-screen">Loading attendance...</div>
+          <div className="flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">
+            Loading attendance...
+          </div>
         ) : selectedSem && attendanceData[selectedSem.registration_id]?.error ? (
           <div className="flex items-center justify-center py-4">
             {attendanceData[selectedSem.registration_id].error}

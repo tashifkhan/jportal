@@ -122,7 +122,7 @@ export default function Grades({
   };
 
   if (loading) {
-    return <div className="h-screen flex items-center justify-center bg-[#191c20] text-white">Loading...</div>;
+    return <div className="text-white flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">Loading grades...</div>;
   }
 
   if (error) {
@@ -253,7 +253,7 @@ export default function Grades({
             </Select>
 
             {gradeCardLoading ? (
-              <div className="flex items-center justify-center py-4">Loading subjects...</div>
+              <div className="text-white flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">Loading subjects...</div>
             ) : gradeCard && (
               <div className="space-y-2 mt-4">
                 {gradeCard.gradecard.map((subject) => (

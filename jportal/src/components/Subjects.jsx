@@ -131,7 +131,9 @@ export default function Subjects({ w, subjectData, setSubjectData, semestersData
         <p className="text-sm lg:text-base">Total Credits: {currentSubjects?.total_credits || 0}</p>
 
         {subjectsLoading ? (
-          <div className="flex items-center justify-center py-4">Loading subjects...</div>
+          <div className="flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">
+            Loading subjects...
+          </div>
         ) : (
           <div className="lg:space-y-4">
             {Object.values(groupedSubjects).map((subject) => (

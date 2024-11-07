@@ -196,7 +196,7 @@ function App() {
 
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center bg-[#191c20] text-white">
-      Loading...
+      Signing in...
     </div>;
   }
 

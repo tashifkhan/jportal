@@ -113,7 +113,7 @@ const AttendanceCard = ({
           <SheetHeader>
             {/* <SheetTitle className="text-white">{}</SheetTitle> */}
           </SheetHeader>
-          <div className="py-4 flex flex-col items-center flex-1 overflow-y-auto scrollbar-hide">
+          <div className="py-4 flex flex-col items-center flex-1 overflow-y-auto">
             <div className="w-full max-w-[320px] flex flex-col">
               <Calendar
                 mode="single"
