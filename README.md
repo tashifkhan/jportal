@@ -2,13 +2,14 @@
 
 because looking at the jiit web portal is destroying my mental health fr fr (and because i'm running out of "why did I even do that" moments)
 <p align="center">
-<img src="screenshots/mobile-6.jpg" width="200">
-<img src="screenshots/mobile-7.jpg" width="200">
-<img src="screenshots/mobile-5.jpg" width="200">
 <img src="screenshots/mobile-4.jpg" width="200">
-<img src="screenshots/mobile-3.jpg" width="200">
 <img src="screenshots/mobile-2.jpg" width="200">
+<img src="screenshots/mobile-8.png" width="200">
+<img src="screenshots/mobile-7.jpg" width="200">
+<img src="screenshots/mobile-3.jpg" width="200">
+<img src="screenshots/mobile-5.jpg" width="200">
 <img src="screenshots/mobile-1.jpg" width="200">
+<img src="screenshots/mobile-6.jpg" width="200">
 </p>
 
 ## what even is this
