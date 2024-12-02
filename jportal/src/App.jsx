@@ -59,6 +59,12 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   const [subjectAttendanceData, setSubjectAttendanceData] = useState({});
   const [selectedSubject, setSelectedSubject] = useState(null);
 
+  // Add new state for exams
+  const [examSchedule, setExamSchedule] = useState({});
+  const [examSemesters, setExamSemesters] = useState([]);
+  const [selectedExamSem, setSelectedExamSem] = useState(null);
+  const [selectedExamEvent, setSelectedExamEvent] = useState(null);
+
   return (
     <div className="min-h-screen pb-14 select-none">
       <div className="sticky top-0 z-30 bg-[#191c20] -mt-[2px]">
@@ -109,7 +115,19 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
             />
           }
         />
-        <Route path="/exams" element={<Exams w={w} />} />
+        <Route path="/exams" element={
+          <Exams 
+            w={w} 
+            examSchedule={examSchedule}
+            setExamSchedule={setExamSchedule}
+            examSemesters={examSemesters}
+            setExamSemesters={setExamSemesters}
+            selectedExamSem={selectedExamSem}
+            setSelectedExamSem={setSelectedExamSem}
+            selectedExamEvent={selectedExamEvent}
+            setSelectedExamEvent={setSelectedExamEvent}
+          />
+        } />
         <Route
           path="/subjects"
           element={
