@@ -41,6 +41,7 @@ export default function Exams({
       const events = await w.get_exam_events(semester)
       setExamEvents(events)
       setSelectedExamEvent(null)
+      setExamSchedule({}) // Clear the exam schedule when changing semester
     } finally {
       setLoading(false)
     }
@@ -84,11 +85,11 @@ export default function Exams({
         <div className="pt-2 pb-4 px-3">
           <Select 
             onValueChange={handleSemesterChange}
-            value={selectedExamSem?.registration_id}
+            value={selectedExamSem?.registration_id || ""}
           >
             <SelectTrigger className="bg-[#191c20] text-white border-white">
               <SelectValue placeholder="Select semester">
-                {selectedExamSem?.registration_code}
+                {selectedExamSem?.registration_code || "Select semester"}
               </SelectValue>
             </SelectTrigger>
             <SelectContent className="bg-[#191c20] text-white border-white">
@@ -104,11 +105,11 @@ export default function Exams({
             <div className="mt-2">
               <Select 
                 onValueChange={handleEventChange}
-                value={selectedExamEvent?.exam_event_id}
+                value={selectedExamEvent?.exam_event_id || ""}
               >
                 <SelectTrigger className="bg-[#191c20] text-white border-white">
                   <SelectValue placeholder="Select exam event">
-                    {selectedExamEvent?.exam_event_desc}
+                    {selectedExamEvent?.exam_event_desc || "Select exam event"}
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent className="bg-[#191c20] text-white border-white">
@@ -131,32 +132,37 @@ export default function Exams({
           </div>
         ) : currentSchedule?.length > 0 ? (
           <div className="space-y-2 divide-y divide-muted">
-            {currentSchedule.map((exam) => (
-              <div 
-                key={`${exam.subjectcode}-${exam.datetime}-${exam.datetimefrom}`} 
-                className="py-4 px-2"
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-medium">
-                      {exam.subjectdesc.split('(')[0].trim()}
-                    </h3>
-                    <p className="text-sm text-gray-400">{exam.subjectcode}</p>
-                  </div>
-                  {(exam.roomcode || exam.seatno) && (
-                    <div className="text-lg font-medium">
-                      {exam.roomcode && exam.seatno 
-                        ? `${exam.roomcode}-${exam.seatno}`
-                        : exam.roomcode || exam.seatno}
+            {currentSchedule.map((exam) => {
+              // Temporarily add test data
+              
+              
+              return (
+                <div 
+                  key={`${exam.subjectcode}-${exam.datetime}-${exam.datetimefrom}`} 
+                  className="py-4 px-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-medium">
+                        {exam.subjectdesc.split('(')[0].trim()}
+                      </h3>
+                      <p className="text-sm text-gray-400">{exam.subjectcode}</p>
                     </div>
-                  )}
+                    {(exam.roomcode || exam.seatno) && (
+                      <div className="text-2xl font-medium whitespace-nowrap">
+                        {exam.roomcode && exam.seatno 
+                          ? `${exam.roomcode}-${exam.seatno}`
+                          : exam.roomcode || exam.seatno}
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-2 text-sm text-white">
+                    <p>{formatDate(exam.datetime)}</p>
+                    <p>{exam.datetimeupto}</p>
+                  </div>
                 </div>
-                <div className="mt-2 text-sm text-white">
-                  <p>{formatDate(exam.datetime)}</p>
-                  <p>{exam.datetimeupto}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : selectedExamEvent ? (
           <div className="flex items-center justify-center py-4">
