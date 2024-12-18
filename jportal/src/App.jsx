@@ -10,7 +10,7 @@ import Subjects from './components/Subjects'
 import Profile from './components/Profile'
 import './App.css'
 
-import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.18/dist/jsjiit.esm.js";
+import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.19/dist/jsjiit.esm.js";
 
 
 // Create WebPortal instance at the top level
