@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.19/dist/jsjiit.esm.js";
+import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
 
 // Define the form schema
 const formSchema = z.object({
