@@ -59,11 +59,17 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   const [subjectAttendanceData, setSubjectAttendanceData] = useState({});
   const [selectedSubject, setSelectedSubject] = useState(null);
 
+  // Add new state for exams
+  const [examSchedule, setExamSchedule] = useState({});
+  const [examSemesters, setExamSemesters] = useState([]);
+  const [selectedExamSem, setSelectedExamSem] = useState(null);
+  const [selectedExamEvent, setSelectedExamEvent] = useState(null);
+
   // Add new state for marks
   const [marksSemesters, setMarksSemesters] = useState([]);
   const [selectedMarksSem, setSelectedMarksSem] = useState(null);
   const [marksSemesterData, setMarksSemesterData] = useState(null);
-  const [marksData, setMarksData] = useState({}); // Cache for marks data
+  const [marksData, setMarksData] = useState({});
 
   return (
     <div className="min-h-screen pb-14 select-none">
