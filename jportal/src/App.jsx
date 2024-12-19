@@ -129,7 +129,19 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
             />
           }
         />
-        <Route path="/exams" element={<Exams w={w} />} />
+        <Route path="/exams" element={
+          <Exams
+            w={w}
+            examSchedule={examSchedule}
+            setExamSchedule={setExamSchedule}
+            examSemesters={examSemesters}
+            setExamSemesters={setExamSemesters}
+            selectedExamSem={selectedExamSem}
+            setSelectedExamSem={setSelectedExamSem}
+            selectedExamEvent={selectedExamEvent}
+            setSelectedExamEvent={setSelectedExamEvent}
+          />
+          } />
         <Route
           path="/subjects"
           element={
