@@ -78,6 +78,10 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false);
   const [marksLoading, setMarksLoading] = useState(false);
 
+  // Add these new states lifted from Attendance.jsx
+  const [isAttendanceMetaLoading, setIsAttendanceMetaLoading] = useState(true);
+  const [isAttendanceDataLoading, setIsAttendanceDataLoading] = useState(true);
+
   return (
     <div className="min-h-screen pb-14 select-none">
       <div className="sticky top-0 z-30 bg-[#191c20] -mt-[2px]">
@@ -103,6 +107,10 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               setSubjectAttendanceData={setSubjectAttendanceData}
               selectedSubject={selectedSubject}
               setSelectedSubject={setSelectedSubject}
+              isAttendanceMetaLoading={isAttendanceMetaLoading}
+              setIsAttendanceMetaLoading={setIsAttendanceMetaLoading}
+              isAttendanceDataLoading={isAttendanceDataLoading}
+              setIsAttendanceDataLoading={setIsAttendanceDataLoading}
             />
           }
         />

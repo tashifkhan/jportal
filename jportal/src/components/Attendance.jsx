@@ -22,11 +22,12 @@ const Attendance = ({
   subjectAttendanceData,
   setSubjectAttendanceData,
   selectedSubject,
-  setSelectedSubject
+  setSelectedSubject,
+  isAttendanceMetaLoading,
+  setIsAttendanceMetaLoading,
+  isAttendanceDataLoading,
+  setIsAttendanceDataLoading
 }) => {
-  const [loading, setLoading] = useState(!semestersData);
-  const [attendanceLoading, setAttendanceLoading] = useState(!attendanceData);
-
   useEffect(() => {
     const fetchSemesters = async () => {
       if (semestersData) {
@@ -36,8 +37,8 @@ const Attendance = ({
         return;
       }
 
-      setLoading(true);
-      setAttendanceLoading(true);
+      setIsAttendanceMetaLoading(true);
+      setIsAttendanceDataLoading(true);
       try {
         const meta = await w.get_attendance_meta();
         const header = meta.latest_header();
@@ -78,8 +79,8 @@ const Attendance = ({
       } catch (error) {
         console.error("Failed to fetch attendance:", error);
       } finally {
-        setLoading(false);
-        setAttendanceLoading(false);
+        setIsAttendanceMetaLoading(false);
+        setIsAttendanceDataLoading(false);
       }
     };
 
@@ -87,24 +88,24 @@ const Attendance = ({
   }, [w, setAttendanceData, semestersData, setSemestersData]);
 
   const handleSemesterChange = async (value) => {
-    setAttendanceLoading(true);
+    // Update selected semester immediately
+    const semester = semestersData.semesters.find(sem => sem.registration_id === value);
+    setSelectedSem(semester);
+    
+    setIsAttendanceDataLoading(true);
     try {
       if (attendanceData[value]) {
-        const semester = semestersData.semesters.find(sem => sem.registration_id === value);
-        setSelectedSem(semester);
-        setAttendanceLoading(false);
+        setIsAttendanceDataLoading(false);
         return;
       }
 
       const meta = await w.get_attendance_meta();
       const header = meta.latest_header();
-      const semester = semestersData.semesters.find(sem => sem.registration_id === value);
       const data = await w.get_attendance(header, semester);
       setAttendanceData(prev => ({
         ...prev,
         [value]: data
       }));
-      setSelectedSem(semester);
     } catch (error) {
       if (error.message.includes("NO Attendance Found")) {
         // Show message that attendance is not available for this semester
@@ -112,13 +113,11 @@ const Attendance = ({
           ...prev,
           [value]: { error: "Attendance not available for this semester" }
         }));
-        const semester = semestersData.semesters.find(sem => sem.registration_id === value);
-        setSelectedSem(semester);
       } else {
         console.error("Failed to fetch attendance:", error);
       }
     } finally {
-      setAttendanceLoading(false);
+      setIsAttendanceDataLoading(false);
     }
   };
 
@@ -194,7 +193,7 @@ const Attendance = ({
             value={selectedSem?.registration_id}
           >
             <SelectTrigger className="bg-[#191c20] text-white border-white">
-              <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
+              <SelectValue placeholder={isAttendanceMetaLoading ? "Loading semesters..." : "Select semester"}>
                 {selectedSem?.registration_code}
               </SelectValue>
             </SelectTrigger>
@@ -219,7 +218,7 @@ const Attendance = ({
       </div>
 
       <div className="px-3 pb-4">
-        {loading || attendanceLoading ? (
+        {isAttendanceMetaLoading || isAttendanceDataLoading ? (
           <div className="flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">
             Loading attendance...
           </div>
