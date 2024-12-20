@@ -175,7 +175,7 @@ export default function Grades({
       }
 
       // Construct the endpoint
-      const ENDPOINT = `/studentsexamview/printstudent-exammarks/${w.session.memberid}/${w.session.instituteid}/${semester.registration_id}/${semester.registration_code}`;
+      const ENDPOINT = `/studentsexamview/printstudent-exammarks/${w.session.instituteid}/${semester.registration_id}/${semester.registration_code}`;
 
       // Generate local name and get headers
       const localname = await generate_local_name();
