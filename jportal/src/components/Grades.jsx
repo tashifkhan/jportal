@@ -52,6 +52,7 @@ export default function Grades({
   const [error, setError] = useState(null);
   const [gradeCardLoading, setGradeCardLoading] = useState(false);
   const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false);
+  const [marksLoading, setMarksLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -116,6 +117,81 @@ export default function Grades({
     fetchMarksSemesters();
   }, [w, marksSemesters.length]);
 
+  useEffect(() => {
+    let mounted = true;
+
+    const processPdfMarks = async () => {
+      if (!selectedMarksSem || marksData[selectedMarksSem.registration_id]) {
+        return;
+      }
+
+      setMarksLoading(true);
+      try {
+        const ENDPOINT = `/studentsexamview/printstudent-exammarks/${w.session.instituteid}/${selectedMarksSem.registration_id}/${selectedMarksSem.registration_code}`;
+        const localname = await generate_local_name();
+        const headers = await w.session.get_headers(localname);
+
+        const pyodide = await loadPyodide();
+
+        pyodide.globals.set('ENDPOINT', ENDPOINT);
+        pyodide.globals.set('fetchOptions', { method: 'GET', headers });
+        pyodide.globals.set('API', API);
+
+        const res = await pyodide.runPythonAsync(`
+          import pyodide_js
+          import asyncio
+          import pyodide.http
+
+          marks = {}
+
+          async def process_pdf():
+              global marks
+              await pyodide_js.loadPackage("/jportal/artifact/PyMuPDF-1.24.12-cp311-abi3-emscripten_3_1_32_wasm32.whl")
+              await pyodide_js.loadPackage("/jportal/artifact/jiit_marks-0.2.0-py3-none-any.whl")
+
+              import pymupdf
+              from jiit_marks import parse_report
+
+              r = await pyodide.http.pyfetch(API+ENDPOINT, **(fetchOptions.to_py()))
+              data = await r.bytes()
+
+              doc = pymupdf.Document(stream=data)
+              marks = parse_report(doc)
+              return marks
+
+          await process_pdf()
+        `);
+
+        if (mounted) {
+          const result = res.toJs({
+            dict_converter: Object.fromEntries,
+            create_pyproxies: false
+          });
+
+          setMarksSemesterData(result);
+          setMarksData(prev => ({
+            ...prev,
+            [selectedMarksSem.registration_id]: result
+          }));
+        }
+      } catch (error) {
+        console.error("Failed to load marks:", error);
+      } finally {
+        if (mounted) {
+          setMarksLoading(false);
+        }
+      }
+    };
+
+    if (selectedMarksSem) {
+      processPdfMarks();
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, [selectedMarksSem, w.session, marksData]);
+
   const handleSemesterChange = async (value) => {
     setGradeCardLoading(true);
     try {
@@ -168,77 +244,12 @@ export default function Grades({
       const semester = marksSemesters.find(sem => sem.registration_id === value);
       setSelectedMarksSem(semester);
 
-      // Check if we already have the data in cache
+      // If we have cached data, use it immediately
       if (marksData[value]) {
         setMarksSemesterData(marksData[value]);
-        return;
       }
-
-      // Construct the endpoint
-      const ENDPOINT = `/studentsexamview/printstudent-exammarks/${w.session.instituteid}/${semester.registration_id}/${semester.registration_code}`;
-
-      // Generate local name and get headers
-      const localname = await generate_local_name();
-      const headers = await w.session.get_headers(localname);
-
-      // Load required packages and process PDF
-      const pyodide = await loadPyodide();
-
-      // Set JavaScript variables in Python's namespace
-      pyodide.globals.set('ENDPOINT', ENDPOINT);
-      pyodide.globals.set('fetchOptions', { method: 'GET', headers });
-      pyodide.globals.set('API', API);
-
-      // Run Python code to process gradesthe PDF
-      const res = await pyodide.runPythonAsync(`
-        import pyodide_js
-        import asyncio
-        import pyodide.http
-
-        marks = {}
-
-        async def process_pdf():
-            global marks
-            # Load required packages
-            await pyodide_js.loadPackage("/jportal/artifact/PyMuPDF-1.24.12-cp311-abi3-emscripten_3_1_32_wasm32.whl")
-            await pyodide_js.loadPackage("/jportal/artifact/jiit_marks-0.2.0-py3-none-any.whl")
-
-            # Import required modules
-            import pymupdf
-            from jiit_marks import parse_report
-
-            # Fetch and process PDF
-            print("Fetching PDF")
-            r = await pyodide.http.pyfetch(API+ENDPOINT, **(fetchOptions.to_py()))
-            print("Fetched PDF")
-            data = await r.bytes()
-
-            print("Preparing Doc")
-            doc = pymupdf.Document(stream=data)
-            print("Extracting marks")
-            marks = parse_report(doc)
-            print(marks)
-            return marks
-
-        await process_pdf()
-      `);
-      console.log(res)
-      const result = res.toJs({
-        dict_converter: Object.fromEntries,
-        create_pyproxies: false
-      });
-      console.log(marksSemesterData)
-
-      // Update state with the fetched data
-      setMarksSemesterData(result);
-      console.log(marksSemesterData)
-      setMarksData(prev => ({
-        ...prev,
-        [value]: result
-      }));
-
     } catch (error) {
-      console.error("Failed to load marks:", error);
+      console.error("Failed to change marks semester:", error);
     }
   };
 
@@ -410,7 +421,11 @@ export default function Grades({
               </SelectContent>
             </Select>
 
-            {marksSemesterData && marksSemesterData.courses ? (
+            {marksLoading ? (
+              <div className="text-center mt-4">
+                Loading marks data...
+              </div>
+            ) : marksSemesterData && marksSemesterData.courses ? (
               <div className="space-y-4 mt-4">
                 {marksSemesterData.courses.map((course) => (
                   <MarksCard key={course.code} course={course} />

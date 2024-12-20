@@ -16,7 +16,25 @@ export default defineConfig({
         enabled: true,
       },
       workbox: {
+        maximumFileSizeToCacheInBytes: 30 * 1024 ** 2, // 30MB
         globPatterns: ["**/*.{js,css,html,ico,png,svg,whl}"],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/pyodide\/v0\.23\.4\/full\/pyodide\.js$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "pyodide-cache",
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 24 * 1000, // 1000 days
+              },
+            },
+          },
+        ],
+        additionalManifestEntries: [
+          { url: "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js", revision: null },
+          { url: "/artifact/jiit_marks-0.2.0-py3-none-any.whl", revision: null },
+          { url: "/artifact/PyMuPDF-1.24.12-cp311-abi3-emscripten_3_1_32_wasm32.whl", revision: null },
+        ],
       },
       manifest: {
         name: "JPortal",
