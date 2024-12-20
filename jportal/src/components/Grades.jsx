@@ -222,14 +222,11 @@ export default function Grades({
 
         await process_pdf()
       `);
-      console.log("helo")
       console.log(res)
-      console.log("helo2")
-      const result = res.toJs();
-      console.log(result);
-      console.log("aaa")
-      console.log(typeof(result))
-      console.log("bbb")
+      const result = res.toJs({
+        dict_converter: Object.fromEntries,
+        create_pyproxies: false
+      });
       console.log(marksSemesterData)
 
       // Update state with the fetched data
