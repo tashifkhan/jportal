@@ -71,6 +71,13 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   const [marksSemesterData, setMarksSemesterData] = useState(null);
   const [marksData, setMarksData] = useState({});
 
+  // Add these new states lifted from Grades.jsx
+  const [gradesLoading, setGradesLoading] = useState(true);
+  const [gradesError, setGradesError] = useState(null);
+  const [gradeCardLoading, setGradeCardLoading] = useState(false);
+  const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false);
+  const [marksLoading, setMarksLoading] = useState(false);
+
   return (
     <div className="min-h-screen pb-14 select-none">
       <div className="sticky top-0 z-30 bg-[#191c20] -mt-[2px]">
@@ -126,6 +133,16 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               setMarksSemesterData={setMarksSemesterData}
               marksData={marksData}
               setMarksData={setMarksData}
+              gradesLoading={gradesLoading}
+              setGradesLoading={setGradesLoading}
+              gradesError={gradesError}
+              setGradesError={setGradesError}
+              gradeCardLoading={gradeCardLoading}
+              setGradeCardLoading={setGradeCardLoading}
+              isDownloadDialogOpen={isDownloadDialogOpen}
+              setIsDownloadDialogOpen={setIsDownloadDialogOpen}
+              marksLoading={marksLoading}
+              setMarksLoading={setMarksLoading}
             />
           }
         />

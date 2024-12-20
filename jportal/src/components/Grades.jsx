@@ -46,19 +46,23 @@ export default function Grades({
   marksData,
   setMarksData,
   marksSemesterData,
-  setMarksSemesterData
+  setMarksSemesterData,
+  gradesLoading,
+  setGradesLoading,
+  gradesError,
+  setGradesError,
+  gradeCardLoading,
+  setGradeCardLoading,
+  isDownloadDialogOpen,
+  setIsDownloadDialogOpen,
+  marksLoading,
+  setMarksLoading
 }) {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [gradeCardLoading, setGradeCardLoading] = useState(false);
-  const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false);
-  const [marksLoading, setMarksLoading] = useState(false);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (semesterData) {
-          setLoading(false);
+          setGradesLoading(false);
           return;
         }
 
@@ -66,10 +70,10 @@ export default function Grades({
         setGradesData(data);
         setSemesterData(data.semesterList);
       } catch (err) {
-        setError("Failed to fetch grade data");
+        setGradesError("Failed to fetch grade data");
         console.error(err);
       } finally {
-        setLoading(false);
+        setGradesLoading(false);
       }
     };
     fetchData();
@@ -253,12 +257,12 @@ export default function Grades({
     }
   };
 
-  if (loading) {
+  if (gradesLoading) {
     return <div className="text-white flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">Loading grades...</div>;
   }
 
-  if (error) {
-    return <div className="bg-[#191c20] text-white p-6">{error}</div>;
+  if (gradesError) {
+    return <div className="bg-[#191c20] text-white p-6">{gradesError}</div>;
   }
 
   return (
