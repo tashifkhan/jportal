@@ -16,7 +16,8 @@ const AttendanceCard = ({
   fetchSubjectAttendance
 }) => {
   const { name, attendance, combined, lecture, tutorial, practical, classesNeeded, classesCanMiss } = subject;
-  const attendancePercentage = combined > 0 ? combined.toFixed(0) : "100";
+  console.log(name, attendance, combined, lecture, tutorial, practical)
+  const attendancePercentage = (attendance.total > 0) ? combined.toFixed(0) : "100";
   const displayName = name.replace(/\s*\([^)]*\)\s*$/, '');
 
   const [isLoading, setIsLoading] = useState(false);
@@ -80,9 +81,9 @@ const AttendanceCard = ({
       >
         <div className="flex-1 mr-4">
           <h2 className="text-sm font-semibold max-[390px]:text-xs ">{displayName}</h2>
-          {lecture && <p className="text-sm lg:text-base max-[390px]:text-xs">Lecture: {lecture}%</p>}
-          {tutorial && <p className="text-sm lg:text-base max-[390px]:text-xs">Tutorial: {tutorial}%</p>}
-          {practical && <p className="text-sm lg:text-base max-[390px]:text-xs">Practical: {practical}%</p>}
+          {lecture !== '' && <p className="text-sm lg:text-base max-[390px]:text-xs">Lecture: {lecture}%</p>}
+          {tutorial !== '' && <p className="text-sm lg:text-base max-[390px]:text-xs">Tutorial: {tutorial}%</p>}
+          {practical !== '' && <p className="text-sm lg:text-base max-[390px]:text-xs">Practical: {practical}%</p>}
         </div>
         <div className="flex items-center gap-2">
           <div className="text-center">
