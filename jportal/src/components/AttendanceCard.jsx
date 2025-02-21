@@ -7,6 +7,15 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Calendar } from "@/components/ui/calendar";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const AttendanceCard = ({
   subject,
@@ -73,6 +82,40 @@ const AttendanceCard = ({
     );
   };
 
+  // Add new function to process data for the chart
+  const processAttendanceData = () => {
+    if (!subjectAttendanceData[subject.name]) return [];
+
+    const data = subjectAttendanceData[subject.name];
+
+    // Sort all entries by date first
+    const sortedData = [...data].sort((a, b) => {
+      const [aDay, aMonth, aYear] = a.datetime.split(' ')[0].split('/');
+      const [bDay, bMonth, bYear] = b.datetime.split(' ')[0].split('/');
+      return new Date(aYear, aMonth - 1, aDay) - new Date(bYear, bMonth - 1, bDay);
+    });
+
+    let cumulativePresent = 0;
+    let cumulativeTotal = 0;
+    const attendanceByDate = {};
+
+    // Calculate cumulative attendance for each date
+    sortedData.forEach(entry => {
+      const [date] = entry.datetime.split(' ');
+      cumulativeTotal++;
+      if (entry.present === "Present") {
+        cumulativePresent++;
+      }
+
+      attendanceByDate[date] = {
+        date,
+        percentage: (cumulativePresent / cumulativeTotal) * 100
+      };
+    });
+
+    return Object.values(attendanceByDate);
+  };
+
   return (
     <>
       <div
@@ -110,154 +153,208 @@ const AttendanceCard = ({
         setSelectedSubject(null);
         setSelectedDate(null);
       }}>
-        <SheetContent side="bottom" className="h-[70vh] bg-[#191c20] text-white border-0 overflow-hidden flex flex-col">
+        <SheetContent side="bottom" className="h-[70vh] bg-[#191c20] text-white border-0 overflow-hidden">
           <SheetHeader>
             {/* <SheetTitle className="text-white">{}</SheetTitle> */}
           </SheetHeader>
-          <div className="py-4 flex flex-col items-center flex-1 overflow-y-auto">
-            <div className="w-full max-w-[320px] flex flex-col">
-              <Calendar
-                mode="single"
-                modifiers={{
-                  presentSingle: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 1 && statuses[0] === true;
-                  },
-                  absentSingle: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 1 && statuses[0] === false;
-                  },
-                  presentDouble: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 2 && statuses.every(s => s === true);
-                  },
-                  absentDouble: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 2 && statuses.every(s => s === false);
-                  },
-                  mixedDouble: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 2 && statuses[0] !== statuses[1];
-                  },
-                  presentTriple: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 3 && statuses.every(s => s === true);
-                  },
-                  absentTriple: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 3 && statuses.every(s => s === false);
-                  },
-                  mixedTripleAllPresent: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 3 && statuses.filter(s => s === true).length === 2;
-                  },
-                  mixedTripleAllAbsent: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 3 && statuses.filter(s => s === false).length === 2;
-                  },
-                  mixedTripleEqual: (date) => {
-                    const statuses = getDayStatus(date);
-                    return statuses?.length === 3 &&
-                           statuses.filter(s => s === true).length ===
-                           statuses.filter(s => s === false).length;
-                  },
-                  selected: (date) => date === selectedDate,
-                }}
-                modifiersStyles={{
-                  presentSingle: {
-                    backgroundColor: 'rgba(22, 163, 72, 0.4)',
-                    borderRadius: '50%'
-                  },
-                  absentSingle: {
-                    backgroundColor: 'rgba(220, 38, 38, 0.4)',
-                    borderRadius: '50%'
-                  },
-                  presentDouble: {
-                    backgroundColor: 'rgba(22, 163, 72, 0.4)',
-                    borderRadius: '50%'
-                  },
-                  absentDouble: {
-                    backgroundColor: 'rgba(220, 38, 38, 0.4)',
-                    borderRadius: '50%'
-                  },
-                  mixedDouble: {
-                    background: 'linear-gradient(90deg, rgba(22, 163, 72, 0.4) 50%, rgba(220, 38, 38, 0.4) 50%)',
-                    borderRadius: '50%'
-                  },
-                  presentTriple: {
-                    backgroundColor: 'rgba(22, 163, 72, 0.4)',
-                    borderRadius: '50%'
-                  },
-                  absentTriple: {
-                    backgroundColor: 'rgba(220, 38, 38, 0.4)',
-                    borderRadius: '50%'
-                  },
-                  mixedTripleAllPresent: {
-                    background: 'conic-gradient(rgba(22, 163, 72, 0.4) 0deg 240deg, rgba(220, 38, 38, 0.4) 240deg 360deg)',
-                    borderRadius: '50%'
-                  },
-                  mixedTripleAllAbsent: {
-                    background: 'conic-gradient(rgba(220, 38, 38, 0.4) 0deg 240deg, rgba(22, 163, 72, 0.4) 240deg 360deg)',
-                    borderRadius: '50%'
-                  },
-                  mixedTripleEqual: {
-                    background: 'conic-gradient(rgba(22, 163, 72, 0.4) 0deg 120deg, rgba(220, 38, 38, 0.4) 120deg 240deg, rgba(22, 163, 72, 0.4) 240deg 360deg)',
-                    borderRadius: '50%'
-                  },
-                }}
-                selected={selectedDate}
-                onSelect={(date) => setSelectedDate(date)}
-                className={`pb-2 text-white ${isLoading ? 'animate-pulse' : ''} w-full flex-shrink-0 max-w-full`}
-                classNames={{
-                  months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-                  month: "space-y-4 w-full",
-                  caption: "flex justify-center pt-1 relative items-center text-sm",
-                  caption_label: "text-sm font-medium",
-                  nav: "space-x-1 flex items-center",
-                  nav_button: "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
-                  nav_button_previous: "absolute left-1",
-                  nav_button_next: "absolute right-1",
-                  table: "w-full border-collapse space-y-1",
-                  head_row: "flex",
-                  head_cell: "text-gray-500 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
-                  row: "flex w-full mt-2",
-                  cell: "flex-1 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                  day: "h-8 w-8 p-0 font-normal aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
-                  day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                  day_today: "bg-accent text-accent-foreground",
-                  day_outside: "text-muted-foreground opacity-50",
-                  day_disabled: "text-muted-foreground opacity-50",
-                  day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
-                  day_hidden: "invisible",
-                }}
-              />
+          <div className="h-full overflow-y-auto snap-y snap-mandatory">
+            {/* Calendar Section */}
+            <div className="min-h-full flex flex-col items-center py-4 snap-start">
+              <div className="w-full max-w-[320px] flex flex-col">
+                <Calendar
+                  mode="single"
+                  modifiers={{
+                    presentSingle: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 1 && statuses[0] === true;
+                    },
+                    absentSingle: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 1 && statuses[0] === false;
+                    },
+                    presentDouble: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 2 && statuses.every(s => s === true);
+                    },
+                    absentDouble: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 2 && statuses.every(s => s === false);
+                    },
+                    mixedDouble: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 2 && statuses[0] !== statuses[1];
+                    },
+                    presentTriple: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 3 && statuses.every(s => s === true);
+                    },
+                    absentTriple: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 3 && statuses.every(s => s === false);
+                    },
+                    mixedTripleAllPresent: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 3 && statuses.filter(s => s === true).length === 2;
+                    },
+                    mixedTripleAllAbsent: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 3 && statuses.filter(s => s === false).length === 2;
+                    },
+                    mixedTripleEqual: (date) => {
+                      const statuses = getDayStatus(date);
+                      return statuses?.length === 3 &&
+                             statuses.filter(s => s === true).length ===
+                             statuses.filter(s => s === false).length;
+                    },
+                    selected: (date) => date === selectedDate,
+                  }}
+                  modifiersStyles={{
+                    presentSingle: {
+                      backgroundColor: 'rgba(22, 163, 72, 0.4)',
+                      borderRadius: '50%'
+                    },
+                    absentSingle: {
+                      backgroundColor: 'rgba(220, 38, 38, 0.4)',
+                      borderRadius: '50%'
+                    },
+                    presentDouble: {
+                      backgroundColor: 'rgba(22, 163, 72, 0.4)',
+                      borderRadius: '50%'
+                    },
+                    absentDouble: {
+                      backgroundColor: 'rgba(220, 38, 38, 0.4)',
+                      borderRadius: '50%'
+                    },
+                    mixedDouble: {
+                      background: 'linear-gradient(90deg, rgba(22, 163, 72, 0.4) 50%, rgba(220, 38, 38, 0.4) 50%)',
+                      borderRadius: '50%'
+                    },
+                    presentTriple: {
+                      backgroundColor: 'rgba(22, 163, 72, 0.4)',
+                      borderRadius: '50%'
+                    },
+                    absentTriple: {
+                      backgroundColor: 'rgba(220, 38, 38, 0.4)',
+                      borderRadius: '50%'
+                    },
+                    mixedTripleAllPresent: {
+                      background: 'conic-gradient(rgba(22, 163, 72, 0.4) 0deg 240deg, rgba(220, 38, 38, 0.4) 240deg 360deg)',
+                      borderRadius: '50%'
+                    },
+                    mixedTripleAllAbsent: {
+                      background: 'conic-gradient(rgba(220, 38, 38, 0.4) 0deg 240deg, rgba(22, 163, 72, 0.4) 240deg 360deg)',
+                      borderRadius: '50%'
+                    },
+                    mixedTripleEqual: {
+                      background: 'conic-gradient(rgba(22, 163, 72, 0.4) 0deg 120deg, rgba(220, 38, 38, 0.4) 120deg 240deg, rgba(22, 163, 72, 0.4) 240deg 360deg)',
+                      borderRadius: '50%'
+                    },
+                  }}
+                  selected={selectedDate}
+                  onSelect={(date) => setSelectedDate(date)}
+                  className={`pb-2 text-white ${isLoading ? 'animate-pulse' : ''} w-full flex-shrink-0 max-w-full`}
+                  classNames={{
+                    months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                    month: "space-y-4 w-full",
+                    caption: "flex justify-center pt-1 relative items-center text-sm",
+                    caption_label: "text-sm font-medium",
+                    nav: "space-x-1 flex items-center",
+                    nav_button: "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+                    nav_button_previous: "absolute left-1",
+                    nav_button_next: "absolute right-1",
+                    table: "w-full border-collapse space-y-1",
+                    head_row: "flex",
+                    head_cell: "text-gray-500 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                    row: "flex w-full mt-2",
+                    cell: "flex-1 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+                    day: "h-8 w-8 p-0 font-normal aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
+                    day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                    day_today: "bg-accent text-accent-foreground",
+                    day_outside: "text-muted-foreground opacity-50",
+                    day_disabled: "text-muted-foreground opacity-50",
+                    day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+                    day_hidden: "invisible",
+                  }}
+                />
 
-              {/* Day data section with scrolling */}
-              {selectedDate && (
-                <div className="mt-4 space-y-2 w-full pb-4 flex-shrink-0">
-                  {getClassesForDate(selectedDate).map((classData, index) => (
-                    <div
-                      key={index}
-                      className={`p-2 rounded ${
-                        classData.present === "Present"
-                          ? "bg-green-600/40"
-                          : "bg-red-600/40"
-                      }`}
-                    >
-                      <p className="text-sm">
-                        {classData.attendanceby}
-                      </p>
-
-                        <p className="text-xs text-gray-400">
-                      {classData.classtype} - {classData.present}
+                {selectedDate && (
+                  <div className="mt-4 space-y-2 w-full pb-4">
+                    {getClassesForDate(selectedDate).map((classData, index) => (
+                      <div
+                        key={index}
+                        className={`p-2 rounded ${
+                          classData.present === "Present"
+                            ? "bg-green-600/40"
+                            : "bg-red-600/40"
+                        }`}
+                      >
+                        <p className="text-sm">
+                          {classData.attendanceby}
                         </p>
-                      <p className="text-xs text-gray-400">
-                        {classData.datetime}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
+
+                          <p className="text-xs text-gray-400">
+                        {classData.classtype} - {classData.present}
+                          </p>
+                        <p className="text-xs text-gray-400">
+                          {classData.datetime}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Chart Section */}
+            <div className="min-h-full flex flex-col items-center justify-center py-4 pb-10 snap-start">
+              <div className="w-full h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={processAttendanceData()}
+                    margin={{
+                      top: 10,
+                      right: 10,
+                      left: -20,
+                      bottom: 0,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                    <XAxis
+                      dataKey="date"
+                      stroke="#fff"
+                      tick={{ fill: '#fff', fontSize: '0.75rem', dy: 10 }}
+                      tickFormatter={(value) => {
+                        const [day, month] = value.split('/');
+                        return `${day}/${month}`;
+                      }}
+                    />
+                    <YAxis
+                      stroke="#fff"
+                      tick={{ fill: '#fff', fontSize: '0.75rem' }}
+                      domain={[0, 100]}
+                      tickFormatter={(value) => `${value}%`}
+                      width={65}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: '#191c20',
+                        border: '1px solid #444',
+                        color: '#fff'
+                      }}
+                      formatter={(value) => [`${value.toFixed(1)}%`]}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="percentage"
+                      stroke="#60A5FA"
+                      strokeWidth={2}
+                      dot={{ fill: '#60A5FA', r: 4 }}
+                      activeDot={{ r: 6 }}
+                      name="Present"
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </div>
         </SheetContent>
