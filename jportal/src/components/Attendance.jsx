@@ -45,12 +45,17 @@ const Attendance = ({
   setIsAttendanceMetaLoading,
   isAttendanceDataLoading,
   setIsAttendanceDataLoading,
+  activeTab,
+  setActiveTab,
+  dailyDate,
+  setDailyDate,
+  calendarOpen,
+  setCalendarOpen,
+  isTrackerOpen,
+  setIsTrackerOpen,
+  subjectCacheStatus,
+  setSubjectCacheStatus
 }) => {
-  const [activeTab, setActiveTab] = useState("overview");
-  const [dailyDate, setDailyDate] = useState(new Date());
-  const [calendarOpen, setCalendarOpen] = useState(false);
-  const [isTrackerOpen, setIsTrackerOpen] = useState(false);
-  const [subjectCacheStatus, setSubjectCacheStatus] = useState({});
 
   useEffect(() => {
     const fetchSemesters = async () => {
@@ -378,7 +383,6 @@ const Attendance = ({
                     onSelect={(d) => {
                       if (d) {
                         setDailyDate(d);
-                        setCalendarOpen(false);
                       }
                     }}
                     modifiers={{
@@ -393,7 +397,31 @@ const Attendance = ({
                         borderRadius: "2px",
                       },
                     }}
-                    className="mb-4"
+
+                    // className={` pb-2 text-white w-full flex-shrink-0 max-w-full`}
+                    classNames={{
+                      months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                      month: "space-y-4 w-full",
+                      caption: "flex justify-center pt-1 relative items-center text-sm",
+                      caption_label: "text-sm font-medium",
+                      nav: "space-x-1 flex items-center",
+                      nav_button: "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+                      nav_button_previous: "absolute left-1",
+                      nav_button_next: "absolute right-1",
+                      table: "w-full border-collapse space-y-1",
+                      presentation: "bg-red",
+                      head_row: "flex",
+                      head_cell: "text-gray-500 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                      row: "flex w-full mt-2",
+                      cell: "flex-1 text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
+                      day: "h-8 w-8 p-0 font-normal rounded-[2px] aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
+                      day_selected: "bg-[hsl(0,8.7%,20.2%)]",
+                      day_today: "text-accent-foreground !bg-white",
+                      day_outside: "text-muted-foreground opacity-50",
+                      day_disabled: "text-muted-foreground opacity-50",
+                      day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+                      day_hidden: "invisible",
+                    }}
                   />
                 )}
               </div>
