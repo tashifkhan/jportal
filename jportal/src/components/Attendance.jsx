@@ -437,7 +437,7 @@ const Attendance = ({
                       key={subj.name}
                       className="w-full max-w-lg border-b border-gray-700 py-3"
                     >
-                      <h3 className="font-medium mb-1">{subj.name}</h3>
+                      <h3 className="font-semibold mb-1">{subj.name}</h3>
                       {lectures.map((cls, i) => (
                         <div
                           key={i}
