@@ -369,7 +369,7 @@ const Attendance = ({
                   onClick={() => setCalendarOpen((o) => !o)}
                   className="flex items-center justify-between bg-[#242a32] rounded-md px-3 py-2 mb-2 text-sm"
                 >
-                  <span>{dailyDate.toLocaleDateString()}</span>
+                  <span>{dailyDate.toDateString()}</span>
                   {calendarOpen ? (
                     <ChevronUp className="w-4 h-4" />
                   ) : (
