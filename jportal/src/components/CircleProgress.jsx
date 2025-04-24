@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function CircleProgress({ percentage, className = "" }) {
+function CircleProgress({ percentage, label, className = "" }) {
   const strokeWidth = 3;
   const defaultRadius = 15;
   const radius = defaultRadius;
@@ -47,7 +47,7 @@ function CircleProgress({ percentage, className = "" }) {
         textAnchor="middle"
         className="text-[13px] max-[375px]:text-[12px] fill-white font-medium"
       >
-        {percentage}
+        {label ?? percentage}
       </text>
     </svg>
   );

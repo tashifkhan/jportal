@@ -18,6 +18,7 @@ const w = new WebPortal();
 
 // Create a wrapper component to use the useNavigate hook
 function AuthenticatedApp({ w, setIsAuthenticated }) {
+  const [activeAttendanceTab, setActiveAttendanceTab] = useState("overview")
   const [attendanceData, setAttendanceData] = useState({});
   const [attendanceSemestersData, setAttendanceSemestersData] = useState(null);
 
@@ -30,6 +31,11 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   const [selectedAttendanceSem, setSelectedAttendanceSem] = useState(null);
   const [selectedGradesSem, setSelectedGradesSem] = useState(null);
   const [selectedSubjectsSem, setSelectedSubjectsSem] = useState(null);
+
+  const [attendanceDailyDate, setAttendanceDailyDate] = useState(new Date());
+  const [isAttendanceCalendarOpen, setIsAttendanceCalendarOpen] = useState(false);
+  const [isAttendanceTrackerOpen, setIsAttendanceTrackerOpen] = useState(false);
+  const [attendanceSubjectCacheStatus, setAttendanceSubjectCacheStatus] = useState({});
 
   // Add attendance goal state
   const [attendanceGoal, setAttendanceGoal] = useState(() => {
@@ -111,6 +117,16 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               setIsAttendanceMetaLoading={setIsAttendanceMetaLoading}
               isAttendanceDataLoading={isAttendanceDataLoading}
               setIsAttendanceDataLoading={setIsAttendanceDataLoading}
+              activeTab={activeAttendanceTab}
+              setActiveTab={setActiveAttendanceTab}
+              dailyDate={attendanceDailyDate}
+              setDailyDate={setAttendanceDailyDate}
+              calendarOpen={isAttendanceCalendarOpen}
+              setCalendarOpen={setIsAttendanceCalendarOpen}
+              isTrackerOpen={isAttendanceTrackerOpen}
+              setIsTrackerOpen={setIsAttendanceTrackerOpen}
+              subjectCacheStatus={attendanceSubjectCacheStatus}
+              setSubjectCacheStatus={setAttendanceSubjectCacheStatus}
             />
           }
         />
