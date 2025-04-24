@@ -43,7 +43,7 @@ export default defineConfig({
         start_url: "/jportal/",
         display: "standalone",
         background_color: "#191c20",
-        theme_color: "#242a32",
+        theme_color: "#191c20",
         orientation: "portrait",
         icons: [
           {
