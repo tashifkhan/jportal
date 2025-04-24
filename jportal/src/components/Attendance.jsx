@@ -325,7 +325,7 @@ const Attendance = ({
         <Tabs
           value={activeTab}
           onValueChange={setActiveTab}
-          className="px-3 pb-2"
+          className="px-3 pb-4"
         >
           <TabsList className="grid grid-cols-2 bg-[#191c20]">
             <TabsTrigger
