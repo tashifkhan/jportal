@@ -34,7 +34,7 @@ export default function Profile({ w, profileData, setProfileData }) {
   const qualifications = profileData?.qualification || [];
 
   return (
-    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-8">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-5 pt-8">
       {/* Personal Information */}
       <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 mb-4">
         <h2 className="text-xl font-semibold mb-4 text-[var(--accent-color)]">
