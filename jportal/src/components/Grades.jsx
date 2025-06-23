@@ -31,7 +31,6 @@ import {
 	generate_local_name,
 	API,
 } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.16/dist/jsjiit.esm.js";
-import { useSwipeable } from "react-swipeable";
 
 export default function Grades({
 	w,
@@ -286,26 +285,21 @@ export default function Grades({
 		}
 	};
 
-	// Swipe handlers for tab navigation
 	const tabOrder = ["overview", "semester", "marks"];
-	const handleSwipeLeft = () => {
-		const currentIndex = tabOrder.indexOf(activeTab);
-		if (currentIndex < tabOrder.length - 1) {
-			setActiveTab(tabOrder[currentIndex + 1]);
+
+	useEffect(() => {
+		function handleSwipe(e) {
+			const direction = e.detail.direction;
+			const currentIndex = tabOrder.indexOf(activeTab);
+			if (direction === "left" && currentIndex < tabOrder.length - 1) {
+				setActiveTab(tabOrder[currentIndex + 1]);
+			} else if (direction === "right" && currentIndex > 0) {
+				setActiveTab(tabOrder[currentIndex - 1]);
+			}
 		}
-	};
-	const handleSwipeRight = () => {
-		const currentIndex = tabOrder.indexOf(activeTab);
-		if (currentIndex > 0) {
-			setActiveTab(tabOrder[currentIndex - 1]);
-		}
-	};
-	const swipeHandlers = useSwipeable({
-		onSwipedLeft: handleSwipeLeft,
-		onSwipedRight: handleSwipeRight,
-		delta: 50,
-		swipeDuration: 500,
-	});
+		window.addEventListener("gradesSwipe", handleSwipe);
+		return () => window.removeEventListener("gradesSwipe", handleSwipe);
+	}, [activeTab, setActiveTab]);
 
 	if (gradesLoading) {
 		return (
@@ -318,241 +312,237 @@ export default function Grades({
 	return (
 		<div className="text-white pt-2 pb-4 px-3 font-sans">
 			<Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-				<div {...swipeHandlers}>
-					<TabsList className="grid w-full grid-cols-3 mb-4 bg-[#191c20]">
-						<TabsTrigger
-							value="overview"
-							className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
-						>
-							Overview
-						</TabsTrigger>
-						<TabsTrigger
-							value="semester"
-							className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
-						>
-							Semester
-						</TabsTrigger>
-						<TabsTrigger
-							value="marks"
-							className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
-						>
-							Marks
-						</TabsTrigger>
-					</TabsList>
+				<TabsList className="grid w-full grid-cols-3 mb-4 bg-[#191c20]">
+					<TabsTrigger
+						value="overview"
+						className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+					>
+						Overview
+					</TabsTrigger>
+					<TabsTrigger
+						value="semester"
+						className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+					>
+						Semester
+					</TabsTrigger>
+					<TabsTrigger
+						value="marks"
+						className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+					>
+						Marks
+					</TabsTrigger>
+				</TabsList>
 
-					<TabsContent value="overview">
-						<div className="flex flex-col items-center">
-							{gradesError ? (
-								<div className="w-full max-w-4xl text-center py-8">
-									<p className="text-xl">{gradesError}</p>
-									<p className="text-gray-400 mt-2">Please check back later</p>
-								</div>
-							) : (
-								<>
-									<div className="mb-4 rounded-lg pb-2 w-full max-w-4xl ">
-										<ResponsiveContainer width="100%" height={250}>
-											<LineChart
-												data={semesterData}
-												margin={{
-													top: 0,
-													right: 10,
-													left: 0,
-													bottom: 20,
+				<TabsContent value="overview">
+					<div className="flex flex-col items-center">
+						{gradesError ? (
+							<div className="w-full max-w-4xl text-center py-8">
+								<p className="text-xl">{gradesError}</p>
+								<p className="text-gray-400 mt-2">Please check back later</p>
+							</div>
+						) : (
+							<>
+								<div className="mb-4 rounded-lg pb-2 w-full max-w-4xl ">
+									<ResponsiveContainer width="100%" height={250}>
+										<LineChart
+											data={semesterData}
+											margin={{
+												top: 0,
+												right: 10,
+												left: 0,
+												bottom: 20,
+											}}
+										>
+											<CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+											<XAxis
+												dataKey="stynumber"
+												stroke="#9CA3AF"
+												label={{
+													value: "Semester",
+													position: "bottom",
+													fill: "#9CA3AF",
 												}}
-											>
-												<CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-												<XAxis
-													dataKey="stynumber"
-													stroke="#9CA3AF"
-													label={{
-														value: "Semester",
-														position: "bottom",
-														fill: "#9CA3AF",
-													}}
-													tickFormatter={(value) => `${value}`}
-												/>
-												<YAxis
-													stroke="#9CA3AF"
-													domain={["dataMin", "dataMax"]}
-													ticks={undefined}
-													tickCount={5}
-													padding={{ top: 20, bottom: 20 }}
-													tickFormatter={(value) => value.toFixed(1)}
-												/>
-												<Tooltip
-													contentStyle={{
-														backgroundColor: "#374151",
-														border: "none",
-														borderRadius: "8px",
-														color: "#fff",
-													}}
-												/>
-												<Legend verticalAlign="top" height={36} />
-												<Line
-													type="monotone"
-													dataKey="sgpa"
-													stroke="#4ADE80"
-													name="SGPA"
-													strokeWidth={2}
-													dot={{ fill: "#4ADE80" }}
-												/>
-												<Line
-													type="monotone"
-													dataKey="cgpa"
-													stroke="#60A5FA"
-													name="CGPA"
-													strokeWidth={2}
-													dot={{ fill: "#60A5FA" }}
-												/>
-											</LineChart>
-										</ResponsiveContainer>
-									</div>
+												tickFormatter={(value) => `${value}`}
+											/>
+											<YAxis
+												stroke="#9CA3AF"
+												domain={["dataMin", "dataMax"]}
+												ticks={undefined}
+												tickCount={5}
+												padding={{ top: 20, bottom: 20 }}
+												tickFormatter={(value) => value.toFixed(1)}
+											/>
+											<Tooltip
+												contentStyle={{
+													backgroundColor: "#374151",
+													border: "none",
+													borderRadius: "8px",
+													color: "#fff",
+												}}
+											/>
+											<Legend verticalAlign="top" height={36} />
+											<Line
+												type="monotone"
+												dataKey="sgpa"
+												stroke="#4ADE80"
+												name="SGPA"
+												strokeWidth={2}
+												dot={{ fill: "#4ADE80" }}
+											/>
+											<Line
+												type="monotone"
+												dataKey="cgpa"
+												stroke="#60A5FA"
+												name="CGPA"
+												strokeWidth={2}
+												dot={{ fill: "#60A5FA" }}
+											/>
+										</LineChart>
+									</ResponsiveContainer>
+								</div>
 
-									<div className="space-y-2 w-full max-w-4xl">
-										{semesterData.map((sem) => (
-											<div
-												key={sem.stynumber}
-												className="flex justify-between items-center py-1 border-b border-gray-700"
-											>
-												<div className="flex-1">
-													<h2 className="text-sm font-semibold">
-														Semester {sem.stynumber}
-													</h2>
-													<p className="text-sm text-gray-400">
-														GP: {sem.earnedgradepoints.toFixed(1)}/
-														{sem.totalcoursecredit * 10}
-													</p>
+								<div className="space-y-2 w-full max-w-4xl">
+									{semesterData.map((sem) => (
+										<div
+											key={sem.stynumber}
+											className="flex justify-between items-center py-1 border-b border-gray-700"
+										>
+											<div className="flex-1">
+												<h2 className="text-sm font-semibold">
+													Semester {sem.stynumber}
+												</h2>
+												<p className="text-sm text-gray-400">
+													GP: {sem.earnedgradepoints.toFixed(1)}/
+													{sem.totalcoursecredit * 10}
+												</p>
+											</div>
+											<div className="flex items-center gap-6">
+												<div className="text-center">
+													<div className="text-xl font-bold text-green-400">
+														{sem.sgpa}
+													</div>
+													<div className="text-xs text-gray-400">SGPA</div>
 												</div>
-												<div className="flex items-center gap-6">
-													<div className="text-center">
-														<div className="text-xl font-bold text-green-400">
-															{sem.sgpa}
-														</div>
-														<div className="text-xs text-gray-400">SGPA</div>
+												<div className="text-center">
+													<div className="text-xl font-bold text-blue-400">
+														{sem.cgpa}
 													</div>
-													<div className="text-center">
-														<div className="text-xl font-bold text-blue-400">
-															{sem.cgpa}
-														</div>
-														<div className="text-xs text-gray-400">CGPA</div>
-													</div>
+													<div className="text-xs text-gray-400">CGPA</div>
 												</div>
 											</div>
+										</div>
+									))}
+								</div>
+							</>
+						)}
+					</div>
+				</TabsContent>
+
+				<TabsContent value="semester">
+					<div className="w-full max-w-4xl mx-auto">
+						{gradeCardSemesters.length === 0 ? (
+							<div className="text-center py-8">
+								<p className="text-xl">Grade card is not available yet</p>
+								<p className="text-gray-400 mt-2">Please check back later</p>
+							</div>
+						) : (
+							<>
+								<Select
+									onValueChange={handleSemesterChange}
+									value={selectedGradeCardSem?.registration_id}
+								>
+									<SelectTrigger className="bg-[#191c20] text-white border-white">
+										<SelectValue
+											placeholder={
+												gradeCardLoading
+													? "Loading semesters..."
+													: "Select semester"
+											}
+										>
+											{selectedGradeCardSem?.registration_code}
+										</SelectValue>
+									</SelectTrigger>
+									<SelectContent className="bg-[#191c20] text-white border-white">
+										{gradeCardSemesters.map((sem) => (
+											<SelectItem
+												key={sem.registration_id}
+												value={sem.registration_id}
+											>
+												{sem.registration_code}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+
+								{gradeCardLoading ? (
+									<div className="text-white flex items-center justify-center py-4">
+										Loading subjects...
+									</div>
+								) : gradeCard ? (
+									<div className="space-y-2 mt-4">
+										{gradeCard.gradecard.map((subject) => (
+											<GradeCard
+												key={subject.subjectcode}
+												subject={subject}
+												getGradeColor={getGradeColor}
+											/>
 										))}
 									</div>
-								</>
-							)}
-						</div>
-					</TabsContent>
+								) : (
+									<div className="text-center py-8">
+										<p>No grade card data available for this semester</p>
+									</div>
+								)}
+							</>
+						)}
+					</div>
+				</TabsContent>
 
-					<TabsContent value="semester">
-						<div className="w-full max-w-4xl mx-auto">
-							{gradeCardSemesters.length === 0 ? (
-								<div className="text-center py-8">
-									<p className="text-xl">Grade card is not available yet</p>
-									<p className="text-gray-400 mt-2">Please check back later</p>
-								</div>
-							) : (
-								<>
-									<Select
-										onValueChange={handleSemesterChange}
-										value={selectedGradeCardSem?.registration_id}
-									>
-										<SelectTrigger className="bg-[#191c20] text-white border-white">
-											<SelectValue
-												placeholder={
-													gradeCardLoading
-														? "Loading semesters..."
-														: "Select semester"
-												}
+				<TabsContent value="marks">
+					<div className="w-full max-w-4xl mx-auto">
+						{marksSemesters.length === 0 ? (
+							<div className="text-center py-8">
+								<p className="text-xl">Marks data is not available yet</p>
+								<p className="text-gray-400 mt-2">Please check back later</p>
+							</div>
+						) : (
+							<>
+								<Select
+									onValueChange={handleMarksSemesterChange}
+									value={selectedMarksSem?.registration_id}
+								>
+									<SelectTrigger className="bg-[#191c20] text-white border-white">
+										<SelectValue placeholder="Select semester" />
+									</SelectTrigger>
+									<SelectContent className="bg-[#191c20] text-white border-white">
+										{marksSemesters.map((sem) => (
+											<SelectItem
+												key={sem.registration_id}
+												value={sem.registration_id}
 											>
-												{selectedGradeCardSem?.registration_code}
-											</SelectValue>
-										</SelectTrigger>
-										<SelectContent className="bg-[#191c20] text-white border-white">
-											{gradeCardSemesters.map((sem) => (
-												<SelectItem
-													key={sem.registration_id}
-													value={sem.registration_id}
-												>
-													{sem.registration_code}
-												</SelectItem>
-											))}
-										</SelectContent>
-									</Select>
+												{sem.registration_code}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
 
-									{gradeCardLoading ? (
-										<div className="text-white flex items-center justify-center py-4">
-											Loading subjects...
-										</div>
-									) : gradeCard ? (
-										<div className="space-y-2 mt-4">
-											{gradeCard.gradecard.map((subject) => (
-												<GradeCard
-													key={subject.subjectcode}
-													subject={subject}
-													getGradeColor={getGradeColor}
-												/>
-											))}
-										</div>
-									) : (
-										<div className="text-center py-8">
-											<p>No grade card data available for this semester</p>
-										</div>
-									)}
-								</>
-							)}
-						</div>
-					</TabsContent>
-
-					<TabsContent value="marks">
-						<div className="w-full max-w-4xl mx-auto">
-							{marksSemesters.length === 0 ? (
-								<div className="text-center py-8">
-									<p className="text-xl">Marks data is not available yet</p>
-									<p className="text-gray-400 mt-2">Please check back later</p>
-								</div>
-							) : (
-								<>
-									<Select
-										onValueChange={handleMarksSemesterChange}
-										value={selectedMarksSem?.registration_id}
-									>
-										<SelectTrigger className="bg-[#191c20] text-white border-white">
-											<SelectValue placeholder="Select semester" />
-										</SelectTrigger>
-										<SelectContent className="bg-[#191c20] text-white border-white">
-											{marksSemesters.map((sem) => (
-												<SelectItem
-													key={sem.registration_id}
-													value={sem.registration_id}
-												>
-													{sem.registration_code}
-												</SelectItem>
-											))}
-										</SelectContent>
-									</Select>
-
-									{marksLoading ? (
-										<div className="text-center mt-4">
-											Loading marks data...
-										</div>
-									) : marksSemesterData && marksSemesterData.courses ? (
-										<div className="space-y-4 mt-4">
-											{marksSemesterData.courses.map((course) => (
-												<MarksCard key={course.code} course={course} />
-											))}
-										</div>
-									) : (
-										<div className="text-center mt-4 text-gray-400">
-											Select a semester to view marks
-										</div>
-									)}
-								</>
-							)}
-						</div>
-					</TabsContent>
-				</div>
+								{marksLoading ? (
+									<div className="text-center mt-4">Loading marks data...</div>
+								) : marksSemesterData && marksSemesterData.courses ? (
+									<div className="space-y-4 mt-4">
+										{marksSemesterData.courses.map((course) => (
+											<MarksCard key={course.code} course={course} />
+										))}
+									</div>
+								) : (
+									<div className="text-center mt-4 text-gray-400">
+										Select a semester to view marks
+									</div>
+								)}
+							</>
+						)}
+					</div>
+				</TabsContent>
 			</Tabs>
 
 			<div className="w-full flex justify-end my-4 max-w-4xl">
