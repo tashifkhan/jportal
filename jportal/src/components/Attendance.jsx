@@ -7,26 +7,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
+
 import { Calendar } from "@/components/ui/calendar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { Progress } from "@/components/ui/progress";
-import CircleProgress from "./CircleProgress";
-import {
-  Check,
-  Loader2,
-  AlertCircle,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+
 import Loader from "./Loader";
+import { TextField } from "@mui/material";
+import CircleProgress from "./CircleProgress";
 
 const Attendance = ({
   w,
@@ -292,25 +279,23 @@ const Attendance = ({
   }, [activeTab, setActiveTab]);
 
   return (
-    <div className="text-[var(--text-color)] font-sans">
-      <div className="sticky top-14 bg-[var(--bg-color)] z-20">
-        <div className="flex gap-2 py-2 px-3">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4">
+      <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-6">
+        <div className="flex flex-row gap-3 items-center justify-center w-full max-w-md px-0 py-0">
           <Select
             onValueChange={handleSemesterChange}
             value={selectedSem?.registration_id}
           >
-            <SelectTrigger className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--card-bg)]">
+            <SelectTrigger className="w-full bg-transparent text-[var(--text-color)] border border-[var(--label-color)] rounded-[14px] px-4 py-0 flex items-center font-light focus:ring-2 focus:ring-[var(--accent-color)] outline-none transition-all min-h-[40px] h-[40px] text-[1.1rem]">
               <SelectValue
                 placeholder={
-                  isAttendanceMetaLoading
-                    ? "Loading semesters..."
-                    : "Select semester"
+                  isAttendanceMetaLoading ? "Loading semesters..." : "Semester"
                 }
               >
-                {selectedSem?.registration_code}
+                {selectedSem?.registration_code || "Semester"}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--card-bg)]">
+            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--label-color)]">
               {semestersData?.semesters?.map((sem) => (
                 <SelectItem
                   key={sem.registration_id}
@@ -321,269 +306,240 @@ const Attendance = ({
               ))}
             </SelectContent>
           </Select>
-          <Input
+          <TextField
             type="number"
             value={attendanceGoal}
-            onChange={handleGoalChange}
-            min="-1"
-            max="100"
-            className="w-32 bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--card-bg)]"
-            placeholder="Goal %"
+            onChange={(e) => handleGoalChange(e)}
+            variant="outlined"
+            label="Criteria"
+            InputLabelProps={{
+              style: {
+                color: "var(--label-color)",
+                fontSize: "1.1rem",
+                fontWeight: 300,
+              },
+            }}
+            inputProps={{
+              style: {
+                color: "var(--text-color)",
+                fontSize: "1.1rem",
+                fontWeight: 300,
+                padding: "0 12px",
+                borderRadius: 8,
+                height: 40,
+                boxSizing: "border-box",
+              },
+            }}
+            sx={{
+              width: "110px",
+              minWidth: "90px",
+              maxWidth: "140px",
+              marginLeft: 1,
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "8px",
+                background: "transparent",
+                borderColor: "var(--label-color)",
+                fontSize: "1.1rem",
+                fontWeight: 300,
+                color: "var(--text-color)",
+                height: "40px",
+                minHeight: "40px",
+                padding: 0,
+                "& fieldset": {
+                  borderColor: "var(--label-color)",
+                },
+                "&:hover fieldset": {
+                  borderColor: "var(--accent-color)",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "var(--accent-color)",
+                },
+              },
+              "& .MuiInputLabel-root": {
+                color: "var(--label-color)",
+                fontSize: "1.1rem",
+                fontWeight: 300,
+              },
+            }}
           />
         </div>
       </div>
-
       {isAttendanceMetaLoading || isAttendanceDataLoading ? (
         <Loader message="Loading attendance..." />
       ) : (
         <Tabs
           value={activeTab}
           onValueChange={setActiveTab}
-          className="px-3 pb-4"
+          className="w-full max-w-3xl mx-auto"
         >
-          <TabsList className="grid grid-cols-2 bg-[var(--bg-color)]">
+          <TabsList className="grid grid-cols-2 mb-6 bg-[var(--card-bg)] border border-[var(--border-color)] rounded-xl overflow-hidden h-[40px] items-center">
             <TabsTrigger
               value="overview"
-              className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
+              className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
             >
-              Overview
+              <span className="flex items-center justify-center w-full h-full">
+                Overview
+              </span>
             </TabsTrigger>
             <TabsTrigger
               value="daily"
-              className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
+              className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
             >
-              Day‑to‑Day
+              <span className="flex items-center justify-center w-full h-full">
+                Day-to-Day
+              </span>
             </TabsTrigger>
           </TabsList>
-
           <TabsContent value="overview">
-            {selectedSem &&
-            attendanceData[selectedSem.registration_id]?.error ? (
-              <div className="flex items-center justify-center py-4">
-                {attendanceData[selectedSem.registration_id].error}
-              </div>
-            ) : (
-              subjects.map((subject) => (
-                <AttendanceCard
-                  key={subject.name}
-                  subject={subject}
-                  selectedSubject={selectedSubject}
-                  setSelectedSubject={setSelectedSubject}
-                  subjectAttendanceData={subjectAttendanceData}
-                  fetchSubjectAttendance={fetchSubjectAttendance}
-                />
-              ))
-            )}
-          </TabsContent>
-
-          <TabsContent value="daily">
-            <div className="flex flex-col items-center">
-              <div className="w-full max-w-[320px] flex flex-col">
-                <button
-                  onClick={() => setCalendarOpen((o) => !o)}
-                  className="flex items-center justify-between bg-[var(--primary-color)] rounded-md px-3 py-2 mb-2 text-sm"
-                >
-                  <span>{dailyDate.toDateString()}</span>
-                  {calendarOpen ? (
-                    <ChevronUp className="w-4 h-4" />
-                  ) : (
-                    <ChevronDown className="w-4 h-4" />
-                  )}
-                </button>
-                {calendarOpen && (
-                  <Calendar
-                    mode="single"
-                    selected={dailyDate}
-                    onSelect={(d) => {
-                      if (d) {
-                        setDailyDate(d);
-                      }
-                    }}
-                    modifiers={{
-                      hasActivity: (date) =>
-                        subjects.some(
-                          (s) => getClassesFor(s.name, date).length > 0
-                        ),
-                    }}
-                    modifiersStyles={{
-                      hasActivity: {
-                        boxShadow: "inset 0 -2px 0 0 rgba(96,165,250,0.8)",
-                        borderRadius: "2px",
-                      },
-                    }}
-                    // className={` pb-2 text-white w-full flex-shrink-0 max-w-full`}
-                    classNames={{
-                      months:
-                        "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-                      month: "space-y-4 w-full",
-                      caption:
-                        "flex justify-center pt-1 relative items-center text-sm",
-                      caption_label: "text-sm font-medium",
-                      nav: "space-x-1 flex items-center",
-                      nav_button:
-                        "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
-                      nav_button_previous: "absolute left-1",
-                      nav_button_next: "absolute right-1",
-                      table: "w-full border-collapse space-y-1",
-                      presentation: "bg-red",
-                      head_row: "flex",
-                      head_cell:
-                        "text-[var(--card-bg)] rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
-                      row: "flex w-full mt-2",
-                      cell: "flex-1 text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                      day: "h-8 w-8 p-0 font-normal rounded-[2px] aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
-                      day_selected:
-                        "bg-[var(--primary-color)] text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-[var(--text-color)] focus:bg-[var(--primary-color)] focus:text-[var(--text-color)]",
-                      day_today:
-                        "text-[var(--accent-color)] !bg-[var(--bg-color)]",
-                      day_outside: "text-[var(--card-bg)] opacity-50",
-                      day_disabled: "text-[var(--card-bg)] opacity-50",
-                      day_range_middle:
-                        "aria-selected:bg-accent aria-selected:text-accent-foreground",
-                      day_hidden: "invisible",
-                    }}
-                  />
-                )}
-              </div>
-
+            <div className="flex flex-col gap-6 items-center">
               {subjects.length === 0 ? (
                 <p className="text-[var(--accent-color)]">No subjects found.</p>
               ) : (
-                subjects.flatMap((subj) => {
-                  const lectures = getClassesFor(subj.name, dailyDate);
-                  if (lectures.length === 0) return [];
-                  return (
-                    <div
-                      key={subj.name}
-                      className="w-full max-w-lg border-b border-[var(--card-bg)] py-3"
-                    >
-                      <h3 className="font-semibold mb-1">{subj.name}</h3>
-                      {lectures.map((cls, i) => (
-                        <div
-                          key={i}
-                          className={`flex justify-between text-sm ${
-                            cls.present === "Present"
-                              ? "text-[var(--accent-color)]"
-                              : "text-[var(--label-color)]"
-                          }`}
-                        >
-                          <span>
-                            {cls.classtype} • {cls.present}
-                          </span>
-                          <span>
-                            {cls.datetime
-                              .split(" ")
-                              .slice(1)
-                              .join(" ")
-                              .slice(1, -1)}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  );
-                })
-              )}
-
-              {/* nothing on that day? */}
-              {subjects.every(
-                (s) => getClassesFor(s.name, dailyDate).length === 0
-              ) && (
-                <p className="text-[var(--accent-color)] mt-4">
-                  No classes were scheduled on&nbsp;
-                  {dailyDate.toLocaleDateString()}
-                </p>
+                subjects.map((subject) => (
+                  <AttendanceCard
+                    key={subject.name}
+                    subject={subject}
+                    selectedSubject={selectedSubject}
+                    setSelectedSubject={setSelectedSubject}
+                    subjectAttendanceData={subjectAttendanceData}
+                    fetchSubjectAttendance={fetchSubjectAttendance}
+                  />
+                ))
               )}
             </div>
-
-            {subjects.length > 0 &&
-              Object.values(subjectCacheStatus).some((s) => s !== "cached") && (
-                <Sheet open={isTrackerOpen} onOpenChange={setIsTrackerOpen}>
-                  <SheetTrigger asChild>
-                    <button
-                      className="fixed bottom-20 right-4 z-50
-							 drop-shadow-lg bg-[var(--primary-color)] rounded-full
-							 ring-blue-400
-							 hover:ring-blue-300 hover:scale-105
-							 transition-transform cursor-pointer"
-                    >
-                      <CircleProgress
-                        percentage={
-                          (100 *
-                            subjects.filter(
-                              (s) => subjectCacheStatus[s.name] === "cached"
-                            ).length) /
-                          subjects.length
-                        }
-                        label={`${
-                          subjects.filter(
-                            (s) => subjectCacheStatus[s.name] === "cached"
-                          ).length
-                        }/${subjects.length}`}
-                        className="shadow-inner"
-                      />
-                    </button>
-                  </SheetTrigger>
-
-                  <SheetContent
-                    side="bottom"
-                    /* hide default close button & force white text */
-                    className="h-[45vh] bg-[var(--primary-color)] text-[var(--text-color)] border-0 overflow-hidden
-										[&_[data-radix-dialog-close]]:hidden"
-                  >
-                    <SheetHeader>
-                      <SheetTitle className="text-sm text-[var(--text-color)]">
-                        Fetching daily attendance&nbsp;(
-                        {
-                          subjects.filter(
-                            (s) => subjectCacheStatus[s.name] === "cached"
-                          ).length
-                        }
-                        /{subjects.length})
-                      </SheetTitle>
-                    </SheetHeader>
-
-                    <div className="mt-4 space-y-4 px-1 overflow-y-auto h-[calc(100%-3rem)]">
-                      <Progress
-                        value={
-                          (100 *
-                            subjects.filter(
-                              (s) => subjectCacheStatus[s.name] === "cached"
-                            ).length) /
-                          subjects.length
-                        }
-                        className="h-2"
-                      />
-
-                      <div className="divide-y divide-white/10 mt-4 overflow-y-auto h-[calc(100%-5rem)] pr-1">
-                        {subjects.map((s) => {
-                          const st = subjectCacheStatus[s.name] || "idle";
-                          return (
+          </TabsContent>
+          <TabsContent value="daily">
+            {/* Modern Day-to-day calendar and daily attendance breakdown */}
+            <div className="flex flex-col items-center w-full">
+              <div className="w-full max-w-[370px] mx-auto flex flex-col items-center bg-[var(--card-bg)] rounded-2xl shadow-md p-4 mb-6">
+                <Calendar
+                  mode="single"
+                  selected={dailyDate}
+                  onSelect={(d) => {
+                    if (d) setDailyDate(d);
+                  }}
+                  modifiers={{
+                    hasActivity: (date) =>
+                      subjects.some(
+                        (s) => getClassesFor(s.name, date).length > 0
+                      ),
+                  }}
+                  modifiersStyles={{
+                    hasActivity: {
+                      boxShadow: "inset 0 -2px 0 0 var(--accent-color)",
+                      borderRadius: "2px",
+                    },
+                  }}
+                  className={`pb-2 w-full flex-shrink-0 max-w-full bg-[var(--card-bg)] text-[var(--text-color)] rounded-xl shadow-none border-0`}
+                  classNames={{
+                    months: "flex flex-col space-y-2",
+                    month: "space-y-2 w-full",
+                    caption:
+                      "flex justify-center pt-1 items-center text-lg font-semibold text-[var(--text-color)] relative",
+                    caption_label:
+                      "text-lg font-semibold text-[var(--text-color)] mx-2",
+                    nav: "flex items-center gap-0 absolute left-0 right-0 justify-between w-full px-2",
+                    nav_button:
+                      "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 mx-0",
+                    nav_button_previous: "",
+                    nav_button_next: "",
+                    table: "w-full border-collapse space-y-1",
+                    head_row: "flex",
+                    head_cell:
+                      "text-[var(--label-color)] rounded-md flex-1 font-normal text-[1rem]",
+                    row: "flex w-full mt-2",
+                    cell: "flex-1 text-center text-base p-0 relative",
+                    day: "h-10 w-10 p-0 font-medium mx-auto text-base",
+                    day_selected:
+                      "bg-[var(--primary-color)] text-[var(--card-bg)]",
+                    day_today: "border border-[var(--primary-color)]",
+                    day_outside: "text-[var(--label-color)] opacity-50",
+                    day_disabled: "text-[var(--label-color)] opacity-50",
+                    day_range_middle: "",
+                    day_hidden: "invisible",
+                  }}
+                />
+              </div>
+              <div className="w-full max-w-2xl mx-auto flex flex-col gap-4">
+                {subjects.length === 0 ? (
+                  <p className="text-[var(--label-color)] text-center">
+                    No subjects found.
+                  </p>
+                ) : (
+                  subjects.flatMap((subj) => {
+                    const lectures = getClassesFor(subj.name, dailyDate);
+                    if (lectures.length === 0) return [];
+                    return (
+                      <div
+                        key={subj.name}
+                        className="bg-[var(--card-bg)] rounded-2xl shadow-sm border border-[var(--border-color)] py-4 px-5 mb-2"
+                      >
+                        <h3 className="font-semibold mb-2 text-[var(--text-color)] text-lg">
+                          {subj.name}
+                        </h3>
+                        <div className="flex flex-col gap-2">
+                          {lectures.map((cls, i) => (
                             <div
-                              key={s.name}
-                              className="py-3 flex items-center justify-between"
+                              key={i}
+                              className={`flex flex-col sm:flex-row sm:items-center justify-between rounded-lg px-3 py-2 ${
+                                cls.present === "Present"
+                                  ? "bg-[var(--accent-color)]/10 text-[var(--accent-color)]"
+                                  : "bg-[var(--error-color,#ef4444)]/10 text-[var(--error-color,#ef4444)]"
+                              }`}
                             >
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium truncate">
-                                  {s.name}
-                                </p>
+                              <div className="flex-1">
+                                <span className="font-medium text-base">
+                                  {cls.classtype}
+                                </span>
+                                <span className="mx-2">•</span>
+                                <span className="text-sm">{cls.present}</span>
                               </div>
-                              {st === "cached" && (
-                                <Check className="text-green-400 w-5 h-5" />
-                              )}
-                              {st === "fetching" && (
-                                <Loader2 className="animate-spin text-blue-400 w-5 h-5" />
-                              )}
-                              {st === "idle" && (
-                                <AlertCircle className="text-gray-500 w-5 h-5" />
-                              )}
+                              <div className="text-sm font-mono opacity-80 mt-1 sm:mt-0">
+                                {cls.datetime
+                                  .split(" ")
+                                  .slice(1)
+                                  .join(" ")
+                                  .slice(1, -1)}
+                              </div>
                             </div>
-                          );
-                        })}
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </SheetContent>
-                </Sheet>
-              )}
+                    );
+                  })
+                )}
+                {/* nothing on that day? */}
+                {subjects.every(
+                  (s) => getClassesFor(s.name, dailyDate).length === 0
+                ) && (
+                  <p className="text-[var(--label-color)] mt-4 text-center">
+                    No classes were scheduled on&nbsp;
+                    {dailyDate.toLocaleDateString()}
+                  </p>
+                )}
+              </div>
+            </div>
+            {subjects.length > 0 && (
+              <div className="fixed bottom-20 right-6 z-40 drop-shadow-lg">
+                <div className="bg-[var(--card-bg)] rounded-full p-2 flex items-center justify-center shadow-xl">
+                  <CircleProgress
+                    percentage={
+                      (100 *
+                        subjects.filter(
+                          (s) => subjectCacheStatus[s.name] === "cached"
+                        ).length) /
+                      subjects.length
+                    }
+                    label={`${
+                      subjects.filter(
+                        (s) => subjectCacheStatus[s.name] === "cached"
+                      ).length
+                    }/${subjects.length}`}
+                    className="w-20 h-20"
+                  />
+                </div>
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       )}
