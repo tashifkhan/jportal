@@ -2,12 +2,12 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 const themes = {
   darkBlue: {
-    "--bg-color": "#191c20",
-    "--primary-color": "#1e293b",
-    "--accent-color": "#2563eb",
-    "--text-color": "#e0e6ed",
-    "--card-bg": "#23272f",
-    "--label-color": "#b0b3b8",
+    "--bg-color": "#141c23",
+    "--primary-color": "#232e39",
+    "--accent-color": "#7ec3f0",
+    "--text-color": "#eaf6fb",
+    "--card-bg": "#1b232b",
+    "--label-color": "#7b8a99",
   },
   white: {
     "--bg-color": "#ffffff",
