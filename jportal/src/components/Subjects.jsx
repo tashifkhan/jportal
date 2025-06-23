@@ -122,7 +122,7 @@ export default function Subjects({
   }
 
   return (
-    <div className="text-[var(--text-color)] font-sans pt-8">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-8">
       <div className="sticky top-14 bg-[var(--bg-color)] z-20">
         <div className="py-2 px-3">
           <Select
@@ -130,7 +130,7 @@ export default function Subjects({
             value={selectedSem?.registration_id}
             disabled={loading}
           >
-            <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--accent-color)] rounded-xl px-4 py-2 shadow-md">
+            <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-xl px-4 py-2 shadow-md">
               <SelectValue
                 placeholder={
                   loading ? "Loading semesters..." : "Select semester"
@@ -139,7 +139,7 @@ export default function Subjects({
                 {selectedSem?.registration_code}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--accent-color)] rounded-xl shadow-lg">
+            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-xl shadow-lg">
               {semestersData?.semesters?.map((sem) => (
                 <SelectItem
                   key={sem.registration_id}
@@ -154,12 +154,17 @@ export default function Subjects({
       </div>
 
       <div className="px-3 pb-4">
-        <p className="text-sm lg:text-base text-[var(--text-color)]">
-          Total Credits: {currentSubjects?.total_credits || 0}
-        </p>
+        <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-4 flex items-center justify-between mb-4">
+          <span className="text-lg font-semibold text-[var(--label-color)]">
+            Total Credits
+          </span>
+          <span className="text-2xl font-bold text-[var(--accent-color)]">
+            {currentSubjects?.total_credits || 0}
+          </span>
+        </div>
 
         {subjectsLoading ? (
-          <div className="flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">
+          <div className="flex items-center justify-center py-4 h-[calc(100vh-200px)]">
             Loading subjects...
           </div>
         ) : (
