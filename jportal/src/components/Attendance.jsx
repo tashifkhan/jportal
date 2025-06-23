@@ -279,14 +279,14 @@ const Attendance = ({
   }, [activeTab, setActiveTab]);
 
   return (
-    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4 pt-2">
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-6">
         <div className="flex flex-row gap-3 items-center justify-center w-full max-w-md px-0 py-0">
           <Select
             onValueChange={handleSemesterChange}
             value={selectedSem?.registration_id}
           >
-            <SelectTrigger className="w-full bg-transparent text-[var(--text-color)] border border-[var(--label-color)] rounded-[14px] px-4 py-0 flex items-center font-light focus:ring-2 focus:ring-[var(--accent-color)] outline-none transition-all min-h-[40px] h-[40px] text-[1.1rem]">
+            <SelectTrigger className="w-full bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--accent-color)] rounded-xl px-4 py-2 flex items-center font-light focus:ring-2 focus:ring-[var(--accent-color)] outline-none transition-all min-h-[44px] h-[44px] text-[1.1rem] shadow-md">
               <SelectValue
                 placeholder={
                   isAttendanceMetaLoading ? "Loading semesters..." : "Semester"
@@ -295,7 +295,7 @@ const Attendance = ({
                 {selectedSem?.registration_code || "Semester"}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--label-color)]">
+            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--accent-color)] rounded-xl shadow-lg">
               {semestersData?.semesters?.map((sem) => (
                 <SelectItem
                   key={sem.registration_id}

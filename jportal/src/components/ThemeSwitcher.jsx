@@ -1,33 +1,109 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "./ThemeProvider";
+import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
+import { Check } from "lucide-react";
 
 const options = [
-  { value: "darkBlue", label: "Dark Blue" },
-  { value: "white", label: "White" },
-  { value: "cream", label: "Cream" },
-  { value: "amoled", label: "AMOLED Black" },
+  { value: "darkBlue", label: "Dark Blue", color: "#141c23", text: "#eaf6fb" },
+  { value: "white", label: "White", color: "#fff", text: "#191c20" },
+  { value: "cream", label: "Cream", color: "#fdf6e3", text: "#3b2f1e" },
+  { value: "amoled", label: "AMOLED Black", color: "#000", text: "#e0e6ed" },
 ];
 
-export default function ThemeSwitcher() {
+function getContrastColor(bg) {
+  // Simple luminance check for contrast
+  if (!bg) return "#222";
+  const c = bg.charAt(0) === "#" ? bg.substring(1) : bg;
+  const rgb = parseInt(
+    c.length === 3
+      ? c
+          .split("")
+          .map((x) => x + x)
+          .join("")
+      : c,
+    16
+  );
+  const r = (rgb >> 16) & 255,
+    g = (rgb >> 8) & 255,
+    b = rgb & 255;
+  const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+  return luminance > 180 ? "#222" : "#fff";
+}
+
+export default function ThemeSwitcher({ Icon }) {
   const { theme, setTheme } = useTheme();
+  const [open, setOpen] = useState(false);
 
   return (
-    <div style={{ margin: "1rem 0" }}>
-      <label htmlFor="theme-select" style={{ marginRight: 8 }}>
-        Theme:
-      </label>
-      <select
-        id="theme-select"
-        value={theme}
-        onChange={(e) => setTheme(e.target.value)}
-        style={{ padding: "0.25rem 0.5rem", borderRadius: 6 }}
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button
+          aria-label="Pick theme"
+          className="p-2 rounded-full hover:bg-[var(--card-bg)] focus:bg-[var(--card-bg)] transition flex items-center justify-center border border-transparent focus-visible:ring-2 focus-visible:ring-[var(--accent-color)]"
+        >
+          {Icon ? <Icon className="w-6 h-6 text-[var(--text-color)]" /> : null}
+        </button>
+      </DialogTrigger>
+      <DialogContent
+        className="max-w-xs w-full p-4 rounded-xl shadow-xl"
+        style={{ background: "var(--bg-color)", color: "var(--text-color)" }}
       >
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-    </div>
+        <div
+          className="mb-2 text-lg font-semibold text-center"
+          style={{ color: "var(--text-color)" }}
+        >
+          Pick a theme
+        </div>
+        <div className="flex flex-wrap gap-4 justify-center">
+          {options.map((opt) => {
+            const isSelected = theme === opt.value;
+            const labelColor = getContrastColor(opt.color);
+            return (
+              <button
+                key={opt.value}
+                onClick={() => {
+                  setTheme(opt.value);
+                  setOpen(false);
+                }}
+                className={`relative flex flex-col items-center focus:outline-none transition-all duration-150 ${
+                  isSelected
+                    ? "ring-2 ring-[var(--accent-color)] scale-105"
+                    : "hover:ring-2 hover:ring-[var(--accent-color)]"
+                }`}
+                style={{ minWidth: 64 }}
+                aria-label={opt.label}
+              >
+                <span
+                  className="w-10 h-10 rounded-full border-2 border-gray-300 mb-1 flex items-center justify-center transition-all duration-150"
+                  style={{
+                    background: opt.color,
+                    borderColor: isSelected ? "var(--accent-color)" : "#ccc",
+                  }}
+                >
+                  {isSelected && (
+                    <Check
+                      className="w-5 h-5"
+                      style={{
+                        color: labelColor,
+                        filter: "drop-shadow(0 1px 2px #0008)",
+                      }}
+                    />
+                  )}
+                </span>
+                <span
+                  className="text-xs select-none"
+                  style={{
+                    color: isSelected ? "var(--accent-color)" : labelColor,
+                    fontWeight: isSelected ? 600 : 400,
+                  }}
+                >
+                  {opt.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

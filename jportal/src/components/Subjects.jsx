@@ -122,7 +122,7 @@ export default function Subjects({
   }
 
   return (
-    <div className="text-[var(--text-color)] font-sans">
+    <div className="text-[var(--text-color)] font-sans pt-8">
       <div className="sticky top-14 bg-[var(--bg-color)] z-20">
         <div className="py-2 px-3">
           <Select
@@ -130,7 +130,7 @@ export default function Subjects({
             value={selectedSem?.registration_id}
             disabled={loading}
           >
-            <SelectTrigger className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--card-bg)]">
+            <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--accent-color)] rounded-xl px-4 py-2 shadow-md">
               <SelectValue
                 placeholder={
                   loading ? "Loading semesters..." : "Select semester"
@@ -139,7 +139,7 @@ export default function Subjects({
                 {selectedSem?.registration_code}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--card-bg)]">
+            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--accent-color)] rounded-xl shadow-lg">
               {semestersData?.semesters?.map((sem) => (
                 <SelectItem
                   key={sem.registration_id}

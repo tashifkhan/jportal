@@ -106,9 +106,6 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
       <div className="sticky top-0 z-30 bg-[var(--bg-color)] -mt-[2px]">
         <Header setIsAuthenticated={setIsAuthenticated} />
       </div>
-      <div className="flex justify-end px-4 pt-2">
-        <ThemeSwitcher />
-      </div>
       <Routes>
         <Route path="/" element={<Navigate to="/attendance" />} />
         <Route path="/login" element={<Navigate to="/attendance" />} />
