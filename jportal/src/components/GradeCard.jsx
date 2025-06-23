@@ -2,31 +2,41 @@ import React from "react";
 
 const GradeCard = ({ subject, getGradeColor }) => {
   return (
-    <div className="flex justify-between items-center py-1 border-b border-[var(--card-bg)]">
-      <div className="flex-1 mr-4">
-        <h2 className="text-sm font-semibold max-[390px]:text-xs text-[var(--text-color)]">
-          {subject.subjectdesc}
-        </h2>
-        <p className="text-sm lg:text-base max-[390px]:text-xs text-[var(--text-color)]">
-          {subject.subjectcode}
-        </p>
-      </div>
-      <div className="flex items-center gap-6">
-        <div className="text-center">
-          <div
-            className={`text-xl font-bold ${getGradeColor(
-              subject.grade
-            )} text-[var(--accent-color)]`}
-          >
-            {subject.grade}
+    <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-2 mb-2">
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <h2 className="text-xl font-light truncate mb-1 text-[var(--text-color)]">
+            {subject.subjectdesc}
+          </h2>
+          <div className="text-base font-normal text-[var(--label-color)]">
+            {subject.subjectcode}
           </div>
-          <div className="text-xs text-[var(--card-bg)]">Grade</div>
         </div>
-        <div className="text-center">
-          <div className="text-xl font-bold text-[var(--accent-color)]">
-            {subject.coursecreditpoint}
+        <div className="flex flex-row items-stretch gap-3 min-w-[120px]">
+          {/* Grade */}
+          <div className="flex flex-col items-center justify-center min-w-[48px]">
+            <div
+              className={`text-2xl font-mono font-bold ${getGradeColor(
+                subject.grade
+              )} leading-none`}
+            >
+              {subject.grade}
+            </div>
+            <div className="text-xs text-[var(--label-color)] font-light mt-1">
+              Grade
+            </div>
           </div>
-          <div className="text-xs text-[var(--card-bg)]">Credits</div>
+          {/* Divider */}
+          <div className="w-px bg-[var(--border-color)] mx-1" />
+          {/* Credits */}
+          <div className="flex flex-col items-center justify-center min-w-[48px]">
+            <div className="text-2xl font-mono font-bold text-[var(--accent-color)] leading-none">
+              {subject.coursecreditpoint}
+            </div>
+            <div className="text-xs text-[var(--label-color)] font-light mt-1">
+              Credits
+            </div>
+          </div>
         </div>
       </div>
     </div>

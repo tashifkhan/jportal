@@ -302,44 +302,64 @@ export default function Grades({
     return () => window.removeEventListener("gradesSwipe", handleSwipe);
   }, [activeTab, setActiveTab]);
 
+  // Helper to format GPA values with one decimal place, always showing .0 for whole numbers
+  const formatGPA = (value) => {
+    if (typeof value === "number") {
+      return value % 1 === 0 ? value.toFixed(1) : value.toString();
+    }
+    return value;
+  };
+
   if (gradesLoading) {
     return <Loader message="Loading grades..." />;
   }
 
   return (
-    <div className="text-[var(--text-color)] pt-2 pb-4 px-3 font-sans">
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-4 bg-[var(--bg-color)]">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-2">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="w-full max-w-4xl mx-auto"
+      >
+        <TabsList className="grid w-full grid-cols-3 mb-4 bg-[var(--card-bg)] border border-[var(--border-color)] rounded-xl overflow-hidden h-[40px] items-center">
           <TabsTrigger
             value="overview"
-            className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
+            className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
           >
-            Overview
+            <span className="flex items-center justify-center w-full h-full">
+              Overview
+            </span>
           </TabsTrigger>
           <TabsTrigger
             value="semester"
-            className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
+            className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
           >
-            Semester
+            <span className="flex items-center justify-center w-full h-full">
+              Semester
+            </span>
           </TabsTrigger>
           <TabsTrigger
             value="marks"
-            className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
+            className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
           >
-            Marks
+            <span className="flex items-center justify-center w-full h-full">
+              Marks
+            </span>
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
           <div className="flex flex-col items-center">
             {gradesError ? (
-              <div className="w-full max-w-4xl text-center py-8">
+              <div className="w-full max-w-2xl text-center py-8 bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 mb-4">
                 <p className="text-xl">{gradesError}</p>
-                <p className="text-gray-400 mt-2">Please check back later</p>
+                <p className="text-[var(--label-color)] mt-2">
+                  Please check back later
+                </p>
               </div>
             ) : (
               <>
-                <div className="mb-4 rounded-lg pb-2 w-full max-w-4xl ">
+                <div className="mb-4 w-full max-w-2xl bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5">
                   <ResponsiveContainer width="100%" height={250}>
                     <LineChart
                       data={semesterData}
@@ -350,19 +370,22 @@ export default function Grades({
                         bottom: 20,
                       }}
                     >
-                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        stroke="var(--border-color)"
+                      />
                       <XAxis
                         dataKey="stynumber"
-                        stroke="#9CA3AF"
+                        stroke="var(--label-color)"
                         label={{
                           value: "Semester",
                           position: "bottom",
-                          fill: "#9CA3AF",
+                          fill: "var(--label-color)",
                         }}
                         tickFormatter={(value) => `${value}`}
                       />
                       <YAxis
-                        stroke="#9CA3AF"
+                        stroke="var(--label-color)"
                         domain={["dataMin", "dataMax"]}
                         ticks={undefined}
                         tickCount={5}
@@ -371,10 +394,10 @@ export default function Grades({
                       />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "#374151",
-                          border: "none",
+                          backgroundColor: "var(--card-bg)",
+                          border: "1px solid var(--border-color)",
                           borderRadius: "8px",
-                          color: "#fff",
+                          color: "var(--text-color)",
                         }}
                       />
                       <Legend verticalAlign="top" height={36} />
@@ -398,33 +421,37 @@ export default function Grades({
                   </ResponsiveContainer>
                 </div>
 
-                <div className="space-y-2 w-full max-w-4xl">
+                <div className="space-y-2 w-full max-w-2xl">
                   {semesterData.map((sem) => (
                     <div
                       key={sem.stynumber}
-                      className="flex justify-between items-center py-1 border-b border-gray-700"
+                      className="w-full bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex items-center justify-between mb-2"
                     >
-                      <div className="flex-1">
-                        <h2 className="text-sm font-semibold">
+                      <div className="flex-1 min-w-0">
+                        <h2 className="text-xl font-light truncate mb-1 text-[var(--text-color)]">
                           Semester {sem.stynumber}
                         </h2>
-                        <p className="text-sm text-gray-400">
+                        <div className="text-base font-normal text-[var(--label-color)]">
                           GP: {sem.earnedgradepoints.toFixed(1)}/
                           {sem.totalcoursecredit * 10}
-                        </p>
+                        </div>
                       </div>
                       <div className="flex items-center gap-6">
                         <div className="text-center">
-                          <div className="text-xl font-bold text-green-400">
-                            {sem.sgpa}
+                          <div className="text-2xl font-mono font-bold text-green-400">
+                            {formatGPA(sem.sgpa)}
                           </div>
-                          <div className="text-xs text-gray-400">SGPA</div>
+                          <div className="text-xs text-[var(--label-color)]">
+                            SGPA
+                          </div>
                         </div>
                         <div className="text-center">
-                          <div className="text-xl font-bold text-blue-400">
-                            {sem.cgpa}
+                          <div className="text-2xl font-mono font-bold text-blue-400">
+                            {formatGPA(sem.cgpa)}
                           </div>
-                          <div className="text-xs text-gray-400">CGPA</div>
+                          <div className="text-xs text-[var(--label-color)]">
+                            CGPA
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -436,11 +463,13 @@ export default function Grades({
         </TabsContent>
 
         <TabsContent value="semester">
-          <div className="w-full max-w-4xl mx-auto">
+          <div className="w-full max-w-2xl mx-auto">
             {gradeCardSemesters.length === 0 ? (
-              <div className="text-center py-8">
+              <div className="text-center py-8 bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 mb-4">
                 <p className="text-xl">Grade card is not available yet</p>
-                <p className="text-gray-400 mt-2">Please check back later</p>
+                <p className="text-[var(--label-color)] mt-2">
+                  Please check back later
+                </p>
               </div>
             ) : (
               <>
@@ -448,7 +477,7 @@ export default function Grades({
                   onValueChange={handleSemesterChange}
                   value={selectedGradeCardSem?.registration_id}
                 >
-                  <SelectTrigger className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--border-color)]">
+                  <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
                     <SelectValue
                       placeholder={
                         gradeCardLoading
@@ -459,7 +488,7 @@ export default function Grades({
                       {selectedGradeCardSem?.registration_code}
                     </SelectValue>
                   </SelectTrigger>
-                  <SelectContent className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--border-color)]">
+                  <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
                     {gradeCardSemesters.map((sem) => (
                       <SelectItem
                         key={sem.registration_id}
@@ -486,7 +515,7 @@ export default function Grades({
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-8">
+                  <div className="text-center py-8 bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 mb-4">
                     <p>No grade card data available for this semester</p>
                   </div>
                 )}
@@ -496,11 +525,13 @@ export default function Grades({
         </TabsContent>
 
         <TabsContent value="marks">
-          <div className="w-full max-w-4xl mx-auto">
+          <div className="w-full max-w-2xl mx-auto">
             {marksSemesters.length === 0 ? (
-              <div className="text-center py-8">
+              <div className="text-center py-8 bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 mb-4">
                 <p className="text-xl">Marks data is not available yet</p>
-                <p className="text-gray-400 mt-2">Please check back later</p>
+                <p className="text-[var(--label-color)] mt-2">
+                  Please check back later
+                </p>
               </div>
             ) : (
               <>
@@ -508,10 +539,10 @@ export default function Grades({
                   onValueChange={handleMarksSemesterChange}
                   value={selectedMarksSem?.registration_id}
                 >
-                  <SelectTrigger className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--border-color)]">
+                  <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
                     <SelectValue placeholder="Select semester" />
                   </SelectTrigger>
-                  <SelectContent className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--border-color)]">
+                  <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
                     {marksSemesters.map((sem) => (
                       <SelectItem
                         key={sem.registration_id}
@@ -534,7 +565,7 @@ export default function Grades({
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center mt-4 text-gray-400">
+                  <div className="text-center mt-4 text-[var(--label-color)]">
                     Select a semester to view marks
                   </div>
                 )}
@@ -544,13 +575,15 @@ export default function Grades({
         </TabsContent>
       </Tabs>
 
-      <div className="w-full flex justify-end my-4 max-w-4xl">
+      {/* Floating Download Marks Button above navbar */}
+      <div className="fixed bottom-20 right-6 z-50">
         <Button
           variant="secondary"
-          className="flex items-center gap-2 text-[var(--text-color)] hover:text-[var(--primary-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] bg-[var(--bg-color)] hover:bg-[var(--primary-color)] px-0"
+          className="rounded-full shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--primary-color)] hover:bg-[var(--accent-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
           onClick={() => setIsDownloadDialogOpen(true)}
+          aria-label="Download Marks"
         >
-          <Download className="h-4 w-4" />
+          <Download className="h-6 w-6 mr-2" />
           Download Marks
         </Button>
       </div>
@@ -559,7 +592,7 @@ export default function Grades({
         open={isDownloadDialogOpen}
         onOpenChange={setIsDownloadDialogOpen}
       >
-        <DialogContent className="bg-[var(--bg-color)] text-[var(--text-color)] border-none">
+        <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none">
           <DialogHeader>
             <DialogTitle className="text-[var(--text-color)]">
               Download Marks
@@ -570,7 +603,7 @@ export default function Grades({
               <Button
                 key={sem.registration_id}
                 variant="outline"
-                className="w-full text-[var(--text-color)] hover:text-[var(--primary-color)] bg-[var(--bg-color)] hover:bg-[var(--primary-color)] border-none"
+                className="w-full text-[var(--text-color)] hover:text-[var(--primary-color)] bg-[var(--card-bg)] hover:bg-[var(--primary-color)] border-none"
                 onClick={() => handleDownloadMarks(sem)}
               >
                 {sem.registration_code}
