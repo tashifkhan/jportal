@@ -7,57 +7,87 @@ function Navbar() {
   const isLight = theme === "white" || theme === "cream";
   const navItems = [
     {
-      name: "ATTENDANCE",
+      name: "Attendance",
       path: "/attendance",
       icon: `/${BASE_NAME}/icons/attendance.svg`,
     },
     {
-      name: "  GRADES  ",
+      name: "Grades",
       path: "/grades",
       icon: `/${BASE_NAME}/icons/grades.svg`,
     },
-    { name: "  EXAMS", path: "/exams", icon: `/${BASE_NAME}/icons/exams.svg` },
+    { name: "Exams", path: "/exams", icon: `/${BASE_NAME}/icons/exams.svg` },
     {
-      name: " SUBJECTS ",
+      name: "Subjects",
       path: "/subjects",
       icon: `/${BASE_NAME}/icons/subjects1.svg`,
     },
     {
-      name: " PROFILE ",
+      name: "Profile",
       path: "/profile",
       icon: `/${BASE_NAME}/icons/profile.svg`,
     },
   ];
 
   return (
-    <div className="flex items-center justify-between sm:gap-0 gap-2 w-screen fixed bottom-0 left-0 bg-[var(--primary-color)] py-4 px-4">
-      {navItems.map((item) => (
-        <NavLink
-          key={item.name}
-          to={item.path}
-          className={({ isActive }) => `
-            flex-1 text-md text-[var(--text-color)] text-clip overflow-hidden whitespace-nowrap
-            ${isActive ? "opacity-100" : "opacity-70"}
-          `}
-        >
-          <div className="flex flex-col items-center">
-            <div className="hover:bg-[var(--card-bg)] rounded-xl w-full p-1 flex items-center justify-center">
-              <img
-                src={item.icon}
-                alt={item.name}
-                className="w-5 h-5"
-                style={{
-                  filter: isLight ? "invert(1)" : "invert(0)",
-                  transition: "filter 0.2s",
-                }}
-              />
-            </div>
-            <p className="max-[370px]:text-[0.6rem] max-[390px]:text-[0.7rem] text-xs text-left text-[var(--text-color)]">
-              {item.name}
-            </p>
-          </div>
-        </NavLink>
-      ))}
+    <div className="w-full flex justify-center fixed bottom-2 left-0 z-50">
+      <nav
+        className="flex justify-between items-center bg-[var(--primary-color)] shadow-lg rounded-3xl px-2 py-2 w-[98vw] max-w-md mx-auto"
+        style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
+      >
+        {navItems.map((item) => (
+          <NavLink
+            key={item.name}
+            to={item.path}
+            className={({ isActive }) =>
+              `flex-1 flex flex-col items-center justify-center px-1 py-1 transition-all duration-200 relative group`
+            }
+            style={{ minWidth: 0 }}
+          >
+            {({ isActive }) => (
+              <div
+                className={`flex flex-col items-center justify-center w-full relative`}
+              >
+                {/* Active pill background */}
+                {isActive && (
+                  <span className="absolute -inset-x-2 -inset-y-1 bg-[var(--accent-color)]/10 rounded-2xl z-0 transition-all duration-200" />
+                )}
+                {/* Icon with accent color for active tab using mask */}
+                <div
+                  className={`w-6 h-6 z-10 mb-0.5 transition-all duration-200`}
+                  style={
+                    isActive
+                      ? {
+                          WebkitMask: `url(${item.icon}) center/contain no-repeat`,
+                          mask: `url(${item.icon}) center/contain no-repeat`,
+                          backgroundColor: "var(--accent-color)",
+                        }
+                      : {
+                          WebkitMask: `url(${item.icon}) center/contain no-repeat`,
+                          mask: `url(${item.icon}) center/contain no-repeat`,
+                          backgroundColor: isLight ? "#000" : "#fff",
+                        }
+                  }
+                >
+                  {/* Empty, icon is shown via mask */}
+                </div>
+                <span
+                  className={`text-xs mt-0.5 z-10 font-medium transition-all duration-200 ${
+                    isActive
+                      ? "text-[var(--accent-color)]"
+                      : "text-[var(--text-color)] opacity-80"
+                  }`}
+                  style={{
+                    letterSpacing: 0.1,
+                  }}
+                >
+                  {item.name}
+                </span>
+              </div>
+            )}
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 }
