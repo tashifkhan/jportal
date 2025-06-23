@@ -34,11 +34,13 @@ export default function Profile({ w, profileData, setProfileData }) {
   const qualifications = profileData?.qualification || [];
 
   return (
-    <div className="text-[var(--text-color)] pt-2 pb-4 px-3 font-sans space-y-4">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-8">
       {/* Personal Information */}
-      <div className="bg-[var(--bg-color)] p-4 rounded-lg border border-[var(--card-bg)]">
-        <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
-        <div className="grid">
+      <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 mb-4">
+        <h2 className="text-xl font-semibold mb-4 text-[var(--accent-color)]">
+          Personal Information
+        </h2>
+        <div className="divide-y divide-[var(--border-color)]">
           <InfoRow label="Name" value={info.studentname} />
           <InfoRow label="Registration No" value={info.registrationno} />
           <InfoRow label="Date of Birth" value={info.dateofbirth} />
@@ -50,9 +52,11 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Academic Information */}
-      <div className="bg-[var(--bg-color)] p-4 rounded-lg border border-[var(--card-bg)]">
-        <h2 className="text-xl font-semibold mb-4">Academic Information</h2>
-        <div className="grid">
+      <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 mb-4">
+        <h2 className="text-xl font-semibold mb-4 text-[var(--accent-color)]">
+          Academic Information
+        </h2>
+        <div className="divide-y divide-[var(--border-color)]">
           <InfoRow label="Program" value={info.programcode} />
           <InfoRow label="Branch" value={info.branch} />
           <InfoRow label="Section" value={info.sectioncode} />
@@ -65,9 +69,11 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Contact Information */}
-      <div className="bg-[var(--bg-color)] p-4 rounded-lg border border-[var(--card-bg)]">
-        <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
-        <div className="grid">
+      <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 mb-4">
+        <h2 className="text-xl font-semibold mb-4 text-[var(--accent-color)]">
+          Contact Information
+        </h2>
+        <div className="divide-y divide-[var(--border-color)]">
           <InfoRow
             label="Student Email (College)"
             value={info.studentemailid}
@@ -82,9 +88,11 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Family Information */}
-      <div className="bg-[var(--bg-color)] p-4 rounded-lg border border-[var(--card-bg)] overflow-auto">
-        <h2 className="text-xl font-semibold mb-4">Family Information</h2>
-        <div className="grid gap-2">
+      <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 mb-4 overflow-auto">
+        <h2 className="text-xl font-semibold mb-4 text-[var(--accent-color)]">
+          Family Information
+        </h2>
+        <div className="divide-y divide-[var(--border-color)] gap-2">
           <InfoRow label="Father's Name" value={info.fathersname} />
           <InfoRow label="Mother's Name" value={info.mothername} />
           <InfoRow label="Parent's Email" value={info.parentemailid} />
@@ -97,9 +105,11 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Address Information */}
-      <div className="bg-[var(--bg-color)] p-4 rounded-lg border border-[var(--card-bg)]">
-        <h2 className="text-xl font-semibold mb-4">Current Address</h2>
-        <div className="grid">
+      <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 mb-4">
+        <h2 className="text-xl font-semibold mb-4 text-[var(--accent-color)]">
+          Current Address
+        </h2>
+        <div className="divide-y divide-[var(--border-color)]">
           <InfoRow
             label="Address"
             value={[info.caddress1, info.caddress3].filter(Boolean).join(", ")}
@@ -112,9 +122,11 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Permanent Address */}
-      <div className="bg-[var(--bg-color)] p-4 rounded-lg border border-[var(--card-bg)]">
-        <h2 className="text-xl font-semibold mb-4">Permanent Address</h2>
-        <div className="grid">
+      <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 mb-4">
+        <h2 className="text-xl font-semibold mb-4 text-[var(--accent-color)]">
+          Permanent Address
+        </h2>
+        <div className="divide-y divide-[var(--border-color)]">
           <InfoRow
             label="Address"
             value={[info.paddress1, info.paddress2, info.paddress3]
@@ -129,12 +141,15 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Educational Qualifications */}
-      <div className="bg-[var(--bg-color)] p-4 rounded-lg border border-[var(--card-bg)]">
-        <h2 className="text-xl font-semibold mb-4">
+      <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 mb-4">
+        <h2 className="text-xl font-semibold mb-4 text-[var(--accent-color)]">
           Educational Qualifications
         </h2>
         {qualifications.map((qual, index) => (
-          <div key={index} className="grid">
+          <div
+            key={index}
+            className="divide-y divide-[var(--border-color)] mb-2"
+          >
             <InfoRow label="Qualification" value={qual.qualificationcode} />
             <InfoRow label="Board" value={qual.boardname} />
             <InfoRow label="Year of Passing" value={qual.yearofpassing} />
@@ -148,7 +163,7 @@ export default function Profile({ w, profileData, setProfileData }) {
           </div>
         ))}
       </div>
-      <div className="text-center bg-[var(--bg-color)] p-4 overflow-auto max-sm:text-sm text-lg">
+      <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-4 text-center mb-4 overflow-auto max-sm:text-sm text-lg">
         Made with Big 🍆 Energy by{" "}
         <a
           href="https://github.com/codeblech"
@@ -164,9 +179,9 @@ export default function Profile({ w, profileData, setProfileData }) {
 // Helper component for consistent info display
 function InfoRow({ label, value }) {
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-between py-1">
-      <span className="label-color">{label}:</span>
-      <span style={{ color: "var(--text-color)", fontWeight: 500 }}>
+    <div className="flex flex-row justify-between items-center py-2">
+      <span className="text-[var(--label-color)] font-medium">{label}:</span>
+      <span className="text-[var(--text-color)] font-semibold break-words text-right ml-2">
         {value || "N/A"}
       </span>
     </div>
