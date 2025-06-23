@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
+import Loader from "./Loader";
 
 // Define the form schema
 const formSchema = z.object({
@@ -114,6 +115,10 @@ export default function Login({ onLoginSuccess, w }) {
       credentials: values,
       error: null,
     }));
+  }
+
+  if (loginStatus.isLoading) {
+    return <Loader message="Logging in..." />;
   }
 
   return (

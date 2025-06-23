@@ -26,6 +26,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import Loader from "./Loader";
 
 const Attendance = ({
   w,
@@ -333,9 +334,7 @@ const Attendance = ({
       </div>
 
       {isAttendanceMetaLoading || isAttendanceDataLoading ? (
-        <div className="flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">
-          Loading attendance...
-        </div>
+        <Loader message="Loading attendance..." />
       ) : (
         <Tabs
           value={activeTab}

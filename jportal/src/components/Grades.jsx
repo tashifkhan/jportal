@@ -31,6 +31,7 @@ import {
   generate_local_name,
   API,
 } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.16/dist/jsjiit.esm.js";
+import Loader from "./Loader";
 
 export default function Grades({
   w,
@@ -302,11 +303,7 @@ export default function Grades({
   }, [activeTab, setActiveTab]);
 
   if (gradesLoading) {
-    return (
-      <div className="text-white flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">
-        Loading grades...
-      </div>
-    );
+    return <Loader message="Loading grades..." />;
   }
 
   return (
@@ -527,7 +524,9 @@ export default function Grades({
                 </Select>
 
                 {marksLoading ? (
-                  <div className="text-center mt-4">Loading marks data...</div>
+                  <div className="flex justify-center mt-4">
+                    <Loader message="Loading marks data..." />
+                  </div>
                 ) : marksSemesterData && marksSemesterData.courses ? (
                   <div className="space-y-4 mt-4">
                     {marksSemesterData.courses.map((course) => (

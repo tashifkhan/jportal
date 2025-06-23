@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Loader from "./Loader";
 
 export default function Profile({ w, profileData, setProfileData }) {
   const [loading, setLoading] = useState(true);
@@ -26,11 +27,7 @@ export default function Profile({ w, profileData, setProfileData }) {
   }, [w, profileData, setProfileData]);
 
   if (loading) {
-    return (
-      <div className="text-[var(--text-color)] flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">
-        Loading profile...
-      </div>
-    );
+    return <Loader message="Loading profile..." />;
   }
 
   const info = profileData?.generalinformation || {};

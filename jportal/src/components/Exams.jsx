@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Loader from "./Loader";
 
 export default function Exams({
   w,
@@ -81,6 +82,10 @@ export default function Exams({
       day: "numeric",
     });
   };
+
+  if (loading && !examSemesters.length) {
+    return <Loader message="Loading exams..." />;
+  }
 
   return (
     <div className="text-[var(--text-color)] font-sans">

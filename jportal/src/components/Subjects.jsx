@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Loader from "./Loader";
 
 export default function Subjects({
   w,
@@ -115,6 +116,10 @@ export default function Subjects({
       });
       return acc;
     }, {}) || {};
+
+  if (loading) {
+    return <Loader message="Loading subjects..." />;
+  }
 
   return (
     <div className="text-[var(--text-color)] font-sans">
