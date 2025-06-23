@@ -10,7 +10,7 @@ export default function MarksCard({ course }) {
   };
 
   return (
-    <div className="bg-[#191c20] rounded-lg p-3 sm:p-4 border border-gray-700">
+    <div className="bg-[var(--card-bg)] rounded-lg p-3 sm:p-4 border border-gray-700">
       <div className="space-y-1 mb-3 sm:mb-4">
         <h3 className="font-bold text-sm sm:text-base">{course.name}</h3>
         <p className="text-xs sm:text-sm text-gray-400">{course.code}</p>

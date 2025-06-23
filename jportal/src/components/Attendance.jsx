@@ -291,14 +291,14 @@ const Attendance = ({
   }, [activeTab, setActiveTab]);
 
   return (
-    <div className="text-white font-sans">
-      <div className="sticky top-14 bg-[#191c20] z-20">
+    <div className="text-[var(--text-color)] font-sans">
+      <div className="sticky top-14 bg-[var(--bg-color)] z-20">
         <div className="flex gap-2 py-2 px-3">
           <Select
             onValueChange={handleSemesterChange}
             value={selectedSem?.registration_id}
           >
-            <SelectTrigger className="bg-[#191c20] text-white border-white">
+            <SelectTrigger className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--card-bg)]">
               <SelectValue
                 placeholder={
                   isAttendanceMetaLoading
@@ -309,7 +309,7 @@ const Attendance = ({
                 {selectedSem?.registration_code}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[#191c20] text-white border-white">
+            <SelectContent className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--card-bg)]">
               {semestersData?.semesters?.map((sem) => (
                 <SelectItem
                   key={sem.registration_id}
@@ -326,7 +326,7 @@ const Attendance = ({
             onChange={handleGoalChange}
             min="-1"
             max="100"
-            className="w-32 bg-[#191c20] text-white border-white"
+            className="w-32 bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--card-bg)]"
             placeholder="Goal %"
           />
         </div>
@@ -342,16 +342,16 @@ const Attendance = ({
           onValueChange={setActiveTab}
           className="px-3 pb-4"
         >
-          <TabsList className="grid grid-cols-2 bg-[#191c20]">
+          <TabsList className="grid grid-cols-2 bg-[var(--bg-color)]">
             <TabsTrigger
               value="overview"
-              className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+              className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
             >
               Overview
             </TabsTrigger>
             <TabsTrigger
               value="daily"
-              className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+              className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
             >
               Day‑to‑Day
             </TabsTrigger>
@@ -382,7 +382,7 @@ const Attendance = ({
               <div className="w-full max-w-[320px] flex flex-col">
                 <button
                   onClick={() => setCalendarOpen((o) => !o)}
-                  className="flex items-center justify-between bg-[#242a32] rounded-md px-3 py-2 mb-2 text-sm"
+                  className="flex items-center justify-between bg-[var(--primary-color)] rounded-md px-3 py-2 mb-2 text-sm"
                 >
                   <span>{dailyDate.toDateString()}</span>
                   {calendarOpen ? (
@@ -429,14 +429,16 @@ const Attendance = ({
                       presentation: "bg-red",
                       head_row: "flex",
                       head_cell:
-                        "text-gray-500 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                        "text-[var(--card-bg)] rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
                       row: "flex w-full mt-2",
                       cell: "flex-1 text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                       day: "h-8 w-8 p-0 font-normal rounded-[2px] aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
-                      day_selected: "bg-[hsl(0,8.7%,20.2%)]",
-                      day_today: "text-accent-foreground !bg-white",
-                      day_outside: "text-muted-foreground opacity-50",
-                      day_disabled: "text-muted-foreground opacity-50",
+                      day_selected:
+                        "bg-[var(--primary-color)] text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-[var(--text-color)] focus:bg-[var(--primary-color)] focus:text-[var(--text-color)]",
+                      day_today:
+                        "text-[var(--accent-color)] !bg-[var(--bg-color)]",
+                      day_outside: "text-[var(--card-bg)] opacity-50",
+                      day_disabled: "text-[var(--card-bg)] opacity-50",
                       day_range_middle:
                         "aria-selected:bg-accent aria-selected:text-accent-foreground",
                       day_hidden: "invisible",
@@ -446,7 +448,7 @@ const Attendance = ({
               </div>
 
               {subjects.length === 0 ? (
-                <p className="text-gray-400">No subjects found.</p>
+                <p className="text-[var(--accent-color)]">No subjects found.</p>
               ) : (
                 subjects.flatMap((subj) => {
                   const lectures = getClassesFor(subj.name, dailyDate);
@@ -454,7 +456,7 @@ const Attendance = ({
                   return (
                     <div
                       key={subj.name}
-                      className="w-full max-w-lg border-b border-gray-700 py-3"
+                      className="w-full max-w-lg border-b border-[var(--card-bg)] py-3"
                     >
                       <h3 className="font-semibold mb-1">{subj.name}</h3>
                       {lectures.map((cls, i) => (
@@ -462,8 +464,8 @@ const Attendance = ({
                           key={i}
                           className={`flex justify-between text-sm ${
                             cls.present === "Present"
-                              ? "text-green-400"
-                              : "text-red-400"
+                              ? "text-[var(--accent-color)]"
+                              : "text-[var(--label-color)]"
                           }`}
                         >
                           <span>
@@ -487,7 +489,7 @@ const Attendance = ({
               {subjects.every(
                 (s) => getClassesFor(s.name, dailyDate).length === 0
               ) && (
-                <p className="text-gray-400 mt-4">
+                <p className="text-[var(--accent-color)] mt-4">
                   No classes were scheduled on&nbsp;
                   {dailyDate.toLocaleDateString()}
                 </p>
@@ -500,10 +502,10 @@ const Attendance = ({
                   <SheetTrigger asChild>
                     <button
                       className="fixed bottom-20 right-4 z-50
-										 drop-shadow-lg bg-[#242a32] rounded-full
-										 ring-blue-400
-										 hover:ring-blue-300 hover:scale-105
-										 transition-transform cursor-pointer"
+							 drop-shadow-lg bg-[var(--primary-color)] rounded-full
+							 ring-blue-400
+							 hover:ring-blue-300 hover:scale-105
+							 transition-transform cursor-pointer"
                     >
                       <CircleProgress
                         percentage={
@@ -526,11 +528,11 @@ const Attendance = ({
                   <SheetContent
                     side="bottom"
                     /* hide default close button & force white text */
-                    className="h-[45vh] bg-[#242a32] text-white border-0 overflow-hidden
+                    className="h-[45vh] bg-[var(--primary-color)] text-[var(--text-color)] border-0 overflow-hidden
 										[&_[data-radix-dialog-close]]:hidden"
                   >
                     <SheetHeader>
-                      <SheetTitle className="text-sm text-white">
+                      <SheetTitle className="text-sm text-[var(--text-color)]">
                         Fetching daily attendance&nbsp;(
                         {
                           subjects.filter(

@@ -310,24 +310,24 @@ export default function Grades({
   }
 
   return (
-    <div className="text-white pt-2 pb-4 px-3 font-sans">
+    <div className="text-[var(--text-color)] pt-2 pb-4 px-3 font-sans">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-4 bg-[#191c20]">
+        <TabsList className="grid w-full grid-cols-3 mb-4 bg-[var(--bg-color)]">
           <TabsTrigger
             value="overview"
-            className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+            className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
           >
             Overview
           </TabsTrigger>
           <TabsTrigger
             value="semester"
-            className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+            className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
           >
             Semester
           </TabsTrigger>
           <TabsTrigger
             value="marks"
-            className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+            className="bg-[var(--bg-color)] data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)]"
           >
             Marks
           </TabsTrigger>
@@ -451,7 +451,7 @@ export default function Grades({
                   onValueChange={handleSemesterChange}
                   value={selectedGradeCardSem?.registration_id}
                 >
-                  <SelectTrigger className="bg-[#191c20] text-white border-white">
+                  <SelectTrigger className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--border-color)]">
                     <SelectValue
                       placeholder={
                         gradeCardLoading
@@ -462,7 +462,7 @@ export default function Grades({
                       {selectedGradeCardSem?.registration_code}
                     </SelectValue>
                   </SelectTrigger>
-                  <SelectContent className="bg-[#191c20] text-white border-white">
+                  <SelectContent className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--border-color)]">
                     {gradeCardSemesters.map((sem) => (
                       <SelectItem
                         key={sem.registration_id}
@@ -475,7 +475,7 @@ export default function Grades({
                 </Select>
 
                 {gradeCardLoading ? (
-                  <div className="text-white flex items-center justify-center py-4">
+                  <div className="text-[var(--text-color)] flex items-center justify-center py-4">
                     Loading subjects...
                   </div>
                 ) : gradeCard ? (
@@ -511,10 +511,10 @@ export default function Grades({
                   onValueChange={handleMarksSemesterChange}
                   value={selectedMarksSem?.registration_id}
                 >
-                  <SelectTrigger className="bg-[#191c20] text-white border-white">
+                  <SelectTrigger className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--border-color)]">
                     <SelectValue placeholder="Select semester" />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#191c20] text-white border-white">
+                  <SelectContent className="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--border-color)]">
                     {marksSemesters.map((sem) => (
                       <SelectItem
                         key={sem.registration_id}
@@ -548,7 +548,7 @@ export default function Grades({
       <div className="w-full flex justify-end my-4 max-w-4xl">
         <Button
           variant="secondary"
-          className="flex items-center gap-2 text-gray-300 hover:text-white border-gray-600 hover:border-gray-400 bg-[#191c20] hover:bg-[#1f2937] px-0"
+          className="flex items-center gap-2 text-[var(--text-color)] hover:text-[var(--primary-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] bg-[var(--bg-color)] hover:bg-[var(--primary-color)] px-0"
           onClick={() => setIsDownloadDialogOpen(true)}
         >
           <Download className="h-4 w-4" />
@@ -560,16 +560,18 @@ export default function Grades({
         open={isDownloadDialogOpen}
         onOpenChange={setIsDownloadDialogOpen}
       >
-        <DialogContent className="bg-[#191c20] text-white border-none">
+        <DialogContent className="bg-[var(--bg-color)] text-[var(--text-color)] border-none">
           <DialogHeader>
-            <DialogTitle className="text-gray-200">Download Marks</DialogTitle>
+            <DialogTitle className="text-[var(--text-color)]">
+              Download Marks
+            </DialogTitle>
           </DialogHeader>
           <div className="space-y-2">
             {marksSemesters.map((sem) => (
               <Button
                 key={sem.registration_id}
                 variant="outline"
-                className="w-full text-gray-300 hover:text-white  bg-[#191c20] hover:bg-[#1f2937] border-none"
+                className="w-full text-[var(--text-color)] hover:text-[var(--primary-color)] bg-[var(--bg-color)] hover:bg-[var(--primary-color)] border-none"
                 onClick={() => handleDownloadMarks(sem)}
               >
                 {sem.registration_code}

@@ -15,6 +15,7 @@ import Grades from "./components/Grades";
 import Exams from "./components/Exams";
 import Subjects from "./components/Subjects";
 import Profile from "./components/Profile";
+import ThemeSwitcher from "./components/ThemeSwitcher";
 import "./App.css";
 
 import {
@@ -102,8 +103,11 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
 
   return (
     <div className="min-h-screen pb-14 select-none">
-      <div className="sticky top-0 z-30 bg-[#191c20] -mt-[2px]">
+      <div className="sticky top-0 z-30 bg-[var(--bg-color)] -mt-[2px]">
         <Header setIsAuthenticated={setIsAuthenticated} />
+      </div>
+      <div className="flex justify-end px-4 pt-2">
+        <ThemeSwitcher />
       </div>
       <Routes>
         <Route path="/" element={<Navigate to="/attendance" />} />
@@ -275,7 +279,7 @@ function AppWithGlobalSwipe({ children }) {
   });
   return (
     <div
-      className="min-h-screen bg-[#191c20] select-none"
+      className="min-h-screen bg-[var(--bg-color)] select-none"
       {...globalSwipeHandlers}
     >
       {children}
@@ -334,7 +338,7 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#191c20] text-white">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--bg-color)] text-[var(--text-color)]">
         Signing in...
       </div>
     );
