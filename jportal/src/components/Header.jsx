@@ -16,8 +16,8 @@ const Header = ({ setIsAuthenticated }) => {
 
   return (
     <header className="bg-[var(--bg-color)] mx-auto px-3 pt-4 pb-2">
-      <div className="container-fluid flex justify-between items-center">
-        <h1 className="text-[var(--text-color)] text-2xl font-bold lg:text-3xl font-sans">
+      <div className="container-fluid flex justify-between md:justify-end items-center">
+        <h1 className="text-[var(--text-color)] text-2xl font-bold lg:text-3xl font-sans block md:hidden">
           JPortal
         </h1>
         <div className="flex items-center gap-2">

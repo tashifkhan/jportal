@@ -33,8 +33,8 @@ function Navbar() {
     <>
       {/* Desktop Sidebar */}
       <div
-        className="hidden md:fixed md:flex md:flex-col md:justify-between md:items-center md:top-0 md:left-0 md:h-screen md:w-56 md:bg-[var(--primary-color)] md:shadow-2xl md:z-40 md:py-8 md:px-3"
-        style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
+        className="hidden md:fixed md:flex md:flex-col md:justify-between md:items-center md:top-6 md:left-4 md:bottom-6 md:h-[calc(100vh-3rem)] md:w-56 md:bg-[var(--primary-color)] md:shadow-2xl md:z-40 md:py-8 md:px-3 md:rounded-3xl md:border-none"
+        style={{ boxShadow: "0 8px 32px 0 rgba(0,0,0,0.18)" }}
       >
         {/* Logo/Title */}
         <div className="w-full flex flex-col items-center mb-8 select-none">
