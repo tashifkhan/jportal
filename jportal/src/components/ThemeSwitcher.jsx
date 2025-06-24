@@ -11,7 +11,6 @@ const options = [
 ];
 
 function getContrastColor(bg) {
-  // Simple luminance check for contrast
   if (!bg) return "#222";
   const c = bg.charAt(0) === "#" ? bg.substring(1) : bg;
   const rgb = parseInt(
@@ -45,7 +44,7 @@ export default function ThemeSwitcher({ Icon }) {
         </button>
       </DialogTrigger>
       <DialogContent
-        className="max-w-xs w-full p-4 rounded-xl shadow-xl"
+        className="max-w-xs w-full p-4 rounded-xl shadow-xl border-none"
         style={{ background: "var(--bg-color)", color: "var(--text-color)" }}
       >
         <div
@@ -66,18 +65,15 @@ export default function ThemeSwitcher({ Icon }) {
                   setOpen(false);
                 }}
                 className={`relative flex flex-col items-center focus:outline-none transition-all duration-150 ${
-                  isSelected
-                    ? "ring-2 ring-[var(--accent-color)] scale-105"
-                    : "hover:ring-2 hover:ring-[var(--accent-color)]"
-                }`}
+                  isSelected ? "scale-105" : ""
+                } hover:scale-110`}
                 style={{ minWidth: 64 }}
                 aria-label={opt.label}
               >
                 <span
-                  className="w-10 h-10 rounded-full border-2 border-gray-300 mb-1 flex items-center justify-center transition-all duration-150"
+                  className="w-10 h-10 rounded-full mb-1 flex items-center justify-center transition-all duration-150 border-none"
                   style={{
                     background: opt.color,
-                    borderColor: isSelected ? "var(--accent-color)" : "#ccc",
                   }}
                 >
                   {isSelected && (
@@ -93,7 +89,10 @@ export default function ThemeSwitcher({ Icon }) {
                 <span
                   className="text-xs select-none"
                   style={{
-                    color: isSelected ? "var(--accent-color)" : labelColor,
+                    color: isSelected
+                      ? "var(--accent-color)"
+                      : "var(--text-color)",
+                    opacity: isSelected ? 1 : 0.7,
                     fontWeight: isSelected ? 600 : 400,
                   }}
                 >
