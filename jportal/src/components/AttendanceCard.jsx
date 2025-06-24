@@ -209,12 +209,18 @@ const AttendanceCard = ({
                 </span>
               </div>
               {classesNeeded > 0 ? (
-                <div className="text-xs text-[var(--label-color)] font-light mt-1">
-                  Attend {classesNeeded}
+                <div className="text-xs font-bold mt-1 text-red-700">
+                  Attend{" "}
+                  <span className="font-bold text-red-600">
+                    {classesNeeded}
+                  </span>
                 </div>
               ) : classesCanMiss > 0 ? (
-                <div className="text-xs text-[var(--label-color)] font-light mt-1">
-                  Can miss {classesCanMiss}
+                <div className="text-xs font-bold mt-1 text-green-700">
+                  Can miss{" "}
+                  <span className="font-bold text-green-600">
+                    {classesCanMiss}
+                  </span>
                 </div>
               ) : null}
             </div>
