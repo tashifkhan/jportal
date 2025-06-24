@@ -30,7 +30,10 @@ function Navbar() {
   ];
 
   return (
-    <div className="w-full flex justify-center fixed bottom-2 left-0 z-50">
+    <div
+      className="w-full flex justify-center fixed bottom-4 left-0 z-50"
+      style={{ colorScheme: "only light" }}
+    >
       <nav
         className="flex justify-between items-center bg-[var(--primary-color)] shadow-lg rounded-3xl px-2 py-2 w-[98vw] max-w-md mx-auto"
         style={{ boxShadow: "0 4px 24px 0 rgba(0,0,0,0.12)" }}
@@ -54,7 +57,7 @@ function Navbar() {
                 )}
                 {/* Icon with accent color for active tab using mask */}
                 <div
-                  className={`w-6 h-6 z-10 mb-0.5 transition-all duration-200`}
+                  className={`w-6 h-6 z-10 mb-0.5 transition-all duration-200 bg-transparent`}
                   style={
                     isActive
                       ? {
