@@ -123,8 +123,8 @@ export default function Login({ onLoginSuccess, w }) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md space-y-6 p-6">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--bg-color)]">
+      <div className="w-full max-w-md space-y-6 p-6 rounded-xl shadow-lg bg-[var(--card-bg)]">
         <div className="space-y-2 text-center text-[var(--text-color)]">
           <h1 className="text-2xl font-bold">Login</h1>
           <p>Enter your credentials to sign in</p>
@@ -140,13 +140,13 @@ export default function Login({ onLoginSuccess, w }) {
               name="enrollmentNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[var(--text-color)]">
+                  <FormLabel className="text-[var(--label-color)]">
                     Enrollment Number
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      className="text-[var(--text-color)] placeholder:text-[var(--label-color)]"
+                      className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -158,7 +158,7 @@ export default function Login({ onLoginSuccess, w }) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[var(--text-color)]">
+                  <FormLabel className="text-[var(--label-color)]">
                     Password
                   </FormLabel>
                   <FormControl>
@@ -166,7 +166,7 @@ export default function Login({ onLoginSuccess, w }) {
                       <Input
                         type={showPassword ? "text" : "password"}
                         {...field}
-                        className="text-[var(--text-color)] placeholder:text-[var(--label-color)] pr-10"
+                        className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] pr-10 focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)]"
                       />
                       <button
                         type="button"
@@ -222,7 +222,7 @@ export default function Login({ onLoginSuccess, w }) {
             <Button
               type="submit"
               variant="outline"
-              className="w-full bg-[var(--text-color)] text-[var(--bg-color)]"
+              className="w-full bg-[var(--accent-color)] text-[var(--bg-color)] border-none hover:bg-[var(--primary-color)] hover:text-[var(--accent-color)]"
               disabled={loginStatus.isLoading}
             >
               {loginStatus.isLoading ? "Signing in..." : "Sign in"}
