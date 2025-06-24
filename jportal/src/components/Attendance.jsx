@@ -288,7 +288,22 @@ const Attendance = ({
     return () => window.removeEventListener("attendanceSwipe", handleSwipe);
   }, [activeTab, setActiveTab]);
 
-  // sort subjects attendance wise
+  // sort order in localStorage
+  useEffect(() => {
+    const savedOrder = localStorage.getItem("attendanceSortOrder");
+    if (
+      savedOrder === "asc" ||
+      savedOrder === "desc" ||
+      savedOrder === "default"
+    ) {
+      setAttendanceSortOrder(savedOrder);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("attendanceSortOrder", attendanceSortOrder);
+  }, [attendanceSortOrder]);
+
   let sortedSubjects = [...subjects];
   // 0/0 -> 100%
   const getSortValue = (subject) => {
