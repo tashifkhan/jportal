@@ -16,6 +16,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useSwipeable } from "react-swipeable";
+import { useTheme } from "./ThemeProvider";
 
 const AttendanceCard = ({
   subject,
@@ -23,6 +24,7 @@ const AttendanceCard = ({
   setSelectedSubject,
   subjectAttendanceData,
   fetchSubjectAttendance,
+  attendanceGoal = 75,
 }) => {
   const {
     name,
@@ -42,6 +44,34 @@ const AttendanceCard = ({
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  const { theme } = useTheme();
+  const themes = {
+    darkBlue: {
+      "--accent-color": "#7ec3f0",
+    },
+    white: {
+      "--accent-color": "#3182ce",
+    },
+    cream: {
+      "--accent-color": "#A47551",
+    },
+    amoled: {
+      "--accent-color": "#00bcd4",
+    },
+  };
+  const accentColor = themes[theme]["--accent-color"];
+
+  // Progress color logic: accent if above goal+5, yellow if within 5%, red if below
+  let progressColor = accentColor;
+  if (attendanceGoal) {
+    const percent = Number(attendancePercentage);
+    if (percent < attendanceGoal) {
+      progressColor = "#ef4444"; // red
+    } else if (percent < attendanceGoal + 5) {
+      progressColor = "#eab308"; // yellow
+    }
+  }
 
   // Helper to change month
   const changeMonth = (direction) => {
@@ -203,14 +233,14 @@ const AttendanceCard = ({
                   cy="36"
                   r="32"
                   fill="none"
-                  stroke="var(--accent-color)"
+                  stroke={progressColor}
                   strokeWidth="6"
                   strokeDasharray={2 * Math.PI * 32}
                   strokeDashoffset={
                     2 * Math.PI * 32 * (1 - attendancePercentage / 100)
                   }
                   strokeLinecap="round"
-                  style={{ transition: "stroke-dashoffset 0.5s" }}
+                  style={{ transition: "stroke-dashoffset 0.5s, stroke 0.3s" }}
                 />
                 <text
                   x="50%"
@@ -219,7 +249,7 @@ const AttendanceCard = ({
                   dominantBaseline="central"
                   fontSize="2rem"
                   fontWeight="bold"
-                  fill="var(--accent-color)"
+                  fill={progressColor}
                 >
                   {attendancePercentage}
                 </text>

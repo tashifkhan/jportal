@@ -403,6 +403,7 @@ const Attendance = ({
                     setSelectedSubject={setSelectedSubject}
                     subjectAttendanceData={subjectAttendanceData}
                     fetchSubjectAttendance={fetchSubjectAttendance}
+                    attendanceGoal={attendanceGoal}
                   />
                 ))
               )}
