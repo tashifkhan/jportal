@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ThemeSwitcher from "./ThemeSwitcher";
-import { Palette } from "lucide-react";
+import { Palette, LogOut } from "lucide-react";
 
 const Header = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
@@ -22,14 +22,13 @@ const Header = ({ setIsAuthenticated }) => {
         </h1>
         <div className="flex items-center gap-2">
           <ThemeSwitcher Icon={Palette} />
-          <div className="hover:bg-[var(--card-bg)] rounded-xl p-1">
-            <img
-              src="/jportal/icons/logout.svg" // hardcoded path, fix later
-              alt="Logout"
-              onClick={handleLogout}
-              className="w-6 h-6 cursor-pointer hover:opacity-80 transition-opacity"
-            />
-          </div>
+          <button
+            aria-label="Log out"
+            onClick={handleLogout}
+            className="p-2 rounded-full hover:bg-[var(--card-bg)] focus:bg-[var(--card-bg)] transition flex items-center justify-center border border-transparent focus-visible:ring-2 focus-visible:ring-[var(--accent-color)]"
+          >
+            <LogOut className="w-6 h-6 text-[var(--text-color)]" />
+          </button>
         </div>
       </div>
     </header>

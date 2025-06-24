@@ -589,7 +589,7 @@ export default function Grades({
       </div>
 
       {/* Floating Download Marks Button above navbar */}
-      <div className="fixed bottom-20 right-6 z-50">
+      <div className="fixed bottom-20 md:bottom-2 right-6 z-50">
         <Button
           variant="secondary"
           className="rounded-full shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--primary-color)] hover:bg-[var(--accent-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
