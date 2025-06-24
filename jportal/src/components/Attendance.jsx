@@ -367,182 +367,200 @@ const Attendance = ({
       {isAttendanceMetaLoading || isAttendanceDataLoading ? (
         <Loader message="Loading attendance..." />
       ) : (
-        <Tabs
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="w-full max-w-3xl mx-auto"
-        >
-          <TabsList className="grid grid-cols-2 mb-6 bg-[var(--card-bg)] rounded-xl overflow-hidden h-[40px] items-center">
-            <TabsTrigger
-              value="overview"
-              className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
+        <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-0 lg:gap-0 lg:min-h-[600px]">
+          {/* Sidebar Tabs for large screens, horizontal for small */}
+          <div className="w-full lg:w-64 flex-shrink-0">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full lg:w-64"
             >
-              <span className="flex items-center justify-center w-full h-full">
-                Overview
-              </span>
-            </TabsTrigger>
-            <TabsTrigger
-              value="daily"
-              className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
+              <TabsList className="mb-6 bg-[var(--card-bg)] rounded-xl overflow-hidden h-[40px] items-center grid grid-cols-2 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl">
+                <TabsTrigger
+                  value="overview"
+                  className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors lg:justify-start lg:px-6 lg:py-3 lg:w-full lg:rounded-none lg:data-[state=active]:rounded-l-2xl lg:data-[state=active]:rounded-r-none"
+                >
+                  <span className="flex items-center justify-center w-full h-full lg:justify-start lg:w-auto">
+                    Overview
+                  </span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="daily"
+                  className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors lg:justify-start lg:px-6 lg:py-3 lg:w-full lg:rounded-none lg:data-[state=active]:rounded-l-2xl lg:data-[state=active]:rounded-r-none"
+                >
+                  <span className="flex items-center justify-center w-full h-full lg:justify-start lg:w-auto">
+                    Day-to-Day
+                  </span>
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+          {/* Content Area */}
+          <div className="w-full lg:flex-1 lg:pl-10 lg:min-h-[600px]">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full"
             >
-              <span className="flex items-center justify-center w-full h-full">
-                Day-to-Day
-              </span>
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview">
-            <div className="flex flex-col gap-6 items-center">
-              {subjects.length === 0 ? (
-                <p className="text-[var(--accent-color)]">No subjects found.</p>
-              ) : (
-                subjects.map((subject) => (
-                  <AttendanceCard
-                    key={subject.name}
-                    subject={subject}
-                    selectedSubject={selectedSubject}
-                    setSelectedSubject={setSelectedSubject}
-                    subjectAttendanceData={subjectAttendanceData}
-                    fetchSubjectAttendance={fetchSubjectAttendance}
-                    attendanceGoal={attendanceGoal}
-                  />
-                ))
-              )}
-            </div>
-          </TabsContent>
-          <TabsContent value="daily">
-            {/* Modern Day-to-day calendar and daily attendance breakdown */}
-            <div className="flex flex-col items-center w-full">
-              <div className="w-full max-w-[370px] mx-auto flex flex-col items-center bg-[var(--card-bg)] rounded-2xl shadow-md p-4 mb-6">
-                <Calendar
-                  mode="single"
-                  selected={dailyDate}
-                  onSelect={(d) => {
-                    if (d) setDailyDate(d);
-                  }}
-                  modifiers={{
-                    hasActivity: (date) =>
-                      subjects.some(
-                        (s) => getClassesFor(s.name, date).length > 0
-                      ),
-                  }}
-                  modifiersStyles={{
-                    hasActivity: {
-                      boxShadow: "inset 0 -2px 0 0 var(--accent-color)",
-                      borderRadius: "2px",
-                    },
-                  }}
-                  className={`pb-2 w-full flex-shrink-0 max-w-full bg-[var(--card-bg)] text-[var(--text-color)] rounded-xl shadow-none border-0`}
-                  classNames={{
-                    months: "flex flex-col space-y-2",
-                    month: "space-y-2 w-full",
-                    caption:
-                      "flex justify-center pt-1 items-center text-lg font-semibold text-[var(--text-color)] relative",
-                    caption_label:
-                      "text-lg font-semibold text-[var(--text-color)] mx-2",
-                    nav: "flex items-center gap-0 absolute left-0 right-0 justify-between w-full px-2",
-                    nav_button:
-                      "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 mx-0",
-                    nav_button_previous: "",
-                    nav_button_next: "",
-                    table: "w-full border-collapse space-y-1",
-                    head_row: "flex",
-                    head_cell:
-                      "text-[var(--label-color)] rounded-md flex-1 font-normal text-[1rem]",
-                    row: "flex w-full mt-2",
-                    cell: "flex-1 text-center text-base p-0 relative",
-                    day: "h-10 w-10 p-0 font-medium mx-auto text-base",
-                    day_selected:
-                      "bg-[var(--primary-color)] text-[var(--card-bg)]",
-                    day_today: "border border-[var(--primary-color)]",
-                    day_outside: "text-[var(--label-color)] opacity-50",
-                    day_disabled: "text-[var(--label-color)] opacity-50",
-                    day_range_middle: "",
-                    day_hidden: "invisible",
-                  }}
-                />
-              </div>
-              <div className="w-full max-w-2xl mx-auto flex flex-col gap-4">
-                {subjects.length === 0 ? (
-                  <p className="text-[var(--label-color)] text-center">
-                    No subjects found.
-                  </p>
-                ) : (
-                  subjects.flatMap((subj) => {
-                    const lectures = getClassesFor(subj.name, dailyDate);
-                    if (lectures.length === 0) return [];
-                    return (
-                      <div
-                        key={subj.name}
-                        className="bg-[var(--card-bg)] rounded-2xl shadow-sm py-4 px-5 mb-2"
-                      >
-                        <h3 className="font-semibold mb-2 text-[var(--text-color)] text-lg">
-                          {subj.name}
-                        </h3>
-                        <div className="flex flex-col gap-2">
-                          {lectures.map((cls, i) => (
-                            <div
-                              key={i}
-                              className={`flex flex-col sm:flex-row sm:items-center justify-between rounded-lg px-3 py-2 ${
-                                cls.present === "Present"
-                                  ? "bg-[var(--accent-color)]/10 text-[var(--accent-color)]"
-                                  : "bg-[var(--error-color,#ef4444)]/10 text-[var(--error-color,#ef4444)]"
-                              }`}
-                            >
-                              <div className="flex-1">
-                                <span className="font-medium text-base">
-                                  {cls.classtype}
-                                </span>
-                                <span className="mx-2">•</span>
-                                <span className="text-sm">{cls.present}</span>
-                              </div>
-                              <div className="text-sm font-mono opacity-80 mt-1 sm:mt-0">
-                                {cls.datetime
-                                  .split(" ")
-                                  .slice(1)
-                                  .join(" ")
-                                  .slice(1, -1)}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })
-                )}
-                {/* nothing on that day? */}
-                {subjects.every(
-                  (s) => getClassesFor(s.name, dailyDate).length === 0
-                ) && (
-                  <p className="text-[var(--label-color)] mt-4 text-center">
-                    No classes were scheduled on&nbsp;
-                    {dailyDate.toLocaleDateString()}
-                  </p>
-                )}
-              </div>
-            </div>
-            {subjects.length > 0 && (
-              <div className="fixed bottom-20 right-6 z-40 drop-shadow-lg">
-                <div className="bg-[var(--card-bg)] rounded-full p-2 flex items-center justify-center shadow-xl">
-                  <CircleProgress
-                    percentage={
-                      (100 *
-                        subjects.filter(
-                          (s) => subjectCacheStatus[s.name] === "cached"
-                        ).length) /
-                      subjects.length
-                    }
-                    label={`${
-                      subjects.filter(
-                        (s) => subjectCacheStatus[s.name] === "cached"
-                      ).length
-                    }/${subjects.length}`}
-                    className="w-20 h-20"
-                  />
+              <TabsContent value="overview">
+                <div className="flex flex-col gap-6 items-center">
+                  {subjects.length === 0 ? (
+                    <div className="w-full max-w-xl mx-auto bg-[var(--card-bg)] text-[var(--accent-color)] dark:text-[var(--accent-color)] rounded-2xl shadow-md px-8 py-8 flex items-center justify-center text-center text-2xl font-medium">
+                      No subjects found.
+                    </div>
+                  ) : (
+                    subjects.map((subject) => (
+                      <AttendanceCard
+                        key={subject.name}
+                        subject={subject}
+                        selectedSubject={selectedSubject}
+                        setSelectedSubject={setSelectedSubject}
+                        subjectAttendanceData={subjectAttendanceData}
+                        fetchSubjectAttendance={fetchSubjectAttendance}
+                        attendanceGoal={attendanceGoal}
+                      />
+                    ))
+                  )}
                 </div>
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
+              </TabsContent>
+              <TabsContent value="daily">
+                {/* Modern Day-to-day calendar and daily attendance breakdown */}
+                <div className="flex flex-col items-center w-full">
+                  <div className="w-full max-w-[370px] mx-auto flex flex-col items-center bg-[var(--card-bg)] rounded-2xl shadow-md p-4 mb-6">
+                    <Calendar
+                      mode="single"
+                      selected={dailyDate}
+                      onSelect={(d) => {
+                        if (d) setDailyDate(d);
+                      }}
+                      modifiers={{
+                        hasActivity: (date) =>
+                          subjects.some(
+                            (s) => getClassesFor(s.name, date).length > 0
+                          ),
+                      }}
+                      modifiersStyles={{
+                        hasActivity: {
+                          boxShadow: "inset 0 -2px 0 0 var(--accent-color)",
+                          borderRadius: "2px",
+                        },
+                      }}
+                      className={`pb-2 w-full flex-shrink-0 max-w-full bg-[var(--card-bg)] text-[var(--text-color)] rounded-xl shadow-none border-0`}
+                      classNames={{
+                        months: "flex flex-col space-y-2",
+                        month: "space-y-2 w-full",
+                        caption:
+                          "flex justify-center pt-1 items-center text-lg font-semibold text-[var(--text-color)] relative",
+                        caption_label:
+                          "text-lg font-semibold text-[var(--text-color)] mx-2",
+                        nav: "flex items-center gap-0 absolute left-0 right-0 justify-between w-full px-2",
+                        nav_button:
+                          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 mx-0",
+                        nav_button_previous: "",
+                        nav_button_next: "",
+                        table: "w-full border-collapse space-y-1",
+                        head_row: "flex",
+                        head_cell:
+                          "text-[var(--label-color)] rounded-md flex-1 font-normal text-[1rem]",
+                        row: "flex w-full mt-2",
+                        cell: "flex-1 text-center text-base p-0 relative",
+                        day: "h-10 w-10 p-0 font-medium mx-auto text-base",
+                        day_selected:
+                          "bg-[var(--primary-color)] text-[var(--card-bg)]",
+                        day_today: "border border-[var(--primary-color)]",
+                        day_outside: "text-[var(--label-color)] opacity-50",
+                        day_disabled: "text-[var(--label-color)] opacity-50",
+                        day_range_middle: "",
+                        day_hidden: "invisible",
+                      }}
+                    />
+                  </div>
+                  <div className="w-full max-w-2xl mx-auto flex flex-col gap-4">
+                    {subjects.length === 0 ? (
+                      <p className="text-[var(--label-color)] text-center">
+                        No subjects found.
+                      </p>
+                    ) : (
+                      subjects.flatMap((subj) => {
+                        const lectures = getClassesFor(subj.name, dailyDate);
+                        if (lectures.length === 0) return [];
+                        return (
+                          <div
+                            key={subj.name}
+                            className="bg-[var(--card-bg)] rounded-2xl shadow-sm py-4 px-5 mb-2"
+                          >
+                            <h3 className="font-semibold mb-2 text-[var(--text-color)] text-lg">
+                              {subj.name}
+                            </h3>
+                            <div className="flex flex-col gap-2">
+                              {lectures.map((cls, i) => (
+                                <div
+                                  key={i}
+                                  className={`flex flex-col sm:flex-row sm:items-center justify-between rounded-lg px-3 py-2 ${
+                                    cls.present === "Present"
+                                      ? "bg-[var(--accent-color)]/10 text-[var(--accent-color)]"
+                                      : "bg-[var(--error-color,#ef4444)]/10 text-[var(--error-color,#ef4444)]"
+                                  }`}
+                                >
+                                  <div className="flex-1">
+                                    <span className="font-medium text-base">
+                                      {cls.classtype}
+                                    </span>
+                                    <span className="mx-2">•</span>
+                                    <span className="text-sm">
+                                      {cls.present}
+                                    </span>
+                                  </div>
+                                  <div className="text-sm font-mono opacity-80 mt-1 sm:mt-0">
+                                    {cls.datetime
+                                      .split(" ")
+                                      .slice(1)
+                                      .join(" ")
+                                      .slice(1, -1)}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })
+                    )}
+                    {/* nothing on that day? */}
+                    {subjects.every(
+                      (s) => getClassesFor(s.name, dailyDate).length === 0
+                    ) && (
+                      <p className="text-[var(--label-color)] mt-4 text-center">
+                        No classes were scheduled on&nbsp;
+                        {dailyDate.toLocaleDateString()}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                {subjects.length > 0 && (
+                  <div className="fixed bottom-20 right-6 z-40 drop-shadow-lg">
+                    <div className="bg-[var(--card-bg)] rounded-full p-2 flex items-center justify-center shadow-xl">
+                      <CircleProgress
+                        percentage={
+                          (100 *
+                            subjects.filter(
+                              (s) => subjectCacheStatus[s.name] === "cached"
+                            ).length) /
+                          subjects.length
+                        }
+                        label={`$${
+                          subjects.filter(
+                            (s) => subjectCacheStatus[s.name] === "cached"
+                          ).length
+                        }/${subjects.length}`}
+                        className="w-20 h-20"
+                      />
+                    </div>
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
+          </div>
+        </div>
       )}
     </div>
   );
