@@ -152,7 +152,7 @@ const AttendanceCard = ({
 
   return (
     <div
-      className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-2 mb-2"
+      className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-1"
       style={{ minHeight: 120 }}
       onClick={handleClick}
       role="button"

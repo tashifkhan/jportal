@@ -286,7 +286,7 @@ const Attendance = ({
             onValueChange={handleSemesterChange}
             value={selectedSem?.registration_id}
           >
-            <SelectTrigger className="w-full bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--accent-color)] rounded-xl px-4 py-2 flex items-center font-light focus:ring-2 focus:ring-[var(--accent-color)] outline-none transition-all min-h-[44px] h-[44px] text-[1.1rem] shadow-md">
+            <SelectTrigger className="w-full bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] rounded-xl px-4 py-2 flex items-center font-light focus:ring-2 focus:ring-[var(--accent-color)] outline-none transition-all min-h-[44px] h-[44px] text-[1.1rem] shadow-md">
               <SelectValue
                 placeholder={
                   isAttendanceMetaLoading ? "Loading semesters..." : "Semester"
@@ -372,7 +372,7 @@ const Attendance = ({
           onValueChange={setActiveTab}
           className="w-full max-w-3xl mx-auto"
         >
-          <TabsList className="grid grid-cols-2 mb-6 bg-[var(--card-bg)] border border-[var(--border-color)] rounded-xl overflow-hidden h-[40px] items-center">
+          <TabsList className="grid grid-cols-2 mb-6 bg-[var(--card-bg)] rounded-xl overflow-hidden h-[40px] items-center">
             <TabsTrigger
               value="overview"
               className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
