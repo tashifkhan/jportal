@@ -472,12 +472,12 @@ export default function Grades({
                 </p>
               </div>
             ) : (
-              <>
+              <div className="w-full max-w-2xl mx-auto">
                 <Select
                   onValueChange={handleSemesterChange}
                   value={selectedGradeCardSem?.registration_id}
                 >
-                  <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
+                  <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] w-full max-w-2xl mx-auto">
                     <SelectValue
                       placeholder={
                         gradeCardLoading
@@ -519,7 +519,7 @@ export default function Grades({
                     <p>No grade card data available for this semester</p>
                   </div>
                 )}
-              </>
+              </div>
             )}
           </div>
         </TabsContent>
