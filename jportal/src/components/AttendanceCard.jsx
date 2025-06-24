@@ -169,34 +169,45 @@ const AttendanceCard = ({
             {practical !== "" && <div>Practical: {practical}%</div>}
           </div>
         </div>
-        <div className="flex flex-col items-end gap-2 min-w-[90px]">
-          <div className="flex items-center gap-2">
-            <div className="text-2xl font-mono font-bold text-[var(--text-color)] leading-none">
-              {attendance.attended}
-              <span className="text-lg font-normal text-[var(--label-color)]">
-                /{attendance.total}
-              </span>
+        <div className="flex flex-col items-end gap-4">
+          <div className="flex items-center gap-4 justify-end">
+            <div className="flex flex-col items-end justify-center">
+              <div className="text-2xl font-mono font-bold text-[var(--text-color)] leading-none">
+                {attendance.attended}
+                <span className="text-lg font-normal text-[var(--label-color)]">
+                  /{attendance.total}
+                </span>
+              </div>
+              {classesNeeded > 0 ? (
+                <div className="text-xs text-[var(--label-color)] font-light mt-1">
+                  Attend {classesNeeded}
+                </div>
+              ) : classesCanMiss > 0 ? (
+                <div className="text-xs text-[var(--label-color)] font-light mt-1">
+                  Can miss {classesCanMiss}
+                </div>
+              ) : null}
             </div>
             <div className="relative flex items-center justify-center">
-              <svg width="48" height="48" viewBox="0 0 48 48">
+              <svg width="72" height="72" viewBox="0 0 72 72">
                 <circle
-                  cx="24"
-                  cy="24"
-                  r="22"
+                  cx="36"
+                  cy="36"
+                  r="32"
                   fill="none"
                   stroke="var(--label-color)"
-                  strokeWidth="2"
+                  strokeWidth="3"
                 />
                 <circle
-                  cx="24"
-                  cy="24"
-                  r="22"
+                  cx="36"
+                  cy="36"
+                  r="32"
                   fill="none"
                   stroke="var(--accent-color)"
-                  strokeWidth="3"
-                  strokeDasharray={2 * Math.PI * 22}
+                  strokeWidth="6"
+                  strokeDasharray={2 * Math.PI * 32}
                   strokeDashoffset={
-                    2 * Math.PI * 22 * (1 - attendancePercentage / 100)
+                    2 * Math.PI * 32 * (1 - attendancePercentage / 100)
                   }
                   strokeLinecap="round"
                   style={{ transition: "stroke-dashoffset 0.5s" }}
@@ -206,7 +217,7 @@ const AttendanceCard = ({
                   y="50%"
                   textAnchor="middle"
                   dominantBaseline="central"
-                  fontSize="1.1rem"
+                  fontSize="2rem"
                   fontWeight="bold"
                   fill="var(--accent-color)"
                 >
@@ -215,15 +226,6 @@ const AttendanceCard = ({
               </svg>
             </div>
           </div>
-          {classesNeeded > 0 ? (
-            <div className="text-xs text-[var(--label-color)] font-light mt-1">
-              Attend {classesNeeded}
-            </div>
-          ) : classesCanMiss > 0 ? (
-            <div className="text-xs text-[var(--label-color)] font-light mt-1">
-              Can miss {classesCanMiss}
-            </div>
-          ) : null}
         </div>
       </div>
 
