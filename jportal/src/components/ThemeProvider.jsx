@@ -12,7 +12,7 @@ const themes = {
   white: {
     "--bg-color": "#ffffff",
     "--primary-color": "#f1f5f9",
-    "--accent-color": "#2563eb",
+    "--accent-color": "#3182ce",
     "--text-color": "#191c20",
     "--card-bg": "#f8fafc",
     "--label-color": "#555",
@@ -20,7 +20,7 @@ const themes = {
   cream: {
     "--bg-color": "#fdf6e3",
     "--primary-color": "#f5e9da",
-    "--accent-color": "#eab308",
+    "--accent-color": "#A47551",
     "--text-color": "#3b2f1e",
     "--card-bg": "#f7f1e1",
     "--label-color": "#555",
