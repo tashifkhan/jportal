@@ -178,46 +178,36 @@ export default function Login({ onLoginSuccess, w }) {
                         }
                       >
                         {showPassword ? (
-                          // Eye-off SVG
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
+                            width="20"
+                            height="20"
                             viewBox="0 0 24 24"
+                            fill="none"
                             stroke="currentColor"
-                            strokeWidth={2}
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10 0-1.657.403-3.22 1.125-4.575m1.664-2.09A9.956 9.956 0 0112 3c5.523 0 10 4.477 10 10 0 1.657-.403 3.22-1.125 4.575m-1.664 2.09A9.956 9.956 0 0112 21c-1.657 0-3.22-.403-4.575-1.125m-2.09-1.664A9.956 9.956 0 013 12c0-1.657.403-3.22 1.125-4.575m2.09-2.09A9.956 9.956 0 0112 3c1.657 0 3.22.403 4.575 1.125m2.09 1.664A9.956 9.956 0 0121 12c0 1.657-.403 3.22-1.125 4.575m-2.09 2.09A9.956 9.956 0 0112 21c-1.657 0-3.22-.403-4.575-1.125"
-                            />
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M3 3l18 18"
-                            />
+                            <path d="M17.94 17.94A10.06 10.06 0 0 1 12 20c-5.05 0-9.29-3.14-11-8 1.21-3.06 3.62-5.5 6.58-6.47" />
+                            <path d="M1 1l22 22" />
+                            <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c.98 0 1.87-.39 2.53-1.03" />
+                            <path d="M14.47 14.47A3.5 3.5 0 0 0 12 8.5c-.98 0-1.87.39-2.53 1.03" />
                           </svg>
                         ) : (
-                          // Eye SVG
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
+                            width="20"
+                            height="20"
                             viewBox="0 0 24 24"
+                            fill="none"
                             stroke="currentColor"
-                            strokeWidth={2}
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                            />
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         )}
                       </button>
