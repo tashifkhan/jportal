@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/select";
 import GradeCard from "./GradeCard";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, Calculator } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -68,6 +68,12 @@ export default function Grades({
   marksLoading,
   setMarksLoading,
 }) {
+  // State for Target CGPA Calculator Modal
+  const [isTargetModalOpen, setIsTargetModalOpen] = useState(false);
+  const [targetCGPA, setTargetCGPA] = useState("");
+  const [requiredSGPA, setRequiredSGPA] = useState(null);
+  const [calcError, setCalcError] = useState("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -302,7 +308,7 @@ export default function Grades({
     return () => window.removeEventListener("gradesSwipe", handleSwipe);
   }, [activeTab, setActiveTab]);
 
-  // Helper to format GPA values with one decimal place, always showing .0 for whole numbers
+  // format GPA values with one decimal places
   const formatGPA = (value) => {
     if (typeof value === "number") {
       return value % 1 === 0 ? value.toFixed(1) : value.toString();
@@ -310,12 +316,45 @@ export default function Grades({
     return value;
   };
 
+  const handleCalculateSGPA = () => {
+    setCalcError("");
+    setRequiredSGPA(null);
+    if (!targetCGPA || isNaN(targetCGPA)) {
+      setCalcError("Please enter a valid target CGPA");
+      return;
+    }
+    const target = parseFloat(targetCGPA);
+    if (target < 0 || target > 10) {
+      setCalcError("Target CGPA must be between 0 and 10");
+      return;
+    }
+    if (!semesterData || semesterData.length === 0) {
+      setCalcError("No semester data available");
+      return;
+    }
+
+    const totalCredits = semesterData.reduce(
+      (sum, sem) => sum + sem.totalcoursecredit,
+      0
+    );
+    const totalGradePoints = semesterData.reduce(
+      (sum, sem) => sum + sem.earnedgradepoints,
+      0
+    );
+    const nextCredits =
+      semesterData[semesterData.length - 1]?.totalcoursecredit || 24; // fallback to 24
+    // Required SGPA = (targetCGPA * (totalCredits + nextCredits) - totalGradePoints) / nextCredits
+    const required =
+      (target * (totalCredits + nextCredits) - totalGradePoints) / nextCredits;
+    setRequiredSGPA(required);
+  };
+
   if (gradesLoading) {
     return <Loader message="Loading grades..." />;
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-2">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-36 pt-2">
       <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-0 lg:gap-0 lg:min-h-[600px]">
         {/* Sidebar Tabs for large screens, horizontal for small */}
         <div className="w-full lg:w-64 flex-shrink-0">
@@ -589,7 +628,8 @@ export default function Grades({
       </div>
 
       {/* Floating Download Marks Button above navbar */}
-      <div className="fixed bottom-20 md:bottom-2 right-6 z-50">
+      <div className="fixed bottom-24 md:bottom-2 right-4 md:right-6 z-50 flex flex-col gap-2 items-end">
+        {/* Download Marks Button */}
         <Button
           variant="secondary"
           className="rounded-full shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--primary-color)] hover:bg-[var(--accent-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
@@ -598,6 +638,16 @@ export default function Grades({
         >
           <Download className="h-6 w-6 mr-2" />
           Download Marks
+        </Button>
+        {/* Targeted GPA Calculator Button */}
+        <Button
+          variant="secondary"
+          className="rounded-full shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--card-bg)] hover:bg-[var(--primary-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
+          onClick={() => setIsTargetModalOpen(true)}
+          aria-label="Calculate Targeted GPA"
+        >
+          <Calculator className="h-6 w-6 mr-2" />
+          Calculate Targeted GPA
         </Button>
       </div>
 
@@ -622,6 +672,65 @@ export default function Grades({
                 {sem.registration_code}
               </Button>
             ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Targeted GPA Calculator Modal */}
+      <Dialog open={isTargetModalOpen} onOpenChange={setIsTargetModalOpen}>
+        <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none max-w-md w-full">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-[var(--text-color)]">
+              <Calculator className="h-6 w-6" />
+              CGPA Target Calculator
+            </DialogTitle>
+          </DialogHeader>
+          <div className="mt-2">
+            <label className="block text-lg mb-2 text-[var(--label-color)]">
+              Target CGPA
+            </label>
+            <div className="flex flex-col gap-3 items-stretch">
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                max="10"
+                value={targetCGPA}
+                onChange={(e) => setTargetCGPA(e.target.value)}
+                placeholder="Enter target CGPA"
+                className="w-full rounded-xl px-4 py-3 bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] focus:ring-2 focus:ring-[var(--accent-color)] outline-none text-lg font-normal shadow-md"
+              />
+              <Button
+                variant="secondary"
+                className="rounded-xl px-6 h-12 text-lg font-semibold"
+                style={{
+                  background: "var(--primary-color)",
+                  color: "var(--text-color)",
+                }}
+                onClick={handleCalculateSGPA}
+              >
+                Calculate
+              </Button>
+            </div>
+            {calcError && (
+              <div className="text-red-500 mt-2 text-base">{calcError}</div>
+            )}
+            {requiredSGPA !== null && !calcError && (
+              <div className="mt-6 bg-[var(--card-bg)] rounded-xl px-4 py-4">
+                <div className="text-[var(--label-color)] text-lg mb-1">
+                  Required SGPA for next semester
+                </div>
+                {requiredSGPA > 10 ? (
+                  <div className="text-red-500 text-lg font-semibold">
+                    This target cannot be achieved in the next semester
+                  </div>
+                ) : (
+                  <div className="text-[var(--accent-color)] text-4xl font-bold">
+                    {requiredSGPA >= 0 ? requiredSGPA.toFixed(2) : "N/A"}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
