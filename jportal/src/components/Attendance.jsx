@@ -472,7 +472,7 @@ const Attendance = ({
                     return (
                       <div
                         key={subj.name}
-                        className="bg-[var(--card-bg)] rounded-2xl shadow-sm border border-[var(--border-color)] py-4 px-5 mb-2"
+                        className="bg-[var(--card-bg)] rounded-2xl shadow-sm py-4 px-5 mb-2"
                       >
                         <h3 className="font-semibold mb-2 text-[var(--text-color)] text-lg">
                           {subj.name}

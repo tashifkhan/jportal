@@ -357,7 +357,7 @@ const AttendanceCard = ({
                         (classData, index) => (
                           <div
                             key={index}
-                            className={`rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm border border-[var(--border-color)] bg-[var(--card-bg-alt, var(--bg-color))] ${
+                            className={`rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm border bg-[var(--card-bg-alt, var(--bg-color))] ${
                               classData.present === "Present"
                                 ? "border-[var(--accent-color)]"
                                 : "border-[var(--error-color,#ef4444)]"
