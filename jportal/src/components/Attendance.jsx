@@ -14,6 +14,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import Loader from "./Loader";
 import { TextField } from "@mui/material";
 import CircleProgress from "./CircleProgress";
+import { Button } from "@/components/ui/button";
+import { ListFilter, SortAsc, SortDesc } from "lucide-react";
 
 const Attendance = ({
   w,
@@ -44,6 +46,14 @@ const Attendance = ({
   subjectCacheStatus,
   setSubjectCacheStatus,
 }) => {
+  const [attendanceSortOrder, setAttendanceSortOrder] = useState("default"); // default, asc, desc
+
+  const toggleSortOrder = () => {
+    setAttendanceSortOrder((prev) =>
+      prev === "default" ? "asc" : prev === "asc" ? "desc" : "default"
+    );
+  };
+
   useEffect(() => {
     const fetchSemesters = async () => {
       if (semestersData) {
@@ -278,6 +288,21 @@ const Attendance = ({
     return () => window.removeEventListener("attendanceSwipe", handleSwipe);
   }, [activeTab, setActiveTab]);
 
+  // sort subjects attendance wise
+  let sortedSubjects = [...subjects];
+  // 0/0 -> 100%
+  const getSortValue = (subject) => {
+    const attended = subject.attendance?.attended ?? 0;
+    const total = subject.attendance?.total ?? 0;
+    if (total === 0 && attended === 0) return 101; // lol more than 100 so that alwasy on top
+    return subject.combined ?? 0;
+  };
+  if (attendanceSortOrder === "asc") {
+    sortedSubjects.sort((a, b) => getSortValue(a) - getSortValue(b));
+  } else if (attendanceSortOrder === "desc") {
+    sortedSubjects.sort((a, b) => getSortValue(b) - getSortValue(a));
+  }
+
   return (
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4 pt-2">
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-6">
@@ -314,6 +339,8 @@ const Attendance = ({
             label="Criteria"
             InputLabelProps={{
               style: {
+                height: 48,
+                minHeight: 48,
                 color: "var(--label-color)",
                 fontSize: "1.1rem",
                 fontWeight: 300,
@@ -362,6 +389,28 @@ const Attendance = ({
               },
             }}
           />
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label="Sort by attendance"
+            onClick={toggleSortOrder}
+            className="ml-2 border border-[var(--label-color)] bg-[var(--card-bg)] text-[var(--text-color)] hover:bg-[var(--accent-color)] hover:text-[var(--card-bg)] focus:ring-2 focus:ring-[var(--accent-color)] rounded-xl"
+            style={{
+              width: 48,
+              height: 44,
+              minWidth: 48,
+              minHeight: 44,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {attendanceSortOrder === "default" && (
+              <ListFilter className="w-5 h-5" />
+            )}
+            {attendanceSortOrder === "asc" && <SortAsc className="w-5 h-5" />}
+            {attendanceSortOrder === "desc" && <SortDesc className="w-5 h-5" />}
+          </Button>
         </div>
       </div>
       {isAttendanceMetaLoading || isAttendanceDataLoading ? (
@@ -404,12 +453,12 @@ const Attendance = ({
             >
               <TabsContent value="overview">
                 <div className="flex flex-col gap-6 items-center">
-                  {subjects.length === 0 ? (
+                  {sortedSubjects.length === 0 ? (
                     <div className="w-full max-w-xl mx-auto bg-[var(--card-bg)] text-[var(--accent-color)] dark:text-[var(--accent-color)] rounded-2xl shadow-md px-8 py-8 flex items-center justify-center text-center text-2xl font-medium">
                       No subjects found.
                     </div>
                   ) : (
-                    subjects.map((subject) => (
+                    sortedSubjects.map((subject) => (
                       <AttendanceCard
                         key={subject.name}
                         subject={subject}
