@@ -321,7 +321,7 @@ export default function Grades({
         onValueChange={setActiveTab}
         className="w-full max-w-4xl mx-auto"
       >
-        <TabsList className="grid w-full grid-cols-3 mb-4 bg-[var(--card-bg)] border border-[var(--border-color)] rounded-xl overflow-hidden h-[40px] items-center">
+        <TabsList className="grid w-full grid-cols-3 mb-4 bg-[var(--card-bg)] rounded-xl overflow-hidden h-[40px] items-center">
           <TabsTrigger
             value="overview"
             className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
