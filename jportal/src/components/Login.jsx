@@ -31,6 +31,7 @@ export default function Login({ onLoginSuccess, w }) {
     error: null,
     credentials: null,
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   // Initialize form
   const form = useForm({
@@ -143,7 +144,10 @@ export default function Login({ onLoginSuccess, w }) {
                     Enrollment Number
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      {...field}
+                      className="text-[var(--text-color)] placeholder:text-[var(--label-color)]"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -158,7 +162,66 @@ export default function Login({ onLoginSuccess, w }) {
                     Password
                   </FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} />
+                    <div className="relative">
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        {...field}
+                        className="text-[var(--text-color)] placeholder:text-[var(--label-color)] pr-10"
+                      />
+                      <button
+                        type="button"
+                        tabIndex={-1}
+                        onClick={() => setShowPassword((v) => !v)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--label-color)] hover:text-[var(--accent-color)] focus:outline-none"
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                      >
+                        {showPassword ? (
+                          // Eye-off SVG
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10 0-1.657.403-3.22 1.125-4.575m1.664-2.09A9.956 9.956 0 0112 3c5.523 0 10 4.477 10 10 0 1.657-.403 3.22-1.125 4.575m-1.664 2.09A9.956 9.956 0 0112 21c-1.657 0-3.22-.403-4.575-1.125m-2.09-1.664A9.956 9.956 0 013 12c0-1.657.403-3.22 1.125-4.575m2.09-2.09A9.956 9.956 0 0112 3c1.657 0 3.22.403 4.575 1.125m2.09 1.664A9.956 9.956 0 0121 12c0 1.657-.403 3.22-1.125 4.575m-2.09 2.09A9.956 9.956 0 0112 21c-1.657 0-3.22-.403-4.575-1.125"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3 3l18 18"
+                            />
+                          </svg>
+                        ) : (
+                          // Eye SVG
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                            />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
