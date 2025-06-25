@@ -1,7 +1,24 @@
 import React, { useState } from "react";
 import { useTheme } from "./ThemeProvider";
-import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
-import { Check } from "lucide-react";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import {
+  Check,
+  Palette,
+  Download,
+  Upload,
+  Plus,
+  X,
+  Settings,
+} from "lucide-react";
 
 const options = [
   { value: "darkBlue", label: "Dark Blue", color: "#141c23", text: "#eaf6fb" },
@@ -159,362 +176,392 @@ export default function ThemeSwitcher({ Icon }) {
   const currentCustom = customThemes[selectedCustomTheme] || customThemes[0];
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen} className="border-none">
       <DialogTrigger asChild>
-        <button
-          aria-label="Pick theme"
-          className="p-2 rounded-full hover:bg-[var(--card-bg)] focus:bg-[var(--card-bg)] transition flex items-center justify-center border border-transparent focus-visible:ring-2 focus-visible:ring-[var(--accent-color)]"
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-10 w-10 rounded-full hover:bg-[var(--card-bg)] focus:bg-[var(--card-bg)] transition-all duration-200 focus-visible:ring-[var(--accent-color)] focus-visible:ring-offset-2"
         >
-          {Icon ? <Icon className="w-6 h-6 text-[var(--text-color)]" /> : null}
-        </button>
+          {Icon ? (
+            <Icon className="w-5 h-5 text-[var(--text-color)]" />
+          ) : (
+            <Palette className="w-5 h-5 text-[var(--text-color)]" />
+          )}
+        </Button>
       </DialogTrigger>
-      <DialogContent
-        className="max-w-xs w-full p-4 rounded-xl shadow-xl border-none"
-        style={{ background: "var(--bg-color)", color: "var(--text-color)" }}
-      >
-        <div
-          className="mb-2 text-lg font-semibold text-center"
-          style={{ color: "var(--text-color)" }}
-        >
-          Pick a theme
-        </div>
-        <div className="flex flex-wrap gap-4 justify-center">
-          {options.map((opt) => {
-            if (opt.value !== "custom") {
-              const isSelected = theme === opt.value;
-              const labelColor = getContrastColor(opt.color);
-              return (
-                <button
-                  key={opt.value}
-                  onClick={() => {
-                    setTheme(opt.value);
-                    setOpen(false);
-                  }}
-                  className={`relative flex flex-col items-center focus:outline-none transition-all duration-150 ${
-                    isSelected ? "scale-105" : ""
-                  } hover:scale-110`}
-                  style={{ minWidth: 64 }}
-                  aria-label={opt.label}
-                >
-                  <span
-                    className="w-10 h-10 rounded-full mb-1 flex items-center justify-center transition-all duration-150 border-none"
-                    style={{ background: opt.color }}
-                  >
-                    {isSelected && (
-                      <Check
-                        className="w-5 h-5"
-                        style={{
-                          color: labelColor,
-                          filter: "drop-shadow(0 1px 2px #0008)",
-                        }}
-                      />
-                    )}
-                  </span>
-                  <span
-                    className="text-xs select-none"
-                    style={{
-                      color: isSelected
-                        ? "var(--accent-color)"
-                        : "var(--text-color)",
-                      opacity: isSelected ? 1 : 0.7,
-                      fontWeight: isSelected ? 600 : 400,
-                    }}
-                  >
-                    {opt.label}
-                  </span>
-                </button>
-              );
-            }
-            // Custom themes selector
-            return (
-              <div key="custom" className="flex flex-col items-center">
-                <button
-                  onClick={() => setTheme("custom")}
-                  className={`relative flex flex-col items-center focus:outline-none transition-all duration-150 ${
-                    theme === "custom" ? "scale-105" : ""
-                  } hover:scale-110`}
-                  style={{ minWidth: 64 }}
-                  aria-label="Custom Themes"
-                >
-                  <span
-                    className="w-10 h-10 rounded-full mb-1 flex items-center justify-center transition-all duration-150 border-none"
-                    style={{
-                      background: currentCustom.colors["--bg-color"],
-                      border: `2px solid var(--accent-color)`,
-                    }}
-                  >
-                    {theme === "custom" && (
-                      <Check
-                        className="w-5 h-5"
-                        style={{
-                          color: getContrastColor(
-                            currentCustom.colors["--bg-color"]
-                          ),
-                          filter: "drop-shadow(0 1px 2px #0008)",
-                        }}
-                      />
-                    )}
-                  </span>
-                  <span
-                    className="text-xs select-none"
-                    style={{
-                      color:
-                        theme === "custom"
-                          ? "var(--accent-color)"
-                          : "var(--text-color)",
-                      opacity: theme === "custom" ? 1 : 0.7,
-                      fontWeight: theme === "custom" ? 600 : 400,
-                    }}
-                  >
-                    Custom
-                  </span>
-                </button>
-              </div>
-            );
-          })}
-        </div>
-        {/* Multiple Custom Themes List & Controls */}
-        {theme === "custom" && (
-          <div className="mt-6">
-            <div className="mb-2 text-sm font-medium text-center">
-              Your Custom Themes
-            </div>
-            <div className="flex flex-col gap-2 mb-3">
-              {customThemes.map((ct, idx) => (
-                <div
-                  key={idx}
-                  className={`flex items-center gap-2 px-2 py-1 rounded ${
-                    selectedCustomTheme === idx ? "bg-[var(--card-bg)]" : ""
-                  }`}
-                >
+      <DialogContent className="max-w-md w-full p-0 rounded-2xl shadow-xl bg-[var(--bg-color)] border-none">
+        <DialogHeader className="px-6 pt-6 pb-4">
+          <DialogTitle className="text-xl font-semibold text-[var(--text-color)] text-center">
+            Theme Settings
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="px-6 pb-6 space-y-6">
+          {/* Theme Selection */}
+          <div className="space-y-3">
+            <Label className="text-sm font-medium text-[var(--label-color)]">
+              Choose Theme
+            </Label>
+            <div className="grid grid-cols-3 gap-3">
+              {options.map((opt) => {
+                if (opt.value !== "custom") {
+                  const isSelected = theme === opt.value;
+                  const labelColor = getContrastColor(opt.color);
+                  return (
+                    <button
+                      key={opt.value}
+                      onClick={() => {
+                        setTheme(opt.value);
+                        setOpen(false);
+                      }}
+                      className={`relative group flex flex-col items-center p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2 ${
+                        isSelected
+                          ? "bg-[var(--card-bg)] ring-2 ring-[var(--accent-color)] ring-offset-2"
+                          : "hover:bg-[var(--card-bg)]/50"
+                      }`}
+                      aria-label={opt.label}
+                    >
+                      <div
+                        className={`w-12 h-12 rounded-xl mb-2 flex items-center justify-center transition-all duration-200 border-2 ${
+                          isSelected
+                            ? "border-[var(--accent-color)]"
+                            : "border-transparent"
+                        }`}
+                        style={{ background: opt.color }}
+                      >
+                        {isSelected && (
+                          <Check
+                            className="w-5 h-5"
+                            style={{
+                              color: labelColor,
+                              filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))",
+                            }}
+                          />
+                        )}
+                      </div>
+                      <span
+                        className={`text-xs font-medium transition-colors duration-200 ${
+                          isSelected
+                            ? "text-[var(--accent-color)]"
+                            : "text-[var(--text-color)]"
+                        }`}
+                      >
+                        {opt.label}
+                      </span>
+                    </button>
+                  );
+                }
+                // Custom themes selector
+                return (
                   <button
-                    className={`w-6 h-6 rounded-full border-2 flex-shrink-0`}
-                    style={{
-                      background: ct.colors["--bg-color"],
-                      borderColor:
-                        selectedCustomTheme === idx
-                          ? "var(--accent-color)"
-                          : "#ccc",
-                    }}
-                    onClick={() => {
-                      setSelectedCustomTheme(idx);
-                      setTheme("custom");
-                    }}
-                    aria-label={`Select ${ct.label}`}
-                  />
-                  {renamingIdx === idx ? (
-                    <input
-                      className="text-xs px-1 py-0.5 rounded border border-[var(--accent-color)] bg-[var(--bg-color)] text-[var(--text-color)]"
-                      value={renameValue}
-                      autoFocus
-                      onChange={(e) => setRenameValue(e.target.value)}
-                      onBlur={() => {
-                        setCustomThemeLabel(renameValue);
-                        setRenamingIdx(null);
+                    key="custom"
+                    onClick={() => setTheme("custom")}
+                    className={`relative group flex flex-col items-center p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2 ${
+                      theme === "custom"
+                        ? "bg-[var(--card-bg)] ring-2 ring-[var(--accent-color)] ring-offset-2"
+                        : "hover:bg-[var(--card-bg)]/50"
+                    }`}
+                    aria-label="Custom Themes"
+                  >
+                    <div
+                      className={`w-12 h-12 rounded-xl mb-2 flex items-center justify-center transition-all duration-200 border-2 ${
+                        theme === "custom"
+                          ? "border-[var(--accent-color)]"
+                          : "border-transparent"
+                      }`}
+                      style={{
+                        background: currentCustom.colors["--bg-color"],
+                        backgroundImage:
+                          "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
                       }}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          setCustomThemeLabel(renameValue);
-                          setRenamingIdx(null);
-                        }
-                      }}
-                    />
-                  ) : (
+                    >
+                      {theme === "custom" && (
+                        <Check
+                          className="w-5 h-5"
+                          style={{
+                            color: getContrastColor(
+                              currentCustom.colors["--bg-color"]
+                            ),
+                            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))",
+                          }}
+                        />
+                      )}
+                    </div>
                     <span
-                      className={`text-xs flex-1 truncate ${
-                        selectedCustomTheme === idx
-                          ? "font-semibold text-[var(--accent-color)]"
+                      className={`text-xs font-medium transition-colors duration-200 ${
+                        theme === "custom"
+                          ? "text-[var(--accent-color)]"
                           : "text-[var(--text-color)]"
                       }`}
-                      onDoubleClick={() => {
-                        setRenamingIdx(idx);
-                        setRenameValue(ct.label);
-                      }}
-                      title="Double click to rename"
                     >
-                      {ct.label}
+                      Custom
                     </span>
-                  )}
-                  <button
-                    className="text-xs px-1 py-0.5 rounded hover:bg-red-100/10 text-red-400"
-                    style={{
-                      visibility:
-                        customThemes.length > 1 ? "visible" : "hidden",
-                    }}
-                    onClick={() => deleteCustomTheme(idx)}
-                    title="Delete theme"
-                  >
-                    ×
                   </button>
-                </div>
-              ))}
-              <button
-                className="mt-1 text-xs px-2 py-1 rounded bg-[var(--accent-color)] text-[var(--bg-color)] font-semibold hover:opacity-90 border border-[var(--card-bg)]"
-                onClick={() => addCustomTheme("New Custom Theme")}
-              >
-                + Add Custom Theme
-              </button>
+                );
+              })}
             </div>
-            {/* Color Pickers for selected custom theme */}
-            <div className="mb-2 text-sm font-medium text-center">
-              Customize Colors
-            </div>
-            <div className="flex flex-col gap-3">
-              {customColorFields.map(({ key, label }) => (
-                <div
-                  key={key}
-                  className="flex items-center gap-3 justify-between"
+          </div>
+
+          {/* Custom Themes Management */}
+          {theme === "custom" && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label className="text-sm font-medium text-[var(--label-color)]">
+                  Custom Themes
+                </Label>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addCustomTheme("New Theme")}
+                  className="h-8 px-3 text-xs border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)]"
                 >
-                  <label className="text-xs min-w-[70px] text-[var(--label-color)]">
-                    {label}
-                  </label>
-                  <input
-                    type="color"
-                    value={currentCustom.colors[key] || "#000000"}
-                    onChange={(e) => {
-                      setCustomThemeColors({ [key]: e.target.value });
-                    }}
-                    style={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: 6,
-                      border: `2px solid ${getPickerBorder(
-                        currentCustom.colors[key]
-                      )}`,
-                      background: "none",
-                      cursor: "pointer",
-                    }}
-                    aria-label={`Pick ${label} color`}
-                  />
-                  <span className="text-xs text-[var(--text-color)]">
-                    {currentCustom.colors[key]}
-                  </span>
+                  <Plus className="w-3 h-3 mr-1" />
+                  Add
+                </Button>
+              </div>
+
+              <div className="space-y-2 max-h-32 overflow-y-auto">
+                {customThemes.map((ct, idx) => (
+                  <div
+                    key={idx}
+                    className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-200 ${
+                      selectedCustomTheme === idx
+                        ? "bg-[var(--accent-color)]/10 border border-[var(--accent-color)]/20"
+                        : "hover:bg-[var(--card-bg)]/50"
+                    }`}
+                  >
+                    <button
+                      className={`w-4 h-4 rounded-full border-2 flex-shrink-0 transition-all duration-200 ${
+                        selectedCustomTheme === idx
+                          ? "border-[var(--accent-color)] bg-[var(--accent-color)]"
+                          : "border-[var(--border-color)] bg-[var(--card-bg)]"
+                      }`}
+                      style={{
+                        background:
+                          selectedCustomTheme === idx
+                            ? "var(--accent-color)"
+                            : ct.colors["--bg-color"],
+                      }}
+                      onClick={() => {
+                        setSelectedCustomTheme(idx);
+                        setTheme("custom");
+                      }}
+                      aria-label={`Select ${ct.label}`}
+                    />
+
+                    {renamingIdx === idx ? (
+                      <Input
+                        className="flex-1 h-7 text-xs px-2 py-1 bg-[var(--bg-color)] border-[var(--accent-color)] text-[var(--text-color)]"
+                        value={renameValue}
+                        autoFocus
+                        onChange={(e) => setRenameValue(e.target.value)}
+                        onBlur={() => {
+                          setCustomThemeLabel(renameValue);
+                          setRenamingIdx(null);
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            setCustomThemeLabel(renameValue);
+                            setRenamingIdx(null);
+                          }
+                        }}
+                      />
+                    ) : (
+                      <span
+                        className={`flex-1 text-sm truncate cursor-pointer transition-colors duration-200 ${
+                          selectedCustomTheme === idx
+                            ? "font-medium text-[var(--accent-color)]"
+                            : "text-[var(--text-color)]"
+                        }`}
+                        onDoubleClick={() => {
+                          setRenamingIdx(idx);
+                          setRenameValue(ct.label);
+                        }}
+                        title="Double click to rename"
+                      >
+                        {ct.label}
+                      </span>
+                    )}
+
+                    <button
+                      className="p-1 rounded hover:bg-red-500/10 text-red-400 transition-colors duration-200"
+                      style={{
+                        visibility:
+                          customThemes.length > 1 ? "visible" : "hidden",
+                      }}
+                      onClick={() => deleteCustomTheme(idx)}
+                      title="Delete theme"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              {/* Color Customization */}
+              <div className="space-y-3">
+                <Label className="text-sm font-medium text-[var(--label-color)]">
+                  Customize Colors
+                </Label>
+                <div className="grid grid-cols-2 gap-3">
+                  {customColorFields.map(({ key, label }) => (
+                    <div key={key} className="space-y-2">
+                      <Label className="text-xs text-[var(--label-color)]">
+                        {label}
+                      </Label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={currentCustom.colors[key] || "#000000"}
+                          onChange={(e) => {
+                            setCustomThemeColors({ [key]: e.target.value });
+                          }}
+                          className="w-8 h-8 rounded-lg border-2 border-[var(--border-color)] cursor-pointer transition-all duration-200 hover:border-[var(--accent-color)] focus:border-[var(--accent-color)] focus:outline-none"
+                          style={{
+                            background: "none",
+                          }}
+                          aria-label={`Pick ${label} color`}
+                        />
+                        <span className="text-xs font-mono text-[var(--text-color)] bg-[var(--card-bg)] px-2 py-1 rounded">
+                          {currentCustom.colors[key]}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="flex gap-2 justify-center mt-4">
-              {/* Export Button */}
-              <button
-                className="px-3 py-1 rounded bg-[var(--accent-color)] text-[var(--bg-color)] text-xs font-semibold hover:opacity-90 border border-[var(--card-bg)]"
-                onClick={() => {
-                  const config = exportThemeConfig({
-                    theme,
-                    customColors: currentCustom.colors,
-                    radius,
-                    useMaterialUI,
-                  });
-                  const blob = new Blob([config], { type: "text/plain" });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = `jportal-theme-${currentCustom.label
-                    .replace(/\s+/g, "-")
-                    .toLowerCase()}.config`;
-                  a.click();
-                  URL.revokeObjectURL(url);
-                }}
-              >
-                Export Config
-              </button>
-              {/* Export All Button */}
-              <button
-                className="px-3 py-1 rounded bg-[var(--accent-color)] text-[var(--bg-color)] text-xs font-semibold hover:opacity-90 border border-[var(--card-bg)]"
-                onClick={() => {
-                  const config = exportAllCustomThemes(customThemes);
-                  const blob = new Blob([config], { type: "text/plain" });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = `jportal-all-custom-themes.config`;
-                  a.click();
-                  URL.revokeObjectURL(url);
-                }}
-              >
-                Export All
-              </button>
-              {/* Import Button */}
-              <label className="px-3 py-1 rounded bg-[var(--card-bg)] text-[var(--text-color)] text-xs font-semibold hover:opacity-90 border border-[var(--accent-color)] cursor-pointer">
-                Import Config
-                <input
-                  type="file"
-                  accept=".config,text/plain"
-                  style={{ display: "none" }}
-                  onChange={async (e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const text = await file.text();
-                    // Try multi-theme import first
-                    const importedThemes = importAllCustomThemes(text);
-                    if (importedThemes.length > 0) {
-                      setCustomThemes(importedThemes);
-                      setSelectedCustomTheme(0);
-                      setTheme("custom");
-                      return;
-                    }
-                    // Fallback to single theme import
-                    const parsed = importThemeConfig(text);
-                    if (parsed["--bg-color"] || parsed["--primary-color"]) {
-                      setCustomThemeColors(
-                        Object.fromEntries(
-                          Object.entries(parsed).filter(([k]) =>
-                            k.startsWith("--")
-                          )
-                        )
-                      );
-                    }
-                    if (parsed.radius) setRadius(Number(parsed.radius));
-                    if (parsed.useMaterialUI)
-                      setUseMaterialUI(parsed.useMaterialUI === "true");
+              </div>
+
+              {/* Import/Export */}
+              <div className="flex gap-2 pt-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const config = exportThemeConfig({
+                      theme,
+                      customColors: currentCustom.colors,
+                      radius,
+                      useMaterialUI,
+                    });
+                    const blob = new Blob([config], { type: "text/plain" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `jportal-theme-${currentCustom.label
+                      .replace(/\s+/g, "-")
+                      .toLowerCase()}.config`;
+                    a.click();
+                    URL.revokeObjectURL(url);
                   }}
-                />
-              </label>
+                  className="flex-1 h-8 text-xs border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)]"
+                >
+                  <Download className="w-3 h-3 mr-1" />
+                  Export
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const config = exportAllCustomThemes(customThemes);
+                    const blob = new Blob([config], { type: "text/plain" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `jportal-all-custom-themes.config`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                  className="flex-1 h-8 text-xs border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)]"
+                >
+                  <Download className="w-3 h-3 mr-1" />
+                  Export All
+                </Button>
+                <label className="flex-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full h-8 text-xs border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)] cursor-pointer"
+                  >
+                    <Upload className="w-3 h-3 mr-1" />
+                    Import
+                  </Button>
+                  <input
+                    type="file"
+                    accept=".config,text/plain"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+                      const text = await file.text();
+                      // Try multi-theme import first
+                      const importedThemes = importAllCustomThemes(text);
+                      if (importedThemes.length > 0) {
+                        setCustomThemes(importedThemes);
+                        setSelectedCustomTheme(0);
+                        setTheme("custom");
+                        return;
+                      }
+                      // Fallback to single theme import
+                      const parsed = importThemeConfig(text);
+                      if (parsed["--bg-color"] || parsed["--primary-color"]) {
+                        setCustomThemeColors(
+                          Object.fromEntries(
+                            Object.entries(parsed).filter(([k]) =>
+                              k.startsWith("--")
+                            )
+                          )
+                        );
+                      }
+                      if (parsed.radius) setRadius(Number(parsed.radius));
+                      if (parsed.useMaterialUI)
+                        setUseMaterialUI(parsed.useMaterialUI === "true");
+                    }}
+                  />
+                </label>
+              </div>
             </div>
-            <div className="text-xs text-center mt-2 text-[var(--label-color)]">
-              Your custom theme is saved automatically
+          )}
+
+          {/* Corner Radius */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-medium text-[var(--label-color)]">
+                Corner Radius
+              </Label>
+              <span className="text-xs font-mono text-[var(--text-color)] bg-[var(--card-bg)] px-2 py-1 rounded">
+                {radius}px
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <input
+                type="range"
+                min={0}
+                max={24}
+                step={1}
+                value={radius}
+                onChange={(e) => setRadius(Number(e.target.value))}
+                className="slider flex-1"
+              />
             </div>
           </div>
-        )}
-        <div className="mt-6">
-          <div className="mb-2 text-sm font-medium text-center">
-            Corner Radius
-          </div>
-          <div className="flex items-center gap-2 justify-center">
+
+          {/* Material UI Toggle */}
+          <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--card-bg)]/50">
+            <div className="flex items-center gap-3">
+              <Settings className="w-4 h-4 text-[var(--label-color)]" />
+              <Label className="text-sm text-[var(--text-color)] cursor-pointer select-none">
+                Material UI Components
+              </Label>
+            </div>
             <input
-              type="range"
-              min={0}
-              max={24}
-              step={1}
-              value={radius}
-              onChange={(e) => setRadius(Number(e.target.value))}
-              className="w-32 accent-[var(--accent-color)]"
-              style={{ accentColor: "var(--accent-color)" }}
+              type="checkbox"
+              checked={useMaterialUI}
+              onChange={(e) => setUseMaterialUI(e.target.checked)}
+              className="w-4 h-4 accent-[var(--accent-color)] rounded border-[var(--border-color)] focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2"
+              id="mui-toggle"
             />
-            <span
-              className="text-xs ml-2"
-              style={{
-                minWidth: 24,
-                display: "inline-block",
-                textAlign: "right",
-              }}
-            >
-              {radius}px
-            </span>
           </div>
-        </div>
-        <div className="mt-6 flex items-center gap-2 justify-center">
-          <input
-            type="checkbox"
-            checked={useMaterialUI}
-            onChange={(e) => setUseMaterialUI(e.target.checked)}
-            className="accent-[var(--accent-color)]"
-            id="mui-toggle"
-          />
-          <label
-            htmlFor="mui-toggle"
-            className="text-xs text-[var(--label-color)] cursor-pointer select-none"
-          >
-            Use Material UI Inputs & Buttons
-          </label>
         </div>
       </DialogContent>
     </Dialog>
