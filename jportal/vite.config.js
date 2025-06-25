@@ -4,12 +4,72 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 import fs from "fs";
 
+// Custom plugin to serve theme files and provide API
+function themeApiPlugin() {
+  return {
+    name: 'theme-api',
+    configureServer(server) {
+      // Serve static files from user-configs directory
+      server.middlewares.use('/user-configs', (req, res, next) => {
+        const filePath = path.join(process.cwd(), 'public', 'user-configs', req.url);
+        
+        if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+          const content = fs.readFileSync(filePath, 'utf-8');
+          res.setHeader('Content-Type', 'text/plain');
+          res.end(content);
+        } else {
+          next();
+        }
+      });
+
+      // API endpoint to list available theme files
+      server.middlewares.use('/api/themes', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        
+        try {
+          const userConfigsDir = path.join(process.cwd(), 'public', 'user-configs');
+          
+          if (!fs.existsSync(userConfigsDir)) {
+            res.end(JSON.stringify({ themes: [] }));
+            return;
+          }
+          
+          const files = fs.readdirSync(userConfigsDir);
+          const themeFiles = files.filter(file => {
+            const singleThemePattern = /^[a-zA-Z0-9_-]+-jportal-theme\.config$/;
+            const multiThemePattern = /^[a-zA-Z0-9_-]+-jportal-themes\.config$/;
+            return singleThemePattern.test(file) || multiThemePattern.test(file);
+          });
+          
+          const themes = themeFiles.map(filename => {
+            const author = filename.match(/^([a-zA-Z0-9_-]+)-jportal-(theme|themes)\.config$/)?.[1] || 'Unknown';
+            const isMultiTheme = filename.includes('-themes.config');
+            
+            return {
+              filename,
+              author,
+              isMultiTheme,
+              url: `/user-configs/${filename}`
+            };
+          });
+          
+          res.end(JSON.stringify({ themes }));
+        } catch (error) {
+          console.error('Error reading theme files:', error);
+          res.statusCode = 500;
+          res.end(JSON.stringify({ error: 'Failed to read theme files' }));
+        }
+      });
+    }
+  };
+}
 
 // https://vite.dev/config/
 export default defineConfig({
   base: "/jportal/",
   plugins: [
     react(),
+    themeApiPlugin(),
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: "auto",
