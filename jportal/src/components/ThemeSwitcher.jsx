@@ -30,7 +30,14 @@ function getContrastColor(bg) {
 }
 
 export default function ThemeSwitcher({ Icon }) {
-  const { theme, setTheme, radius, setRadius } = useTheme();
+  const {
+    theme,
+    setTheme,
+    radius,
+    setRadius,
+    useMaterialUI,
+    setUseMaterialUI,
+  } = useTheme();
   const [open, setOpen] = useState(false);
   const radiusOptions = [0, 4, 8, 12, 16, 24];
 
@@ -129,6 +136,21 @@ export default function ThemeSwitcher({ Icon }) {
               {radius}px
             </span>
           </div>
+        </div>
+        <div className="mt-6 flex items-center gap-2 justify-center">
+          <input
+            type="checkbox"
+            checked={useMaterialUI}
+            onChange={(e) => setUseMaterialUI(e.target.checked)}
+            className="accent-[var(--accent-color)]"
+            id="mui-toggle"
+          />
+          <label
+            htmlFor="mui-toggle"
+            className="text-xs text-[var(--label-color)] cursor-pointer select-none"
+          >
+            Use Material UI Inputs & Buttons
+          </label>
         </div>
       </DialogContent>
     </Dialog>

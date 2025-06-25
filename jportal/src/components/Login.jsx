@@ -14,6 +14,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
 import Loader from "./Loader";
+import { useTheme } from "./ThemeProvider";
+import {
+  TextField as MuiTextField,
+  Button as MuiButton,
+  FormControl as MuiFormControl,
+  InputLabel as MuiInputLabel,
+} from "@mui/material";
 
 // Define the form schema
 const formSchema = z.object({
@@ -32,6 +39,7 @@ export default function Login({ onLoginSuccess, w }) {
     credentials: null,
   });
   const [showPassword, setShowPassword] = useState(false);
+  const { useMaterialUI } = useTheme();
 
   // Initialize form
   const form = useForm({
@@ -144,10 +152,48 @@ export default function Login({ onLoginSuccess, w }) {
                     Enrollment Number
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
-                    />
+                    {useMaterialUI ? (
+                      <MuiFormControl fullWidth variant="outlined">
+                        <MuiInputLabel id="login-enrollment-label">
+                          Enrollment Number
+                        </MuiInputLabel>
+                        <MuiTextField
+                          {...field}
+                          labelId="login-enrollment-label"
+                          label="Enrollment Number"
+                          variant="outlined"
+                          fullWidth
+                          sx={{
+                            background: "var(--card-bg)",
+                            color: "var(--text-color)",
+                            borderRadius: "var(--radius)",
+                            fontSize: "1.1rem",
+                            fontWeight: 400,
+                            "& .MuiOutlinedInput-root": {
+                              borderRadius: "var(--radius)",
+                              background: "var(--card-bg)",
+                              color: "var(--text-color)",
+                              fontSize: "1.1rem",
+                              fontWeight: 400,
+                              "& fieldset": {
+                                borderColor: "var(--label-color)",
+                              },
+                              "&:hover fieldset": {
+                                borderColor: "var(--accent-color)",
+                              },
+                              "&.Mui-focused fieldset": {
+                                borderColor: "var(--accent-color)",
+                              },
+                            },
+                          }}
+                        />
+                      </MuiFormControl>
+                    ) : (
+                      <Input
+                        {...field}
+                        className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
+                      />
+                    )}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -163,54 +209,99 @@ export default function Login({ onLoginSuccess, w }) {
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Input
-                        type={showPassword ? "text" : "password"}
-                        {...field}
-                        className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] pr-10 focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
-                      />
-                      <button
-                        type="button"
-                        tabIndex={-1}
-                        onClick={() => setShowPassword((v) => !v)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--label-color)] hover:text-[var(--accent-color)] focus:outline-none"
-                        aria-label={
-                          showPassword ? "Hide password" : "Show password"
-                        }
-                      >
-                        {showPassword ? (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M17.94 17.94A10.06 10.06 0 0 1 12 20c-5.05 0-9.29-3.14-11-8 1.21-3.06 3.62-5.5 6.58-6.47" />
-                            <path d="M1 1l22 22" />
-                            <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c.98 0 1.87-.39 2.53-1.03" />
-                            <path d="M14.47 14.47A3.5 3.5 0 0 0 12 8.5c-.98 0-1.87.39-2.53 1.03" />
-                          </svg>
-                        ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                            <circle cx="12" cy="12" r="3" />
-                          </svg>
-                        )}
-                      </button>
+                      {useMaterialUI ? (
+                        <MuiFormControl fullWidth variant="outlined">
+                          <MuiInputLabel id="login-password-label">
+                            Password
+                          </MuiInputLabel>
+                          <MuiTextField
+                            {...field}
+                            type={showPassword ? "text" : "password"}
+                            labelId="login-password-label"
+                            label="Password"
+                            variant="outlined"
+                            fullWidth
+                            sx={{
+                              background: "var(--card-bg)",
+                              color: "var(--text-color)",
+                              borderRadius: "var(--radius)",
+                              fontSize: "1.1rem",
+                              fontWeight: 400,
+                              "& .MuiOutlinedInput-root": {
+                                borderRadius: "var(--radius)",
+                                background: "var(--card-bg)",
+                                color: "var(--text-color)",
+                                fontSize: "1.1rem",
+                                fontWeight: 400,
+                                "& fieldset": {
+                                  borderColor: "var(--label-color)",
+                                },
+                                "&:hover fieldset": {
+                                  borderColor: "var(--accent-color)",
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "var(--accent-color)",
+                                },
+                              },
+                            }}
+                            InputProps={{
+                              endAdornment: (
+                                <button
+                                  type="button"
+                                  tabIndex={-1}
+                                  onClick={() => setShowPassword((v) => !v)}
+                                  className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--label-color)] hover:text-[var(--accent-color)] focus:outline-none"
+                                  aria-label={
+                                    showPassword
+                                      ? "Hide password"
+                                      : "Show password"
+                                  }
+                                >
+                                  {showPassword ? (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="20"
+                                      height="20"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    >
+                                      <path d="M17.94 17.94A10.06 10.06 0 0 1 12 20c-5.05 0-9.29-3.14-11-8 1.21-3.06 3.62-5.5 6.58-6.47" />
+                                      <path d="M1 1l22 22" />
+                                      <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c.98 0 1.87-.39 2.53-1.03" />
+                                      <path d="M14.47 14.47A3.5 3.5 0 0 0 12 8.5c-.98 0-1.87.39-2.53 1.03" />
+                                    </svg>
+                                  ) : (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="20"
+                                      height="20"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    >
+                                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                      <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                  )}
+                                </button>
+                              ),
+                            }}
+                          />
+                        </MuiFormControl>
+                      ) : (
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          {...field}
+                          className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] pr-10 focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
+                        />
+                      )}
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -219,14 +310,36 @@ export default function Login({ onLoginSuccess, w }) {
             />
             <div></div>
             <div></div>
-            <Button
-              type="submit"
-              variant="outline"
-              className="w-full bg-[var(--accent-color)] text-[var(--bg-color)] border-none hover:bg-[var(--primary-color)] hover:text-[var(--accent-color)]"
-              disabled={loginStatus.isLoading}
-            >
-              {loginStatus.isLoading ? "Signing in..." : "Sign in"}
-            </Button>
+            {useMaterialUI ? (
+              <MuiButton
+                type="submit"
+                variant="contained"
+                fullWidth
+                sx={{
+                  background: "var(--accent-color)",
+                  color: "var(--bg-color)",
+                  borderRadius: "var(--radius)",
+                  fontWeight: 600,
+                  fontSize: "1.1rem",
+                  "&:hover": {
+                    background: "var(--primary-color)",
+                    color: "var(--accent-color)",
+                  },
+                }}
+                disabled={loginStatus.isLoading}
+              >
+                {loginStatus.isLoading ? "Signing in..." : "Sign in"}
+              </MuiButton>
+            ) : (
+              <Button
+                type="submit"
+                variant="outline"
+                className="w-full bg-[var(--accent-color)] text-[var(--bg-color)] border-none hover:bg-[var(--primary-color)] hover:text-[var(--accent-color)]"
+                disabled={loginStatus.isLoading}
+              >
+                {loginStatus.isLoading ? "Signing in..." : "Sign in"}
+              </Button>
+            )}
           </form>
         </Form>
       </div>

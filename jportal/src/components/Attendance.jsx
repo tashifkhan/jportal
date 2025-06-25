@@ -16,6 +16,12 @@ import { TextField } from "@mui/material";
 import CircleProgress from "./CircleProgress";
 import { Button } from "@/components/ui/button";
 import { ListFilter, SortAsc, SortDesc } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { useTheme } from "./ThemeProvider";
+import MuiButton from "@mui/material/Button";
+import MuiMenuItem from "@mui/material/MenuItem";
+import MuiSelect from "@mui/material/Select";
+import { FormControl, InputLabel } from "@mui/material";
 
 const Attendance = ({
   w,
@@ -47,6 +53,7 @@ const Attendance = ({
   setSubjectCacheStatus,
 }) => {
   const [attendanceSortOrder, setAttendanceSortOrder] = useState("default"); // default, asc, desc
+  const { useMaterialUI } = useTheme();
 
   const toggleSortOrder = () => {
     setAttendanceSortOrder((prev) =>
@@ -322,110 +329,216 @@ const Attendance = ({
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4 pt-2">
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-6">
         <div className="flex flex-row gap-3 items-center justify-center w-full max-w-md px-0 py-0">
-          <Select
-            onValueChange={handleSemesterChange}
-            value={selectedSem?.registration_id}
-          >
-            <SelectTrigger className="w-full bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] rounded-[var(--radius)] px-4 py-2 flex items-center font-light focus:ring-2 focus:ring-[var(--accent-color)] outline-none transition-all min-h-[44px] h-[44px] text-[1.1rem] shadow-md">
-              <SelectValue
-                placeholder={
-                  isAttendanceMetaLoading ? "Loading semesters..." : "Semester"
-                }
+          {/* Semester Select */}
+          {useMaterialUI ? (
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="semester-label">Semester</InputLabel>
+              <MuiSelect
+                labelId="semester-label"
+                label="Semester"
+                value={selectedSem?.registration_id || ""}
+                onChange={(e) => handleSemesterChange(e.target.value)}
+                displayEmpty
+                variant="outlined"
+                fullWidth
+                sx={{
+                  minWidth: 120,
+                  background: "var(--card-bg)",
+                  color: "var(--text-color)",
+                  borderRadius: "var(--radius)",
+                  fontSize: "1.1rem",
+                  fontWeight: 300,
+                  height: 44,
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--label-color)",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--accent-color)",
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--accent-color)",
+                  },
+                }}
               >
-                {selectedSem?.registration_code || "Semester"}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--accent-color)] rounded-[var(--radius)] shadow-lg">
-              {semestersData?.semesters?.map((sem) => (
-                <SelectItem
-                  key={sem.registration_id}
-                  value={sem.registration_id}
+                <MuiMenuItem value="" disabled>
+                  {isAttendanceMetaLoading
+                    ? "Loading semesters..."
+                    : "Semester"}
+                </MuiMenuItem>
+                {semestersData?.semesters?.map((sem) => (
+                  <MuiMenuItem
+                    key={sem.registration_id}
+                    value={sem.registration_id}
+                  >
+                    {sem.registration_code}
+                  </MuiMenuItem>
+                ))}
+              </MuiSelect>
+            </FormControl>
+          ) : (
+            <Select
+              onValueChange={handleSemesterChange}
+              value={selectedSem?.registration_id}
+            >
+              <SelectTrigger className="w-full bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] rounded-[var(--radius)] px-4 py-2 flex items-center font-light focus:ring-2 focus:ring-[var(--accent-color)] outline-none transition-all min-h-[44px] h-[44px] text-[1.1rem] shadow-md">
+                <SelectValue
+                  placeholder={
+                    isAttendanceMetaLoading
+                      ? "Loading semesters..."
+                      : "Semester"
+                  }
                 >
-                  {sem.registration_code}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <TextField
-            type="number"
-            value={attendanceGoal}
-            onChange={(e) => handleGoalChange(e)}
-            variant="outlined"
-            label="Criteria"
-            InputLabelProps={{
-              style: {
-                height: 48,
-                minHeight: 48,
-                color: "var(--label-color)",
-                fontSize: "1.1rem",
-                fontWeight: 300,
-              },
-            }}
-            inputProps={{
-              style: {
-                color: "var(--text-color)",
-                fontSize: "1.1rem",
-                fontWeight: 300,
-                padding: "0 12px",
-                borderRadius: "var(--radius)",
-                height: 40,
-                boxSizing: "border-box",
-              },
-            }}
-            sx={{
-              width: "110px",
-              minWidth: "90px",
-              maxWidth: "140px",
-              marginLeft: 1,
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "var(--radius)",
-                background: "transparent",
-                borderColor: "var(--label-color)",
-                fontSize: "1.1rem",
-                fontWeight: 300,
-                color: "var(--text-color)",
-                height: "40px",
-                minHeight: "40px",
-                padding: 0,
-                "& fieldset": {
+                  {selectedSem?.registration_code || "Semester"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--accent-color)] rounded-[var(--radius)] shadow-lg">
+                {semestersData?.semesters?.map((sem) => (
+                  <SelectItem
+                    key={sem.registration_id}
+                    value={sem.registration_id}
+                  >
+                    {sem.registration_code}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+          {/* Input for attendanceGoal */}
+          {useMaterialUI ? (
+            <TextField
+              type="number"
+              value={attendanceGoal}
+              onChange={(e) => handleGoalChange(e)}
+              variant="outlined"
+              label="Criteria"
+              InputLabelProps={{
+                style: {
+                  height: 48,
+                  minHeight: 48,
+                  color: "var(--label-color)",
+                  fontSize: "1.1rem",
+                  fontWeight: 300,
+                },
+              }}
+              inputProps={{
+                style: {
+                  color: "var(--text-color)",
+                  fontSize: "1.1rem",
+                  fontWeight: 300,
+                  padding: "0 12px",
+                  borderRadius: "var(--radius)",
+                  height: 40,
+                  boxSizing: "border-box",
+                },
+              }}
+              sx={{
+                width: "110px",
+                minWidth: "90px",
+                maxWidth: "140px",
+                marginLeft: 1,
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "var(--radius)",
+                  background: "transparent",
                   borderColor: "var(--label-color)",
+                  fontSize: "1.1rem",
+                  fontWeight: 300,
+                  color: "var(--text-color)",
+                  height: "40px",
+                  minHeight: "40px",
+                  padding: 0,
+                  "& fieldset": {
+                    borderColor: "var(--label-color)",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "var(--accent-color)",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "var(--accent-color)",
+                  },
                 },
-                "&:hover fieldset": {
-                  borderColor: "var(--accent-color)",
+                "& .MuiInputLabel-root": {
+                  color: "var(--label-color)",
+                  fontSize: "1.1rem",
+                  fontWeight: 300,
                 },
-                "&.Mui-focused fieldset": {
-                  borderColor: "var(--accent-color)",
-                },
-              },
-              "& .MuiInputLabel-root": {
-                color: "var(--label-color)",
+              }}
+            />
+          ) : (
+            <Input
+              type="number"
+              value={attendanceGoal}
+              onChange={handleGoalChange}
+              className="w-[110px] min-w-[90px] max-w-[140px] ml-1 bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)]"
+              style={{
                 fontSize: "1.1rem",
                 fontWeight: 300,
-              },
-            }}
-          />
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label="Sort by attendance"
-            onClick={toggleSortOrder}
-            className="ml-2 border border-[var(--label-color)] bg-[var(--card-bg)] text-[var(--text-color)] hover:bg-[var(--accent-color)] hover:text-[var(--card-bg)] focus:ring-2 focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
-            style={{
-              width: 48,
-              height: 44,
-              minWidth: 48,
-              minHeight: 44,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {attendanceSortOrder === "default" && (
-              <ListFilter className="w-5 h-5" />
-            )}
-            {attendanceSortOrder === "asc" && <SortAsc className="w-5 h-5" />}
-            {attendanceSortOrder === "desc" && <SortDesc className="w-5 h-5" />}
-          </Button>
+                height: 40,
+                borderRadius: "var(--radius)",
+              }}
+              placeholder="Criteria"
+            />
+          )}
+          {/* Sort Button */}
+          {useMaterialUI ? (
+            <MuiButton
+              variant="outlined"
+              onClick={toggleSortOrder}
+              sx={{
+                ml: 2,
+                border: "1px solid var(--label-color)",
+                background: "var(--card-bg)",
+                color: "var(--text-color)",
+                borderRadius: "var(--radius)",
+                width: 48,
+                height: 44,
+                minWidth: 48,
+                minHeight: 44,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                "&:hover": {
+                  background: "var(--accent-color)",
+                  color: "var(--card-bg)",
+                },
+                "&.Mui-focusVisible": {
+                  outline: "2px solid var(--accent-color)",
+                },
+              }}
+            >
+              {attendanceSortOrder === "default" && (
+                <ListFilter className="w-5 h-5" />
+              )}
+              {attendanceSortOrder === "asc" && <SortAsc className="w-5 h-5" />}
+              {attendanceSortOrder === "desc" && (
+                <SortDesc className="w-5 h-5" />
+              )}
+            </MuiButton>
+          ) : (
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label="Sort by attendance"
+              onClick={toggleSortOrder}
+              className="ml-2 border border-[var(--label-color)] bg-[var(--card-bg)] text-[var(--text-color)] hover:bg-[var(--accent-color)] hover:text-[var(--card-bg)] focus:ring-2 focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
+              style={{
+                width: 48,
+                height: 44,
+                minWidth: 48,
+                minHeight: 44,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {attendanceSortOrder === "default" && (
+                <ListFilter className="w-5 h-5" />
+              )}
+              {attendanceSortOrder === "asc" && <SortAsc className="w-5 h-5" />}
+              {attendanceSortOrder === "desc" && (
+                <SortDesc className="w-5 h-5" />
+              )}
+            </Button>
+          )}
         </div>
       </div>
       {isAttendanceMetaLoading || isAttendanceDataLoading ? (

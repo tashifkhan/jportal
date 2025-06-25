@@ -32,6 +32,16 @@ import {
   API,
 } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.16/dist/jsjiit.esm.js";
 import Loader from "./Loader";
+import { useTheme } from "./ThemeProvider";
+import {
+  TextField as MuiTextField,
+  Button as MuiButton,
+  Select as MuiSelect,
+  MenuItem as MuiMenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+import { Input } from "@/components/ui/input";
 
 export default function Grades({
   w,
@@ -73,6 +83,7 @@ export default function Grades({
   const [targetCGPA, setTargetCGPA] = useState("");
   const [requiredSGPA, setRequiredSGPA] = useState(null);
   const [calcError, setCalcError] = useState("");
+  const { useMaterialUI } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -523,32 +534,80 @@ export default function Grades({
                   </div>
                 ) : (
                   <div className="w-full max-w-2xl mx-auto">
-                    <Select
-                      onValueChange={handleSemesterChange}
-                      value={selectedGradeCardSem?.registration_id}
-                    >
-                      <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] w-full max-w-2xl mx-auto rounded-[var(--radius)]">
-                        <SelectValue
-                          placeholder={
-                            gradeCardLoading
-                              ? "Loading semesters..."
-                              : "Select semester"
-                          }
+                    {useMaterialUI ? (
+                      <FormControl fullWidth variant="outlined">
+                        <InputLabel id="grade-semester-label">
+                          Semester
+                        </InputLabel>
+                        <MuiSelect
+                          labelId="grade-semester-label"
+                          label="Semester"
+                          value={selectedGradeCardSem?.registration_id || ""}
+                          onChange={(e) => handleSemesterChange(e.target.value)}
+                          displayEmpty
+                          variant="outlined"
+                          fullWidth
+                          sx={{
+                            minWidth: 120,
+                            background: "var(--card-bg)",
+                            color: "var(--text-color)",
+                            borderRadius: "var(--radius)",
+                            fontSize: "1.1rem",
+                            fontWeight: 300,
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "var(--border-color)",
+                            },
+                            "&:hover .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "var(--accent-color)",
+                            },
+                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "var(--accent-color)",
+                            },
+                          }}
                         >
-                          {selectedGradeCardSem?.registration_code}
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
-                        {gradeCardSemesters.map((sem) => (
-                          <SelectItem
-                            key={sem.registration_id}
-                            value={sem.registration_id}
+                          <MuiMenuItem value="" disabled>
+                            {gradeCardLoading
+                              ? "Loading semesters..."
+                              : "Select semester"}
+                          </MuiMenuItem>
+                          {gradeCardSemesters.map((sem) => (
+                            <MuiMenuItem
+                              key={sem.registration_id}
+                              value={sem.registration_id}
+                            >
+                              {sem.registration_code}
+                            </MuiMenuItem>
+                          ))}
+                        </MuiSelect>
+                      </FormControl>
+                    ) : (
+                      <Select
+                        onValueChange={handleSemesterChange}
+                        value={selectedGradeCardSem?.registration_id}
+                      >
+                        <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] w-full max-w-2xl mx-auto rounded-[var(--radius)]">
+                          <SelectValue
+                            placeholder={
+                              gradeCardLoading
+                                ? "Loading semesters..."
+                                : "Select semester"
+                            }
                           >
-                            {sem.registration_code}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                            {selectedGradeCardSem?.registration_code}
+                          </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
+                          {gradeCardSemesters.map((sem) => (
+                            <SelectItem
+                              key={sem.registration_id}
+                              value={sem.registration_id}
+                            >
+                              {sem.registration_code}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
 
                     {gradeCardLoading ? (
                       <div className="text-[var(--text-color)] flex items-center justify-center py-4">
@@ -585,24 +644,72 @@ export default function Grades({
                   </div>
                 ) : (
                   <>
-                    <Select
-                      onValueChange={handleMarksSemesterChange}
-                      value={selectedMarksSem?.registration_id}
-                    >
-                      <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
-                        <SelectValue placeholder="Select semester" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
-                        {marksSemesters.map((sem) => (
-                          <SelectItem
-                            key={sem.registration_id}
-                            value={sem.registration_id}
-                          >
-                            {sem.registration_code}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    {useMaterialUI ? (
+                      <FormControl fullWidth variant="outlined">
+                        <InputLabel id="marks-semester-label">
+                          Semester
+                        </InputLabel>
+                        <MuiSelect
+                          labelId="marks-semester-label"
+                          label="Semester"
+                          value={selectedMarksSem?.registration_id || ""}
+                          onChange={(e) =>
+                            handleMarksSemesterChange(e.target.value)
+                          }
+                          displayEmpty
+                          variant="outlined"
+                          fullWidth
+                          sx={{
+                            minWidth: 120,
+                            background: "var(--card-bg)",
+                            color: "var(--text-color)",
+                            borderRadius: "var(--radius)",
+                            fontSize: "1.1rem",
+                            fontWeight: 300,
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "var(--border-color)",
+                            },
+                            "&:hover .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "var(--accent-color)",
+                            },
+                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "var(--accent-color)",
+                            },
+                          }}
+                        >
+                          <MuiMenuItem value="" disabled>
+                            Select semester
+                          </MuiMenuItem>
+                          {marksSemesters.map((sem) => (
+                            <MuiMenuItem
+                              key={sem.registration_id}
+                              value={sem.registration_id}
+                            >
+                              {sem.registration_code}
+                            </MuiMenuItem>
+                          ))}
+                        </MuiSelect>
+                      </FormControl>
+                    ) : (
+                      <Select
+                        onValueChange={handleMarksSemesterChange}
+                        value={selectedMarksSem?.registration_id}
+                      >
+                        <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
+                          <SelectValue placeholder="Select semester" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
+                          {marksSemesters.map((sem) => (
+                            <SelectItem
+                              key={sem.registration_id}
+                              value={sem.registration_id}
+                            >
+                              {sem.registration_code}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
 
                     {marksLoading ? (
                       <div className="flex justify-center mt-4">
@@ -686,37 +793,99 @@ export default function Grades({
             </DialogTitle>
           </DialogHeader>
           <div className="mt-2">
-            <label className="block text-lg mb-2 text-[var(--label-color)]">
-              Target CGPA
-            </label>
+            {!useMaterialUI && (
+              <label className="block text-lg mb-2 text-[var(--label-color)]">
+                Target CGPA
+              </label>
+            )}
             <div className="flex flex-col gap-3 items-stretch">
-              <input
-                type="number"
-                step="0.01"
-                min="0"
-                max="10"
-                value={targetCGPA}
-                onChange={(e) => setTargetCGPA(e.target.value)}
-                placeholder="Enter target CGPA"
-                className="w-full rounded-xl px-4 py-3 bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] focus:ring-2 focus:ring-[var(--accent-color)] outline-none text-lg font-normal shadow-md"
-              />
-              <Button
-                variant="secondary"
-                className="rounded-xl px-6 h-12 text-lg font-semibold"
-                style={{
-                  background: "var(--primary-color)",
-                  color: "var(--text-color)",
-                }}
-                onClick={handleCalculateSGPA}
-              >
-                Calculate
-              </Button>
+              {useMaterialUI ? (
+                <MuiTextField
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  max="10"
+                  value={targetCGPA}
+                  onChange={(e) => setTargetCGPA(e.target.value)}
+                  label="Target CGPA"
+                  variant="outlined"
+                  fullWidth
+                  sx={{
+                    width: "100%",
+                    borderRadius: "var(--radius)",
+                    background: "var(--card-bg)",
+                    color: "var(--text-color)",
+                    fontSize: "1.1rem",
+                    fontWeight: 400,
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "var(--radius)",
+                      background: "var(--card-bg)",
+                      color: "var(--text-color)",
+                      fontSize: "1.1rem",
+                      fontWeight: 400,
+                      "& fieldset": {
+                        borderColor: "var(--label-color)",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "var(--accent-color)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "var(--accent-color)",
+                      },
+                    },
+                  }}
+                />
+              ) : (
+                <input
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  max="10"
+                  value={targetCGPA}
+                  onChange={(e) => setTargetCGPA(e.target.value)}
+                  placeholder="Enter target CGPA"
+                  className="w-full rounded-[var(--radius)] px-4 py-3 bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] focus:ring-2 focus:ring-[var(--accent-color)] outline-none text-lg font-normal shadow-md"
+                />
+              )}
+              {useMaterialUI ? (
+                <MuiButton
+                  variant="contained"
+                  sx={{
+                    borderRadius: "var(--radius)",
+                    px: 6,
+                    height: 48,
+                    fontSize: "1.1rem",
+                    fontWeight: 600,
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                    "&:hover": {
+                      background: "var(--accent-color)",
+                      color: "var(--primary-color)",
+                    },
+                  }}
+                  onClick={handleCalculateSGPA}
+                >
+                  Calculate
+                </MuiButton>
+              ) : (
+                <Button
+                  variant="secondary"
+                  className="rounded-[var(--radius)] px-6 h-12 text-lg font-semibold"
+                  style={{
+                    background: "var(--primary-color)",
+                    color: "var(--text-color)",
+                  }}
+                  onClick={handleCalculateSGPA}
+                >
+                  Calculate
+                </Button>
+              )}
             </div>
             {calcError && (
               <div className="text-red-500 mt-2 text-base">{calcError}</div>
             )}
             {requiredSGPA !== null && !calcError && (
-              <div className="mt-6 bg-[var(--card-bg)] rounded-xl px-4 py-4">
+              <div className="mt-6 bg-[var(--card-bg)] rounded-[var(--radius)] px-4 py-4">
                 <div className="text-[var(--label-color)] text-lg mb-1">
                   Required SGPA for next semester
                 </div>

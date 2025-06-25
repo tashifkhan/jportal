@@ -8,6 +8,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Loader from "./Loader";
+import { useTheme } from "./ThemeProvider";
+import {
+  Select as MuiSelect,
+  MenuItem as MuiMenuItem,
+  Button as MuiButton,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 
 export default function Subjects({
   w,
@@ -20,6 +28,7 @@ export default function Subjects({
 }) {
   const [loading, setLoading] = useState(!semestersData);
   const [subjectsLoading, setSubjectsLoading] = useState(!subjectData);
+  const { useMaterialUI } = useTheme();
 
   useEffect(() => {
     const fetchSemesters = async () => {
@@ -125,31 +134,75 @@ export default function Subjects({
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-8">
       <div className="sticky top-14 bg-[var(--bg-color)] z-20">
         <div className="py-2 px-3">
-          <Select
-            onValueChange={handleSemesterChange}
-            value={selectedSem?.registration_id}
-            disabled={loading}
-          >
-            <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-xl px-4 py-2 shadow-md">
-              <SelectValue
-                placeholder={
-                  loading ? "Loading semesters..." : "Select semester"
-                }
+          {useMaterialUI ? (
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="subjects-semester-label">Semester</InputLabel>
+              <MuiSelect
+                labelId="subjects-semester-label"
+                label="Semester"
+                value={selectedSem?.registration_id || ""}
+                onChange={(e) => handleSemesterChange(e.target.value)}
+                displayEmpty
+                variant="outlined"
+                fullWidth
+                sx={{
+                  minWidth: 120,
+                  background: "var(--card-bg)",
+                  color: "var(--text-color)",
+                  borderRadius: "var(--radius)",
+                  fontSize: "1.1rem",
+                  fontWeight: 300,
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--border-color)",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--accent-color)",
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--accent-color)",
+                  },
+                }}
               >
-                {selectedSem?.registration_code}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-xl shadow-lg">
-              {semestersData?.semesters?.map((sem) => (
-                <SelectItem
-                  key={sem.registration_id}
-                  value={sem.registration_id}
+                <MuiMenuItem value="" disabled>
+                  {loading ? "Loading semesters..." : "Select semester"}
+                </MuiMenuItem>
+                {semestersData?.semesters?.map((sem) => (
+                  <MuiMenuItem
+                    key={sem.registration_id}
+                    value={sem.registration_id}
+                  >
+                    {sem.registration_code}
+                  </MuiMenuItem>
+                ))}
+              </MuiSelect>
+            </FormControl>
+          ) : (
+            <Select
+              onValueChange={handleSemesterChange}
+              value={selectedSem?.registration_id}
+              disabled={loading}
+            >
+              <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-xl px-4 py-2 shadow-md">
+                <SelectValue
+                  placeholder={
+                    loading ? "Loading semesters..." : "Select semester"
+                  }
                 >
-                  {sem.registration_code}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+                  {selectedSem?.registration_code}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-xl shadow-lg">
+                {semestersData?.semesters?.map((sem) => (
+                  <SelectItem
+                    key={sem.registration_id}
+                    value={sem.registration_id}
+                  >
+                    {sem.registration_code}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
         </div>
       </div>
 

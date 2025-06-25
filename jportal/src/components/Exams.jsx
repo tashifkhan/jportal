@@ -7,6 +7,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Loader from "./Loader";
+import { useTheme } from "./ThemeProvider";
+import {
+  Select as MuiSelect,
+  MenuItem as MuiMenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 
 export default function Exams({
   w,
@@ -21,6 +28,7 @@ export default function Exams({
 }) {
   const [examEvents, setExamEvents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { useMaterialUI } = useTheme();
 
   useEffect(() => {
     // Fetch semesters on component mount
@@ -91,49 +99,157 @@ export default function Exams({
     <div className="w-full max-w-2xl mx-auto min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-8">
       <div className="sticky top-14 bg-[var(--bg-color)] z-20">
         <div className="pt-2 pb-4 px-3">
-          <Select
-            onValueChange={handleSemesterChange}
-            value={selectedExamSem?.registration_id || ""}
-          >
-            <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-[var(--radius)] px-4 py-2 shadow-md">
-              <SelectValue placeholder="Select semester">
-                {selectedExamSem?.registration_code || "Select semester"}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] shadow-lg">
-              {examSemesters.map((sem) => (
-                <SelectItem
-                  key={sem.registration_id}
-                  value={sem.registration_id}
-                >
-                  {sem.registration_code}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {useMaterialUI ? (
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="exam-semester-label" shrink={true}>
+                Semester
+              </InputLabel>
+              <MuiSelect
+                labelId="exam-semester-label"
+                label="Semester"
+                value={selectedExamSem?.registration_id || ""}
+                onChange={(e) => handleSemesterChange(e.target.value)}
+                displayEmpty
+                variant="outlined"
+                fullWidth
+                renderValue={(selected) =>
+                  selected
+                    ? examSemesters.find(
+                        (sem) => sem.registration_id === selected
+                      )?.registration_code
+                    : "Select semester"
+                }
+                sx={{
+                  minWidth: 120,
+                  background: "var(--card-bg)",
+                  color: "var(--text-color)",
+                  borderRadius: "var(--radius)",
+                  fontSize: "1.1rem",
+                  fontWeight: 300,
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--border-color)",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--accent-color)",
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--accent-color)",
+                  },
+                }}
+              >
+                <MuiMenuItem value="" disabled>
+                  Select semester
+                </MuiMenuItem>
+                {examSemesters.map((sem) => (
+                  <MuiMenuItem
+                    key={sem.registration_id}
+                    value={sem.registration_id}
+                  >
+                    {sem.registration_code}
+                  </MuiMenuItem>
+                ))}
+              </MuiSelect>
+            </FormControl>
+          ) : (
+            <Select
+              onValueChange={handleSemesterChange}
+              value={selectedExamSem?.registration_id || ""}
+            >
+              <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-[var(--radius)] px-4 py-2 shadow-md">
+                <SelectValue placeholder="Select semester">
+                  {selectedExamSem?.registration_code || "Select semester"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] shadow-lg">
+                {examSemesters.map((sem) => (
+                  <SelectItem
+                    key={sem.registration_id}
+                    value={sem.registration_id}
+                  >
+                    {sem.registration_code}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
 
+          {/* Only show Exam Event select if a semester is selected */}
           {selectedExamSem && (
             <div className="mt-2">
-              <Select
-                onValueChange={handleEventChange}
-                value={selectedExamEvent?.exam_event_id || ""}
-              >
-                <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-[var(--radius)] px-4 py-2 shadow-md">
-                  <SelectValue placeholder="Select exam event">
-                    {selectedExamEvent?.exam_event_desc || "Select exam event"}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] shadow-lg">
-                  {examEvents.map((event) => (
-                    <SelectItem
-                      key={event.exam_event_id}
-                      value={event.exam_event_id}
-                    >
-                      {event.exam_event_desc}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {useMaterialUI ? (
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel id="exam-event-label" shrink={true}>
+                    Exam Event
+                  </InputLabel>
+                  <MuiSelect
+                    labelId="exam-event-label"
+                    label="Exam Event"
+                    value={selectedExamEvent?.exam_event_id || ""}
+                    onChange={(e) => handleEventChange(e.target.value)}
+                    displayEmpty
+                    variant="outlined"
+                    fullWidth
+                    renderValue={(selected) =>
+                      selected
+                        ? examEvents.find(
+                            (evt) => evt.exam_event_id === selected
+                          )?.exam_event_desc
+                        : "Select exam event"
+                    }
+                    sx={{
+                      minWidth: 120,
+                      background: "var(--card-bg)",
+                      color: "var(--text-color)",
+                      borderRadius: "var(--radius)",
+                      fontSize: "1.1rem",
+                      fontWeight: 300,
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "var(--border-color)",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "var(--accent-color)",
+                      },
+                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "var(--accent-color)",
+                      },
+                    }}
+                  >
+                    <MuiMenuItem value="" disabled>
+                      Select exam event
+                    </MuiMenuItem>
+                    {examEvents.map((event) => (
+                      <MuiMenuItem
+                        key={event.exam_event_id}
+                        value={event.exam_event_id}
+                      >
+                        {event.exam_event_desc}
+                      </MuiMenuItem>
+                    ))}
+                  </MuiSelect>
+                </FormControl>
+              ) : (
+                <Select
+                  onValueChange={handleEventChange}
+                  value={selectedExamEvent?.exam_event_id || ""}
+                >
+                  <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-[var(--radius)] px-4 py-2 shadow-md">
+                    <SelectValue placeholder="Select exam event">
+                      {selectedExamEvent?.exam_event_desc ||
+                        "Select exam event"}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] shadow-lg">
+                    {examEvents.map((event) => (
+                      <SelectItem
+                        key={event.exam_event_id}
+                        value={event.exam_event_id}
+                      >
+                        {event.exam_event_desc}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             </div>
           )}
         </div>

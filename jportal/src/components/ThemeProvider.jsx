@@ -44,6 +44,8 @@ const ThemeContext = createContext({
   setTheme: () => {},
   radius: 8,
   setRadius: () => {},
+  useMaterialUI: false,
+  setUseMaterialUI: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);
@@ -57,6 +59,10 @@ export const ThemeProvider = ({ children }) => {
     const saved = localStorage.getItem("radius");
     return saved ? Number(saved) : 8;
   });
+  const [useMaterialUI, setUseMaterialUI] = useState(() => {
+    const saved = localStorage.getItem("useMaterialUI");
+    return saved === "true";
+  });
 
   useEffect(() => {
     const themeVars = themes[theme];
@@ -66,10 +72,20 @@ export const ThemeProvider = ({ children }) => {
     document.documentElement.style.setProperty("--radius", radius + "px");
     localStorage.setItem("theme", theme);
     localStorage.setItem("radius", radius);
-  }, [theme, radius]);
+    localStorage.setItem("useMaterialUI", useMaterialUI);
+  }, [theme, radius, useMaterialUI]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, radius, setRadius }}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        setTheme,
+        radius,
+        setRadius,
+        useMaterialUI,
+        setUseMaterialUI,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );
