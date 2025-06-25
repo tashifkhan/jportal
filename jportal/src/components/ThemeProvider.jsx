@@ -39,14 +39,17 @@ const themes = {
   },
 };
 
-const defaultCustomColors = {
-  "--bg-color": "#000",
-  "--primary-color": "#ff8c42",
-  "--accent-color": "#fb923c",
-  "--text-color": "#fef7ed",
-  "--card-bg": "#23201c",
-  "--label-color": "#fed7aa",
-  "--radius": "8px",
+const defaultCustomTheme = {
+  label: "Orange Dark",
+  colors: {
+    "--bg-color": "#000",
+    "--primary-color": "#ff8c42",
+    "--accent-color": "#fb923c",
+    "--text-color": "#fef7ed",
+    "--card-bg": "#23201c",
+    "--label-color": "#fed7aa",
+    "--radius": "8px",
+  },
 };
 
 const ThemeContext = createContext({
@@ -56,8 +59,14 @@ const ThemeContext = createContext({
   setRadius: () => {},
   useMaterialUI: false,
   setUseMaterialUI: () => {},
-  customColors: defaultCustomColors,
-  setCustomColors: () => {},
+  customThemes: [defaultCustomTheme],
+  setCustomThemes: () => {},
+  selectedCustomTheme: 0,
+  setSelectedCustomTheme: () => {},
+  setCustomThemeColors: () => {},
+  setCustomThemeLabel: () => {},
+  deleteCustomTheme: () => {},
+  addCustomTheme: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);
@@ -75,15 +84,66 @@ export const ThemeProvider = ({ children }) => {
     const saved = localStorage.getItem("useMaterialUI");
     return saved === "true";
   });
-  const [customColors, setCustomColors] = useState(() => {
-    const saved = localStorage.getItem("customColors");
-    return saved ? JSON.parse(saved) : defaultCustomColors;
+  const [customThemes, setCustomThemes] = useState(() => {
+    const saved = localStorage.getItem("customThemes");
+    return saved ? JSON.parse(saved) : [defaultCustomTheme];
   });
+  const [selectedCustomTheme, setSelectedCustomTheme] = useState(() => {
+    const saved = localStorage.getItem("selectedCustomTheme");
+    return saved ? Number(saved) : 0;
+  });
+
+  // Helper to update colors of a custom theme
+  const setCustomThemeColors = (colors) => {
+    setCustomThemes((themes) => {
+      const updated = [...themes];
+      updated[selectedCustomTheme] = {
+        ...updated[selectedCustomTheme],
+        colors: { ...updated[selectedCustomTheme].colors, ...colors },
+      };
+      return updated;
+    });
+  };
+
+  // Helper to update label of a custom theme
+  const setCustomThemeLabel = (label) => {
+    setCustomThemes((themes) => {
+      const updated = [...themes];
+      updated[selectedCustomTheme] = {
+        ...updated[selectedCustomTheme],
+        label,
+      };
+      return updated;
+    });
+  };
+
+  // Helper to delete a custom theme
+  const deleteCustomTheme = (idx) => {
+    setCustomThemes((themes) => {
+      const updated = themes.filter((_, i) => i !== idx);
+      // If deleted theme is selected, select first or previous
+      if (selectedCustomTheme >= updated.length) {
+        setSelectedCustomTheme(Math.max(0, updated.length - 1));
+      }
+      return updated.length ? updated : [defaultCustomTheme];
+    });
+  };
+
+  // Helper to add a new custom theme
+  const addCustomTheme = (label = "New Custom Theme") => {
+    setCustomThemes((themes) => [
+      ...themes,
+      { label, colors: { ...defaultCustomTheme.colors } },
+    ]);
+    setSelectedCustomTheme(customThemes.length);
+    setTheme("custom");
+  };
 
   useEffect(() => {
     let themeVars;
     if (theme === "custom") {
-      themeVars = { ...customColors, "--radius": radius + "px" };
+      const custom = customThemes[selectedCustomTheme] || defaultCustomTheme;
+      themeVars = { ...custom.colors, "--radius": radius + "px" };
     } else {
       themeVars = { ...themes[theme], "--radius": radius + "px" };
     }
@@ -93,10 +153,9 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem("theme", theme);
     localStorage.setItem("radius", radius);
     localStorage.setItem("useMaterialUI", useMaterialUI);
-    if (theme === "custom") {
-      localStorage.setItem("customColors", JSON.stringify(customColors));
-    }
-  }, [theme, radius, useMaterialUI, customColors]);
+    localStorage.setItem("customThemes", JSON.stringify(customThemes));
+    localStorage.setItem("selectedCustomTheme", selectedCustomTheme);
+  }, [theme, radius, useMaterialUI, customThemes, selectedCustomTheme]);
 
   return (
     <ThemeContext.Provider
@@ -107,8 +166,14 @@ export const ThemeProvider = ({ children }) => {
         setRadius,
         useMaterialUI,
         setUseMaterialUI,
-        customColors,
-        setCustomColors,
+        customThemes,
+        setCustomThemes,
+        selectedCustomTheme,
+        setSelectedCustomTheme,
+        setCustomThemeColors,
+        setCustomThemeLabel,
+        deleteCustomTheme,
+        addCustomTheme,
       }}
     >
       {children}

@@ -70,6 +70,21 @@ function exportThemeConfig({ theme, customColors, radius, useMaterialUI }) {
   return lines.join("\n");
 }
 
+// Export all custom themes in a sectioned format
+function exportAllCustomThemes(customThemes) {
+  const lines = [];
+  customThemes.forEach((theme) => {
+    lines.push(`[THEME ${theme.label}]`);
+    Object.entries(theme.colors).forEach(([cssVar, value]) => {
+      if (configKeyMap[cssVar]) {
+        lines.push(`${configKeyMap[cssVar]}=${value}`);
+      }
+    });
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+
 function importThemeConfig(configText) {
   const lines = configText.split(/\r?\n/);
   const result = {};
@@ -87,6 +102,31 @@ function importThemeConfig(configText) {
   return result;
 }
 
+// Import multiple custom themes from sectioned config
+function importAllCustomThemes(configText) {
+  const lines = configText.split(/\r?\n/);
+  const themes = [];
+  let current = null;
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    if (trimmed.startsWith("[THEME ") && trimmed.endsWith("]")) {
+      if (current) themes.push(current);
+      const label = trimmed.slice(7, -1).trim();
+      current = { label, colors: {} };
+    } else if (current && trimmed.includes("=")) {
+      const [key, ...rest] = trimmed.split("=");
+      const value = rest.join("=");
+      const mapped = reverseConfigKeyMap[key];
+      if (mapped && mapped.startsWith("--")) {
+        current.colors[mapped] = value;
+      }
+    }
+  }
+  if (current) themes.push(current);
+  return themes;
+}
+
 export default function ThemeSwitcher({ Icon }) {
   const {
     theme,
@@ -95,10 +135,18 @@ export default function ThemeSwitcher({ Icon }) {
     setRadius,
     useMaterialUI,
     setUseMaterialUI,
-    customColors,
-    setCustomColors,
+    customThemes,
+    setCustomThemes,
+    selectedCustomTheme,
+    setSelectedCustomTheme,
+    setCustomThemeColors,
+    setCustomThemeLabel,
+    deleteCustomTheme,
+    addCustomTheme,
   } = useTheme();
   const [open, setOpen] = useState(false);
+  const [renamingIdx, setRenamingIdx] = useState(null);
+  const [renameValue, setRenameValue] = useState("");
   const radiusOptions = [0, 4, 8, 12, 16, 24];
 
   // Helper for color picker contrast
@@ -106,6 +154,9 @@ export default function ThemeSwitcher({ Icon }) {
     const contrast = getContrastColor(color);
     return contrast === "#fff" ? "#222" : "#fff";
   };
+
+  // Helper for current custom theme
+  const currentCustom = customThemes[selectedCustomTheme] || customThemes[0];
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -129,66 +180,182 @@ export default function ThemeSwitcher({ Icon }) {
         </div>
         <div className="flex flex-wrap gap-4 justify-center">
           {options.map((opt) => {
-            const isSelected = theme === opt.value;
-            const labelColor =
-              opt.value === "custom"
-                ? getContrastColor(customColors["--bg-color"])
-                : getContrastColor(opt.color);
+            if (opt.value !== "custom") {
+              const isSelected = theme === opt.value;
+              const labelColor = getContrastColor(opt.color);
+              return (
+                <button
+                  key={opt.value}
+                  onClick={() => {
+                    setTheme(opt.value);
+                    setOpen(false);
+                  }}
+                  className={`relative flex flex-col items-center focus:outline-none transition-all duration-150 ${
+                    isSelected ? "scale-105" : ""
+                  } hover:scale-110`}
+                  style={{ minWidth: 64 }}
+                  aria-label={opt.label}
+                >
+                  <span
+                    className="w-10 h-10 rounded-full mb-1 flex items-center justify-center transition-all duration-150 border-none"
+                    style={{ background: opt.color }}
+                  >
+                    {isSelected && (
+                      <Check
+                        className="w-5 h-5"
+                        style={{
+                          color: labelColor,
+                          filter: "drop-shadow(0 1px 2px #0008)",
+                        }}
+                      />
+                    )}
+                  </span>
+                  <span
+                    className="text-xs select-none"
+                    style={{
+                      color: isSelected
+                        ? "var(--accent-color)"
+                        : "var(--text-color)",
+                      opacity: isSelected ? 1 : 0.7,
+                      fontWeight: isSelected ? 600 : 400,
+                    }}
+                  >
+                    {opt.label}
+                  </span>
+                </button>
+              );
+            }
+            // Custom themes selector
             return (
-              <button
-                key={opt.value}
-                onClick={() => {
-                  setTheme(opt.value);
-                  if (opt.value !== "custom") setOpen(false);
-                }}
-                className={`relative flex flex-col items-center focus:outline-none transition-all duration-150 ${
-                  isSelected ? "scale-105" : ""
-                } hover:scale-110`}
-                style={{ minWidth: 64 }}
-                aria-label={opt.label}
-              >
-                <span
-                  className="w-10 h-10 rounded-full mb-1 flex items-center justify-center transition-all duration-150 border-none"
-                  style={{
-                    background:
-                      opt.value === "custom"
-                        ? customColors["--bg-color"]
-                        : opt.color,
-                    border:
-                      opt.value === "custom"
-                        ? `2px solid var(--accent-color)`
-                        : undefined,
-                  }}
+              <div key="custom" className="flex flex-col items-center">
+                <button
+                  onClick={() => setTheme("custom")}
+                  className={`relative flex flex-col items-center focus:outline-none transition-all duration-150 ${
+                    theme === "custom" ? "scale-105" : ""
+                  } hover:scale-110`}
+                  style={{ minWidth: 64 }}
+                  aria-label="Custom Themes"
                 >
-                  {isSelected && (
-                    <Check
-                      className="w-5 h-5"
-                      style={{
-                        color: labelColor,
-                        filter: "drop-shadow(0 1px 2px #0008)",
-                      }}
-                    />
-                  )}
-                </span>
-                <span
-                  className="text-xs select-none"
-                  style={{
-                    color: isSelected
-                      ? "var(--accent-color)"
-                      : "var(--text-color)",
-                    opacity: isSelected ? 1 : 0.7,
-                    fontWeight: isSelected ? 600 : 400,
-                  }}
-                >
-                  {opt.label}
-                </span>
-              </button>
+                  <span
+                    className="w-10 h-10 rounded-full mb-1 flex items-center justify-center transition-all duration-150 border-none"
+                    style={{
+                      background: currentCustom.colors["--bg-color"],
+                      border: `2px solid var(--accent-color)`,
+                    }}
+                  >
+                    {theme === "custom" && (
+                      <Check
+                        className="w-5 h-5"
+                        style={{
+                          color: getContrastColor(
+                            currentCustom.colors["--bg-color"]
+                          ),
+                          filter: "drop-shadow(0 1px 2px #0008)",
+                        }}
+                      />
+                    )}
+                  </span>
+                  <span
+                    className="text-xs select-none"
+                    style={{
+                      color:
+                        theme === "custom"
+                          ? "var(--accent-color)"
+                          : "var(--text-color)",
+                      opacity: theme === "custom" ? 1 : 0.7,
+                      fontWeight: theme === "custom" ? 600 : 400,
+                    }}
+                  >
+                    Custom
+                  </span>
+                </button>
+              </div>
             );
           })}
         </div>
-        {/* Custom Theme Color Pickers */}
+        {/* Multiple Custom Themes List & Controls */}
         {theme === "custom" && (
           <div className="mt-6">
+            <div className="mb-2 text-sm font-medium text-center">
+              Your Custom Themes
+            </div>
+            <div className="flex flex-col gap-2 mb-3">
+              {customThemes.map((ct, idx) => (
+                <div
+                  key={idx}
+                  className={`flex items-center gap-2 px-2 py-1 rounded ${
+                    selectedCustomTheme === idx ? "bg-[var(--card-bg)]" : ""
+                  }`}
+                >
+                  <button
+                    className={`w-6 h-6 rounded-full border-2 flex-shrink-0`}
+                    style={{
+                      background: ct.colors["--bg-color"],
+                      borderColor:
+                        selectedCustomTheme === idx
+                          ? "var(--accent-color)"
+                          : "#ccc",
+                    }}
+                    onClick={() => {
+                      setSelectedCustomTheme(idx);
+                      setTheme("custom");
+                    }}
+                    aria-label={`Select ${ct.label}`}
+                  />
+                  {renamingIdx === idx ? (
+                    <input
+                      className="text-xs px-1 py-0.5 rounded border border-[var(--accent-color)] bg-[var(--bg-color)] text-[var(--text-color)]"
+                      value={renameValue}
+                      autoFocus
+                      onChange={(e) => setRenameValue(e.target.value)}
+                      onBlur={() => {
+                        setCustomThemeLabel(renameValue);
+                        setRenamingIdx(null);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          setCustomThemeLabel(renameValue);
+                          setRenamingIdx(null);
+                        }
+                      }}
+                    />
+                  ) : (
+                    <span
+                      className={`text-xs flex-1 truncate ${
+                        selectedCustomTheme === idx
+                          ? "font-semibold text-[var(--accent-color)]"
+                          : "text-[var(--text-color)]"
+                      }`}
+                      onDoubleClick={() => {
+                        setRenamingIdx(idx);
+                        setRenameValue(ct.label);
+                      }}
+                      title="Double click to rename"
+                    >
+                      {ct.label}
+                    </span>
+                  )}
+                  <button
+                    className="text-xs px-1 py-0.5 rounded hover:bg-red-100/10 text-red-400"
+                    style={{
+                      visibility:
+                        customThemes.length > 1 ? "visible" : "hidden",
+                    }}
+                    onClick={() => deleteCustomTheme(idx)}
+                    title="Delete theme"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+              <button
+                className="mt-1 text-xs px-2 py-1 rounded bg-[var(--accent-color)] text-[var(--bg-color)] font-semibold hover:opacity-90 border border-[var(--card-bg)]"
+                onClick={() => addCustomTheme("New Custom Theme")}
+              >
+                + Add Custom Theme
+              </button>
+            </div>
+            {/* Color Pickers for selected custom theme */}
             <div className="mb-2 text-sm font-medium text-center">
               Customize Colors
             </div>
@@ -203,25 +370,24 @@ export default function ThemeSwitcher({ Icon }) {
                   </label>
                   <input
                     type="color"
-                    value={customColors[key] || "#000000"}
+                    value={currentCustom.colors[key] || "#000000"}
                     onChange={(e) => {
-                      setCustomColors({
-                        ...customColors,
-                        [key]: e.target.value,
-                      });
+                      setCustomThemeColors({ [key]: e.target.value });
                     }}
                     style={{
                       width: 32,
                       height: 32,
                       borderRadius: 6,
-                      border: `2px solid ${getPickerBorder(customColors[key])}`,
+                      border: `2px solid ${getPickerBorder(
+                        currentCustom.colors[key]
+                      )}`,
                       background: "none",
                       cursor: "pointer",
                     }}
                     aria-label={`Pick ${label} color`}
                   />
                   <span className="text-xs text-[var(--text-color)]">
-                    {customColors[key]}
+                    {currentCustom.colors[key]}
                   </span>
                 </div>
               ))}
@@ -233,7 +399,7 @@ export default function ThemeSwitcher({ Icon }) {
                 onClick={() => {
                   const config = exportThemeConfig({
                     theme,
-                    customColors,
+                    customColors: currentCustom.colors,
                     radius,
                     useMaterialUI,
                   });
@@ -241,12 +407,30 @@ export default function ThemeSwitcher({ Icon }) {
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement("a");
                   a.href = url;
-                  a.download = "jportal-theme.config";
+                  a.download = `jportal-theme-${currentCustom.label
+                    .replace(/\s+/g, "-")
+                    .toLowerCase()}.config`;
                   a.click();
                   URL.revokeObjectURL(url);
                 }}
               >
                 Export Config
+              </button>
+              {/* Export All Button */}
+              <button
+                className="px-3 py-1 rounded bg-[var(--accent-color)] text-[var(--bg-color)] text-xs font-semibold hover:opacity-90 border border-[var(--card-bg)]"
+                onClick={() => {
+                  const config = exportAllCustomThemes(customThemes);
+                  const blob = new Blob([config], { type: "text/plain" });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = `jportal-all-custom-themes.config`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+              >
+                Export All
               </button>
               {/* Import Button */}
               <label className="px-3 py-1 rounded bg-[var(--card-bg)] text-[var(--text-color)] text-xs font-semibold hover:opacity-90 border border-[var(--accent-color)] cursor-pointer">
@@ -259,21 +443,28 @@ export default function ThemeSwitcher({ Icon }) {
                     const file = e.target.files[0];
                     if (!file) return;
                     const text = await file.text();
+                    // Try multi-theme import first
+                    const importedThemes = importAllCustomThemes(text);
+                    if (importedThemes.length > 0) {
+                      setCustomThemes(importedThemes);
+                      setSelectedCustomTheme(0);
+                      setTheme("custom");
+                      return;
+                    }
+                    // Fallback to single theme import
                     const parsed = importThemeConfig(text);
-                    if (parsed.theme) setTheme(parsed.theme);
-                    if (parsed.radius) setRadius(Number(parsed.radius));
-                    if (parsed.useMaterialUI)
-                      setUseMaterialUI(parsed.useMaterialUI === "true");
                     if (parsed["--bg-color"] || parsed["--primary-color"]) {
-                      setCustomColors((prev) => ({
-                        ...prev,
-                        ...Object.fromEntries(
+                      setCustomThemeColors(
+                        Object.fromEntries(
                           Object.entries(parsed).filter(([k]) =>
                             k.startsWith("--")
                           )
-                        ),
-                      }));
+                        )
+                      );
                     }
+                    if (parsed.radius) setRadius(Number(parsed.radius));
+                    if (parsed.useMaterialUI)
+                      setUseMaterialUI(parsed.useMaterialUI === "true");
                   }}
                 />
               </label>
