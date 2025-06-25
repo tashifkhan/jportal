@@ -39,6 +39,16 @@ const themes = {
   },
 };
 
+const defaultCustomColors = {
+  "--bg-color": "#000",
+  "--primary-color": "#ff8c42",
+  "--accent-color": "#fb923c",
+  "--text-color": "#fef7ed",
+  "--card-bg": "#23201c",
+  "--label-color": "#fed7aa",
+  "--radius": "8px",
+};
+
 const ThemeContext = createContext({
   theme: "darkBlue",
   setTheme: () => {},
@@ -46,6 +56,8 @@ const ThemeContext = createContext({
   setRadius: () => {},
   useMaterialUI: false,
   setUseMaterialUI: () => {},
+  customColors: defaultCustomColors,
+  setCustomColors: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);
@@ -53,7 +65,7 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem("theme");
-    return saved && themes[saved] ? saved : "darkBlue";
+    return saved && (themes[saved] || saved === "custom") ? saved : "darkBlue";
   });
   const [radius, setRadius] = useState(() => {
     const saved = localStorage.getItem("radius");
@@ -63,17 +75,28 @@ export const ThemeProvider = ({ children }) => {
     const saved = localStorage.getItem("useMaterialUI");
     return saved === "true";
   });
+  const [customColors, setCustomColors] = useState(() => {
+    const saved = localStorage.getItem("customColors");
+    return saved ? JSON.parse(saved) : defaultCustomColors;
+  });
 
   useEffect(() => {
-    const themeVars = themes[theme];
+    let themeVars;
+    if (theme === "custom") {
+      themeVars = { ...customColors, "--radius": radius + "px" };
+    } else {
+      themeVars = { ...themes[theme], "--radius": radius + "px" };
+    }
     Object.entries(themeVars).forEach(([key, value]) => {
       document.documentElement.style.setProperty(key, value);
     });
-    document.documentElement.style.setProperty("--radius", radius + "px");
     localStorage.setItem("theme", theme);
     localStorage.setItem("radius", radius);
     localStorage.setItem("useMaterialUI", useMaterialUI);
-  }, [theme, radius, useMaterialUI]);
+    if (theme === "custom") {
+      localStorage.setItem("customColors", JSON.stringify(customColors));
+    }
+  }, [theme, radius, useMaterialUI, customColors]);
 
   return (
     <ThemeContext.Provider
@@ -84,6 +107,8 @@ export const ThemeProvider = ({ children }) => {
         setRadius,
         useMaterialUI,
         setUseMaterialUI,
+        customColors,
+        setCustomColors,
       }}
     >
       {children}

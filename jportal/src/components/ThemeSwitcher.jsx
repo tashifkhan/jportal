@@ -8,6 +8,16 @@ const options = [
   { value: "white", label: "White", color: "#fff", text: "#191c20" },
   { value: "cream", label: "Cream", color: "#fdf6e3", text: "#3b2f1e" },
   { value: "amoled", label: "AMOLED Black", color: "#000", text: "#e0e6ed" },
+  { value: "custom", label: "Custom", color: null, text: null },
+];
+
+const customColorFields = [
+  { key: "--bg-color", label: "Background" },
+  { key: "--primary-color", label: "Primary" },
+  { key: "--accent-color", label: "Accent" },
+  { key: "--text-color", label: "Text" },
+  { key: "--card-bg", label: "Card" },
+  { key: "--label-color", label: "Label" },
 ];
 
 function getContrastColor(bg) {
@@ -37,9 +47,17 @@ export default function ThemeSwitcher({ Icon }) {
     setRadius,
     useMaterialUI,
     setUseMaterialUI,
+    customColors,
+    setCustomColors,
   } = useTheme();
   const [open, setOpen] = useState(false);
   const radiusOptions = [0, 4, 8, 12, 16, 24];
+
+  // Helper for color picker contrast
+  const getPickerBorder = (color) => {
+    const contrast = getContrastColor(color);
+    return contrast === "#fff" ? "#222" : "#fff";
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -64,13 +82,16 @@ export default function ThemeSwitcher({ Icon }) {
         <div className="flex flex-wrap gap-4 justify-center">
           {options.map((opt) => {
             const isSelected = theme === opt.value;
-            const labelColor = getContrastColor(opt.color);
+            const labelColor =
+              opt.value === "custom"
+                ? getContrastColor(customColors["--bg-color"])
+                : getContrastColor(opt.color);
             return (
               <button
                 key={opt.value}
                 onClick={() => {
                   setTheme(opt.value);
-                  setOpen(false);
+                  if (opt.value !== "custom") setOpen(false);
                 }}
                 className={`relative flex flex-col items-center focus:outline-none transition-all duration-150 ${
                   isSelected ? "scale-105" : ""
@@ -81,7 +102,14 @@ export default function ThemeSwitcher({ Icon }) {
                 <span
                   className="w-10 h-10 rounded-full mb-1 flex items-center justify-center transition-all duration-150 border-none"
                   style={{
-                    background: opt.color,
+                    background:
+                      opt.value === "custom"
+                        ? customColors["--bg-color"]
+                        : opt.color,
+                    border:
+                      opt.value === "custom"
+                        ? `2px solid var(--accent-color)`
+                        : undefined,
                   }}
                 >
                   {isSelected && (
@@ -110,6 +138,51 @@ export default function ThemeSwitcher({ Icon }) {
             );
           })}
         </div>
+        {/* Custom Theme Color Pickers */}
+        {theme === "custom" && (
+          <div className="mt-6">
+            <div className="mb-2 text-sm font-medium text-center">
+              Customize Colors
+            </div>
+            <div className="flex flex-col gap-3">
+              {customColorFields.map(({ key, label }) => (
+                <div
+                  key={key}
+                  className="flex items-center gap-3 justify-between"
+                >
+                  <label className="text-xs min-w-[70px] text-[var(--label-color)]">
+                    {label}
+                  </label>
+                  <input
+                    type="color"
+                    value={customColors[key] || "#000000"}
+                    onChange={(e) => {
+                      setCustomColors({
+                        ...customColors,
+                        [key]: e.target.value,
+                      });
+                    }}
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 6,
+                      border: `2px solid ${getPickerBorder(customColors[key])}`,
+                      background: "none",
+                      cursor: "pointer",
+                    }}
+                    aria-label={`Pick ${label} color`}
+                  />
+                  <span className="text-xs text-[var(--text-color)]">
+                    {customColors[key]}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="text-xs text-center mt-2 text-[var(--label-color)]">
+              Your custom theme is saved automatically
+            </div>
+          </div>
+        )}
         <div className="mt-6">
           <div className="mb-2 text-sm font-medium text-center">
             Corner Radius
