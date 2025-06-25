@@ -124,7 +124,7 @@ export default function Login({ onLoginSuccess, w }) {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[var(--bg-color)]">
-      <div className="w-full max-w-md space-y-6 p-6 rounded-xl shadow-lg bg-[var(--card-bg)]">
+      <div className="w-full max-w-md space-y-6 p-6 rounded-[var(--radius)] shadow-lg bg-[var(--card-bg)]">
         <div className="space-y-2 text-center text-[var(--text-color)]">
           <h1 className="text-2xl font-bold">Login</h1>
           <p>Enter your credentials to sign in</p>
@@ -146,7 +146,7 @@ export default function Login({ onLoginSuccess, w }) {
                   <FormControl>
                     <Input
                       {...field}
-                      className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)]"
+                      className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -166,7 +166,7 @@ export default function Login({ onLoginSuccess, w }) {
                       <Input
                         type={showPassword ? "text" : "password"}
                         {...field}
-                        className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] pr-10 focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)]"
+                        className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] pr-10 focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
                       />
                       <button
                         type="button"

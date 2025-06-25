@@ -95,12 +95,12 @@ export default function Exams({
             onValueChange={handleSemesterChange}
             value={selectedExamSem?.registration_id || ""}
           >
-            <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-xl px-4 py-2 shadow-md">
+            <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-[var(--radius)] px-4 py-2 shadow-md">
               <SelectValue placeholder="Select semester">
                 {selectedExamSem?.registration_code || "Select semester"}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-xl shadow-lg">
+            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] shadow-lg">
               {examSemesters.map((sem) => (
                 <SelectItem
                   key={sem.registration_id}
@@ -118,12 +118,12 @@ export default function Exams({
                 onValueChange={handleEventChange}
                 value={selectedExamEvent?.exam_event_id || ""}
               >
-                <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-xl px-4 py-2 shadow-md">
+                <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-[var(--radius)] px-4 py-2 shadow-md">
                   <SelectValue placeholder="Select exam event">
                     {selectedExamEvent?.exam_event_desc || "Select exam event"}
                   </SelectValue>
                 </SelectTrigger>
-                <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-xl shadow-lg">
+                <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] shadow-lg">
                   {examEvents.map((event) => (
                     <SelectItem
                       key={event.exam_event_id}
@@ -149,7 +149,7 @@ export default function Exams({
             {currentSchedule.map((exam) => (
               <div
                 key={`${exam.subjectcode}-${exam.datetime}-${exam.datetimefrom}`}
-                className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-2 mb-2"
+                className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 py-5 flex flex-col gap-2 mb-2"
               >
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex-1 min-w-0">

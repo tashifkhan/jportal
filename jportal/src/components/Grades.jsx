@@ -363,7 +363,7 @@ export default function Grades({
             onValueChange={setActiveTab}
             className="w-full lg:w-64"
           >
-            <TabsList className="mb-4 bg-[var(--card-bg)] rounded-xl overflow-hidden h-[40px] items-center grid grid-cols-3 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl">
+            <TabsList className="mb-4 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[40px] items-center grid grid-cols-3 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl">
               <TabsTrigger
                 value="overview"
                 className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors lg:justify-start lg:px-6 lg:py-3 lg:w-full lg:rounded-none lg:data-[state=active]:rounded-l-2xl lg:data-[state=active]:rounded-r-none"
@@ -401,7 +401,7 @@ export default function Grades({
             <TabsContent value="overview">
               <div className="flex flex-col items-center">
                 {gradesError ? (
-                  <div className="w-full max-w-2xl text-center py-8 bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 mb-4">
+                  <div className="w-full max-w-2xl text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
                     <p className="text-xl">{gradesError}</p>
                     <p className="text-[var(--label-color)] mt-2">
                       Please check back later
@@ -409,7 +409,7 @@ export default function Grades({
                   </div>
                 ) : (
                   <>
-                    <div className="mb-4 w-full max-w-2xl bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5">
+                    <div className="mb-4 w-full max-w-2xl bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 py-5">
                       <ResponsiveContainer width="100%" height={250}>
                         <LineChart
                           data={semesterData}
@@ -475,7 +475,7 @@ export default function Grades({
                       {semesterData.map((sem) => (
                         <div
                           key={sem.stynumber}
-                          className="w-full bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex items-center justify-between mb-2"
+                          className="w-full bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 py-5 flex items-center justify-between mb-2"
                         >
                           <div className="flex-1 min-w-0">
                             <h2 className="text-xl font-light truncate mb-1 text-[var(--text-color)]">
@@ -515,7 +515,7 @@ export default function Grades({
             <TabsContent value="semester">
               <div className="w-full max-w-2xl mx-auto">
                 {gradeCardSemesters.length === 0 ? (
-                  <div className="text-center py-8 bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 mb-4">
+                  <div className="text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
                     <p className="text-xl">Grade card is not available yet</p>
                     <p className="text-[var(--label-color)] mt-2">
                       Please check back later
@@ -527,7 +527,7 @@ export default function Grades({
                       onValueChange={handleSemesterChange}
                       value={selectedGradeCardSem?.registration_id}
                     >
-                      <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] w-full max-w-2xl mx-auto">
+                      <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] w-full max-w-2xl mx-auto rounded-[var(--radius)]">
                         <SelectValue
                           placeholder={
                             gradeCardLoading
@@ -538,7 +538,7 @@ export default function Grades({
                           {selectedGradeCardSem?.registration_code}
                         </SelectValue>
                       </SelectTrigger>
-                      <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
+                      <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
                         {gradeCardSemesters.map((sem) => (
                           <SelectItem
                             key={sem.registration_id}
@@ -565,7 +565,7 @@ export default function Grades({
                         ))}
                       </div>
                     ) : (
-                      <div className="text-center py-8 bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 mb-4">
+                      <div className="text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
                         <p>No grade card data available for this semester</p>
                       </div>
                     )}
@@ -577,7 +577,7 @@ export default function Grades({
             <TabsContent value="marks">
               <div className="w-full max-w-2xl mx-auto">
                 {marksSemesters.length === 0 ? (
-                  <div className="text-center py-8 bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 mb-4">
+                  <div className="text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
                     <p className="text-xl">Marks data is not available yet</p>
                     <p className="text-[var(--label-color)] mt-2">
                       Please check back later
@@ -632,7 +632,7 @@ export default function Grades({
         {/* Download Marks Button */}
         <Button
           variant="secondary"
-          className="rounded-full shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--primary-color)] hover:bg-[var(--accent-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
+          className="rounded-[var(--radius)] shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--primary-color)] hover:bg-[var(--accent-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
           onClick={() => setIsDownloadDialogOpen(true)}
           aria-label="Download Marks"
         >
@@ -642,7 +642,7 @@ export default function Grades({
         {/* Targeted GPA Calculator Button */}
         <Button
           variant="secondary"
-          className="rounded-full shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--card-bg)] hover:bg-[var(--primary-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
+          className="rounded-[var(--radius)] shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--card-bg)] hover:bg-[var(--primary-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
           onClick={() => setIsTargetModalOpen(true)}
           aria-label="Calculate Targeted GPA"
         >
@@ -655,7 +655,7 @@ export default function Grades({
         open={isDownloadDialogOpen}
         onOpenChange={setIsDownloadDialogOpen}
       >
-        <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none">
+        <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none rounded-[var(--radius)]">
           <DialogHeader>
             <DialogTitle className="text-[var(--text-color)]">
               Download Marks
@@ -666,7 +666,7 @@ export default function Grades({
               <Button
                 key={sem.registration_id}
                 variant="outline"
-                className="w-full text-[var(--text-color)] hover:text-[var(--primary-color)] bg-[var(--card-bg)] hover:bg-[var(--primary-color)] border-none"
+                className="w-full text-[var(--text-color)] hover:text-[var(--primary-color)] bg-[var(--card-bg)] hover:bg-[var(--primary-color)] border-none rounded-[var(--radius)]"
                 onClick={() => handleDownloadMarks(sem)}
               >
                 {sem.registration_code}
@@ -678,7 +678,7 @@ export default function Grades({
 
       {/* Targeted GPA Calculator Modal */}
       <Dialog open={isTargetModalOpen} onOpenChange={setIsTargetModalOpen}>
-        <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none max-w-md w-full">
+        <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none max-w-md w-full rounded-[var(--radius)]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-[var(--text-color)]">
               <Calculator className="h-6 w-6" />

@@ -326,7 +326,7 @@ const Attendance = ({
             onValueChange={handleSemesterChange}
             value={selectedSem?.registration_id}
           >
-            <SelectTrigger className="w-full bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] rounded-xl px-4 py-2 flex items-center font-light focus:ring-2 focus:ring-[var(--accent-color)] outline-none transition-all min-h-[44px] h-[44px] text-[1.1rem] shadow-md">
+            <SelectTrigger className="w-full bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] rounded-[var(--radius)] px-4 py-2 flex items-center font-light focus:ring-2 focus:ring-[var(--accent-color)] outline-none transition-all min-h-[44px] h-[44px] text-[1.1rem] shadow-md">
               <SelectValue
                 placeholder={
                   isAttendanceMetaLoading ? "Loading semesters..." : "Semester"
@@ -335,7 +335,7 @@ const Attendance = ({
                 {selectedSem?.registration_code || "Semester"}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--accent-color)] rounded-xl shadow-lg">
+            <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--accent-color)] rounded-[var(--radius)] shadow-lg">
               {semestersData?.semesters?.map((sem) => (
                 <SelectItem
                   key={sem.registration_id}
@@ -367,7 +367,7 @@ const Attendance = ({
                 fontSize: "1.1rem",
                 fontWeight: 300,
                 padding: "0 12px",
-                borderRadius: 8,
+                borderRadius: "var(--radius)",
                 height: 40,
                 boxSizing: "border-box",
               },
@@ -378,7 +378,7 @@ const Attendance = ({
               maxWidth: "140px",
               marginLeft: 1,
               "& .MuiOutlinedInput-root": {
-                borderRadius: "8px",
+                borderRadius: "var(--radius)",
                 background: "transparent",
                 borderColor: "var(--label-color)",
                 fontSize: "1.1rem",
@@ -409,7 +409,7 @@ const Attendance = ({
             size="icon"
             aria-label="Sort by attendance"
             onClick={toggleSortOrder}
-            className="ml-2 border border-[var(--label-color)] bg-[var(--card-bg)] text-[var(--text-color)] hover:bg-[var(--accent-color)] hover:text-[var(--card-bg)] focus:ring-2 focus:ring-[var(--accent-color)] rounded-xl"
+            className="ml-2 border border-[var(--label-color)] bg-[var(--card-bg)] text-[var(--text-color)] hover:bg-[var(--accent-color)] hover:text-[var(--card-bg)] focus:ring-2 focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
             style={{
               width: 48,
               height: 44,
@@ -439,7 +439,7 @@ const Attendance = ({
               onValueChange={setActiveTab}
               className="w-full lg:w-64"
             >
-              <TabsList className="mb-6 bg-[var(--card-bg)] rounded-xl overflow-hidden h-[40px] items-center grid grid-cols-2 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl">
+              <TabsList className="mb-6 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[40px] items-center grid grid-cols-2 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl">
                 <TabsTrigger
                   value="overview"
                   className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors lg:justify-start lg:px-6 lg:py-3 lg:w-full lg:rounded-none lg:data-[state=active]:rounded-l-2xl lg:data-[state=active]:rounded-r-none"
@@ -469,7 +469,7 @@ const Attendance = ({
               <TabsContent value="overview">
                 <div className="flex flex-col gap-6 items-center">
                   {sortedSubjects.length === 0 ? (
-                    <div className="w-full max-w-xl mx-auto bg-[var(--card-bg)] text-[var(--accent-color)] dark:text-[var(--accent-color)] rounded-2xl shadow-md px-8 py-8 flex items-center justify-center text-center text-2xl font-medium">
+                    <div className="w-full max-w-xl mx-auto bg-[var(--card-bg)] text-[var(--accent-color)] dark:text-[var(--accent-color)] rounded-[var(--radius)] shadow-md px-8 py-8 flex items-center justify-center text-center text-2xl font-medium">
                       No subjects found.
                     </div>
                   ) : (
@@ -490,7 +490,7 @@ const Attendance = ({
               <TabsContent value="daily">
                 {/* Modern Day-to-day calendar and daily attendance breakdown */}
                 <div className="flex flex-col items-center w-full">
-                  <div className="w-full max-w-[370px] mx-auto flex flex-col items-center bg-[var(--card-bg)] rounded-2xl shadow-md p-4 mb-6">
+                  <div className="w-full max-w-[370px] mx-auto flex flex-col items-center bg-[var(--card-bg)] rounded-[var(--radius)] shadow-md p-4 mb-6">
                     <Calendar
                       mode="single"
                       selected={dailyDate}
@@ -509,7 +509,7 @@ const Attendance = ({
                           borderRadius: "2px",
                         },
                       }}
-                      className={`pb-2 w-full flex-shrink-0 max-w-full bg-[var(--card-bg)] text-[var(--text-color)] rounded-xl shadow-none border-0`}
+                      className={`pb-2 w-full flex-shrink-0 max-w-full bg-[var(--card-bg)] text-[var(--text-color)] rounded-[var(--radius)] shadow-none border-0`}
                       classNames={{
                         months: "flex flex-col space-y-2",
                         month: "space-y-2 w-full",
@@ -551,7 +551,7 @@ const Attendance = ({
                         return (
                           <div
                             key={subj.name}
-                            className="bg-[var(--card-bg)] rounded-2xl shadow-sm py-4 px-5 mb-2"
+                            className="bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm py-4 px-5 mb-2"
                           >
                             <h3 className="font-semibold mb-2 text-[var(--text-color)] text-lg">
                               {subj.name}
@@ -560,7 +560,7 @@ const Attendance = ({
                               {lectures.map((cls, i) => (
                                 <div
                                   key={i}
-                                  className={`flex flex-col sm:flex-row sm:items-center justify-between rounded-lg px-3 py-2 ${
+                                  className={`flex flex-col sm:flex-row sm:items-center justify-between rounded-[var(--radius)] px-3 py-2 ${
                                     cls.present === "Present"
                                       ? "bg-[var(--accent-color)]/10 text-[var(--accent-color)]"
                                       : "bg-[var(--error-color,#ef4444)]/10 text-[var(--error-color,#ef4444)]"

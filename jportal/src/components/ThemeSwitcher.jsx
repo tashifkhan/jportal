@@ -30,8 +30,9 @@ function getContrastColor(bg) {
 }
 
 export default function ThemeSwitcher({ Icon }) {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, radius, setRadius } = useTheme();
   const [open, setOpen] = useState(false);
+  const radiusOptions = [0, 4, 8, 12, 16, 24];
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -101,6 +102,33 @@ export default function ThemeSwitcher({ Icon }) {
               </button>
             );
           })}
+        </div>
+        <div className="mt-6">
+          <div className="mb-2 text-sm font-medium text-center">
+            Corner Radius
+          </div>
+          <div className="flex items-center gap-2 justify-center">
+            <input
+              type="range"
+              min={0}
+              max={24}
+              step={1}
+              value={radius}
+              onChange={(e) => setRadius(Number(e.target.value))}
+              className="w-32 accent-[var(--accent-color)]"
+              style={{ accentColor: "var(--accent-color)" }}
+            />
+            <span
+              className="text-xs ml-2"
+              style={{
+                minWidth: 24,
+                display: "inline-block",
+                textAlign: "right",
+              }}
+            >
+              {radius}px
+            </span>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
