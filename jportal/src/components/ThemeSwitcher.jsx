@@ -20,6 +20,22 @@ const customColorFields = [
   { key: "--label-color", label: "Label" },
 ];
 
+const configKeyMap = {
+  theme: "THEME",
+  radius: "RADIUS",
+  useMaterialUI: "USE_MATERIAL_UI",
+  "--bg-color": "BG_COLOR",
+  "--primary-color": "PRIMARY_COLOR",
+  "--accent-color": "ACCENT_COLOR",
+  "--text-color": "TEXT_COLOR",
+  "--card-bg": "CARD_BG",
+  "--label-color": "LABEL_COLOR",
+};
+
+const reverseConfigKeyMap = Object.fromEntries(
+  Object.entries(configKeyMap).map(([k, v]) => [v, k])
+);
+
 function getContrastColor(bg) {
   if (!bg) return "#222";
   const c = bg.charAt(0) === "#" ? bg.substring(1) : bg;
@@ -37,6 +53,38 @@ function getContrastColor(bg) {
     b = rgb & 255;
   const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
   return luminance > 180 ? "#222" : "#fff";
+}
+
+function exportThemeConfig({ theme, customColors, radius, useMaterialUI }) {
+  const lines = [];
+  lines.push(`${configKeyMap.theme}=${theme}`);
+  lines.push(`${configKeyMap.radius}=${radius}`);
+  lines.push(`${configKeyMap.useMaterialUI}=${useMaterialUI}`);
+  if (theme === "custom") {
+    Object.entries(customColors).forEach(([cssVar, value]) => {
+      if (configKeyMap[cssVar]) {
+        lines.push(`${configKeyMap[cssVar]}=${value}`);
+      }
+    });
+  }
+  return lines.join("\n");
+}
+
+function importThemeConfig(configText) {
+  const lines = configText.split(/\r?\n/);
+  const result = {};
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const [key, ...rest] = trimmed.split("=");
+    if (!key || rest.length === 0) continue;
+    const value = rest.join("=");
+    const mapped = reverseConfigKeyMap[key];
+    if (mapped) {
+      result[mapped] = value;
+    }
+  }
+  return result;
 }
 
 export default function ThemeSwitcher({ Icon }) {
@@ -177,6 +225,58 @@ export default function ThemeSwitcher({ Icon }) {
                   </span>
                 </div>
               ))}
+            </div>
+            <div className="flex gap-2 justify-center mt-4">
+              {/* Export Button */}
+              <button
+                className="px-3 py-1 rounded bg-[var(--accent-color)] text-[var(--bg-color)] text-xs font-semibold hover:opacity-90 border border-[var(--card-bg)]"
+                onClick={() => {
+                  const config = exportThemeConfig({
+                    theme,
+                    customColors,
+                    radius,
+                    useMaterialUI,
+                  });
+                  const blob = new Blob([config], { type: "text/plain" });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = "jportal-theme.config";
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+              >
+                Export Config
+              </button>
+              {/* Import Button */}
+              <label className="px-3 py-1 rounded bg-[var(--card-bg)] text-[var(--text-color)] text-xs font-semibold hover:opacity-90 border border-[var(--accent-color)] cursor-pointer">
+                Import Config
+                <input
+                  type="file"
+                  accept=".config,text/plain"
+                  style={{ display: "none" }}
+                  onChange={async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const text = await file.text();
+                    const parsed = importThemeConfig(text);
+                    if (parsed.theme) setTheme(parsed.theme);
+                    if (parsed.radius) setRadius(Number(parsed.radius));
+                    if (parsed.useMaterialUI)
+                      setUseMaterialUI(parsed.useMaterialUI === "true");
+                    if (parsed["--bg-color"] || parsed["--primary-color"]) {
+                      setCustomColors((prev) => ({
+                        ...prev,
+                        ...Object.fromEntries(
+                          Object.entries(parsed).filter(([k]) =>
+                            k.startsWith("--")
+                          )
+                        ),
+                      }));
+                    }
+                  }}
+                />
+              </label>
             </div>
             <div className="text-xs text-center mt-2 text-[var(--label-color)]">
               Your custom theme is saved automatically
