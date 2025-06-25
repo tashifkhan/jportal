@@ -477,48 +477,61 @@ export default function ThemeSwitcher({ Icon }) {
                   <Download className="w-3 h-3 mr-1" />
                   Export All
                 </Button>
-                <label className="flex-1">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full h-8 text-xs border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)] cursor-pointer"
-                  >
-                    <Upload className="w-3 h-3 mr-1" />
-                    Import
-                  </Button>
-                  <input
-                    type="file"
-                    accept=".config,text/plain"
-                    className="hidden"
-                    onChange={async (e) => {
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    // Create a hidden file input and trigger it
+                    const fileInput = document.createElement("input");
+                    fileInput.type = "file";
+                    fileInput.accept = ".config,text/plain";
+                    fileInput.style.display = "none";
+
+                    fileInput.onchange = async (e) => {
                       const file = e.target.files[0];
                       if (!file) return;
-                      const text = await file.text();
-                      // Try multi-theme import first
-                      const importedThemes = importAllCustomThemes(text);
-                      if (importedThemes.length > 0) {
-                        setCustomThemes(importedThemes);
-                        setSelectedCustomTheme(0);
-                        setTheme("custom");
-                        return;
-                      }
-                      // Fallback to single theme import
-                      const parsed = importThemeConfig(text);
-                      if (parsed["--bg-color"] || parsed["--primary-color"]) {
-                        setCustomThemeColors(
-                          Object.fromEntries(
-                            Object.entries(parsed).filter(([k]) =>
-                              k.startsWith("--")
+
+                      try {
+                        const text = await file.text();
+                        // Try multi-theme import first
+                        const importedThemes = importAllCustomThemes(text);
+                        if (importedThemes.length > 0) {
+                          setCustomThemes(importedThemes);
+                          setSelectedCustomTheme(0);
+                          setTheme("custom");
+                          return;
+                        }
+                        // Fallback to single theme import
+                        const parsed = importThemeConfig(text);
+                        if (parsed["--bg-color"] || parsed["--primary-color"]) {
+                          setCustomThemeColors(
+                            Object.fromEntries(
+                              Object.entries(parsed).filter(([k]) =>
+                                k.startsWith("--")
+                              )
                             )
-                          )
-                        );
+                          );
+                        }
+                        if (parsed.radius) setRadius(Number(parsed.radius));
+                        if (parsed.useMaterialUI)
+                          setUseMaterialUI(parsed.useMaterialUI === "true");
+                      } catch (error) {
+                        console.error("Error importing theme:", error);
+                        // You could add a toast notification here
                       }
-                      if (parsed.radius) setRadius(Number(parsed.radius));
-                      if (parsed.useMaterialUI)
-                        setUseMaterialUI(parsed.useMaterialUI === "true");
-                    }}
-                  />
-                </label>
+
+                      // Clean up
+                      document.body.removeChild(fileInput);
+                    };
+
+                    document.body.appendChild(fileInput);
+                    fileInput.click();
+                  }}
+                  className="flex-1 h-8 text-xs border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)]"
+                >
+                  <Upload className="w-3 h-3 mr-1" />
+                  Import
+                </Button>
               </div>
             </div>
           )}
