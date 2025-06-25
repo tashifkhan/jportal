@@ -536,7 +536,10 @@ export default function Grades({
                   <div className="w-full max-w-2xl mx-auto">
                     {useMaterialUI ? (
                       <FormControl fullWidth variant="outlined">
-                        <InputLabel id="grade-semester-label">
+                        <InputLabel
+                          id="grade-semester-label"
+                          sx={{ color: "var(--label-color)" }}
+                        >
                           Semester
                         </InputLabel>
                         <MuiSelect
@@ -646,7 +649,10 @@ export default function Grades({
                   <>
                     {useMaterialUI ? (
                       <FormControl fullWidth variant="outlined">
-                        <InputLabel id="marks-semester-label">
+                        <InputLabel
+                          id="marks-semester-label"
+                          sx={{ color: "var(--label-color)" }}
+                        >
                           Semester
                         </InputLabel>
                         <MuiSelect
@@ -834,6 +840,7 @@ export default function Grades({
                       },
                     },
                   }}
+                  InputLabelProps={{ sx: { color: "var(--label-color)" } }}
                 />
               ) : (
                 <input

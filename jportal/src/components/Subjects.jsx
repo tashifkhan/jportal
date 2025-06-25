@@ -136,7 +136,12 @@ export default function Subjects({
         <div className="py-2 px-3">
           {useMaterialUI ? (
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="subjects-semester-label">Semester</InputLabel>
+              <InputLabel
+                id="subjects-semester-label"
+                sx={{ color: "var(--label-color)" }}
+              >
+                Semester
+              </InputLabel>
               <MuiSelect
                 labelId="subjects-semester-label"
                 label="Semester"

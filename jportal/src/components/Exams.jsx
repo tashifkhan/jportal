@@ -101,7 +101,11 @@ export default function Exams({
         <div className="pt-2 pb-4 px-3">
           {useMaterialUI ? (
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="exam-semester-label" shrink={true}>
+              <InputLabel
+                id="exam-semester-label"
+                sx={{ color: "var(--label-color)" }}
+                shrink={true}
+              >
                 Semester
               </InputLabel>
               <MuiSelect
@@ -178,7 +182,11 @@ export default function Exams({
             <div className="mt-2">
               {useMaterialUI ? (
                 <FormControl fullWidth variant="outlined">
-                  <InputLabel id="exam-event-label" shrink={true}>
+                  <InputLabel
+                    id="exam-event-label"
+                    sx={{ color: "var(--label-color)" }}
+                    shrink={true}
+                  >
                     Exam Event
                   </InputLabel>
                   <MuiSelect

@@ -332,7 +332,12 @@ const Attendance = ({
           {/* Semester Select */}
           {useMaterialUI ? (
             <FormControl fullWidth variant="outlined">
-              <InputLabel id="semester-label">Semester</InputLabel>
+              <InputLabel
+                id="semester-label"
+                sx={{ color: "var(--label-color)" }}
+              >
+                Semester
+              </InputLabel>
               <MuiSelect
                 labelId="semester-label"
                 label="Semester"
