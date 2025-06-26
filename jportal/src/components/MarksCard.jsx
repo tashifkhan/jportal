@@ -20,9 +20,9 @@ export default function MarksCard({ course, gradeCard }) {
   );
   const totalPercent = totalFM > 0 ? (totalOM / totalFM) * 100 : 0;
 
-  // Find grade from gradeCard if available
+  // Find grade from gradeCard if available, with safe checks
   let matchedGrade = null;
-  if (gradeCard && gradeCard.gradecard) {
+  if (gradeCard && Array.isArray(gradeCard.gradecard)) {
     const found = gradeCard.gradecard.find(
       (s) =>
         s.subjectcode === course.code ||
