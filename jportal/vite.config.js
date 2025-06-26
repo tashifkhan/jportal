@@ -4,6 +4,8 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 import fs from "fs";
 
+const BASE_NAME = "";
+
 // Build-time plugin to generate a static theme manifest
 function generateThemeManifest() {
   return {
@@ -25,7 +27,7 @@ function generateThemeManifest() {
           filename,
           author,
           isMultiTheme: filename.includes('-themes.config'),
-          url: `/jportal/user-configs/${filename}`
+          url: `${BASE_NAME}/user-configs/${filename}`
         };
       });
 
@@ -78,7 +80,7 @@ export default defineConfig({
         name: "JPortal",
         short_name: "JPortal",
         description: "A web portal for students to view attendance and grades.",
-        start_url: "/",
+        start_url: `${BASE_NAME}/`,
         display: "standalone",
         background_color: "#191c20",
         theme_color: "#191c20",
