@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 
 const themes = {
   darkBlue: {
@@ -69,12 +75,34 @@ const ThemeContext = createContext({
   addCustomTheme: () => {},
 });
 
+const SystemColorModeContext = createContext({
+  systemColorMode: "dark", // "dark" or "light"
+});
+
 export const useTheme = () => useContext(ThemeContext);
+export const useSystemColorMode = () => useContext(SystemColorModeContext);
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
+  // System color mode detection
+  const getSystemColorMode = () =>
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  const [systemColorMode, setSystemColorMode] = useState(getSystemColorMode());
+
+  // Track if user has chosen a theme (not just default)
+  const userHasChosenThemeRef = useRef(false);
+
+  // --- Theme state ---
+  const [theme, setThemeState] = useState(() => {
     const saved = localStorage.getItem("theme");
-    return saved && (themes[saved] || saved === "custom") ? saved : "darkBlue";
+    if (saved && (themes[saved] || saved === "custom")) {
+      userHasChosenThemeRef.current = true;
+      return saved;
+    }
+    // No saved theme: use system color mode
+    return getSystemColorMode() === "dark" ? "darkBlue" : "cream";
   });
   const [radius, setRadius] = useState(() => {
     const saved = localStorage.getItem("radius");
@@ -139,6 +167,37 @@ export const ThemeProvider = ({ children }) => {
     setTheme("custom");
   };
 
+  // Patch setTheme to mark user choice
+  const setTheme = (val) => {
+    userHasChosenThemeRef.current = true;
+    setThemeState(val);
+  };
+
+  // Listen for system color mode changes
+  useEffect(() => {
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e) => {
+      const newMode = e.matches ? "dark" : "light";
+      setSystemColorMode(newMode);
+      // Only auto-switch if user hasn't chosen a theme (not custom)
+      const saved = localStorage.getItem("theme");
+      if (
+        !userHasChosenThemeRef.current &&
+        (!saved || saved === "darkBlue" || saved === "cream")
+      ) {
+        setThemeState(newMode === "dark" ? "darkBlue" : "cream");
+      }
+    };
+    mql.addEventListener
+      ? mql.addEventListener("change", handleChange)
+      : mql.addListener(handleChange);
+    return () => {
+      mql.removeEventListener
+        ? mql.removeEventListener("change", handleChange)
+        : mql.removeListener(handleChange);
+    };
+  }, []);
+
   useEffect(() => {
     let themeVars;
     let isLightTheme = false;
@@ -161,32 +220,35 @@ export const ThemeProvider = ({ children }) => {
   }, [theme, radius, useMaterialUI, customThemes, selectedCustomTheme]);
 
   return (
-    <ThemeContext.Provider
-      value={{
-        theme,
-        setTheme,
-        radius,
-        setRadius,
-        useMaterialUI,
-        setUseMaterialUI,
-        customThemes,
-        setCustomThemes,
-        selectedCustomTheme,
-        setSelectedCustomTheme,
-        setCustomThemeColors,
-        setCustomThemeLabel,
-        deleteCustomTheme,
-        addCustomTheme,
-        isLightTheme:
-          theme === "custom"
-            ? !!(
-                customThemes[selectedCustomTheme] &&
-                customThemes[selectedCustomTheme].isLightTheme
-              )
-            : theme === "cream" || theme === "white",
-      }}
-    >
-      {children}
-    </ThemeContext.Provider>
+    <SystemColorModeContext.Provider value={{ systemColorMode }}>
+      <ThemeContext.Provider
+        value={{
+          theme,
+          setTheme,
+          radius,
+          setRadius,
+          useMaterialUI,
+          setUseMaterialUI,
+          customThemes,
+          setCustomThemes,
+          selectedCustomTheme,
+          setSelectedCustomTheme,
+          setCustomThemeColors,
+          setCustomThemeLabel,
+          deleteCustomTheme,
+          addCustomTheme,
+          isLightTheme:
+            theme === "custom"
+              ? !!(
+                  customThemes[selectedCustomTheme] &&
+                  customThemes[selectedCustomTheme].isLightTheme
+                )
+              : theme === "cream" || theme === "white",
+          systemColorMode,
+        }}
+      >
+        {children}
+      </ThemeContext.Provider>
+    </SystemColorModeContext.Provider>
   );
 };

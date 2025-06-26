@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
+import { useSystemColorMode } from "./ThemeProvider";
 import {
   Dialog,
   DialogTrigger,
@@ -256,6 +257,7 @@ export default function ThemeSwitcher({ Icon }) {
     deleteCustomTheme,
     addCustomTheme,
   } = useTheme();
+  const { systemColorMode } = useSystemColorMode();
   const [open, setOpen] = useState(false);
   const [renamingIdx, setRenamingIdx] = useState(null);
   const [renameValue, setRenameValue] = useState("");
@@ -333,6 +335,10 @@ export default function ThemeSwitcher({ Icon }) {
           <DialogTitle className="text-xl font-semibold text-[var(--text-color)] text-center">
             Theme Settings
           </DialogTitle>
+          <div className="text-xs text-center mt-1 text-[var(--label-color)]">
+            System color mode:{" "}
+            <span className="font-semibold">{systemColorMode}</span>
+          </div>
         </DialogHeader>
 
         <div className="px-6 pb-6 space-y-6" {...swipeHandlers}>
