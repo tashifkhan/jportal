@@ -771,7 +771,11 @@ export default function Grades({
                     ) : marksSemesterData && marksSemesterData.courses ? (
                       <div className="space-y-4 mt-4">
                         {marksSemesterData.courses.map((course) => (
-                          <MarksCard key={course.code} course={course} />
+                          <MarksCard
+                            key={course.code}
+                            course={course}
+                            gradeCard={gradeCard}
+                          />
                         ))}
                       </div>
                     ) : (
