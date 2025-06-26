@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useTheme } from "./ThemeProvider";
-const BASE_NAME = "jportal";
+const BASE_NAME = "";
 
 function Navbar() {
   const { theme } = useTheme();
