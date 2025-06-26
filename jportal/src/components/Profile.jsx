@@ -200,7 +200,7 @@ export default function Profile({ w, profileData, setProfileData }) {
               </div>
             </TabsContent>
             <TabsContent value="education" className="px-8 py-6">
-              <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-1 mb-6">
+              <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-1">
                 <SectionTitle>Educational Qualifications</SectionTitle>
                 {qualifications.length === 0 ? (
                   <div className="text-[var(--label-color)] text-center py-4">
@@ -208,10 +208,7 @@ export default function Profile({ w, profileData, setProfileData }) {
                   </div>
                 ) : (
                   qualifications.map((qual, index) => (
-                    <div
-                      key={index}
-                      className="divide-y divide-[var(--border-color)] mb-4"
-                    >
+                    <div key={index} className="mb-4">
                       <InfoRow
                         label="Qualification"
                         value={qual.qualificationcode}
