@@ -206,38 +206,43 @@ export default function Profile({ w, profileData, setProfileData }) {
                 </div>
               </TabsContent>
               <TabsContent value="education" className="px-4 sm:px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1">
+                <div className="w-full max-w-2xl mx-auto">
                   <SectionTitle>Educational Qualifications</SectionTitle>
                   {qualifications.length === 0 ? (
                     <div className="text-[var(--label-color)] text-center py-4">
                       No qualifications found.
                     </div>
                   ) : (
-                    qualifications.map((qual, index) => (
-                      <div key={index} className="mb-4">
-                        <InfoRow
-                          label="Qualification"
-                          value={qual.qualificationcode}
-                        />
-                        <InfoRow label="Board" value={qual.boardname} />
-                        <InfoRow
-                          label="Year of Passing"
-                          value={qual.yearofpassing}
-                        />
-                        <InfoRow
-                          label="Marks Obtained"
-                          value={`${qual.obtainedmarks}/${qual.fullmarks}`}
-                        />
-                        <InfoRow
-                          label="Percentage"
-                          value={`${qual.percentagemarks}%`}
-                        />
-                        <InfoRow label="Division" value={qual.division} />
-                        {qual.grade && (
-                          <InfoRow label="Grade" value={qual.grade} />
-                        )}
-                      </div>
-                    ))
+                    <div className="flex flex-col gap-6">
+                      {qualifications.map((qual, index) => (
+                        <div
+                          key={index}
+                          className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1"
+                        >
+                          <InfoRow
+                            label="Qualification"
+                            value={qual.qualificationcode}
+                          />
+                          <InfoRow label="Board" value={qual.boardname} />
+                          <InfoRow
+                            label="Year of Passing"
+                            value={qual.yearofpassing}
+                          />
+                          <InfoRow
+                            label="Marks Obtained"
+                            value={`${qual.obtainedmarks}/${qual.fullmarks}`}
+                          />
+                          <InfoRow
+                            label="Percentage"
+                            value={`${qual.percentagemarks}%`}
+                          />
+                          <InfoRow label="Division" value={qual.division} />
+                          {qual.grade && (
+                            <InfoRow label="Grade" value={qual.grade} />
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
               </TabsContent>
