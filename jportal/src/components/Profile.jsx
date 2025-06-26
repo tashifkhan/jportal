@@ -56,25 +56,25 @@ export default function Profile({ w, profileData, setProfileData }) {
             <TabsList className="mb-6 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden items-center grid grid-cols-1 w-64 h-auto py-4 gap-2 shadow-xl ">
               <TabsTrigger
                 value="personal"
-                className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-l-2xl data-[state=active]:rounded-r-none data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
+                className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-2xl data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
               >
                 Personal
               </TabsTrigger>
               <TabsTrigger
                 value="academic"
-                className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-l-2xl data-[state=active]:rounded-r-none data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
+                className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-2xl data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
               >
                 Academic
               </TabsTrigger>
               <TabsTrigger
                 value="contact"
-                className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-l-2xl data-[state=active]:rounded-r-none data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
+                className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-2xl data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
               >
                 Contact
               </TabsTrigger>
               <TabsTrigger
                 value="education"
-                className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-l-2xl data-[state=active]:rounded-r-none data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
+                className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-2xl data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
               >
                 Education
               </TabsTrigger>
