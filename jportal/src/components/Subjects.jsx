@@ -132,10 +132,14 @@ export default function Subjects({
 
   return (
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-8">
-      <div className="sticky top-14 bg-[var(--bg-color)] z-20">
-        <div className="py-2 px-3">
+      <div className="w-full max-w-2xl mx-auto flex justify-center mb-4">
+        <div className="py-2 px-3 w-full">
           {useMaterialUI ? (
-            <FormControl fullWidth variant="outlined">
+            <FormControl
+              fullWidth
+              variant="outlined"
+              sx={{ maxWidth: 600, margin: "0 auto" }}
+            >
               <InputLabel
                 id="subjects-semester-label"
                 sx={{ color: "var(--label-color)" }}
@@ -152,11 +156,13 @@ export default function Subjects({
                 fullWidth
                 sx={{
                   minWidth: 120,
+                  maxWidth: 600,
                   background: "var(--card-bg)",
                   color: "var(--text-color)",
                   borderRadius: "var(--radius)",
                   fontSize: "1.1rem",
                   fontWeight: 300,
+                  margin: "0 auto",
                   "& .MuiOutlinedInput-notchedOutline": {
                     borderColor: "var(--border-color)",
                   },
@@ -187,7 +193,7 @@ export default function Subjects({
               value={selectedSem?.registration_id}
               disabled={loading}
             >
-              <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-xl px-4 py-2 shadow-md">
+              <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--border-color)] rounded-xl px-4 py-2 shadow-md w-full h-[44px] max-w-2xl mx-auto">
                 <SelectValue
                   placeholder={
                     loading ? "Loading semesters..." : "Select semester"
@@ -196,7 +202,7 @@ export default function Subjects({
                   {selectedSem?.registration_code}
                 </SelectValue>
               </SelectTrigger>
-              <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-xl shadow-lg">
+              <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-xl shadow-lg w-full max-w-2xl mx-auto">
                 {semestersData?.semesters?.map((sem) => (
                   <SelectItem
                     key={sem.registration_id}
