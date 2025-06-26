@@ -30,6 +30,9 @@ export default function Profile({ w, profileData, setProfileData }) {
     swipeDuration: 500,
   });
 
+  // State to toggle between profile image and avatar
+  const [showProfilePhoto, setShowProfilePhoto] = useState(false);
+
   useEffect(() => {
     const fetchProfileData = async () => {
       // Return early if data is already cached
@@ -59,13 +62,17 @@ export default function Profile({ w, profileData, setProfileData }) {
   const info = profileData?.generalinformation || {};
   const qualifications = profileData?.qualification || [];
 
-  // Placeholder image if not available
-  // Could not fig out the profile image url from jsjiit try that as well later
-  const profileImg =
+  // Prepare both image sources
+  const photoData = profileData?.["photo&signature"]?.photo;
+  const hasProfilePhoto = Boolean(photoData);
+  const avatarImg =
     info.profileimgurl ||
     "https://ui-avatars.com/api/?name=" +
       encodeURIComponent(info.studentname || "User") +
       "&background=0D8ABC&color=fff&size=128";
+  const profileImg = hasProfilePhoto
+    ? `data:image/jpeg;base64,${photoData}`
+    : avatarImg;
 
   return (
     <div className="min-h-[calc(100vh-10rem)] md:min-h-[calc(100vh-6rem)] flex flex-col w-full">
@@ -110,11 +117,26 @@ export default function Profile({ w, profileData, setProfileData }) {
             {...swipeHandlers}
           >
             {/* Profile Image & Header */}
-            <div className="flex flex-col items-center w-full pt-8 pb-4 px-2 sm:px-0">
+            <div className="flex flex-col items-center w-full pt-8 pb-4 px-2 sm:px-0 relative">
+              {hasProfilePhoto && (
+                <button
+                  className="absolute top-0 right-0 mt-2 mr-2 px-3 py-1 rounded-lg bg-[var(--primary-color)] text-[var(--text-color)] border-none text-sm hover:bg-[var(--accent-color)] hover:text-[var(--card-bg)] transition-colors z-10"
+                  onClick={() => setShowProfilePhoto((prev) => !prev)}
+                  title={showProfilePhoto ? "Show Avatar" : "Show Photo"}
+                >
+                  {showProfilePhoto ? "Show Avatar" : "Show Photo"}
+                </button>
+              )}
               <img
-                src={profileImg}
+                src={
+                  showProfilePhoto && hasProfilePhoto ? profileImg : avatarImg
+                }
                 alt="Profile"
-                className="w-28 h-28 rounded-full object-cover border-4 border-[var(--accent-color)] shadow-md mb-4"
+                className={`w-28 h-28 rounded-full object-cover shadow-md mb-4${
+                  !showProfilePhoto || !hasProfilePhoto
+                    ? " border-4 border-[var(--accent-color)]"
+                    : ""
+                }`}
                 style={{ background: "var(--primary-color)" }}
               />
               <div className="text-2xl font-bold text-[var(--text-color)] text-center mb-1">
