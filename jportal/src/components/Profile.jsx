@@ -36,6 +36,7 @@ export default function Profile({ w, profileData, setProfileData }) {
   const qualifications = profileData?.qualification || [];
 
   // Placeholder image if not available
+  // Could not fig out the profile image url from jsjiit try that as well later
   const profileImg =
     info.profileimgurl ||
     "https://ui-avatars.com/api/?name=" +
@@ -80,9 +81,9 @@ export default function Profile({ w, profileData, setProfileData }) {
             </TabsList>
           </div>
           {/* Info Card (Main Card) */}
-          <div className="flex-1 flex flex-col items-center w-full">
+          <div className="flex-1 flex flex-col items-center w-full px-4 sm:px-0">
             {/* Profile Image & Header */}
-            <div className="flex flex-col items-center w-full pt-8 pb-4">
+            <div className="flex flex-col items-center w-full pt-8 pb-4 px-2 sm:px-0">
               <img
                 src={profileImg}
                 alt="Profile"
@@ -128,8 +129,8 @@ export default function Profile({ w, profileData, setProfileData }) {
             </div>
             {/* Content Area */}
             <div className="w-full">
-              <TabsContent value="personal" className="px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-1 mb-6">
+              <TabsContent value="personal" className="px-4 sm:px-8 py-6">
+                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1 mb-6">
                   <SectionTitle>Personal Information</SectionTitle>
                   <InfoRow label="Date of Birth" value={info.dateofbirth} />
                   <InfoRow label="Gender" value={info.gender} />
@@ -138,8 +139,8 @@ export default function Profile({ w, profileData, setProfileData }) {
                   <InfoRow label="Category" value={info.category} />
                 </div>
               </TabsContent>
-              <TabsContent value="academic" className="px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-1 mb-6">
+              <TabsContent value="academic" className="px-4 sm:px-8 py-6">
+                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1 mb-6">
                   <SectionTitle>Academic Information</SectionTitle>
                   <InfoRow label="Program" value={info.programcode} />
                   <InfoRow label="Branch" value={info.branch} />
@@ -151,8 +152,8 @@ export default function Profile({ w, profileData, setProfileData }) {
                   <InfoRow label="Admission Year" value={info.admissionyear} />
                 </div>
               </TabsContent>
-              <TabsContent value="contact" className="px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-1 mb-6">
+              <TabsContent value="contact" className="px-4 sm:px-8 py-6">
+                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1 mb-6">
                   <SectionTitle>Contact Information</SectionTitle>
                   <InfoRow
                     label="Student Email (College)"
@@ -204,8 +205,8 @@ export default function Profile({ w, profileData, setProfileData }) {
                   <InfoRow label="Postal Code" value={info.ppostalcode} />
                 </div>
               </TabsContent>
-              <TabsContent value="education" className="px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-1">
+              <TabsContent value="education" className="px-4 sm:px-8 py-6">
+                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1">
                   <SectionTitle>Educational Qualifications</SectionTitle>
                   {qualifications.length === 0 ? (
                     <div className="text-[var(--label-color)] text-center py-4">
@@ -245,7 +246,7 @@ export default function Profile({ w, profileData, setProfileData }) {
         </Tabs>
       </div>
       {/* Footer remains full width below the card */}
-      <div className="w-full max-w-4xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-4 text-center overflow-auto max-sm:text-sm text-lg mt-6">
+      <div className="w-full max-w-4xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-4 text-center overflow-auto max-sm:text-sm text-lg mt-6">
         Made with Big 🍆 Energy by{" "}
         <a
           href="https://github.com/codeblech"
