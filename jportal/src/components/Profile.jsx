@@ -1,10 +1,34 @@
 import React, { useState, useEffect } from "react";
 import Loader from "./Loader";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
+import { useSwipeable } from "react-swipeable";
 
 export default function Profile({ w, profileData, setProfileData }) {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("personal");
+
+  // Tab order for swiping
+  const tabOrder = ["personal", "academic", "contact", "education"];
+
+  // Swipe handlers for tab navigation
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      const currentIndex = tabOrder.indexOf(activeTab);
+      if (currentIndex < tabOrder.length - 1) {
+        setActiveTab(tabOrder[currentIndex + 1]);
+      }
+    },
+    onSwipedRight: () => {
+      const currentIndex = tabOrder.indexOf(activeTab);
+      if (currentIndex > 0) {
+        setActiveTab(tabOrder[currentIndex - 1]);
+      }
+    },
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+    delta: 50,
+    swipeDuration: 500,
+  });
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -81,7 +105,10 @@ export default function Profile({ w, profileData, setProfileData }) {
             </TabsList>
           </div>
           {/* Info Card (Main Card) */}
-          <div className="flex-1 flex flex-col items-center w-full px-4 sm:px-0">
+          <div
+            className="flex-1 flex flex-col items-center w-full px-4 sm:px-0"
+            {...swipeHandlers}
+          >
             {/* Profile Image & Header */}
             <div className="flex flex-col items-center w-full pt-8 pb-4 px-2 sm:px-0">
               <img
