@@ -51,6 +51,7 @@ const configKeyMap = {
   "--text-color": "TEXT_COLOR",
   "--card-bg": "CARD_BG",
   "--label-color": "LABEL_COLOR",
+  isLightTheme: "LIGHT_THEME",
 };
 
 const reverseConfigKeyMap = Object.fromEntries(
@@ -76,11 +77,20 @@ function getContrastColor(bg) {
   return luminance > 180 ? "#222" : "#fff";
 }
 
-function exportThemeConfig({ theme, customColors, radius, useMaterialUI }) {
+function exportThemeConfig({
+  theme,
+  customColors,
+  radius,
+  useMaterialUI,
+  isLightTheme,
+}) {
   const lines = [];
   lines.push(`${configKeyMap.theme}=${theme}`);
   lines.push(`${configKeyMap.radius}=${radius}`);
   lines.push(`${configKeyMap.useMaterialUI}=${useMaterialUI}`);
+  if (typeof isLightTheme !== "undefined") {
+    lines.push(`${configKeyMap.isLightTheme}=${isLightTheme}`);
+  }
   if (theme === "custom") {
     Object.entries(customColors).forEach(([cssVar, value]) => {
       if (configKeyMap[cssVar]) {
@@ -96,6 +106,9 @@ function exportAllCustomThemes(customThemes) {
   const lines = [];
   customThemes.forEach((theme) => {
     lines.push(`[THEME ${theme.label}]`);
+    if (typeof theme.isLightTheme !== "undefined") {
+      lines.push(`${configKeyMap.isLightTheme}=${theme.isLightTheme}`);
+    }
     Object.entries(theme.colors).forEach(([cssVar, value]) => {
       if (configKeyMap[cssVar]) {
         lines.push(`${configKeyMap[cssVar]}=${value}`);
@@ -120,6 +133,12 @@ function importThemeConfig(configText) {
       result[mapped] = value;
     }
   }
+  // If isLightTheme is missing, default to false (dark)
+  if (typeof result.isLightTheme === "undefined") {
+    result.isLightTheme = false;
+  } else {
+    result.isLightTheme = result.isLightTheme === "true";
+  }
   return result;
 }
 
@@ -134,13 +153,15 @@ function importAllCustomThemes(configText) {
     if (trimmed.startsWith("[THEME ") && trimmed.endsWith("]")) {
       if (current) themes.push(current);
       const label = trimmed.slice(7, -1).trim();
-      current = { label, colors: {} };
+      current = { label, colors: {}, isLightTheme: false };
     } else if (current && trimmed.includes("=")) {
       const [key, ...rest] = trimmed.split("=");
       const value = rest.join("=");
       const mapped = reverseConfigKeyMap[key];
       if (mapped && mapped.startsWith("--")) {
         current.colors[mapped] = value;
+      } else if (mapped === "isLightTheme") {
+        current.isLightTheme = value === "true";
       }
     }
   }
@@ -609,6 +630,37 @@ export default function ThemeSwitcher({ Icon }) {
                 </div>
               </div>
 
+              {/* Theme Type */}
+              <div className="space-y-3">
+                <Label className="text-sm font-medium text-[var(--label-color)]">
+                  Theme Type
+                </Label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={currentCustom.isLightTheme || false}
+                    onChange={(e) => {
+                      setCustomThemes((themes) => {
+                        const updated = [...themes];
+                        updated[selectedCustomTheme] = {
+                          ...updated[selectedCustomTheme],
+                          isLightTheme: e.target.checked,
+                        };
+                        return updated;
+                      });
+                    }}
+                    className="w-4 h-4 accent-[var(--accent-color)] rounded border-[var(--border-color)] focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2"
+                    id="light-theme-toggle"
+                  />
+                  <Label
+                    htmlFor="light-theme-toggle"
+                    className="text-sm text-[var(--text-color)] cursor-pointer select-none"
+                  >
+                    Light Theme
+                  </Label>
+                </div>
+              </div>
+
               {/* Import/Export */}
               <div className="flex gap-2 pt-2">
                 <Button
@@ -620,6 +672,7 @@ export default function ThemeSwitcher({ Icon }) {
                       customColors: currentCustom.colors,
                       radius,
                       useMaterialUI,
+                      isLightTheme: currentCustom.isLightTheme || false,
                     });
                     const blob = new Blob([config], { type: "text/plain" });
                     const url = URL.createObjectURL(blob);

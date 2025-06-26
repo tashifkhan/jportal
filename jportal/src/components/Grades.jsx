@@ -83,10 +83,17 @@ export default function Grades({
   const [targetCGPA, setTargetCGPA] = useState("");
   const [requiredSGPA, setRequiredSGPA] = useState(null);
   const [calcError, setCalcError] = useState("");
-  const { useMaterialUI, theme } = useTheme();
+  const { useMaterialUI, theme, customThemes, selectedCustomTheme } =
+    useTheme();
 
-  // Choose line and text colors based on theme
-  const isLightTheme = theme === "cream" || theme === "white";
+  // Determine if the current theme is light
+  let isLightTheme = false;
+  if (theme === "custom") {
+    const custom = customThemes[selectedCustomTheme] || {};
+    isLightTheme = !!custom.isLightTheme;
+  } else {
+    isLightTheme = theme === "cream" || theme === "white";
+  }
   const sgpaColor = isLightTheme ? "#15803d" : "#4ADE80"; // deep green for light
   const cgpaColor = isLightTheme ? "#1e40af" : "#60A5FA"; // deep blue for light
   const sgpaTextColor = isLightTheme ? "text-green-800" : "text-green-400";

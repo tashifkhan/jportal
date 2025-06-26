@@ -141,10 +141,13 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     let themeVars;
+    let isLightTheme = false;
     if (theme === "custom") {
       const custom = customThemes[selectedCustomTheme] || defaultCustomTheme;
+      isLightTheme = !!custom.isLightTheme;
       themeVars = { ...custom.colors, "--radius": radius + "px" };
     } else {
+      isLightTheme = theme === "cream" || theme === "white";
       themeVars = { ...themes[theme], "--radius": radius + "px" };
     }
     Object.entries(themeVars).forEach(([key, value]) => {
@@ -174,6 +177,13 @@ export const ThemeProvider = ({ children }) => {
         setCustomThemeLabel,
         deleteCustomTheme,
         addCustomTheme,
+        isLightTheme:
+          theme === "custom"
+            ? !!(
+                customThemes[selectedCustomTheme] &&
+                customThemes[selectedCustomTheme].isLightTheme
+              )
+            : theme === "cream" || theme === "white",
       }}
     >
       {children}
