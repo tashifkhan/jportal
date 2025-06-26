@@ -1,6 +1,9 @@
 import React from "react";
+import { useTheme } from "./ThemeProvider";
 
 function SubjectInfoCard({ subject }) {
+  const { isLightTheme } = useTheme();
+
   return (
     <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-2 mb-2">
       <div className="flex items-center justify-between gap-4">
@@ -13,7 +16,11 @@ function SubjectInfoCard({ subject }) {
               {subject.code}
             </span>
             {subject.isAudit && (
-              <span className="text-xs bg-yellow-600/20 text-yellow-400 rounded px-2 py-0.5 ml-2">
+              <span
+                className={`text-xs bg-yellow-600/20 ${
+                  isLightTheme ? "text-yellow-800" : "text-yellow-400"
+                } rounded px-2 py-0.5 ml-2`}
+              >
                 Audit
               </span>
             )}
