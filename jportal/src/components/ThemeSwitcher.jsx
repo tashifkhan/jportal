@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
 import MuiSwitch from "@mui/material/Switch";
+const BASE_NAME = "";
 
 const options = [
   { value: "darkBlue", label: "Dark Blue", color: "#141c23", text: "#eaf6fb" },
@@ -174,10 +175,10 @@ function importAllCustomThemes(configText) {
 // Function to fetch user-contributed themes
 async function fetchUserThemes() {
   try {
-    console.log("Fetching theme list from /jportal/api/themes.json...");
+    console.log(`Fetching theme list from ${BASE_NAME}/api/themes.json...`);
 
     // Fetch the list of available theme files from the static manifest
-    const response = await fetch("/jportal/api/themes.json");
+    const response = await fetch(`${BASE_NAME}/api/themes.json`);
     if (!response.ok) {
       throw new Error(
         `Failed to fetch theme list: ${response.status} ${response.statusText}`
