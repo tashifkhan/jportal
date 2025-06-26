@@ -43,8 +43,8 @@ export default function Profile({ w, profileData, setProfileData }) {
       "&background=0D8ABC&color=fff&size=128";
 
   return (
-    <div className="w-full max-w-6xl mx-auto flex flex-col min-h-[600px]">
-      <div className="flex flex-1 flex-row w-full">
+    <div className="min-h-[calc(100vh-10rem)] md:min-h-[calc(100vh-6rem)] flex flex-col w-full">
+      <div className="flex-1 flex flex-row w-full max-w-6xl mx-auto">
         <Tabs
           value={activeTab}
           onValueChange={setActiveTab}
@@ -52,7 +52,7 @@ export default function Profile({ w, profileData, setProfileData }) {
         >
           {/* Sidebar Tabs for large screens, horizontal for small */}
           <div className="w-64 flex-shrink-0 hidden lg:block">
-            <TabsList className="mb-6 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[40px] items-center grid grid-cols-1 w-64 h-auto py-4 gap-2 shadow-xl rounded-2xl">
+            <TabsList className="mb-6 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden items-center grid grid-cols-1 w-64 h-auto py-4 gap-2 shadow-xl ">
               <TabsTrigger
                 value="personal"
                 className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-l-2xl data-[state=active]:rounded-r-none data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
@@ -245,7 +245,7 @@ export default function Profile({ w, profileData, setProfileData }) {
         </Tabs>
       </div>
       {/* Footer remains full width below the card */}
-      <div className="w-full max-w-4xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-4 text-center mb-4 overflow-auto max-sm:text-sm text-lg mt-6">
+      <div className="w-full max-w-4xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-4 text-center overflow-auto max-sm:text-sm text-lg mt-6">
         Made with Big 🍆 Energy by{" "}
         <a
           href="https://github.com/codeblech"
