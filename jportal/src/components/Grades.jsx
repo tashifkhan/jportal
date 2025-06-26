@@ -388,7 +388,7 @@ export default function Grades({
             onValueChange={setActiveTab}
             className="w-full lg:w-64"
           >
-            <TabsList className="mb-4 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[40px] items-center grid grid-cols-3 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl">
+            <TabsList className="mb-4 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[40px] items-center grid grid-cols-3 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl lg:block hidden">
               <TabsTrigger
                 value="overview"
                 className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors lg:justify-start lg:px-6 lg:py-3 lg:w-full lg:rounded-none lg:data-[state=active]:rounded-l-2xl lg:data-[state=active]:rounded-r-none"
@@ -414,6 +414,29 @@ export default function Grades({
                 </span>
               </TabsTrigger>
             </TabsList>
+            {/* Mobile TabsList (horizontal bar) */}
+            <div className="w-full lg:hidden">
+              <TabsList className="w-full flex flex-row justify-between bg-[var(--primary-color)] rounded-t-2xl overflow-hidden h-12">
+                <TabsTrigger
+                  value="overview"
+                  className="flex-1 text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
+                >
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger
+                  value="semester"
+                  className="flex-1 text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
+                >
+                  Semester
+                </TabsTrigger>
+                <TabsTrigger
+                  value="marks"
+                  className="flex-1 text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
+                >
+                  Marks
+                </TabsTrigger>
+              </TabsList>
+            </div>
           </Tabs>
         </div>
         {/* Content Area */}
