@@ -24,6 +24,7 @@ import {
   Star,
 } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
+import MuiSwitch from "@mui/material/Switch";
 
 const options = [
   { value: "darkBlue", label: "Dark Blue", color: "#141c23", text: "#eaf6fb" },
@@ -264,6 +265,8 @@ export default function ThemeSwitcher({ Icon }) {
   const [userThemes, setUserThemes] = useState([]);
   const [isLoadingUserThemes, setIsLoadingUserThemes] = useState(false);
   const [activeTab, setActiveTab] = useState("builtin"); // "builtin", "custom", "community"
+  const [showAddThemeInput, setShowAddThemeInput] = useState(false);
+  const [newThemeName, setNewThemeName] = useState("");
   const radiusOptions = [0, 4, 8, 12, 16, 24];
 
   // Tab order for swiping
@@ -514,15 +517,49 @@ export default function ThemeSwitcher({ Icon }) {
                 <Label className="text-sm font-medium text-[var(--label-color)]">
                   Custom Themes
                 </Label>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => addCustomTheme("New Theme")}
-                  className="h-8 px-3 text-xs border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)]"
-                >
-                  <Plus className="w-3 h-3 mr-1" />
-                  Add
-                </Button>
+                {showAddThemeInput ? (
+                  <div className="flex gap-2 items-center">
+                    <Input
+                      className="h-8 text-xs px-2 py-1 bg-[var(--bg-color)] border-[var(--accent-color)] text-[var(--text-color)]"
+                      value={newThemeName}
+                      autoFocus
+                      placeholder="Theme name"
+                      onChange={(e) => setNewThemeName(e.target.value)}
+                      onBlur={() => setShowAddThemeInput(false)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && newThemeName.trim()) {
+                          addCustomTheme(newThemeName.trim());
+                          setShowAddThemeInput(false);
+                          setNewThemeName("");
+                        }
+                      }}
+                    />
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => {
+                        if (newThemeName.trim()) {
+                          addCustomTheme(newThemeName.trim());
+                        }
+                        setShowAddThemeInput(false);
+                        setNewThemeName("");
+                      }}
+                      className="h-8 w-8"
+                    >
+                      <Plus className="w-3 h-3" />
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowAddThemeInput(true)}
+                    className="h-8 px-3 text-xs border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)]"
+                  >
+                    <Plus className="w-3 h-3 mr-1" />
+                    Add
+                  </Button>
+                )}
               </div>
 
               <div className="space-y-2 max-h-32 overflow-y-auto">
@@ -717,49 +754,72 @@ export default function ThemeSwitcher({ Icon }) {
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    // Create a hidden file input and trigger it
                     const fileInput = document.createElement("input");
                     fileInput.type = "file";
                     fileInput.accept = ".config,text/plain";
                     fileInput.style.display = "none";
-
                     fileInput.onchange = async (e) => {
                       const file = e.target.files[0];
                       if (!file) return;
-
                       try {
                         const text = await file.text();
-                        // Try multi-theme import first
+                        // Try to extract author from file name if possible
+                        let author = "";
+                        if (file.name) {
+                          // e.g. taf-jportal-themes.config or taf-jportal-theme.config
+                          const match = file.name.match(
+                            /^([^-]+)-jportal-theme/
+                          );
+                          if (match) author = match[1];
+                        }
                         const importedThemes = importAllCustomThemes(text);
                         if (importedThemes.length > 0) {
-                          setCustomThemes(importedThemes);
-                          setSelectedCustomTheme(0);
+                          setCustomThemes((prev) => [
+                            ...prev,
+                            ...importedThemes.map((theme) => ({
+                              ...theme,
+                              label: author
+                                ? `${theme.label} (Community - ${author})`
+                                : `${theme.label} (Community)`,
+                            })),
+                          ]);
+                          setSelectedCustomTheme(customThemes.length); // select first of new
                           setTheme("custom");
                           return;
                         }
-                        // Fallback to single theme import
                         const parsed = importThemeConfig(text);
                         if (parsed["--bg-color"] || parsed["--primary-color"]) {
-                          setCustomThemeColors(
-                            Object.fromEntries(
-                              Object.entries(parsed).filter(([k]) =>
-                                k.startsWith("--")
-                              )
-                            )
-                          );
+                          setCustomThemes((prev) => [
+                            ...prev,
+                            {
+                              label: author
+                                ? `${
+                                    parsed.label ||
+                                    `Imported Theme ${customThemes.length + 1}`
+                                  } (Community - ${author})`
+                                : `${
+                                    parsed.label ||
+                                    `Imported Theme ${customThemes.length + 1}`
+                                  } (Community)`,
+                              colors: Object.fromEntries(
+                                Object.entries(parsed).filter(([k]) =>
+                                  k.startsWith("--")
+                                )
+                              ),
+                              isLightTheme: parsed.isLightTheme,
+                            },
+                          ]);
+                          setSelectedCustomTheme(customThemes.length);
+                          setTheme("custom");
                         }
                         if (parsed.radius) setRadius(Number(parsed.radius));
                         if (parsed.useMaterialUI)
                           setUseMaterialUI(parsed.useMaterialUI === "true");
                       } catch (error) {
                         console.error("Error importing theme:", error);
-                        // You could add a toast notification here
                       }
-
-                      // Clean up
                       document.body.removeChild(fileInput);
                     };
-
                     document.body.appendChild(fileInput);
                     fileInput.click();
                   }}
@@ -926,12 +986,19 @@ export default function ThemeSwitcher({ Icon }) {
                 Material UI Components
               </Label>
             </div>
-            <input
-              type="checkbox"
+            <MuiSwitch
               checked={useMaterialUI}
-              onChange={(e) => setUseMaterialUI(e.target.checked)}
-              className="w-4 h-4 accent-[var(--accent-color)] rounded border-[var(--border-color)] focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2"
+              onChange={(_, checked) => setUseMaterialUI(checked)}
               id="mui-toggle"
+              sx={{
+                color: "var(--accent-color)",
+                "&.Mui-checked": {
+                  color: "var(--accent-color)",
+                },
+                "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                  backgroundColor: "var(--accent-color)",
+                },
+              }}
             />
           </div>
         </div>

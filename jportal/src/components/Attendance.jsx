@@ -434,6 +434,7 @@ const Attendance = ({
                   borderRadius: "var(--radius)",
                   height: 40,
                   boxSizing: "border-box",
+                  background: "var(--card-bg)",
                 },
               }}
               sx={{
@@ -443,7 +444,7 @@ const Attendance = ({
                 marginLeft: 1,
                 "& .MuiOutlinedInput-root": {
                   borderRadius: "var(--radius)",
-                  background: "transparent",
+                  background: "var(--card-bg)",
                   borderColor: "var(--label-color)",
                   fontSize: "1.1rem",
                   fontWeight: 300,

@@ -159,11 +159,14 @@ export const ThemeProvider = ({ children }) => {
 
   // Helper to add a new custom theme
   const addCustomTheme = (label = "New Custom Theme") => {
-    setCustomThemes((themes) => [
-      ...themes,
-      { label, colors: { ...defaultCustomTheme.colors } },
-    ]);
-    setSelectedCustomTheme(customThemes.length);
+    setCustomThemes((themes) => {
+      const updated = [
+        ...themes,
+        { label, colors: { ...defaultCustomTheme.colors } },
+      ];
+      setSelectedCustomTheme(updated.length - 1);
+      return updated;
+    });
     setTheme("custom");
   };
 
