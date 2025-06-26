@@ -43,7 +43,7 @@ function generateThemeManifest() {
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/jportal/",
+  base: "./",
   plugins: [
     react(),
     generateThemeManifest(),
@@ -70,15 +70,15 @@ export default defineConfig({
         ],
         additionalManifestEntries: [
           { url: "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js", revision: null },
-          { url: "/jportal/artifact/jiit_marks-0.2.0-py3-none-any.whl", revision: null },
-          { url: "/jportal/artifact/PyMuPDF-1.24.12-cp311-abi3-emscripten_3_1_32_wasm32.whl", revision: null },
+          { url: "/artifact/jiit_marks-0.2.0-py3-none-any.whl", revision: null },
+          { url: "/artifact/PyMuPDF-1.24.12-cp311-abi3-emscripten_3_1_32_wasm32.whl", revision: null },
         ],
       },
       manifest: {
         name: "JPortal",
         short_name: "JPortal",
         description: "A web portal for students to view attendance and grades.",
-        start_url: "/jportal/",
+        start_url: "/",
         display: "standalone",
         background_color: "#191c20",
         theme_color: "#191c20",
