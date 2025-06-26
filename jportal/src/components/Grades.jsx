@@ -328,17 +328,30 @@ export default function Grades({
   };
 
   const getGradeColor = (grade) => {
-    const gradeColors = {
-      "A+": "text-green-400",
-      A: "text-green-500",
-      "B+": "text-yellow-400",
-      B: "text-yellow-500",
-      "C+": "text-yellow-600",
-      C: "text-orange-400",
-      D: "text-orange-500",
-      F: "text-red-500",
+    const lightGradeColors = {
+      "A+": "text-green-900",
+      A: "text-green-800",
+      "B+": "text-blue-900",
+      B: "text-blue-800",
+      "C+": "text-yellow-800",
+      C: "text-yellow-700",
+      D: "text-orange-800",
+      F: "text-red-800",
     };
-    return gradeColors[grade] || "text-white";
+    const darkGradeColors = {
+      "A+": "text-green-400",
+      A: "text-green-300",
+      "B+": "text-blue-400",
+      B: "text-blue-300",
+      "C+": "text-yellow-400",
+      C: "text-yellow-300",
+      D: "text-orange-400",
+      F: "text-red-400",
+    };
+    return (
+      (isLightTheme ? lightGradeColors[grade] : darkGradeColors[grade]) ||
+      "text-white"
+    );
   };
 
   const handleDownloadMarks = async (semester) => {
