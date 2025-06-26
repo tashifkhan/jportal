@@ -39,7 +39,7 @@ function Navbar() {
         {/* Logo/Title */}
         <div className="w-full flex flex-col items-center mb-8 select-none">
           <img
-            src={`/${BASE_NAME}/pwa-icons/circle.svg`}
+            src={`${BASE_NAME}/pwa-icons/circle.svg`}
             alt="JPortal Logo"
             className="w-12 h-12 mb-2"
           />
