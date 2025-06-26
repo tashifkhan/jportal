@@ -881,7 +881,7 @@ export default function Grades({
                               ${
                                 creditSort === "default"
                                   ? "bg-[var(--label-color)] text-[var(--card-bg)]"
-                                  : "bg-[var(--accent-color)] text-[var(--primary-color)] shadow"
+                                  : "bg-[var(--accent-color)] text-[var(--text-color)] shadow"
                               }
                               hover:bg-[var(--primary-color)]/10 hover:text-[var(--accent-color)]`}
                             onClick={() => {
@@ -904,7 +904,7 @@ export default function Grades({
                               ${
                                 gradeSort === "default"
                                   ? "bg-[var(--label-color)] text-[var(--card-bg)]"
-                                  : "bg-[var(--accent-color)] text-[var(--primary-color)] shadow"
+                                  : "bg-[var(--accent-color)] text-[var(--text-color)] shadow"
                               }
                               hover:bg-[var(--primary-color)]/10 hover:text-[var(--accent-color)]`}
                             onClick={() => {
