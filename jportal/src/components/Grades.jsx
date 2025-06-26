@@ -270,6 +270,21 @@ export default function Grades({
         }
       } catch (error) {
         console.error("Failed to load marks:", error);
+        // If error is table not found or IndexError, set a special error object
+        if (
+          error.message?.includes("table not on page") ||
+          error.message?.includes("IndexError") ||
+          error.message?.includes("table not found")
+        ) {
+          const errorObj = { error: "marks_not_uploaded" };
+          if (mounted) {
+            setMarksSemesterData(errorObj);
+            setMarksData((prev) => ({
+              ...prev,
+              [selectedMarksSem.registration_id]: errorObj,
+            }));
+          }
+        }
       } finally {
         if (mounted) {
           setMarksLoading(false);
@@ -1013,6 +1028,16 @@ export default function Grades({
                     {marksLoading ? (
                       <div className="flex justify-center mt-4">
                         <Loader message="Loading marks data..." />
+                      </div>
+                    ) : marksSemesterData &&
+                      marksSemesterData.error === "marks_not_uploaded" ? (
+                      <div className="text-center mt-4 bg-[var(--card-bg)] rounded-[var(--radius)] px-6 py-8 shadow-sm">
+                        <p className="text-xl text-[var(--text-color)] font-semibold mb-2">
+                          Marks not yet uploaded for this semester
+                        </p>
+                        <p className="text-[var(--label-color)]">
+                          Please check back later
+                        </p>
                       </div>
                     ) : marksSemesterData && marksSemesterData.courses ? (
                       <div className="space-y-4 mt-4">
