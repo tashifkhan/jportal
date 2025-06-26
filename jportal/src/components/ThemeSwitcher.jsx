@@ -420,56 +420,61 @@ export default function ThemeSwitcher({ Icon }) {
                       </button>
                     );
                   }
-                  // Custom themes selector
-                  return (
-                    <button
-                      key="custom"
-                      onClick={() => {
-                        setTheme("custom");
-                        setActiveTab("custom");
-                      }}
-                      className={`relative group flex flex-col items-center p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2 ${
-                        theme === "custom"
-                          ? "bg-[var(--card-bg)] ring-2 ring-[var(--accent-color)] ring-offset-2"
-                          : "hover:bg-[var(--card-bg)]/50"
-                      }`}
-                      aria-label="Custom Themes"
-                    >
-                      <div
-                        className={`w-12 h-12 rounded-xl mb-2 flex items-center justify-center transition-all duration-200 border-2 ${
-                          theme === "custom"
-                            ? "border-[var(--accent-color)]"
-                            : "border-transparent"
-                        }`}
-                        style={{
-                          background: currentCustom.colors["--bg-color"],
-                          backgroundImage:
-                            "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
+                  // Custom themes selector: only show if a custom theme is selected
+                  if (theme === "custom") {
+                    return (
+                      <button
+                        key="custom"
+                        onClick={() => {
+                          setTheme("custom");
+                          setActiveTab("custom");
                         }}
-                      >
-                        {theme === "custom" && (
-                          <Check
-                            className="w-5 h-5"
-                            style={{
-                              color: getContrastColor(
-                                currentCustom.colors["--bg-color"]
-                              ),
-                              filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))",
-                            }}
-                          />
-                        )}
-                      </div>
-                      <span
-                        className={`text-xs font-medium transition-colors duration-200 ${
+                        className={`relative group flex flex-col items-center p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2 ${
                           theme === "custom"
-                            ? "text-[var(--accent-color)]"
-                            : "text-[var(--text-color)]"
+                            ? "bg-[var(--card-bg)] ring-2 ring-[var(--accent-color)] ring-offset-2"
+                            : "hover:bg-[var(--card-bg)]/50"
                         }`}
+                        aria-label="Custom Themes"
                       >
-                        Custom
-                      </span>
-                    </button>
-                  );
+                        <div
+                          className={`w-12 h-12 rounded-xl mb-2 flex items-center justify-center transition-all duration-200 border-2 ${
+                            theme === "custom"
+                              ? "border-[var(--accent-color)]"
+                              : "border-transparent"
+                          }`}
+                          style={{
+                            background: currentCustom.colors["--bg-color"],
+                            backgroundImage:
+                              "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
+                          }}
+                        >
+                          {theme === "custom" && (
+                            <Check
+                              className="w-5 h-5"
+                              style={{
+                                color: getContrastColor(
+                                  currentCustom.colors["--bg-color"]
+                                ),
+                                filter:
+                                  "drop-shadow(0 1px 2px rgba(0,0,0,0.3))",
+                              }}
+                            />
+                          )}
+                        </div>
+                        <span
+                          className={`text-xs font-medium transition-colors duration-200 ${
+                            theme === "custom"
+                              ? "text-[var(--accent-color)]"
+                              : "text-[var(--text-color)]"
+                          }`}
+                        >
+                          Custom
+                        </span>
+                      </button>
+                    );
+                  }
+                  // Otherwise, don't render the custom button
+                  return null;
                 })}
               </div>
             </div>
