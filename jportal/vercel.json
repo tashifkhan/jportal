@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/jportal(/.*)?", "destination": "/jportal/index.html" }
+  ]
+}
