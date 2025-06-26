@@ -9,23 +9,23 @@ function Navbar() {
     {
       name: "Attendance",
       path: "/attendance",
-      icon: `/${BASE_NAME}/icons/attendance.svg`,
+      icon: `${BASE_NAME}/icons/attendance.svg`,
     },
     {
       name: "Grades",
       path: "/grades",
-      icon: `/${BASE_NAME}/icons/grades.svg`,
+      icon: `${BASE_NAME}/icons/grades.svg`,
     },
-    { name: "Exams", path: "/exams", icon: `/${BASE_NAME}/icons/exams.svg` },
+    { name: "Exams", path: "/exams", icon: `${BASE_NAME}/icons/exams.svg` },
     {
       name: "Subjects",
       path: "/subjects",
-      icon: `/${BASE_NAME}/icons/subjects1.svg`,
+      icon: `${BASE_NAME}/icons/subjects1.svg`,
     },
     {
       name: "Profile",
       path: "/profile",
-      icon: `/${BASE_NAME}/icons/profile.svg`,
+      icon: `${BASE_NAME}/icons/profile.svg`,
     },
   ];
 
