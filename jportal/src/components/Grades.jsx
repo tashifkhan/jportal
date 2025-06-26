@@ -83,7 +83,14 @@ export default function Grades({
   const [targetCGPA, setTargetCGPA] = useState("");
   const [requiredSGPA, setRequiredSGPA] = useState(null);
   const [calcError, setCalcError] = useState("");
-  const { useMaterialUI } = useTheme();
+  const { useMaterialUI, theme } = useTheme();
+
+  // Choose line and text colors based on theme
+  const isLightTheme = theme === "cream" || theme === "white";
+  const sgpaColor = isLightTheme ? "#15803d" : "#4ADE80"; // deep green for light
+  const cgpaColor = isLightTheme ? "#1e40af" : "#60A5FA"; // deep blue for light
+  const sgpaTextColor = isLightTheme ? "text-green-800" : "text-green-400";
+  const cgpaTextColor = isLightTheme ? "text-blue-800" : "text-blue-400";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -465,18 +472,18 @@ export default function Grades({
                           <Line
                             type="monotone"
                             dataKey="sgpa"
-                            stroke="#4ADE80"
+                            stroke={sgpaColor}
                             name="SGPA"
                             strokeWidth={2}
-                            dot={{ fill: "#4ADE80" }}
+                            dot={{ fill: sgpaColor }}
                           />
                           <Line
                             type="monotone"
                             dataKey="cgpa"
-                            stroke="#60A5FA"
+                            stroke={cgpaColor}
                             name="CGPA"
                             strokeWidth={2}
-                            dot={{ fill: "#60A5FA" }}
+                            dot={{ fill: cgpaColor }}
                           />
                         </LineChart>
                       </ResponsiveContainer>
@@ -499,7 +506,9 @@ export default function Grades({
                           </div>
                           <div className="flex items-center gap-6">
                             <div className="text-center">
-                              <div className="text-2xl font-mono font-bold text-green-400">
+                              <div
+                                className={`text-2xl font-mono font-bold ${sgpaTextColor}`}
+                              >
                                 {formatGPA(sem.sgpa)}
                               </div>
                               <div className="text-xs text-[var(--label-color)]">
@@ -507,7 +516,9 @@ export default function Grades({
                               </div>
                             </div>
                             <div className="text-center">
-                              <div className="text-2xl font-mono font-bold text-blue-400">
+                              <div
+                                className={`text-2xl font-mono font-bold ${cgpaTextColor}`}
+                              >
                                 {formatGPA(sem.cgpa)}
                               </div>
                               <div className="text-xs text-[var(--label-color)]">
