@@ -224,7 +224,6 @@ export default function Profile({ w, profileData, setProfileData }) {
               </TabsContent>
               <TabsContent value="education" className="px-4 sm:px-8 py-6">
                 <div className="w-full max-w-2xl mx-auto">
-                  <SectionTitle>Educational Qualifications</SectionTitle>
                   {qualifications.length === 0 ? (
                     <div className="text-[var(--label-color)] text-center py-4">
                       No qualifications found.
@@ -236,10 +235,7 @@ export default function Profile({ w, profileData, setProfileData }) {
                           key={index}
                           className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1"
                         >
-                          <InfoRow
-                            label="Qualification"
-                            value={qual.qualificationcode}
-                          />
+                          <SectionTitle>{`Qualification: ${qual.qualificationcode}`}</SectionTitle>
                           <InfoRow label="Board" value={qual.boardname} />
                           <InfoRow
                             label="Year of Passing"
