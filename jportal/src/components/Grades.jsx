@@ -43,6 +43,8 @@ import {
 } from "@mui/material";
 import { Input } from "@/components/ui/input";
 
+const BASE_NAME = "";
+
 export default function Grades({
   w,
   gradesData,
@@ -240,8 +242,8 @@ export default function Grades({
 
           async def process_pdf():
               global marks
-              await pyodide_js.loadPackage("/jportal/artifact/PyMuPDF-1.24.12-cp311-abi3-emscripten_3_1_32_wasm32.whl")
-              await pyodide_js.loadPackage("/jportal/artifact/jiit_marks-0.2.0-py3-none-any.whl")
+              await pyodide_js.loadPackage("${BASE_NAME}/artifact/PyMuPDF-1.24.12-cp311-abi3-emscripten_3_1_32_wasm32.whl")
+              await pyodide_js.loadPackage("${BASE_NAME}/artifact/jiit_marks-0.2.0-py3-none-any.whl")
 
               import pymupdf
               from jiit_marks import parse_report
