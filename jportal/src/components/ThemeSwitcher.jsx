@@ -172,10 +172,10 @@ function importAllCustomThemes(configText) {
 // Function to fetch user-contributed themes
 async function fetchUserThemes() {
   try {
-    console.log("Fetching theme list from /api/themes...");
+    console.log("Fetching theme list from /jportal/api/themes.json...");
 
-    // Fetch the list of available theme files from the API
-    const response = await fetch("/api/themes");
+    // Fetch the list of available theme files from the static manifest
+    const response = await fetch("/jportal/api/themes.json");
     if (!response.ok) {
       throw new Error(
         `Failed to fetch theme list: ${response.status} ${response.statusText}`
