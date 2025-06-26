@@ -707,12 +707,6 @@ export default function Grades({
                           variant="outlined"
                           fullWidth
                           renderValue={(selected) => {
-                            if (!selected)
-                              return (
-                                <span style={{ color: "var(--label-color)" }}>
-                                  Select semester
-                                </span>
-                              );
                             const sem = marksSemesters.find(
                               (s) => s.registration_id === selected
                             );
