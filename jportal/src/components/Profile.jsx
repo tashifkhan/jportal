@@ -130,79 +130,96 @@ export default function Profile({ w, profileData, setProfileData }) {
             {/* Content Area */}
             <div className="w-full">
               <TabsContent value="personal" className="px-4 sm:px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1 mb-6">
-                  <SectionTitle>Personal Information</SectionTitle>
-                  <InfoRow label="Date of Birth" value={info.dateofbirth} />
-                  <InfoRow label="Gender" value={info.gender} />
-                  <InfoRow label="Blood Group" value={info.bloodgroup} />
-                  <InfoRow label="Nationality" value={info.nationality} />
-                  <InfoRow label="Category" value={info.category} />
+                <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
+                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
+                    <SectionTitle>Personal Details</SectionTitle>
+                    <InfoRow label="Date of Birth" value={info.dateofbirth} />
+                    <InfoRow label="Gender" value={info.gender} />
+                    <InfoRow label="Blood Group" value={info.bloodgroup} />
+                    <InfoRow label="Nationality" value={info.nationality} />
+                    <InfoRow label="Category" value={info.category} />
+                  </div>
                 </div>
               </TabsContent>
               <TabsContent value="academic" className="px-4 sm:px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1 mb-6">
-                  <SectionTitle>Academic Information</SectionTitle>
-                  <InfoRow label="Program" value={info.programcode} />
-                  <InfoRow label="Branch" value={info.branch} />
-                  <InfoRow label="Section" value={info.sectioncode} />
-                  <InfoRow label="Batch" value={info.batch} />
-                  <InfoRow label="Semester" value={info.semester} />
-                  <InfoRow label="Institute" value={info.institutecode} />
-                  <InfoRow label="Academic Year" value={info.academicyear} />
-                  <InfoRow label="Admission Year" value={info.admissionyear} />
+                <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
+                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
+                    <SectionTitle>Academic Details</SectionTitle>
+                    <InfoRow label="Program" value={info.programcode} />
+                    <InfoRow label="Branch" value={info.branch} />
+                    <InfoRow label="Section" value={info.sectioncode} />
+                    <InfoRow label="Batch" value={info.batch} />
+                    <InfoRow label="Semester" value={info.semester} />
+                    <InfoRow label="Institute" value={info.institutecode} />
+                    <InfoRow label="Academic Year" value={info.academicyear} />
+                    <InfoRow
+                      label="Admission Year"
+                      value={info.admissionyear}
+                    />
+                  </div>
                 </div>
               </TabsContent>
               <TabsContent value="contact" className="px-4 sm:px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1 mb-6">
-                  <SectionTitle>Contact Information</SectionTitle>
-                  <InfoRow
-                    label="Student Email (College)"
-                    value={info.studentemailid}
-                  />
-                  <InfoRow
-                    label="Student Email (Personal)"
-                    value={info.studentpersonalemailid}
-                  />
-                  <InfoRow label="Mobile" value={info.studentcellno} />
-                  <InfoRow
-                    label="Telephone"
-                    value={info.studenttelephoneno || "N/A"}
-                  />
-                  <SectionTitle className="mt-6">
-                    Family Information
-                  </SectionTitle>
-                  <InfoRow label="Father's Name" value={info.fathersname} />
-                  <InfoRow label="Mother's Name" value={info.mothername} />
-                  <InfoRow label="Parent's Email" value={info.parentemailid} />
-                  <InfoRow label="Parent's Mobile" value={info.parentcellno} />
-                  <InfoRow
-                    label="Parent's Telephone"
-                    value={info.parenttelephoneno || "N/A"}
-                  />
-                  <SectionTitle className="mt-6">Current Address</SectionTitle>
-                  <InfoRow
-                    label="Address"
-                    value={[info.caddress1, info.caddress3]
-                      .filter(Boolean)
-                      .join(", ")}
-                  />
-                  <InfoRow label="City" value={info.ccityname} />
-                  <InfoRow label="District" value={info.cdistrict} />
-                  <InfoRow label="State" value={info.cstatename} />
-                  <InfoRow label="Postal Code" value={info.cpostalcode} />
-                  <SectionTitle className="mt-6">
-                    Permanent Address
-                  </SectionTitle>
-                  <InfoRow
-                    label="Address"
-                    value={[info.paddress1, info.paddress2, info.paddress3]
-                      .filter(Boolean)
-                      .join(", ")}
-                  />
-                  <InfoRow label="City" value={info.pcityname} />
-                  <InfoRow label="District" value={info.pdistrict} />
-                  <InfoRow label="State" value={info.pstatename} />
-                  <InfoRow label="Postal Code" value={info.ppostalcode} />
+                <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
+                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
+                    <SectionTitle>Student Contact</SectionTitle>
+                    <InfoRow
+                      label="Student Email (College)"
+                      value={info.studentemailid}
+                    />
+                    <InfoRow
+                      label="Student Email (Personal)"
+                      value={info.studentpersonalemailid}
+                    />
+                    <InfoRow label="Mobile" value={info.studentcellno} />
+                    <InfoRow
+                      label="Telephone"
+                      value={info.studenttelephoneno || "N/A"}
+                    />
+                  </div>
+                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
+                    <SectionTitle>Family Information</SectionTitle>
+                    <InfoRow label="Father's Name" value={info.fathersname} />
+                    <InfoRow label="Mother's Name" value={info.mothername} />
+                    <InfoRow
+                      label="Parent's Email"
+                      value={info.parentemailid}
+                    />
+                    <InfoRow
+                      label="Parent's Mobile"
+                      value={info.parentcellno}
+                    />
+                    <InfoRow
+                      label="Parent's Telephone"
+                      value={info.parenttelephoneno || "N/A"}
+                    />
+                  </div>
+                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
+                    <SectionTitle>Current Address</SectionTitle>
+                    <InfoRow
+                      label="Address"
+                      value={[info.caddress1, info.caddress3]
+                        .filter(Boolean)
+                        .join(", ")}
+                    />
+                    <InfoRow label="City" value={info.ccityname} />
+                    <InfoRow label="District" value={info.cdistrict} />
+                    <InfoRow label="State" value={info.cstatename} />
+                    <InfoRow label="Postal Code" value={info.cpostalcode} />
+                  </div>
+                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
+                    <SectionTitle>Permanent Address</SectionTitle>
+                    <InfoRow
+                      label="Address"
+                      value={[info.paddress1, info.paddress2, info.paddress3]
+                        .filter(Boolean)
+                        .join(", ")}
+                    />
+                    <InfoRow label="City" value={info.pcityname} />
+                    <InfoRow label="District" value={info.pdistrict} />
+                    <InfoRow label="State" value={info.pstatename} />
+                    <InfoRow label="Postal Code" value={info.ppostalcode} />
+                  </div>
                 </div>
               </TabsContent>
               <TabsContent value="education" className="px-4 sm:px-8 py-6">
