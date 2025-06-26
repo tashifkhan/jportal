@@ -4,12 +4,49 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 import fs from "fs";
 
+// Build-time plugin to generate a static theme manifest
+function generateThemeManifest() {
+  return {
+    name: 'generate-theme-manifest',
+    buildStart() {
+      const userConfigsDir = path.resolve(process.cwd(), 'public/user-configs');
+      if (!fs.existsSync(userConfigsDir)) return;
+
+      const files = fs.readdirSync(userConfigsDir);
+      const themeFiles = files.filter(f =>
+        /^[a-zA-Z0-9_-]+-jportal-(theme|themes)\.config$/.test(f)
+      );
+
+      const themes = themeFiles.map(filename => {
+        const author = filename.match(
+          /^([a-zA-Z0-9_-]+)-jportal-(?:theme|themes)\.config$/
+        )?.[1] || 'Unknown';
+        return {
+          filename,
+          author,
+          isMultiTheme: filename.includes('-themes.config'),
+          url: `/jportal/user-configs/${filename}`
+        };
+      });
+
+      // write out to public so it ends up in `dist`
+      const outDir = path.resolve(process.cwd(), 'public/api');
+      fs.mkdirSync(outDir, { recursive: true });
+      fs.writeFileSync(
+        path.join(outDir, 'themes.json'),
+        JSON.stringify({ themes }, null, 2),
+        'utf8'
+      );
+    }
+  };
+}
 
 // https://vite.dev/config/
 export default defineConfig({
   base: "/jportal/",
   plugins: [
     react(),
+    generateThemeManifest(),
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: "auto",

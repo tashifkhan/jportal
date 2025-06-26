@@ -15,6 +15,7 @@ import Grades from "./components/Grades";
 import Exams from "./components/Exams";
 import Subjects from "./components/Subjects";
 import Profile from "./components/Profile";
+import ThemeSwitcher from "./components/ThemeSwitcher";
 import "./App.css";
 
 import {
@@ -102,127 +103,129 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
 
   return (
     <div className="min-h-screen pb-14 select-none">
-      <div className="sticky top-0 z-30 bg-[#191c20] -mt-[2px]">
+      <div className="sticky top-0 z-30 bg-[var(--bg-color)] -mt-[2px]">
         <Header setIsAuthenticated={setIsAuthenticated} />
       </div>
-      <Routes>
-        <Route path="/" element={<Navigate to="/attendance" />} />
-        <Route path="/login" element={<Navigate to="/attendance" />} />
-        <Route
-          path="/attendance"
-          element={
-            <Attendance
-              w={w}
-              attendanceData={attendanceData}
-              setAttendanceData={setAttendanceData}
-              semestersData={attendanceSemestersData}
-              setSemestersData={setAttendanceSemestersData}
-              selectedSem={selectedAttendanceSem}
-              setSelectedSem={setSelectedAttendanceSem}
-              attendanceGoal={attendanceGoal}
-              setAttendanceGoal={setAttendanceGoal}
-              subjectAttendanceData={subjectAttendanceData}
-              setSubjectAttendanceData={setSubjectAttendanceData}
-              selectedSubject={selectedSubject}
-              setSelectedSubject={setSelectedSubject}
-              isAttendanceMetaLoading={isAttendanceMetaLoading}
-              setIsAttendanceMetaLoading={setIsAttendanceMetaLoading}
-              isAttendanceDataLoading={isAttendanceDataLoading}
-              setIsAttendanceDataLoading={setIsAttendanceDataLoading}
-              activeTab={activeAttendanceTab}
-              setActiveTab={setActiveAttendanceTab}
-              dailyDate={attendanceDailyDate}
-              setDailyDate={setAttendanceDailyDate}
-              calendarOpen={isAttendanceCalendarOpen}
-              setCalendarOpen={setIsAttendanceCalendarOpen}
-              isTrackerOpen={isAttendanceTrackerOpen}
-              setIsTrackerOpen={setIsAttendanceTrackerOpen}
-              subjectCacheStatus={attendanceSubjectCacheStatus}
-              setSubjectCacheStatus={setAttendanceSubjectCacheStatus}
-            />
-          }
-        />
-        <Route
-          path="/grades"
-          element={
-            <Grades
-              w={w}
-              gradesData={gradesData}
-              setGradesData={setGradesData}
-              semesterData={gradesSemesterData}
-              setSemesterData={setGradesSemesterData}
-              activeTab={activeGradesTab}
-              setActiveTab={setActiveGradesTab}
-              gradeCardSemesters={gradeCardSemesters}
-              setGradeCardSemesters={setGradeCardSemesters}
-              selectedGradeCardSem={selectedGradeCardSem}
-              setSelectedGradeCardSem={setSelectedGradeCardSem}
-              gradeCard={gradeCard}
-              setGradeCard={setGradeCard}
-              gradeCards={gradeCards}
-              setGradeCards={setGradeCards}
-              marksSemesters={marksSemesters}
-              setMarksSemesters={setMarksSemesters}
-              selectedMarksSem={selectedMarksSem}
-              setSelectedMarksSem={setSelectedMarksSem}
-              marksSemesterData={marksSemesterData}
-              setMarksSemesterData={setMarksSemesterData}
-              marksData={marksData}
-              setMarksData={setMarksData}
-              gradesLoading={gradesLoading}
-              setGradesLoading={setGradesLoading}
-              gradesError={gradesError}
-              setGradesError={setGradesError}
-              gradeCardLoading={gradeCardLoading}
-              setGradeCardLoading={setGradeCardLoading}
-              isDownloadDialogOpen={isDownloadDialogOpen}
-              setIsDownloadDialogOpen={setIsDownloadDialogOpen}
-              marksLoading={marksLoading}
-              setMarksLoading={setMarksLoading}
-            />
-          }
-        />
-        <Route
-          path="/exams"
-          element={
-            <Exams
-              w={w}
-              examSchedule={examSchedule}
-              setExamSchedule={setExamSchedule}
-              examSemesters={examSemesters}
-              setExamSemesters={setExamSemesters}
-              selectedExamSem={selectedExamSem}
-              setSelectedExamSem={setSelectedExamSem}
-              selectedExamEvent={selectedExamEvent}
-              setSelectedExamEvent={setSelectedExamEvent}
-            />
-          }
-        />
-        <Route
-          path="/subjects"
-          element={
-            <Subjects
-              w={w}
-              subjectData={subjectData}
-              setSubjectData={setSubjectData}
-              semestersData={subjectSemestersData}
-              setSemestersData={setSubjectSemestersData}
-              selectedSem={selectedSubjectsSem}
-              setSelectedSem={setSelectedSubjectsSem}
-            />
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <Profile
-              w={w}
-              profileData={profileData}
-              setProfileData={setProfileData}
-            />
-          }
-        />
-      </Routes>
+      <div className="md:ml-56 transition-all duration-300">
+        <Routes>
+          <Route path="/" element={<Navigate to="/attendance" />} />
+          <Route path="/login" element={<Navigate to="/attendance" />} />
+          <Route
+            path="/attendance"
+            element={
+              <Attendance
+                w={w}
+                attendanceData={attendanceData}
+                setAttendanceData={setAttendanceData}
+                semestersData={attendanceSemestersData}
+                setSemestersData={setAttendanceSemestersData}
+                selectedSem={selectedAttendanceSem}
+                setSelectedSem={setSelectedAttendanceSem}
+                attendanceGoal={attendanceGoal}
+                setAttendanceGoal={setAttendanceGoal}
+                subjectAttendanceData={subjectAttendanceData}
+                setSubjectAttendanceData={setSubjectAttendanceData}
+                selectedSubject={selectedSubject}
+                setSelectedSubject={setSelectedSubject}
+                isAttendanceMetaLoading={isAttendanceMetaLoading}
+                setIsAttendanceMetaLoading={setIsAttendanceMetaLoading}
+                isAttendanceDataLoading={isAttendanceDataLoading}
+                setIsAttendanceDataLoading={setIsAttendanceDataLoading}
+                activeTab={activeAttendanceTab}
+                setActiveTab={setActiveAttendanceTab}
+                dailyDate={attendanceDailyDate}
+                setDailyDate={setAttendanceDailyDate}
+                calendarOpen={isAttendanceCalendarOpen}
+                setCalendarOpen={setIsAttendanceCalendarOpen}
+                isTrackerOpen={isAttendanceTrackerOpen}
+                setIsTrackerOpen={setIsAttendanceTrackerOpen}
+                subjectCacheStatus={attendanceSubjectCacheStatus}
+                setSubjectCacheStatus={setAttendanceSubjectCacheStatus}
+              />
+            }
+          />
+          <Route
+            path="/grades"
+            element={
+              <Grades
+                w={w}
+                gradesData={gradesData}
+                setGradesData={setGradesData}
+                semesterData={gradesSemesterData}
+                setSemesterData={setGradesSemesterData}
+                activeTab={activeGradesTab}
+                setActiveTab={setActiveGradesTab}
+                gradeCardSemesters={gradeCardSemesters}
+                setGradeCardSemesters={setGradeCardSemesters}
+                selectedGradeCardSem={selectedGradeCardSem}
+                setSelectedGradeCardSem={setSelectedGradeCardSem}
+                gradeCard={gradeCard}
+                setGradeCard={setGradeCard}
+                gradeCards={gradeCards}
+                setGradeCards={setGradeCards}
+                marksSemesters={marksSemesters}
+                setMarksSemesters={setMarksSemesters}
+                selectedMarksSem={selectedMarksSem}
+                setSelectedMarksSem={setSelectedMarksSem}
+                marksSemesterData={marksSemesterData}
+                setMarksSemesterData={setMarksSemesterData}
+                marksData={marksData}
+                setMarksData={setMarksData}
+                gradesLoading={gradesLoading}
+                setGradesLoading={setGradesLoading}
+                gradesError={gradesError}
+                setGradesError={setGradesError}
+                gradeCardLoading={gradeCardLoading}
+                setGradeCardLoading={setGradeCardLoading}
+                isDownloadDialogOpen={isDownloadDialogOpen}
+                setIsDownloadDialogOpen={setIsDownloadDialogOpen}
+                marksLoading={marksLoading}
+                setMarksLoading={setMarksLoading}
+              />
+            }
+          />
+          <Route
+            path="/exams"
+            element={
+              <Exams
+                w={w}
+                examSchedule={examSchedule}
+                setExamSchedule={setExamSchedule}
+                examSemesters={examSemesters}
+                setExamSemesters={setExamSemesters}
+                selectedExamSem={selectedExamSem}
+                setSelectedExamSem={setSelectedExamSem}
+                selectedExamEvent={selectedExamEvent}
+                setSelectedExamEvent={setSelectedExamEvent}
+              />
+            }
+          />
+          <Route
+            path="/subjects"
+            element={
+              <Subjects
+                w={w}
+                subjectData={subjectData}
+                setSubjectData={setSubjectData}
+                semestersData={subjectSemestersData}
+                setSemestersData={setSubjectSemestersData}
+                selectedSem={selectedSubjectsSem}
+                setSelectedSem={setSelectedSubjectsSem}
+              />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                w={w}
+                profileData={profileData}
+                setProfileData={setProfileData}
+              />
+            }
+          />
+        </Routes>
+      </div>
       <Navbar />
     </div>
   );
@@ -275,7 +278,7 @@ function AppWithGlobalSwipe({ children }) {
   });
   return (
     <div
-      className="min-h-screen bg-[#191c20] select-none"
+      className="min-h-screen bg-[var(--bg-color)] select-none"
       {...globalSwipeHandlers}
     >
       {children}
@@ -334,7 +337,7 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#191c20] text-white">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--bg-color)] text-[var(--text-color)]">
         Signing in...
       </div>
     );
