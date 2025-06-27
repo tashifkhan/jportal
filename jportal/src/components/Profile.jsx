@@ -143,10 +143,10 @@ export default function Profile({ w, profileData, setProfileData }) {
                 }`}
                 style={{ background: "var(--primary-color)" }}
               />
-              <div className="text-2xl font-bold text-[var(--text-color)] text-center mb-1">
+              <div className="text-base font-semibold text-[var(--text-color)] text-center mb-1">
                 {info.studentname || "N/A"}
               </div>
-              <div className="text-base font-medium text-[var(--label-color)] text-center mb-1">
+              <div className="text-sm font-medium text-[var(--label-color)] text-center mb-1">
                 {info.registrationno || "N/A"} | {info.programcode || ""}
                 {info.branch ? ` - ${info.branch}` : ""}
               </div>
@@ -155,29 +155,29 @@ export default function Profile({ w, profileData, setProfileData }) {
             <div className="w-full lg:hidden">
               <TopTabsBar
                 orientation="horizontal"
-                className="w-full flex flex-row justify-between h-12"
+                className="w-full flex flex-row justify-between h-12 overflow-x-auto whitespace-nowrap scrollbar-none"
               >
                 <TabsTrigger
                   value="personal"
-                  className="flex-1 text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
+                  className="flex-1 min-w-fit text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
                 >
                   Personal
                 </TabsTrigger>
                 <TabsTrigger
                   value="academic"
-                  className="flex-1 text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
+                  className="flex-1 min-w-fit text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
                 >
                   Academic
                 </TabsTrigger>
                 <TabsTrigger
                   value="contact"
-                  className="flex-1 text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
+                  className="flex-1 min-w-fit text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
                 >
                   Contact
                 </TabsTrigger>
                 <TabsTrigger
                   value="education"
-                  className="flex-1 text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
+                  className="flex-1 min-w-fit text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
                 >
                   Education
                 </TabsTrigger>
@@ -320,7 +320,7 @@ export default function Profile({ w, profileData, setProfileData }) {
         </Tabs>
       </div>
       {/* Footer remains full width below the card */}
-      <div className="w-full max-w-4xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-4 text-center overflow-auto max-sm:text-sm text-lg mt-6">
+      <div className="w-full max-w-4xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-4 text-center overflow-auto max-sm:text-sm text-base mt-6">
         Made with Big 🍆 Energy by{" "}
         <a
           href="https://github.com/codeblech"
@@ -337,7 +337,7 @@ export default function Profile({ w, profileData, setProfileData }) {
 function SectionTitle({ children, className = "" }) {
   return (
     <h2
-      className={`text-xl font-semibold mb-4 text-[var(--accent-color)] ${className}`}
+      className={`text-lg font-semibold mb-4 text-[var(--accent-color)] ${className}`}
     >
       {children}
     </h2>
@@ -348,8 +348,10 @@ function SectionTitle({ children, className = "" }) {
 function InfoRow({ label, value }) {
   return (
     <div className="flex flex-row justify-between items-center py-2">
-      <span className="text-[var(--label-color)] font-medium">{label}:</span>
-      <span className="text-[var(--text-color)] font-semibold break-words text-right ml-2">
+      <span className="text-[var(--label-color)] font-medium text-sm">
+        {label}:
+      </span>
+      <span className="text-[var(--text-color)] font-normal break-words text-right ml-2 text-sm">
         {value || "N/A"}
       </span>
     </div>

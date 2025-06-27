@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loader = ({ message = "Loading..." }) => {
+const Loader = ({ message = "Loading...", className = "" }) => {
   const size = 48;
   const radius = 18;
   const strokeWidth = 6;
@@ -55,7 +55,7 @@ const Loader = ({ message = "Loading..." }) => {
         </circle>
       </svg>
       <span
-        className="text-xl font-semibold"
+        className={`text-base font-medium ${className}`}
         style={{ color: "var(--text-color)" }}
       >
         {message}

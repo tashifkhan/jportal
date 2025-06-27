@@ -131,8 +131,8 @@ export default function Subjects({
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-8">
-      <div className="w-full max-w-2xl mx-auto flex justify-center mb-4">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32">
+      <div className="w-full max-w-2xl mx-auto flex justify-center mb-2">
         <div className="py-2 px-3 w-full">
           {useMaterialUI ? (
             <FormControl

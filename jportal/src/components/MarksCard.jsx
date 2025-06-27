@@ -45,7 +45,7 @@ export default function MarksCard({ course, gradeCard }) {
       <div className="flex items-center justify-between gap-4 mb-2">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-xl font-light truncate text-[var(--text-color)] font-sans">
+            <h3 className="text-sm font-light truncate text-[var(--text-color)] font-sans">
               {course.name}
             </h3>
             {isAudit && (
@@ -54,7 +54,7 @@ export default function MarksCard({ course, gradeCard }) {
               </span>
             )}
           </div>
-          <div className="text-base font-normal text-[var(--label-color)] flex items-center gap-3">
+          <div className="text-xs font-normal text-[var(--label-color)] flex items-center gap-3">
             <span>{course.code}</span>
             {credits !== "-" && (
               <span className="text-xs bg-[var(--primary-color)]/10 text-[var(--accent-color)] rounded px-2 py-0.5">
