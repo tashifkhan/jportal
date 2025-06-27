@@ -183,41 +183,40 @@ const AttendanceCard = ({
 
   return (
     <div
-      className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-1"
-      style={{ minHeight: 120 }}
+      className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-3 pt-3 sm:pt-5 pb-2 sm:pb-3 flex flex-col gap-1"
       onClick={handleClick}
       role="button"
       tabIndex={0}
     >
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-2 sm:gap-4">
         <div className="flex-1 min-w-0">
-          <h2 className="text-xl font-light truncate mb-1 text-[var(--text-color)]">
+          <h2 className="text-base sm:text-xl font-light truncate mb-0.5 sm:mb-1 text-[var(--text-color)]">
             {displayName}
           </h2>
-          <div className="text-base font-normal text-[var(--label-color)]">
+          <div className="text-xs sm:text-base font-normal text-[var(--label-color)]">
             {lecture !== "" && <div>Leecture: {lecture}%</div>}
             {tutorial !== "" && <div>Tutorial: {tutorial}%</div>}
             {practical !== "" && <div>Practical: {practical}%</div>}
           </div>
         </div>
-        <div className="flex flex-col items-end gap-4">
-          <div className="flex items-center gap-4 justify-end">
+        <div className="flex flex-col items-end gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 justify-end">
             <div className="flex flex-col items-end justify-center">
-              <div className="text-2xl font-mono font-bold text-[var(--text-color)] leading-none">
+              <div className="text-lg sm:text-2xl font-mono font-bold text-[var(--text-color)] leading-none">
                 {attendance.attended}
-                <span className="text-lg font-normal text-[var(--label-color)]">
+                <span className="text-sm sm:text-lg font-normal text-[var(--label-color)]">
                   /{attendance.total}
                 </span>
               </div>
               {classesNeeded > 0 ? (
-                <div className="text-xs font-bold mt-1 text-red-700">
+                <div className="text-[0.7rem] sm:text-xs font-bold mt-0.5 sm:mt-1 text-red-700">
                   Attend{" "}
                   <span className="font-bold text-red-600">
                     {classesNeeded}
                   </span>
                 </div>
               ) : classesCanMiss > 0 ? (
-                <div className="text-xs font-bold mt-1 text-green-700">
+                <div className="text-[0.7rem] sm:text-xs font-bold mt-0.5 sm:mt-1 text-green-700">
                   Can miss{" "}
                   <span className="font-bold text-green-600">
                     {classesCanMiss}
@@ -226,7 +225,12 @@ const AttendanceCard = ({
               ) : null}
             </div>
             <div className="relative flex items-center justify-center">
-              <svg width="72" height="72" viewBox="0 0 72 72">
+              <svg
+                width="56"
+                height="56"
+                viewBox="0 0 72 72"
+                className="sm:w-[72px] sm:h-[72px] w-[56px] h-[56px]"
+              >
                 <circle
                   cx="36"
                   cy="36"
@@ -254,7 +258,7 @@ const AttendanceCard = ({
                   y="50%"
                   textAnchor="middle"
                   dominantBaseline="central"
-                  fontSize="2rem"
+                  fontSize="1.1rem"
                   fontWeight="bold"
                   fill={progressColor}
                 >

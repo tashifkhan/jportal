@@ -443,7 +443,7 @@ export default function Grades({
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-36 pt-2">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-36 pt-1">
       <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-0 lg:gap-0 lg:min-h-[600px]">
         {/* Sidebar Tabs for large screens, horizontal for small */}
         <div className="w-full lg:w-64 flex-shrink-0">
@@ -452,7 +452,7 @@ export default function Grades({
             onValueChange={setActiveTab}
             className="w-full lg:w-64"
           >
-            <TabsList className="mb-4 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[40px] items-center grid-cols-3 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl lg:block hidden">
+            <TabsList className="mb-1 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[36px] items-center grid-cols-3 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-2 lg:gap-1 lg:shadow-xl lg:rounded-2xl lg:block hidden">
               <TabsTrigger
                 value="overview"
                 className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors lg:justify-start lg:px-6 lg:py-3 lg:w-full lg:data-[state=active]:rounded-2xl lg:rounded-none"
@@ -641,11 +641,11 @@ export default function Grades({
                   <div className="w-full max-w-2xl mx-auto">
                     {/* Semester Dropdown and Sorting Controls Row (MUI and Regular variants) */}
                     {useMaterialUI ? (
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4 w-full">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 mb-2 w-full">
                         <FormControl
                           fullWidth
                           variant="outlined"
-                          sx={{ minWidth: 120 }}
+                          sx={{ minWidth: 100 }}
                         >
                           <InputLabel
                             id="grade-semester-label"
@@ -668,22 +668,22 @@ export default function Grades({
                             variant="outlined"
                             fullWidth
                             sx={{
-                              minWidth: 120,
+                              minWidth: 100,
                               background: "var(--card-bg)",
                               color: "var(--text-color)",
                               borderRadius: "var(--radius)",
-                              fontSize: "1.1rem",
+                              fontSize: "0.95rem",
                               fontWeight: 400,
-                              height: 44,
-                              boxShadow: "0 1px 4px 0 rgba(0,0,0,0.08)",
+                              height: 36,
+                              boxShadow: "none",
                               "& .MuiOutlinedInput-root": {
-                                height: 44,
+                                height: 36,
                                 borderRadius: "var(--radius)",
                                 background: "var(--card-bg)",
                                 color: "var(--text-color)",
                                 fontWeight: 400,
-                                fontSize: "1.1rem",
-                                border: "1.5px solid var(--border-color)",
+                                fontSize: "0.95rem",
+                                border: "1px solid var(--border-color)",
                                 boxShadow: "none",
                                 "&:hover": {
                                   borderColor: "var(--accent-color)",
@@ -696,7 +696,7 @@ export default function Grades({
                               },
                               "& .MuiOutlinedInput-notchedOutline": {
                                 borderColor: "var(--border-color)",
-                                borderWidth: "1.5px",
+                                borderWidth: "1px",
                               },
                             }}
                           >
@@ -717,23 +717,23 @@ export default function Grades({
                         </FormControl>
                         {/* MUI Sort Buttons Group - responsive: below on mobile, inline on sm+ */}
                         <div className="flex sm:flex-row flex-row w-full sm:w-auto">
-                          <div className="flex gap-2 items-center bg-[var(--card-bg)] rounded-[var(--radius)] px-1.5 py-1 shadow-sm h-[44px] gap-x-3 mt-2 sm:mt-0 w-full sm:w-auto">
+                          <div className="flex gap-0.5 items-center bg-[var(--card-bg)] rounded-[var(--radius)] px-0.5 py-0.5 shadow-sm h-[32px] gap-x-1 mt-0.5 sm:mt-0 w-full sm:w-auto">
                             <MuiButton
                               variant={
                                 creditSort !== "default"
                                   ? "contained"
                                   : "outlined"
                               }
-                              size="medium"
+                              size="small"
                               sx={{
                                 borderRadius: "var(--radius)",
                                 minWidth: 0,
-                                px: 2.5,
-                                py: 1,
-                                height: 38,
-                                fontWeight: 600,
-                                fontSize: "1rem",
-                                letterSpacing: 0.5,
+                                px: 1.2,
+                                py: 0.5,
+                                height: 28,
+                                fontWeight: 500,
+                                fontSize: "0.85rem",
+                                letterSpacing: 0.2,
                                 color:
                                   creditSort !== "default"
                                     ? "var(--primary-color)"
@@ -742,11 +742,11 @@ export default function Grades({
                                   creditSort !== "default"
                                     ? "var(--accent-color)"
                                     : "transparent",
-                                boxShadow: creditSort !== "default" ? 2 : 0,
+                                boxShadow: creditSort !== "default" ? 1 : 0,
                                 border:
                                   creditSort !== "default"
                                     ? "none"
-                                    : "1.5px solid var(--border-color)",
+                                    : "1px solid var(--border-color)",
                                 transition: "all 0.15s",
                                 "&:hover": {
                                   background: "var(--primary-color)",
@@ -760,11 +760,13 @@ export default function Grades({
                                 setGradeSort("default");
                               }}
                             >
-                              Credits
+                              <span style={{ fontSize: "0.85rem" }}>
+                                Credits
+                              </span>
                               {creditSort === "asc" && (
                                 <span
                                   style={{
-                                    fontSize: 18,
+                                    fontSize: 13,
                                     marginLeft: 2,
                                     display: "inline-block",
                                     verticalAlign: "middle",
@@ -776,7 +778,7 @@ export default function Grades({
                               {creditSort === "desc" && (
                                 <span
                                   style={{
-                                    fontSize: 18,
+                                    fontSize: 13,
                                     marginLeft: 2,
                                     display: "inline-block",
                                     verticalAlign: "middle",
@@ -792,16 +794,16 @@ export default function Grades({
                                   ? "contained"
                                   : "outlined"
                               }
-                              size="medium"
+                              size="small"
                               sx={{
                                 borderRadius: "var(--radius)",
                                 minWidth: 0,
-                                px: 2.5,
-                                py: 1,
-                                height: 38,
-                                fontWeight: 600,
-                                fontSize: "1rem",
-                                letterSpacing: 0.5,
+                                px: 1.2,
+                                py: 0.5,
+                                height: 28,
+                                fontWeight: 500,
+                                fontSize: "0.85rem",
+                                letterSpacing: 0.2,
                                 color:
                                   gradeSort !== "default"
                                     ? "var(--primary-color)"
@@ -810,11 +812,11 @@ export default function Grades({
                                   gradeSort !== "default"
                                     ? "var(--accent-color)"
                                     : "transparent",
-                                boxShadow: gradeSort !== "default" ? 2 : 0,
+                                boxShadow: gradeSort !== "default" ? 1 : 0,
                                 border:
                                   gradeSort !== "default"
                                     ? "none"
-                                    : "1.5px solid var(--border-color)",
+                                    : "1px solid var(--border-color)",
                                 transition: "all 0.15s",
                                 "&:hover": {
                                   background: "var(--primary-color)",
@@ -828,11 +830,11 @@ export default function Grades({
                                 setCreditSort("default");
                               }}
                             >
-                              Grade
+                              <span style={{ fontSize: "0.85rem" }}>Grade</span>
                               {gradeSort === "asc" && (
                                 <span
                                   style={{
-                                    fontSize: 18,
+                                    fontSize: 13,
                                     marginLeft: 2,
                                     display: "inline-block",
                                     verticalAlign: "middle",
@@ -844,7 +846,7 @@ export default function Grades({
                               {gradeSort === "desc" && (
                                 <span
                                   style={{
-                                    fontSize: 18,
+                                    fontSize: 13,
                                     marginLeft: 2,
                                     display: "inline-block",
                                     verticalAlign: "middle",
@@ -858,7 +860,7 @@ export default function Grades({
                         </div>
                       </div>
                     ) : (
-                      <div className="flex flex-row items-center gap-2 mb-4 w-full">
+                      <div className="flex flex-row items-center gap-0.5 mb-2 w-full">
                         <div className="flex-1 min-w-0">
                           <Select
                             onValueChange={handleSemesterChange}
@@ -888,11 +890,11 @@ export default function Grades({
                           </Select>
                         </div>
                         {/* Regular Sort Buttons - no border on container, default state is label color filled */}
-                        <div className="flex gap-2 bg-transparent rounded-[var(--radius)] px-2 py-1 shadow-sm h-[44px] items-center">
+                        <div className="flex gap-0.5 bg-transparent rounded-[var(--radius)] px-0.5 py-0.5 shadow-sm h-[32px] items-center">
                           <button
                             type="button"
                             aria-label="Sort by Credits"
-                            className={`flex items-center gap-1 px-3 py-1.5 rounded-[var(--radius)] font-medium text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-[40px]
+                            className={`flex items-center gap-0.5 px-2 py-1 rounded-[var(--radius)] font-medium text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-[28px]
                               ${
                                 creditSort === "default"
                                   ? "bg-[var(--label-color)] text-[var(--card-bg)]"
@@ -904,18 +906,28 @@ export default function Grades({
                               setGradeSort("default");
                             }}
                           >
-                            <span>Credits</span>
+                            <span style={{ fontSize: "0.85rem" }}>Credits</span>
                             {creditSort === "asc" && (
-                              <span aria-hidden="true">▲</span>
+                              <span
+                                aria-hidden="true"
+                                style={{ fontSize: "0.85rem" }}
+                              >
+                                ▲
+                              </span>
                             )}
                             {creditSort === "desc" && (
-                              <span aria-hidden="true">▼</span>
+                              <span
+                                aria-hidden="true"
+                                style={{ fontSize: "0.85rem" }}
+                              >
+                                ▼
+                              </span>
                             )}
                           </button>
                           <button
                             type="button"
                             aria-label="Sort by Grade"
-                            className={`flex items-center gap-1 px-3 py-1.5 rounded-[var(--radius)] font-medium text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-[40px]
+                            className={`flex items-center gap-0.5 px-2 py-1 rounded-[var(--radius)] font-medium text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-[28px]
                               ${
                                 gradeSort === "default"
                                   ? "bg-[var(--label-color)] text-[var(--card-bg)]"
@@ -927,12 +939,22 @@ export default function Grades({
                               setCreditSort("default");
                             }}
                           >
-                            <span>Grade</span>
+                            <span style={{ fontSize: "0.85rem" }}>Grade</span>
                             {gradeSort === "asc" && (
-                              <span aria-hidden="true">▲</span>
+                              <span
+                                aria-hidden="true"
+                                style={{ fontSize: "0.85rem" }}
+                              >
+                                ▲
+                              </span>
                             )}
                             {gradeSort === "desc" && (
-                              <span aria-hidden="true">▼</span>
+                              <span
+                                aria-hidden="true"
+                                style={{ fontSize: "0.85rem" }}
+                              >
+                                ▼
+                              </span>
                             )}
                           </button>
                         </div>

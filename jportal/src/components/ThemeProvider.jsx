@@ -8,13 +8,13 @@ import React, {
 
 const themes = {
   darkBlue: {
-    "--bg-color": "#141c23",
-    "--primary-color": "#232e39",
-    "--accent-color": "#7ec3f0",
-    "--text-color": "#eaf6fb",
-    "--card-bg": "#1b232b",
-    "--label-color": "#7b8a99",
-    "--radius": "8px",
+    "--bg-color": "#191c20", // main background color (from App.jsx, Attendance.jsx, etc.)
+    "--primary-color": "#232e39", // used for cards, tabs, and primary UI elements
+    "--accent-color": "#7ec3f0", // accent (matches previous, could be #60A5FA or #3182ce for blue highlights)
+    "--text-color": "#ffffff", // main text color (text-white)
+    "--card-bg": "#1b232b", // card background (close to #191c20, but slightly lighter for contrast)
+    "--label-color": "#9CA3AF", // label/secondary text (text-gray-400 from Grades, etc.)
+    "--radius": "8px", // border radius
   },
   white: {
     "--bg-color": "#ffffff",
