@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useTheme } from "./ThemeProvider";
-const BASE_NAME = "";
+import { Button } from "./ui/button";
+import { useEffect, useState } from "react";
+const BASE_NAME = "jportal";
 
 function Navbar() {
   const { theme } = useTheme();
@@ -9,25 +11,49 @@ function Navbar() {
     {
       name: "Attendance",
       path: "/attendance",
-      icon: `${BASE_NAME}/icons/attendance.svg`,
+      icon: `/${BASE_NAME}/icons/attendance.svg`,
     },
     {
       name: "Grades",
       path: "/grades",
-      icon: `${BASE_NAME}/icons/grades.svg`,
+      icon: `/${BASE_NAME}/icons/grades.svg`,
     },
-    { name: "Exams", path: "/exams", icon: `${BASE_NAME}/icons/exams.svg` },
+    { name: "Exams", path: "/exams", icon: `/${BASE_NAME}/icons/exams.svg` },
     {
       name: "Subjects",
       path: "/subjects",
-      icon: `${BASE_NAME}/icons/subjects1.svg`,
+      icon: `/${BASE_NAME}/icons/subjects1.svg`,
     },
     {
       name: "Profile",
       path: "/profile",
-      icon: `${BASE_NAME}/icons/profile.svg`,
+      icon: `/${BASE_NAME}/icons/profile.svg`,
     },
   ];
+
+  // PWA install prompt logic
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showInstall, setShowInstall] = useState(false);
+
+  useEffect(() => {
+    const handler = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstall(true);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === "accepted") {
+      setShowInstall(false);
+      setDeferredPrompt(null);
+    }
+  };
 
   return (
     <>
@@ -39,7 +65,7 @@ function Navbar() {
         {/* Logo/Title */}
         <div className="w-full flex flex-col items-center mb-8 select-none">
           <img
-            src={`${BASE_NAME}/pwa-icons/circle.svg`}
+            src={`/${BASE_NAME}/pwa-icons/circle.svg`}
             alt="JPortal Logo"
             className="w-12 h-12 mb-2"
           />
@@ -47,6 +73,16 @@ function Navbar() {
             JPortal
           </span>
         </div>
+        {/* Install PWA Button */}
+        {showInstall && (
+          <Button
+            variant="outline"
+            className="mb-4 border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)]"
+            onClick={handleInstallClick}
+          >
+            Install App
+          </Button>
+        )}
         {/* Nav Items */}
         <nav className="flex-1 w-full flex flex-col gap-2 items-stretch">
           {navItems.map((item) => (
@@ -140,6 +176,17 @@ function Navbar() {
               )}
             </NavLink>
           ))}
+          {/* Install PWA Button for mobile */}
+          {showInstall && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="ml-2 border-[var(--accent-color)] text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)]"
+              onClick={handleInstallClick}
+            >
+              Install
+            </Button>
+          )}
         </nav>
       </div>
     </>
