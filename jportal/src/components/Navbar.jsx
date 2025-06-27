@@ -18,7 +18,7 @@ function Navbar() {
       path: "/grades",
       icon: `${BASE_NAME}/icons/grades.svg`,
     },
-    { name: "Exams", path: "/exams", icon: `/${BASE_NAME}/icons/exams.svg` },
+    { name: "Exams", path: "/exams", icon: `${BASE_NAME}/icons/exams.svg` },
     {
       name: "Subjects",
       path: "/subjects",
@@ -65,7 +65,7 @@ function Navbar() {
         {/* Logo/Title */}
         <div className="w-full flex flex-col items-center mb-8 select-none">
           <img
-            src={`/${BASE_NAME}/pwa-icons/circle.svg`}
+            src={`${BASE_NAME}/pwa-icons/circle.svg`}
             alt="JPortal Logo"
             className="w-12 h-12 mb-2"
           />
