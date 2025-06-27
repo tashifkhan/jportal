@@ -745,7 +745,7 @@ const Attendance = ({
                         return [
                           <div
                             key={subj.name}
-                            className={`$${
+                            className={`w-full max-w-2xl mx-auto ${
                               useCardBackgrounds
                                 ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm"
                                 : ""

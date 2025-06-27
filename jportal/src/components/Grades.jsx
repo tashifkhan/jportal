@@ -563,7 +563,7 @@ export default function Grades({
                         useCardBackgrounds
                           ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm"
                           : ""
-                      } px-6 py-5`}
+                      } px-6 sm:px-10 py-4 sm:py-7`}
                     >
                       <ResponsiveContainer width="100%" height={250}>
                         <LineChart
@@ -634,7 +634,7 @@ export default function Grades({
                               useCardBackgrounds
                                 ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm mb-1"
                                 : "mb-0"
-                            } px-3 py-2 flex items-center justify-between`}
+                            } px-3 sm:px-8 py-2 sm:py-5 flex items-center justify-between`}
                             style={
                               !useCardBackgrounds
                                 ? {
@@ -646,32 +646,32 @@ export default function Grades({
                             }
                           >
                             <div className="flex-1 min-w-0">
-                              <h2 className="text-sm font-light truncate mb-0.5 text-[var(--text-color)]">
+                              <h2 className="text-sm sm:text-lg font-light truncate mb-0.5 text-[var(--text-color)]">
                                 Semester {sem.stynumber}
                               </h2>
-                              <div className="text-xs font-normal text-[var(--label-color)]">
+                              <div className="text-xs sm:text-base font-normal text-[var(--label-color)]">
                                 GP: {sem.earnedgradepoints.toFixed(1)}/
                                 {sem.totalcoursecredit * 10}
                               </div>
                             </div>
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 sm:gap-6">
                               <div className="text-center">
                                 <div
-                                  className={`text-lg font-mono font-bold ${sgpaTextColor}`}
+                                  className={`text-lg sm:text-2xl font-mono font-bold ${sgpaTextColor}`}
                                 >
                                   {formatGPA(sem.sgpa)}
                                 </div>
-                                <div className="text-[0.7rem] text-[var(--label-color)]">
+                                <div className="text-[0.7rem] sm:text-sm text-[var(--label-color)]">
                                   SGPA
                                 </div>
                               </div>
                               <div className="text-center">
                                 <div
-                                  className={`text-lg font-mono font-bold ${cgpaTextColor}`}
+                                  className={`text-lg sm:text-2xl font-mono font-bold ${cgpaTextColor}`}
                                 >
                                   {formatGPA(sem.cgpa)}
                                 </div>
-                                <div className="text-[0.7rem] text-[var(--label-color)]">
+                                <div className="text-[0.7rem] sm:text-sm text-[var(--label-color)]">
                                   CGPA
                                 </div>
                               </div>
