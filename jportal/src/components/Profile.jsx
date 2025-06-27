@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Loader from "./Loader";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { useSwipeable } from "react-swipeable";
+import TopTabsBar from "./ui/TopTabsBar";
 
 export default function Profile({ w, profileData, setProfileData }) {
   const [loading, setLoading] = useState(true);
@@ -84,7 +85,10 @@ export default function Profile({ w, profileData, setProfileData }) {
         >
           {/* Sidebar Tabs for large screens, horizontal for small */}
           <div className="w-64 flex-shrink-0 hidden lg:block">
-            <TabsList className="mb-6 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden items-center grid grid-cols-1 w-64 h-auto py-4 gap-2 shadow-xl ">
+            <TopTabsBar
+              orientation="vertical"
+              className="mb-6 items-center grid grid-cols-1 w-64 h-auto py-4 gap-2"
+            >
               <TabsTrigger
                 value="personal"
                 className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-2xl data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
@@ -109,7 +113,7 @@ export default function Profile({ w, profileData, setProfileData }) {
               >
                 Education
               </TabsTrigger>
-            </TabsList>
+            </TopTabsBar>
           </div>
           {/* Info Card (Main Card) */}
           <div
@@ -149,7 +153,10 @@ export default function Profile({ w, profileData, setProfileData }) {
             </div>
             {/* TabsList for mobile only */}
             <div className="w-full lg:hidden">
-              <TabsList className="w-full flex flex-row justify-between bg-[var(--primary-color)] rounded-t-2xl overflow-hidden h-12">
+              <TopTabsBar
+                orientation="horizontal"
+                className="w-full flex flex-row justify-between h-12"
+              >
                 <TabsTrigger
                   value="personal"
                   className="flex-1 text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
@@ -174,7 +181,7 @@ export default function Profile({ w, profileData, setProfileData }) {
                 >
                   Education
                 </TabsTrigger>
-              </TabsList>
+              </TopTabsBar>
             </div>
             {/* Content Area */}
             <div className="w-full">

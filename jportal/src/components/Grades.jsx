@@ -42,6 +42,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { Input } from "@/components/ui/input";
+import TopTabsBar from "./ui/TopTabsBar";
 
 const BASE_NAME = "";
 
@@ -452,7 +453,10 @@ export default function Grades({
             onValueChange={setActiveTab}
             className="w-full lg:w-64"
           >
-            <TabsList className="mb-1 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[36px] items-center grid-cols-3 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-2 lg:gap-1 lg:shadow-xl lg:rounded-2xl lg:block hidden">
+            <TopTabsBar
+              orientation="vertical"
+              className="mb-1 h-[36px] items-center grid-cols-3 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-2 lg:gap-1 lg:block hidden"
+            >
               <TabsTrigger
                 value="overview"
                 className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors lg:justify-start lg:px-6 lg:py-3 lg:w-full lg:data-[state=active]:rounded-2xl lg:rounded-none"
@@ -477,10 +481,13 @@ export default function Grades({
                   Marks
                 </span>
               </TabsTrigger>
-            </TabsList>
+            </TopTabsBar>
             {/* Mobile TabsList (horizontal bar) */}
             <div className="w-full lg:hidden">
-              <TabsList className="w-full flex flex-row justify-between bg-[var(--primary-color)] rounded-t-2xl overflow-hidden h-12">
+              <TopTabsBar
+                orientation="horizontal"
+                className="w-full flex flex-row justify-between h-12"
+              >
                 <TabsTrigger
                   value="overview"
                   className="flex-1 text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
@@ -499,7 +506,7 @@ export default function Grades({
                 >
                   Marks
                 </TabsTrigger>
-              </TabsList>
+              </TopTabsBar>
             </div>
           </Tabs>
         </div>
