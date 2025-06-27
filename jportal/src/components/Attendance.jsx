@@ -549,7 +549,10 @@ const Attendance = ({
         </div>
       </div>
       {isAttendanceMetaLoading || isAttendanceDataLoading ? (
-        <Loader message="Loading attendance..." />
+        <Loader
+          message="Loading attendance..."
+          className="text-base sm:text-lg font-medium"
+        />
       ) : (
         <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-0 lg:gap-0 lg:min-h-[600px]">
           {/* Sidebar Tabs for large screens, horizontal for small */}
@@ -612,7 +615,7 @@ const Attendance = ({
               <TabsContent value="overview">
                 <div className="flex flex-col gap-2 items-center">
                   {sortedSubjects.length === 0 ? (
-                    <div className="w-full max-w-xl mx-auto bg-[var(--card-bg)] text-[var(--accent-color)] dark:text-[var(--accent-color)] rounded-[var(--radius)] shadow-md px-8 py-8 flex items-center justify-center text-center text-2xl font-medium">
+                    <div className="w-full max-w-xl mx-auto bg-[var(--card-bg)] text-[var(--accent-color)] dark:text-[var(--accent-color)] rounded-[var(--radius)] shadow-md px-8 py-8 flex items-center justify-center text-center text-base sm:text-lg font-medium">
                       No subjects found.
                     </div>
                   ) : (
@@ -684,7 +687,7 @@ const Attendance = ({
                   </div>
                   <div className="w-full max-w-2xl mx-auto flex flex-col gap-4">
                     {subjects.length === 0 ? (
-                      <p className="text-[var(--label-color)] text-center">
+                      <p className="text-[var(--label-color)] text-center text-base sm:text-lg font-medium">
                         No subjects found.
                       </p>
                     ) : (
@@ -694,23 +697,23 @@ const Attendance = ({
                         return (
                           <div
                             key={subj.name}
-                            className="bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm py-4 px-5 mb-2"
+                            className="bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm py-3 px-4 mb-2"
                           >
-                            <h3 className="font-semibold mb-2 text-[var(--text-color)] text-lg">
+                            <h3 className="font-medium mb-2 text-[var(--text-color)] text-base">
                               {subj.name}
                             </h3>
                             <div className="flex flex-col gap-2">
                               {lectures.map((cls, i) => (
                                 <div
                                   key={i}
-                                  className={`flex flex-col sm:flex-row sm:items-center justify-between rounded-[var(--radius)] px-3 py-2 ${
+                                  className={`flex flex-col sm:flex-row sm:items-center justify-between rounded-[var(--radius)] px-2 py-1.5 ${
                                     cls.present === "Present"
                                       ? "bg-[var(--accent-color)]/10 text-[var(--accent-color)]"
                                       : "bg-[var(--error-color,#ef4444)]/10 text-[var(--error-color,#ef4444)]"
                                   }`}
                                 >
                                   <div className="flex-1">
-                                    <span className="font-medium text-base">
+                                    <span className="font-medium text-sm">
                                       {cls.classtype}
                                     </span>
                                     <span className="mx-2">•</span>
@@ -718,7 +721,7 @@ const Attendance = ({
                                       {cls.present}
                                     </span>
                                   </div>
-                                  <div className="text-sm font-mono opacity-80 mt-1 sm:mt-0">
+                                  <div className="text-xs font-mono opacity-80 mt-1 sm:mt-0">
                                     {cls.datetime
                                       .split(" ")
                                       .slice(1)
@@ -736,7 +739,7 @@ const Attendance = ({
                     {subjects.every(
                       (s) => getClassesFor(s.name, dailyDate).length === 0
                     ) && (
-                      <p className="text-[var(--label-color)] mt-4 text-center">
+                      <p className="text-[var(--label-color)] mt-4 text-center text-base sm:text-lg font-medium">
                         No classes were scheduled on&nbsp;
                         {dailyDate.toLocaleDateString()}
                       </p>

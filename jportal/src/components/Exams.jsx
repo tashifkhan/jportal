@@ -96,9 +96,9 @@ export default function Exams({
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-8">
+    <div className="w-full max-w-2xl mx-auto min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-2">
       <div className="bg-[var(--bg-color)] z-20">
-        <div className="pt-2 pb-4 px-3">
+        <div className="pb-4 px-3">
           {useMaterialUI ? (
             <FormControl fullWidth variant="outlined">
               <InputLabel

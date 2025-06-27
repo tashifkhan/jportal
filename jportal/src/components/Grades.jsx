@@ -440,7 +440,12 @@ export default function Grades({
   };
 
   if (gradesLoading) {
-    return <Loader message="Loading grades..." />;
+    return (
+      <Loader
+        message="Loading grades..."
+        className="text-base sm:text-lg font-medium"
+      />
+    );
   }
 
   return (
@@ -521,7 +526,9 @@ export default function Grades({
               <div className="flex flex-col items-center">
                 {gradesError ? (
                   <div className="w-full max-w-2xl text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
-                    <p className="text-xl">{gradesError}</p>
+                    <p className="text-base sm:text-lg font-medium">
+                      {gradesError}
+                    </p>
                     <p className="text-[var(--label-color)] mt-2">
                       Please check back later
                     </p>
@@ -594,35 +601,35 @@ export default function Grades({
                       {semesterData.map((sem) => (
                         <div
                           key={sem.stynumber}
-                          className="w-full bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 py-5 flex items-center justify-between mb-2"
+                          className="w-full bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-3 py-3 flex items-center justify-between mb-1"
                         >
                           <div className="flex-1 min-w-0">
-                            <h2 className="text-xl font-light truncate mb-1 text-[var(--text-color)]">
+                            <h2 className="text-sm font-light truncate mb-0.5 text-[var(--text-color)]">
                               Semester {sem.stynumber}
                             </h2>
-                            <div className="text-base font-normal text-[var(--label-color)]">
+                            <div className="text-xs font-normal text-[var(--label-color)]">
                               GP: {sem.earnedgradepoints.toFixed(1)}/
                               {sem.totalcoursecredit * 10}
                             </div>
                           </div>
-                          <div className="flex items-center gap-6">
+                          <div className="flex items-center gap-3">
                             <div className="text-center">
                               <div
-                                className={`text-2xl font-mono font-bold ${sgpaTextColor}`}
+                                className={`text-lg font-mono font-bold ${sgpaTextColor}`}
                               >
                                 {formatGPA(sem.sgpa)}
                               </div>
-                              <div className="text-xs text-[var(--label-color)]">
+                              <div className="text-[0.7rem] text-[var(--label-color)]">
                                 SGPA
                               </div>
                             </div>
                             <div className="text-center">
                               <div
-                                className={`text-2xl font-mono font-bold ${cgpaTextColor}`}
+                                className={`text-lg font-mono font-bold ${cgpaTextColor}`}
                               >
                                 {formatGPA(sem.cgpa)}
                               </div>
-                              <div className="text-xs text-[var(--label-color)]">
+                              <div className="text-[0.7rem] text-[var(--label-color)]">
                                 CGPA
                               </div>
                             </div>
@@ -639,7 +646,9 @@ export default function Grades({
               <div className="w-full max-w-2xl mx-auto">
                 {gradeCardSemesters.length === 0 ? (
                   <div className="text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
-                    <p className="text-xl">Grade card is not available yet</p>
+                    <p className="text-base sm:text-lg font-medium">
+                      Grade card is not available yet
+                    </p>
                     <p className="text-[var(--label-color)] mt-2">
                       Please check back later
                     </p>
@@ -986,7 +995,9 @@ export default function Grades({
               <div className="w-full max-w-2xl mx-auto">
                 {marksSemesters.length === 0 ? (
                   <div className="text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
-                    <p className="text-xl">Marks data is not available yet</p>
+                    <p className="text-base sm:text-lg font-medium">
+                      Marks data is not available yet
+                    </p>
                     <p className="text-[var(--label-color)] mt-2">
                       Please check back later
                     </p>
@@ -1071,12 +1082,15 @@ export default function Grades({
 
                     {marksLoading ? (
                       <div className="flex justify-center mt-4">
-                        <Loader message="Loading marks data..." />
+                        <Loader
+                          message="Loading marks data..."
+                          className="text-base sm:text-lg font-medium"
+                        />
                       </div>
                     ) : marksSemesterData &&
                       marksSemesterData.error === "marks_not_uploaded" ? (
                       <div className="text-center mt-4 bg-[var(--card-bg)] rounded-[var(--radius)] px-6 py-8 shadow-sm">
-                        <p className="text-xl text-[var(--text-color)] font-semibold mb-2">
+                        <p className="text-base sm:text-lg font-medium text-[var(--text-color)] mb-2">
                           Marks not yet uploaded for this semester
                         </p>
                         <p className="text-[var(--label-color)]">
@@ -1095,7 +1109,9 @@ export default function Grades({
                       </div>
                     ) : (
                       <div className="text-center mt-4 text-[var(--label-color)]">
-                        Select a semester to view marks
+                        <span className="text-base sm:text-lg font-medium">
+                          Select a semester to view marks
+                        </span>
                       </div>
                     )}
                   </>
@@ -1111,22 +1127,36 @@ export default function Grades({
         {/* Download Marks Button */}
         <Button
           variant="secondary"
-          className="rounded-[var(--radius)] shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--primary-color)] hover:bg-[var(--accent-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
+          className={`
+            rounded-[var(--radius)] shadow-lg flex items-center gap-2 text-[var(--text-color)]
+            bg-[var(--primary-color)] hover:bg-[var(--accent-color)]
+            border-[var(--border-color)] hover:border-[var(--primary-color)]
+            px-3 h-10 text-base font-semibold
+            sm:px-6 sm:h-14 sm:text-lg
+          `}
           onClick={() => setIsDownloadDialogOpen(true)}
           aria-label="Download Marks"
         >
-          <Download className="h-6 w-6 mr-2" />
-          Download Marks
+          <Download className="h-4 w-4 mr-1 sm:h-6 sm:w-6 sm:mr-2" />
+          <span className="hidden sm:inline">Download Marks</span>
+          <span className="sm:hidden">Download</span>
         </Button>
         {/* Targeted GPA Calculator Button */}
         <Button
           variant="secondary"
-          className="rounded-[var(--radius)] shadow-lg flex items-center gap-2 text-[var(--text-color)] bg-[var(--card-bg)] hover:bg-[var(--primary-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] px-6 h-14 text-lg font-semibold"
+          className={`
+            rounded-[var(--radius)] shadow-lg flex items-center gap-2 text-[var(--text-color)]
+            bg-[var(--card-bg)] hover:bg-[var(--primary-color)]
+            border-[var(--border-color)] hover:border-[var(--primary-color)]
+            px-3 h-10 text-base font-semibold
+            sm:px-6 sm:h-14 sm:text-lg
+          `}
           onClick={() => setIsTargetModalOpen(true)}
           aria-label="Calculate Targeted GPA"
         >
-          <Calculator className="h-6 w-6 mr-2" />
-          Calculate Targeted GPA
+          <Calculator className="h-4 w-4 mr-1 sm:h-6 sm:w-6 sm:mr-2" />
+          <span className="hidden sm:inline">Calculate Targeted GPA</span>
+          <span className="sm:hidden">Target GPA</span>
         </Button>
       </div>
 
