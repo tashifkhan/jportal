@@ -257,6 +257,8 @@ export default function ThemeSwitcher({ Icon }) {
     setCustomThemeLabel,
     deleteCustomTheme,
     addCustomTheme,
+    useCardBackgrounds,
+    setUseCardBackgrounds,
   } = useTheme();
   const { systemColorMode } = useSystemColorMode();
   const [open, setOpen] = useState(false);
@@ -979,27 +981,51 @@ export default function ThemeSwitcher({ Icon }) {
           </div>
 
           {/* Material UI Toggle */}
-          <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--card-bg)]/50">
-            <div className="flex items-center gap-3">
-              <Settings className="w-4 h-4 text-[var(--label-color)]" />
-              <Label className="text-sm text-[var(--text-color)] cursor-pointer select-none">
-                Material UI Components
-              </Label>
-            </div>
-            <MuiSwitch
-              checked={useMaterialUI}
-              onChange={(_, checked) => setUseMaterialUI(checked)}
-              id="mui-toggle"
-              sx={{
-                color: "var(--accent-color)",
-                "&.Mui-checked": {
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--card-bg)]/50">
+              <div className="flex items-center gap-3">
+                <Settings className="w-4 h-4 text-[var(--label-color)]" />
+                <Label className="text-sm text-[var(--text-color)] cursor-pointer select-none">
+                  Material UI Components
+                </Label>
+              </div>
+              <MuiSwitch
+                checked={useMaterialUI}
+                onChange={(_, checked) => setUseMaterialUI(checked)}
+                id="mui-toggle"
+                sx={{
                   color: "var(--accent-color)",
-                },
-                "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-                  backgroundColor: "var(--accent-color)",
-                },
-              }}
-            />
+                  "&.Mui-checked": {
+                    color: "var(--accent-color)",
+                  },
+                  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                    backgroundColor: "var(--accent-color)",
+                  },
+                }}
+              />
+            </div>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--card-bg)]/50">
+              <div className="flex items-center gap-3">
+                <Settings className="w-4 h-4 text-[var(--label-color)]" />
+                <Label className="text-sm text-[var(--text-color)] cursor-pointer select-none">
+                  Card Backgrounds
+                </Label>
+              </div>
+              <MuiSwitch
+                checked={useCardBackgrounds}
+                onChange={(_, checked) => setUseCardBackgrounds(checked)}
+                id="card-bg-toggle"
+                sx={{
+                  color: "var(--accent-color)",
+                  "&.Mui-checked": {
+                    color: "var(--accent-color)",
+                  },
+                  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                    backgroundColor: "var(--accent-color)",
+                  },
+                }}
+              />
+            </div>
           </div>
         </div>
       </DialogContent>

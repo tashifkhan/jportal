@@ -3,6 +3,7 @@ import Loader from "./Loader";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { useSwipeable } from "react-swipeable";
 import TopTabsBar from "./ui/TopTabsBar";
+import { useTheme } from "./ThemeProvider";
 
 export default function Profile({ w, profileData, setProfileData }) {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,27 @@ export default function Profile({ w, profileData, setProfileData }) {
 
   // State to toggle between profile image and avatar
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
+
+  const { theme, customThemes, selectedCustomTheme, useCardBackgrounds } =
+    useTheme();
+  const accentSeparator =
+    theme === "custom"
+      ? customThemes[selectedCustomTheme]?.colors["--accent-color"] || "#7ec3f0"
+      : theme === "white"
+      ? "#3182ce"
+      : theme === "cream"
+      ? "#A47551"
+      : theme === "amoled"
+      ? "#00bcd4"
+      : "#7ec3f0";
+  const separatorStyle = !useCardBackgrounds
+    ? {
+        borderBottom: `1px solid ${accentSeparator}66`,
+        margin: "2px 0",
+        minHeight: 0,
+        height: 0,
+      }
+    : {};
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -186,96 +208,171 @@ export default function Profile({ w, profileData, setProfileData }) {
             {/* Content Area */}
             <div className="w-full">
               <TabsContent value="personal" className="px-4 sm:px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
-                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
-                    <SectionTitle>Personal Details</SectionTitle>
-                    <InfoRow label="Date of Birth" value={info.dateofbirth} />
-                    <InfoRow label="Gender" value={info.gender} />
-                    <InfoRow label="Blood Group" value={info.bloodgroup} />
-                    <InfoRow label="Nationality" value={info.nationality} />
-                    <InfoRow label="Category" value={info.category} />
-                  </div>
+                <div
+                  className="w-full max-w-2xl mx-auto flex flex-col"
+                  style={!useCardBackgrounds ? { gap: 2 } : { gap: 24 }}
+                >
+                  {[
+                    <div
+                      key="personal-details"
+                      className={
+                        useCardBackgrounds
+                          ? "bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5"
+                          : "px-0 py-2"
+                      }
+                    >
+                      <SectionTitle>Personal Details</SectionTitle>
+                      <InfoRow label="Date of Birth" value={info.dateofbirth} />
+                      <InfoRow label="Gender" value={info.gender} />
+                      <InfoRow label="Blood Group" value={info.bloodgroup} />
+                      <InfoRow label="Nationality" value={info.nationality} />
+                      <InfoRow label="Category" value={info.category} />
+                    </div>,
+                  ].map((el, idx, arr) => [
+                    el,
+                    !useCardBackgrounds && idx < arr.length - 1 && (
+                      <div key={"sep-" + idx} style={separatorStyle} />
+                    ),
+                  ])}
                 </div>
               </TabsContent>
               <TabsContent value="academic" className="px-4 sm:px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
-                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
-                    <SectionTitle>Academic Details</SectionTitle>
-                    <InfoRow label="Program" value={info.programcode} />
-                    <InfoRow label="Branch" value={info.branch} />
-                    <InfoRow label="Section" value={info.sectioncode} />
-                    <InfoRow label="Batch" value={info.batch} />
-                    <InfoRow label="Semester" value={info.semester} />
-                    <InfoRow label="Institute" value={info.institutecode} />
-                    <InfoRow label="Academic Year" value={info.academicyear} />
-                    <InfoRow
-                      label="Admission Year"
-                      value={info.admissionyear}
-                    />
-                  </div>
+                <div
+                  className="w-full max-w-2xl mx-auto flex flex-col"
+                  style={!useCardBackgrounds ? { gap: 2 } : { gap: 24 }}
+                >
+                  {[
+                    <div
+                      key="academic-details"
+                      className={
+                        useCardBackgrounds
+                          ? "bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5"
+                          : "px-0 py-2"
+                      }
+                    >
+                      <SectionTitle>Academic Details</SectionTitle>
+                      <InfoRow label="Program" value={info.programcode} />
+                      <InfoRow label="Branch" value={info.branch} />
+                      <InfoRow label="Section" value={info.sectioncode} />
+                      <InfoRow label="Batch" value={info.batch} />
+                      <InfoRow label="Semester" value={info.semester} />
+                      <InfoRow label="Institute" value={info.institutecode} />
+                      <InfoRow
+                        label="Academic Year"
+                        value={info.academicyear}
+                      />
+                      <InfoRow
+                        label="Admission Year"
+                        value={info.admissionyear}
+                      />
+                    </div>,
+                  ].map((el, idx, arr) => [
+                    el,
+                    !useCardBackgrounds && idx < arr.length - 1 && (
+                      <div key={"sep-" + idx} style={separatorStyle} />
+                    ),
+                  ])}
                 </div>
               </TabsContent>
               <TabsContent value="contact" className="px-4 sm:px-8 py-6">
-                <div className="w-full max-w-2xl mx-auto flex flex-col gap-6">
-                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
-                    <SectionTitle>Student Contact</SectionTitle>
-                    <InfoRow
-                      label="Student Email (College)"
-                      value={info.studentemailid}
-                    />
-                    <InfoRow
-                      label="Student Email (Personal)"
-                      value={info.studentpersonalemailid}
-                    />
-                    <InfoRow label="Mobile" value={info.studentcellno} />
-                    <InfoRow
-                      label="Telephone"
-                      value={info.studenttelephoneno || "N/A"}
-                    />
-                  </div>
-                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
-                    <SectionTitle>Family Information</SectionTitle>
-                    <InfoRow label="Father's Name" value={info.fathersname} />
-                    <InfoRow label="Mother's Name" value={info.mothername} />
-                    <InfoRow
-                      label="Parent's Email"
-                      value={info.parentemailid}
-                    />
-                    <InfoRow
-                      label="Parent's Mobile"
-                      value={info.parentcellno}
-                    />
-                    <InfoRow
-                      label="Parent's Telephone"
-                      value={info.parenttelephoneno || "N/A"}
-                    />
-                  </div>
-                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
-                    <SectionTitle>Current Address</SectionTitle>
-                    <InfoRow
-                      label="Address"
-                      value={[info.caddress1, info.caddress3]
-                        .filter(Boolean)
-                        .join(", ")}
-                    />
-                    <InfoRow label="City" value={info.ccityname} />
-                    <InfoRow label="District" value={info.cdistrict} />
-                    <InfoRow label="State" value={info.cstatename} />
-                    <InfoRow label="Postal Code" value={info.cpostalcode} />
-                  </div>
-                  <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5">
-                    <SectionTitle>Permanent Address</SectionTitle>
-                    <InfoRow
-                      label="Address"
-                      value={[info.paddress1, info.paddress2, info.paddress3]
-                        .filter(Boolean)
-                        .join(", ")}
-                    />
-                    <InfoRow label="City" value={info.pcityname} />
-                    <InfoRow label="District" value={info.pdistrict} />
-                    <InfoRow label="State" value={info.pstatename} />
-                    <InfoRow label="Postal Code" value={info.ppostalcode} />
-                  </div>
+                <div
+                  className="w-full max-w-2xl mx-auto flex flex-col"
+                  style={!useCardBackgrounds ? { gap: 2 } : { gap: 24 }}
+                >
+                  {[
+                    <div
+                      key="student-contact"
+                      className={
+                        useCardBackgrounds
+                          ? "bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5"
+                          : "px-0 py-2"
+                      }
+                    >
+                      <SectionTitle>Student Contact</SectionTitle>
+                      <InfoRow
+                        label="Student Email (College)"
+                        value={info.studentemailid}
+                      />
+                      <InfoRow
+                        label="Student Email (Personal)"
+                        value={info.studentpersonalemailid}
+                      />
+                      <InfoRow label="Mobile" value={info.studentcellno} />
+                      <InfoRow
+                        label="Telephone"
+                        value={info.studenttelephoneno || "N/A"}
+                      />
+                    </div>,
+                    <div
+                      key="family-info"
+                      className={
+                        useCardBackgrounds
+                          ? "bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5"
+                          : "px-0 py-2"
+                      }
+                    >
+                      <SectionTitle>Family Information</SectionTitle>
+                      <InfoRow label="Father's Name" value={info.fathersname} />
+                      <InfoRow label="Mother's Name" value={info.mothername} />
+                      <InfoRow
+                        label="Parent's Email"
+                        value={info.parentemailid}
+                      />
+                      <InfoRow
+                        label="Parent's Mobile"
+                        value={info.parentcellno}
+                      />
+                      <InfoRow
+                        label="Parent's Telephone"
+                        value={info.parenttelephoneno || "N/A"}
+                      />
+                    </div>,
+                    <div
+                      key="current-address"
+                      className={
+                        useCardBackgrounds
+                          ? "bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5"
+                          : "px-0 py-2"
+                      }
+                    >
+                      <SectionTitle>Current Address</SectionTitle>
+                      <InfoRow
+                        label="Address"
+                        value={[info.caddress1, info.caddress3]
+                          .filter(Boolean)
+                          .join(", ")}
+                      />
+                      <InfoRow label="City" value={info.ccityname} />
+                      <InfoRow label="District" value={info.cdistrict} />
+                      <InfoRow label="State" value={info.cstatename} />
+                      <InfoRow label="Postal Code" value={info.cpostalcode} />
+                    </div>,
+                    <div
+                      key="permanent-address"
+                      className={
+                        useCardBackgrounds
+                          ? "bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5"
+                          : "px-0 py-2"
+                      }
+                    >
+                      <SectionTitle>Permanent Address</SectionTitle>
+                      <InfoRow
+                        label="Address"
+                        value={[info.paddress1, info.paddress2, info.paddress3]
+                          .filter(Boolean)
+                          .join(", ")}
+                      />
+                      <InfoRow label="City" value={info.pcityname} />
+                      <InfoRow label="District" value={info.pdistrict} />
+                      <InfoRow label="State" value={info.pstatename} />
+                      <InfoRow label="Postal Code" value={info.ppostalcode} />
+                    </div>,
+                  ].map((el, idx, arr) => [
+                    el,
+                    !useCardBackgrounds && idx < arr.length - 1 && (
+                      <div key={"sep-" + idx} style={separatorStyle} />
+                    ),
+                  ])}
                 </div>
               </TabsContent>
               <TabsContent value="education" className="px-4 sm:px-8 py-6">
@@ -285,11 +382,18 @@ export default function Profile({ w, profileData, setProfileData }) {
                       No qualifications found.
                     </div>
                   ) : (
-                    <div className="flex flex-col gap-6">
-                      {qualifications.map((qual, index) => (
+                    <div
+                      className="flex flex-col"
+                      style={!useCardBackgrounds ? { gap: 2 } : { gap: 24 }}
+                    >
+                      {qualifications.map((qual, index, arr) => [
                         <div
                           key={index}
-                          className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1"
+                          className={
+                            useCardBackgrounds
+                              ? "bg-[var(--card-bg)] rounded-2xl shadow-sm px-4 sm:px-6 py-5 flex flex-col gap-1"
+                              : "px-0 py-2 flex flex-col gap-1"
+                          }
                         >
                           <SectionTitle>{`Qualification: ${qual.qualificationcode}`}</SectionTitle>
                           <InfoRow label="Board" value={qual.boardname} />
@@ -309,8 +413,11 @@ export default function Profile({ w, profileData, setProfileData }) {
                           {qual.grade && (
                             <InfoRow label="Grade" value={qual.grade} />
                           )}
-                        </div>
-                      ))}
+                        </div>,
+                        !useCardBackgrounds && index < arr.length - 1 && (
+                          <div key={"sep-" + index} style={separatorStyle} />
+                        ),
+                      ])}
                     </div>
                   )}
                 </div>

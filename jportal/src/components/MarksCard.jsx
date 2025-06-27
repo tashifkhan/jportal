@@ -1,7 +1,11 @@
 import React from "react";
 import { Progress } from "@/components/ui/progress";
 
-export default function MarksCard({ course, gradeCard }) {
+export default function MarksCard({
+  course,
+  gradeCard,
+  useCardBackgrounds = true,
+}) {
   const getProgressColor = (percentage) => {
     if (percentage >= 80) return "bg-green-500";
     if (percentage >= 60) return "bg-yellow-500";
@@ -41,7 +45,11 @@ export default function MarksCard({ course, gradeCard }) {
   const isAudit = course.audtsubject === "Y" || course.isAudit;
 
   return (
-    <div className="bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-2 mb-2 border-none">
+    <div
+      className={`${
+        useCardBackgrounds ? "bg-[var(--card-bg)] rounded-2xl shadow-sm" : ""
+      } px-6 py-5 flex flex-col gap-2 mb-2 border-none`}
+    >
       <div className="flex items-center justify-between gap-4 mb-2">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">

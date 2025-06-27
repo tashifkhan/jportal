@@ -1,8 +1,12 @@
 import React from "react";
 
-const GradeCard = ({ subject, getGradeColor }) => {
+const GradeCard = ({ subject, getGradeColor, useCardBackgrounds = true }) => {
   return (
-    <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-5 flex flex-col gap-2 mb-2">
+    <div
+      className={`w-full max-w-2xl mx-auto ${
+        useCardBackgrounds ? "bg-[var(--card-bg)] rounded-2xl shadow-sm" : ""
+      } px-6 py-5 flex flex-col gap-2 mb-2`}
+    >
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1 min-w-0">
           <h2 className="text-sm font-light truncate mb-1 text-[var(--text-color)]">
