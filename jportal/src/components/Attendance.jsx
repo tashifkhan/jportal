@@ -371,6 +371,25 @@ const Attendance = ({
                   fontSize: "1.1rem",
                   fontWeight: 300,
                   height: 44,
+                  boxShadow: "none",
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "var(--radius)",
+                    background: "var(--card-bg)",
+                    color: "var(--text-color)",
+                    fontSize: "1.1rem",
+                    fontWeight: 300,
+                    border: "1px solid var(--label-color)",
+                    boxShadow: "none",
+                    "& fieldset": {
+                      borderColor: "var(--label-color)",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "var(--accent-color)",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "var(--accent-color)",
+                    },
+                  },
                   "& .MuiOutlinedInput-notchedOutline": {
                     borderColor: "var(--label-color)",
                   },
