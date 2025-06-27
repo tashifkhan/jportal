@@ -327,8 +327,8 @@ const Attendance = ({
 
   return (
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4 pt-2">
-      <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-6">
-        <div className="flex flex-row gap-3 items-center justify-center w-full max-w-md px-0 py-0">
+      <div className="flex flex-col sm:flex-row gap-2 items-center justify-center mb-2">
+        <div className="flex flex-row gap-1 items-center justify-center w-full max-w-md px-0 py-0">
           {/* Semester Select */}
           {useMaterialUI ? (
             <FormControl fullWidth variant="outlined">
@@ -558,7 +558,7 @@ const Attendance = ({
               onValueChange={setActiveTab}
               className="w-full lg:w-64"
             >
-              <TabsList className="mb-6 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[40px] items-center  grid-cols-2 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl lg:block hidden">
+              <TabsList className="mb-2 bg-[var(--card-bg)] rounded-[var(--radius)] overflow-hidden h-[40px] items-center  grid-cols-2 lg:grid-cols-1 lg:w-64 lg:h-auto lg:mb-0 lg:py-4 lg:gap-2 lg:shadow-xl lg:rounded-2xl lg:block hidden">
                 <TabsTrigger
                   value="overview"
                   className="flex items-center justify-center h-full w-full data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors lg:justify-start lg:px-6 lg:py-3 lg:w-full lg:rounded-none lg:data-[state=active]:rounded-2xl"
@@ -603,7 +603,7 @@ const Attendance = ({
               className="w-full"
             >
               <TabsContent value="overview">
-                <div className="flex flex-col gap-6 items-center">
+                <div className="flex flex-col gap-2 items-center">
                   {sortedSubjects.length === 0 ? (
                     <div className="w-full max-w-xl mx-auto bg-[var(--card-bg)] text-[var(--accent-color)] dark:text-[var(--accent-color)] rounded-[var(--radius)] shadow-md px-8 py-8 flex items-center justify-center text-center text-2xl font-medium">
                       No subjects found.
