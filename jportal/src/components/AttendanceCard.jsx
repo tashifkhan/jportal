@@ -26,6 +26,7 @@ const AttendanceCard = ({
   subjectAttendanceData,
   fetchSubjectAttendance,
   attendanceGoal = 75,
+  useCardBackgrounds = true,
 }) => {
   const {
     name,
@@ -183,7 +184,9 @@ const AttendanceCard = ({
 
   return (
     <div
-      className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-3 pt-3 sm:pt-5 pb-2 sm:pb-3 flex flex-col gap-1"
+      className={`w-full max-w-2xl mx-auto ${
+        useCardBackgrounds ? "bg-[var(--card-bg)] rounded-2xl shadow-sm" : ""
+      } px-3 pt-3 sm:pt-5 pb-2 sm:pb-3 flex flex-col gap-1`}
       onClick={handleClick}
       role="button"
       tabIndex={0}

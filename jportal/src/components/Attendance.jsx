@@ -54,7 +54,23 @@ const Attendance = ({
   setSubjectCacheStatus,
 }) => {
   const [attendanceSortOrder, setAttendanceSortOrder] = useState("default"); // default, asc, desc
-  const { useMaterialUI } = useTheme();
+  const {
+    useMaterialUI,
+    useCardBackgrounds,
+    theme,
+    customThemes,
+    selectedCustomTheme,
+  } = useTheme();
+  const accentSeparator =
+    theme === "custom"
+      ? customThemes[selectedCustomTheme]?.colors["--accent-color"] || "#7ec3f0"
+      : theme === "white"
+      ? "#3182ce"
+      : theme === "cream"
+      ? "#A47551"
+      : theme === "amoled"
+      ? "#00bcd4"
+      : "#7ec3f0";
 
   const toggleSortOrder = () => {
     setAttendanceSortOrder((prev) =>
@@ -613,22 +629,44 @@ const Attendance = ({
               className="w-full"
             >
               <TabsContent value="overview">
-                <div className="flex flex-col gap-2 items-center">
+                <div
+                  className={`flex flex-col ${
+                    useCardBackgrounds ? "gap-2" : "gap-1"
+                  } items-center`}
+                >
                   {sortedSubjects.length === 0 ? (
-                    <div className="w-full max-w-xl mx-auto bg-[var(--card-bg)] text-[var(--accent-color)] dark:text-[var(--accent-color)] rounded-[var(--radius)] shadow-md px-8 py-8 flex items-center justify-center text-center text-base sm:text-lg font-medium">
+                    <div
+                      className={`w-full max-w-xl mx-auto ${
+                        useCardBackgrounds
+                          ? "bg-[var(--card-bg)] text-[var(--accent-color)] dark:text-[var(--accent-color)] rounded-[var(--radius)] shadow-md"
+                          : ""
+                      } px-8 py-8 flex items-center justify-center text-center text-base sm:text-lg font-medium`}
+                    >
                       No subjects found.
                     </div>
                   ) : (
-                    sortedSubjects.map((subject) => (
-                      <AttendanceCard
-                        key={subject.name}
-                        subject={subject}
-                        selectedSubject={selectedSubject}
-                        setSelectedSubject={setSelectedSubject}
-                        subjectAttendanceData={subjectAttendanceData}
-                        fetchSubjectAttendance={fetchSubjectAttendance}
-                        attendanceGoal={attendanceGoal}
-                      />
+                    sortedSubjects.map((subject, idx) => (
+                      <React.Fragment key={subject.name}>
+                        <AttendanceCard
+                          subject={subject}
+                          selectedSubject={selectedSubject}
+                          setSelectedSubject={setSelectedSubject}
+                          subjectAttendanceData={subjectAttendanceData}
+                          fetchSubjectAttendance={fetchSubjectAttendance}
+                          attendanceGoal={attendanceGoal}
+                          useCardBackgrounds={useCardBackgrounds}
+                        />
+                        {!useCardBackgrounds &&
+                          idx < sortedSubjects.length - 1 && (
+                            <div
+                              className="w-full max-w-2xl mx-auto"
+                              style={{
+                                borderBottom: `1px solid ${accentSeparator}66`,
+                                margin: "2px 0",
+                              }}
+                            />
+                          )}
+                      </React.Fragment>
                     ))
                   )}
                 </div>
@@ -636,7 +674,13 @@ const Attendance = ({
               <TabsContent value="daily">
                 {/* Modern Day-to-day calendar and daily attendance breakdown */}
                 <div className="flex flex-col items-center w-full">
-                  <div className="w-full max-w-[370px] mx-auto flex flex-col items-center bg-[var(--card-bg)] rounded-[var(--radius)] shadow-md p-4 mb-6">
+                  <div
+                    className={`w-full max-w-[370px] mx-auto flex flex-col items-center ${
+                      useCardBackgrounds
+                        ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-md"
+                        : ""
+                    } p-4 mb-6`}
+                  >
                     <Calendar
                       mode="single"
                       selected={dailyDate}
@@ -685,19 +729,27 @@ const Attendance = ({
                       }}
                     />
                   </div>
-                  <div className="w-full max-w-2xl mx-auto flex flex-col gap-4">
+                  <div
+                    className={`w-full max-w-2xl mx-auto flex flex-col ${
+                      useCardBackgrounds ? "gap-4" : "gap-1"
+                    }`}
+                  >
                     {subjects.length === 0 ? (
                       <p className="text-[var(--label-color)] text-center text-base sm:text-lg font-medium">
                         No subjects found.
                       </p>
                     ) : (
-                      subjects.flatMap((subj) => {
+                      subjects.flatMap((subj, idx) => {
                         const lectures = getClassesFor(subj.name, dailyDate);
                         if (lectures.length === 0) return [];
-                        return (
+                        return [
                           <div
                             key={subj.name}
-                            className="bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm py-3 px-4 mb-2"
+                            className={`w-full max-w-2xl mx-auto ${
+                              useCardBackgrounds
+                                ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm"
+                                : ""
+                            } py-3 px-4 mb-2`}
                           >
                             <h3 className="font-medium mb-2 text-[var(--text-color)] text-base">
                               {subj.name}
@@ -731,8 +783,18 @@ const Attendance = ({
                                 </div>
                               ))}
                             </div>
-                          </div>
-                        );
+                          </div>,
+                          !useCardBackgrounds && idx < subjects.length - 1 && (
+                            <div
+                              key={subj.name + "-sep"}
+                              className="w-full max-w-2xl mx-auto"
+                              style={{
+                                borderBottom: `1px solid ${accentSeparator}66`,
+                                margin: "2px 0",
+                              }}
+                            />
+                          ),
+                        ];
                       })
                     )}
                     {/* nothing on that day? */}

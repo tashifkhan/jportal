@@ -86,8 +86,13 @@ export default function Grades({
   const [targetCGPA, setTargetCGPA] = useState("");
   const [requiredSGPA, setRequiredSGPA] = useState(null);
   const [calcError, setCalcError] = useState("");
-  const { useMaterialUI, theme, customThemes, selectedCustomTheme } =
-    useTheme();
+  const {
+    useMaterialUI,
+    theme,
+    customThemes,
+    selectedCustomTheme,
+    useCardBackgrounds,
+  } = useTheme();
 
   // Determine if the current theme is light
   let isLightTheme = false;
@@ -439,6 +444,20 @@ export default function Grades({
     setRequiredSGPA(required);
   };
 
+  const accentSeparator =
+    theme === "custom"
+      ? customThemes[selectedCustomTheme]?.colors["--accent-color"] || "#7ec3f0"
+      : theme === "white"
+      ? "#3182ce"
+      : theme === "cream"
+      ? "#A47551"
+      : theme === "amoled"
+      ? "#00bcd4"
+      : "#7ec3f0";
+  const separatorStyle = !useCardBackgrounds
+    ? { borderBottom: `1px solid ${accentSeparator}66`, margin: "2px 0" }
+    : {};
+
   if (gradesLoading) {
     return (
       <Loader
@@ -525,7 +544,13 @@ export default function Grades({
             <TabsContent value="overview">
               <div className="flex flex-col items-center">
                 {gradesError ? (
-                  <div className="w-full max-w-2xl text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
+                  <div
+                    className={`w-full max-w-2xl text-center py-8 ${
+                      useCardBackgrounds
+                        ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm"
+                        : ""
+                    } px-6 mb-4`}
+                  >
                     <p className="text-base sm:text-lg font-medium">
                       {gradesError}
                     </p>
@@ -535,7 +560,13 @@ export default function Grades({
                   </div>
                 ) : (
                   <>
-                    <div className="mb-4 w-full max-w-2xl bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 py-5">
+                    <div
+                      className={`mb-4 w-full max-w-2xl ${
+                        useCardBackgrounds
+                          ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm"
+                          : ""
+                      } px-6 sm:px-10 py-4 sm:py-7`}
+                    >
                       <ResponsiveContainer width="100%" height={250}>
                         <LineChart
                           data={semesterData}
@@ -598,43 +629,61 @@ export default function Grades({
                     </div>
 
                     <div className="space-y-2 w-full max-w-2xl">
-                      {semesterData.map((sem) => (
-                        <div
-                          key={sem.stynumber}
-                          className="w-full bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-3 py-3 flex items-center justify-between mb-1"
-                        >
-                          <div className="flex-1 min-w-0">
-                            <h2 className="text-sm font-light truncate mb-0.5 text-[var(--text-color)]">
-                              Semester {sem.stynumber}
-                            </h2>
-                            <div className="text-xs font-normal text-[var(--label-color)]">
-                              GP: {sem.earnedgradepoints.toFixed(1)}/
-                              {sem.totalcoursecredit * 10}
+                      {semesterData.map((sem, idx) => (
+                        <React.Fragment key={sem.stynumber}>
+                          <div
+                            className={`w-full ${
+                              useCardBackgrounds
+                                ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm mb-1"
+                                : "mb-0"
+                            } px-3 sm:px-8 py-2 sm:py-5 flex items-center justify-between`}
+                            style={
+                              !useCardBackgrounds
+                                ? {
+                                    marginBottom: 0,
+                                    paddingTop: 8,
+                                    paddingBottom: 8,
+                                  }
+                                : {}
+                            }
+                          >
+                            <div className="flex-1 min-w-0">
+                              <h2 className="text-sm sm:text-lg font-light truncate mb-0.5 text-[var(--text-color)]">
+                                Semester {sem.stynumber}
+                              </h2>
+                              <div className="text-xs sm:text-base font-normal text-[var(--label-color)]">
+                                GP: {sem.earnedgradepoints.toFixed(1)}/
+                                {sem.totalcoursecredit * 10}
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3 sm:gap-6">
+                              <div className="text-center">
+                                <div
+                                  className={`text-lg sm:text-2xl font-mono font-bold ${sgpaTextColor}`}
+                                >
+                                  {formatGPA(sem.sgpa)}
+                                </div>
+                                <div className="text-[0.7rem] sm:text-sm text-[var(--label-color)]">
+                                  SGPA
+                                </div>
+                              </div>
+                              <div className="text-center">
+                                <div
+                                  className={`text-lg sm:text-2xl font-mono font-bold ${cgpaTextColor}`}
+                                >
+                                  {formatGPA(sem.cgpa)}
+                                </div>
+                                <div className="text-[0.7rem] sm:text-sm text-[var(--label-color)]">
+                                  CGPA
+                                </div>
+                              </div>
                             </div>
                           </div>
-                          <div className="flex items-center gap-3">
-                            <div className="text-center">
-                              <div
-                                className={`text-lg font-mono font-bold ${sgpaTextColor}`}
-                              >
-                                {formatGPA(sem.sgpa)}
-                              </div>
-                              <div className="text-[0.7rem] text-[var(--label-color)]">
-                                SGPA
-                              </div>
-                            </div>
-                            <div className="text-center">
-                              <div
-                                className={`text-lg font-mono font-bold ${cgpaTextColor}`}
-                              >
-                                {formatGPA(sem.cgpa)}
-                              </div>
-                              <div className="text-[0.7rem] text-[var(--label-color)]">
-                                CGPA
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                          {!useCardBackgrounds &&
+                            idx < semesterData.length - 1 && (
+                              <div style={separatorStyle} />
+                            )}
+                        </React.Fragment>
                       ))}
                     </div>
                   </>
@@ -645,7 +694,13 @@ export default function Grades({
             <TabsContent value="semester">
               <div className="w-full max-w-2xl mx-auto">
                 {gradeCardSemesters.length === 0 ? (
-                  <div className="text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
+                  <div
+                    className={`text-center py-8 ${
+                      useCardBackgrounds
+                        ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm"
+                        : ""
+                    } px-6 mb-4`}
+                  >
                     <p className="text-base sm:text-lg font-medium">
                       Grade card is not available yet
                     </p>
@@ -978,12 +1033,17 @@ export default function Grades({
                     )}
                     {/* Sorted GradeCard List */}
                     <div className="space-y-2 mt-4">
-                      {getSortedGradeCard().map((subject) => (
-                        <GradeCard
-                          key={subject.subjectcode}
-                          subject={subject}
-                          getGradeColor={getGradeColor}
-                        />
+                      {getSortedGradeCard().map((subject, idx, arr) => (
+                        <React.Fragment key={subject.subjectcode}>
+                          <GradeCard
+                            subject={subject}
+                            getGradeColor={getGradeColor}
+                            useCardBackgrounds={useCardBackgrounds}
+                          />
+                          {!useCardBackgrounds && idx < arr.length - 1 && (
+                            <div style={separatorStyle} />
+                          )}
+                        </React.Fragment>
                       ))}
                     </div>
                   </div>
@@ -994,7 +1054,13 @@ export default function Grades({
             <TabsContent value="marks">
               <div className="w-full max-w-2xl mx-auto">
                 {marksSemesters.length === 0 ? (
-                  <div className="text-center py-8 bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 mb-4">
+                  <div
+                    className={`text-center py-8 ${
+                      useCardBackgrounds
+                        ? "bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm"
+                        : ""
+                    } px-6 mb-4`}
+                  >
                     <p className="text-base sm:text-lg font-medium">
                       Marks data is not available yet
                     </p>
@@ -1089,7 +1155,13 @@ export default function Grades({
                       </div>
                     ) : marksSemesterData &&
                       marksSemesterData.error === "marks_not_uploaded" ? (
-                      <div className="text-center mt-4 bg-[var(--card-bg)] rounded-[var(--radius)] px-6 py-8 shadow-sm">
+                      <div
+                        className={`text-center mt-4 ${
+                          useCardBackgrounds
+                            ? "bg-[var(--card-bg)] rounded-[var(--radius)] px-6 py-8 shadow-sm"
+                            : ""
+                        }`}
+                      >
                         <p className="text-base sm:text-lg font-medium text-[var(--text-color)] mb-2">
                           Marks not yet uploaded for this semester
                         </p>
@@ -1099,12 +1171,17 @@ export default function Grades({
                       </div>
                     ) : marksSemesterData && marksSemesterData.courses ? (
                       <div className="space-y-4 mt-4">
-                        {marksSemesterData.courses.map((course) => (
-                          <MarksCard
-                            key={course.code}
-                            course={course}
-                            gradeCard={gradeCard}
-                          />
+                        {marksSemesterData.courses.map((course, idx, arr) => (
+                          <React.Fragment key={course.code}>
+                            <MarksCard
+                              course={course}
+                              gradeCard={gradeCard}
+                              useCardBackgrounds={useCardBackgrounds}
+                            />
+                            {!useCardBackgrounds && idx < arr.length - 1 && (
+                              <div style={separatorStyle} />
+                            )}
+                          </React.Fragment>
                         ))}
                       </div>
                     ) : (

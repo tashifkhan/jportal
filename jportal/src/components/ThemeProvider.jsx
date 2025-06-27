@@ -65,6 +65,8 @@ const ThemeContext = createContext({
   setRadius: () => {},
   useMaterialUI: false,
   setUseMaterialUI: () => {},
+  useCardBackgrounds: true,
+  setUseCardBackgrounds: () => {},
   customThemes: [defaultCustomTheme],
   setCustomThemes: () => {},
   selectedCustomTheme: 0,
@@ -111,6 +113,10 @@ export const ThemeProvider = ({ children }) => {
   const [useMaterialUI, setUseMaterialUI] = useState(() => {
     const saved = localStorage.getItem("useMaterialUI");
     return saved === "true";
+  });
+  const [useCardBackgrounds, setUseCardBackgrounds] = useState(() => {
+    const saved = localStorage.getItem("useCardBackgrounds");
+    return saved === null ? true : saved === "true";
   });
   const [customThemes, setCustomThemes] = useState(() => {
     const saved = localStorage.getItem("customThemes");
@@ -218,9 +224,17 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem("theme", theme);
     localStorage.setItem("radius", radius);
     localStorage.setItem("useMaterialUI", useMaterialUI);
+    localStorage.setItem("useCardBackgrounds", useCardBackgrounds);
     localStorage.setItem("customThemes", JSON.stringify(customThemes));
     localStorage.setItem("selectedCustomTheme", selectedCustomTheme);
-  }, [theme, radius, useMaterialUI, customThemes, selectedCustomTheme]);
+  }, [
+    theme,
+    radius,
+    useMaterialUI,
+    customThemes,
+    selectedCustomTheme,
+    useCardBackgrounds,
+  ]);
 
   return (
     <SystemColorModeContext.Provider value={{ systemColorMode }}>
@@ -232,6 +246,8 @@ export const ThemeProvider = ({ children }) => {
           setRadius,
           useMaterialUI,
           setUseMaterialUI,
+          useCardBackgrounds,
+          setUseCardBackgrounds,
           customThemes,
           setCustomThemes,
           selectedCustomTheme,

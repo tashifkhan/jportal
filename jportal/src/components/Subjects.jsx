@@ -28,7 +28,23 @@ export default function Subjects({
 }) {
   const [loading, setLoading] = useState(!semestersData);
   const [subjectsLoading, setSubjectsLoading] = useState(!subjectData);
-  const { useMaterialUI } = useTheme();
+  const {
+    useMaterialUI,
+    useCardBackgrounds,
+    theme,
+    customThemes,
+    selectedCustomTheme,
+  } = useTheme();
+  const accentSeparator =
+    theme === "custom"
+      ? customThemes[selectedCustomTheme]?.colors["--accent-color"] || "#7ec3f0"
+      : theme === "white"
+      ? "#3182ce"
+      : theme === "cream"
+      ? "#A47551"
+      : theme === "amoled"
+      ? "#00bcd4"
+      : "#7ec3f0";
 
   useEffect(() => {
     const fetchSemesters = async () => {
@@ -218,7 +234,13 @@ export default function Subjects({
       </div>
 
       <div className="px-3 pb-4">
-        <div className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-2xl shadow-sm px-6 py-4 flex items-center justify-between mb-4">
+        <div
+          className={`w-full max-w-2xl mx-auto ${
+            useCardBackgrounds
+              ? "bg-[var(--card-bg)] rounded-2xl shadow-sm"
+              : ""
+          } px-6 py-4 flex items-center justify-between mb-4`}
+        >
           <span className="text-lg font-semibold text-[var(--label-color)]">
             Total Credits
           </span>
@@ -232,9 +254,23 @@ export default function Subjects({
             Loading subjects...
           </div>
         ) : (
-          <div className="lg:space-y-4">
-            {Object.values(groupedSubjects).map((subject) => (
-              <SubjectInfoCard key={subject.code} subject={subject} />
+          <div className={useCardBackgrounds ? "lg:space-y-4" : "lg:space-y-1"}>
+            {Object.values(groupedSubjects).map((subject, idx, arr) => (
+              <React.Fragment key={subject.code}>
+                <SubjectInfoCard
+                  subject={subject}
+                  useCardBackgrounds={useCardBackgrounds}
+                />
+                {!useCardBackgrounds && idx < arr.length - 1 && (
+                  <div
+                    className="w-full max-w-2xl mx-auto"
+                    style={{
+                      borderBottom: `1px solid ${accentSeparator}66`,
+                      margin: "2px 0",
+                    }}
+                  />
+                )}
+              </React.Fragment>
             ))}
           </div>
         )}
