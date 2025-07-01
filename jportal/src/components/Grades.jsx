@@ -228,13 +228,30 @@ export default function Grades({
         try {
           const sems = await w.get_semesters_for_marks();
           setMarksSemesters(sems);
+          // Automatically select the latest semester if not already selected
+          if (sems.length > 0 && !selectedMarksSem) {
+            const latestSemester = sems[0];
+            setSelectedMarksSem(latestSemester);
+            // Optionally, set marksSemesterData if marksData is available
+            if (marksData[latestSemester.registration_id]) {
+              setMarksSemesterData(marksData[latestSemester.registration_id]);
+            }
+          }
         } catch (err) {
           console.error("Failed to fetch marks semesters:", err);
         }
       }
     };
     fetchMarksSemesters();
-  }, [w, marksSemesters.length]);
+  }, [
+    w,
+    marksSemesters.length,
+    selectedMarksSem,
+    setSelectedMarksSem,
+    marksData,
+    setMarksSemesterData,
+    setMarksSemesters,
+  ]);
 
   useEffect(() => {
     let mounted = true;
@@ -409,16 +426,16 @@ export default function Grades({
   useEffect(() => {
     function handleSwipe(e) {
       const direction = e.detail.direction;
-      const currentIndex = tabOrder.indexOf(activeTab);
+      const currentIndex = tabOrder.indexOf(internalTab);
       if (direction === "left" && currentIndex < tabOrder.length - 1) {
-        setActiveTab(tabOrder[currentIndex + 1]);
+        setInternalTab(tabOrder[currentIndex + 1]);
       } else if (direction === "right" && currentIndex > 0) {
-        setActiveTab(tabOrder[currentIndex - 1]);
+        setInternalTab(tabOrder[currentIndex - 1]);
       }
     }
     window.addEventListener("gradesSwipe", handleSwipe);
     return () => window.removeEventListener("gradesSwipe", handleSwipe);
-  }, [activeTab, setActiveTab]);
+  }, [internalTab]);
 
   // format GPA values with one decimal places
   const formatGPA = (value) => formatDecimal(value, getGpaDecimal());
@@ -1060,6 +1077,7 @@ export default function Grades({
                           variant="outlined"
                           fullWidth
                           renderValue={(selected) => {
+                            if (!selected) return "Select semester";
                             const sem = marksSemesters.find(
                               (s) => s.registration_id === selected
                             );

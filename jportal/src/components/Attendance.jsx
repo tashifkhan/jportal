@@ -297,21 +297,31 @@ const Attendance = ({
     return all.filter((c) => c.datetime.startsWith(key));
   };
 
-  const tabOrder = ["overview", "daily"];
+  const [internalTab, setInternalTab] = useState(activeTab || "overview");
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/attendance") {
+      const entryTab = localStorage.getItem("attendanceEntryTab") || "overview";
+      if (internalTab !== entryTab) {
+        setInternalTab(entryTab);
+      }
+    }
+  }, [location.pathname]);
 
+  const tabOrder = ["overview", "daily"];
   useEffect(() => {
     function handleSwipe(e) {
       const direction = e.detail.direction;
-      const currentIndex = tabOrder.indexOf(activeTab);
+      const currentIndex = tabOrder.indexOf(internalTab);
       if (direction === "left" && currentIndex < tabOrder.length - 1) {
-        setActiveTab(tabOrder[currentIndex + 1]);
+        setInternalTab(tabOrder[currentIndex + 1]);
       } else if (direction === "right" && currentIndex > 0) {
-        setActiveTab(tabOrder[currentIndex - 1]);
+        setInternalTab(tabOrder[currentIndex - 1]);
       }
     }
     window.addEventListener("attendanceSwipe", handleSwipe);
     return () => window.removeEventListener("attendanceSwipe", handleSwipe);
-  }, [activeTab, setActiveTab]);
+  }, [internalTab]);
 
   // sort order in localStorage
   useEffect(() => {
@@ -342,17 +352,6 @@ const Attendance = ({
   } else if (attendanceSortOrder === "desc") {
     sortedSubjects.sort((a, b) => getSortValue(b) - getSortValue(a));
   }
-
-  const [internalTab, setInternalTab] = useState(activeTab || "overview");
-  const location = useLocation();
-  useEffect(() => {
-    if (location.pathname === "/attendance") {
-      const entryTab = localStorage.getItem("attendanceEntryTab") || "overview";
-      if (internalTab !== entryTab) {
-        setInternalTab(entryTab);
-      }
-    }
-  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4 pt-2">
