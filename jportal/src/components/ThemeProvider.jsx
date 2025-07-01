@@ -5,6 +5,11 @@ import React, {
   useEffect,
   useRef,
 } from "react";
+import {
+  ThemeProvider as MuiThemeProvider,
+  createTheme,
+  CssBaseline,
+} from "@mui/material";
 
 const themes = {
   darkBlue: {
@@ -236,6 +241,140 @@ export const ThemeProvider = ({ children }) => {
     useCardBackgrounds,
   ]);
 
+  // Helper: Convert CSS variable theme to MUI theme
+  const getMuiTheme = () => {
+    let themeVars;
+    if (theme === "custom") {
+      const custom = customThemes[selectedCustomTheme] || defaultCustomTheme;
+      themeVars = { ...custom.colors, "--radius": radius + "px" };
+    } else {
+      themeVars = { ...themes[theme], "--radius": radius + "px" };
+    }
+    // Parse colors for MUI palette
+    return createTheme({
+      palette: {
+        mode:
+          theme === "white" ||
+          theme === "cream" ||
+          (theme === "custom" &&
+            customThemes[selectedCustomTheme]?.isLightTheme)
+            ? "light"
+            : "dark",
+        background: {
+          default: themeVars["--bg-color"],
+          paper: themeVars["--card-bg"],
+        },
+        primary: {
+          main: themeVars["--accent-color"],
+          contrastText: themeVars["--bg-color"],
+        },
+        secondary: {
+          main: themeVars["--primary-color"],
+        },
+        text: {
+          primary: themeVars["--text-color"],
+          secondary: themeVars["--label-color"],
+        },
+      },
+      shape: {
+        borderRadius: parseInt(themeVars["--radius"]),
+      },
+      components: {
+        MuiPaper: {
+          styleOverrides: {
+            root: {
+              background: themeVars["--card-bg"],
+              color: themeVars["--text-color"],
+            },
+          },
+        },
+        MuiInputBase: {
+          styleOverrides: {
+            root: {
+              background: themeVars["--card-bg"],
+              color: themeVars["--text-color"],
+              borderRadius: themeVars["--radius"],
+            },
+            input: {
+              color: themeVars["--text-color"],
+            },
+          },
+        },
+        MuiOutlinedInput: {
+          styleOverrides: {
+            root: {
+              background: themeVars["--card-bg"],
+              color: themeVars["--text-color"],
+              borderRadius: themeVars["--radius"],
+            },
+            notchedOutline: {
+              borderColor: themeVars["--label-color"],
+            },
+          },
+        },
+        MuiInputLabel: {
+          styleOverrides: {
+            root: {
+              color: themeVars["--label-color"],
+            },
+          },
+        },
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              borderRadius: themeVars["--radius"],
+              fontWeight: 500,
+            },
+          },
+        },
+        MuiMenu: {
+          styleOverrides: {
+            paper: {
+              background: themeVars["--card-bg"],
+              color: themeVars["--text-color"],
+              borderRadius: themeVars["--radius"],
+            },
+          },
+        },
+        MuiMenuItem: {
+          styleOverrides: {
+            root: {
+              color: themeVars["--text-color"],
+              borderRadius: themeVars["--radius"],
+            },
+          },
+        },
+        MuiSelect: {
+          styleOverrides: {
+            select: {
+              background: themeVars["--card-bg"],
+              color: themeVars["--text-color"],
+              borderRadius: themeVars["--radius"],
+            },
+            icon: {
+              color: themeVars["--label-color"],
+            },
+          },
+        },
+        MuiSwitch: {
+          styleOverrides: {
+            switchBase: {
+              color: themeVars["--accent-color"],
+            },
+            colorPrimary: {
+              color: themeVars["--accent-color"],
+            },
+            track: {
+              backgroundColor: themeVars["--accent-color"],
+            },
+          },
+        },
+      },
+    });
+  };
+
+  const muiTheme = getMuiTheme();
+
   return (
     <SystemColorModeContext.Provider value={{ systemColorMode }}>
       <ThemeContext.Provider
@@ -266,7 +405,10 @@ export const ThemeProvider = ({ children }) => {
           systemColorMode,
         }}
       >
-        {children}
+        <MuiThemeProvider theme={muiTheme}>
+          <CssBaseline />
+          {children}
+        </MuiThemeProvider>
       </ThemeContext.Provider>
     </SystemColorModeContext.Provider>
   );
