@@ -224,6 +224,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
               />
             }
           />
+          <Route path="/settings" element={<ThemeSwitcher />} />
         </Routes>
       </div>
       <Navbar />

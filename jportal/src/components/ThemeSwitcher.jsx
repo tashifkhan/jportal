@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
 import MuiSwitch from "@mui/material/Switch";
+import { useNavigate, useLocation } from "react-router-dom";
 const BASE_NAME = "";
 
 const options = [
@@ -242,7 +243,7 @@ async function fetchAllUserThemeFiles() {
   return await fetchUserThemes();
 }
 
-export default function ThemeSwitcher({ Icon }) {
+export default function ThemeSwitcher() {
   const {
     theme,
     setTheme,
@@ -262,7 +263,6 @@ export default function ThemeSwitcher({ Icon }) {
     setUseCardBackgrounds,
   } = useTheme();
   const { systemColorMode } = useSystemColorMode();
-  const [open, setOpen] = useState(false);
   const [renamingIdx, setRenamingIdx] = useState(null);
   const [renameValue, setRenameValue] = useState("");
   const [userThemes, setUserThemes] = useState([]);
@@ -271,6 +271,8 @@ export default function ThemeSwitcher({ Icon }) {
   const [showAddThemeInput, setShowAddThemeInput] = useState(false);
   const [newThemeName, setNewThemeName] = useState("");
   const radiusOptions = [0, 4, 8, 12, 16, 24];
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Tab order for swiping
   const tabOrder = ["builtin", "custom", "community"];
@@ -322,31 +324,39 @@ export default function ThemeSwitcher({ Icon }) {
   const currentCustom = customThemes[selectedCustomTheme] || customThemes[0];
 
   return (
-    <Dialog open={open} onOpenChange={setOpen} className="border-none">
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-10 w-10 rounded-full hover:bg-[var(--card-bg)] focus:bg-[var(--card-bg)] transition-all duration-200 focus-visible:ring-[var(--accent-color)] focus-visible:ring-offset-2"
-        >
-          {Icon ? (
-            <Icon className="w-5 h-5 text-[var(--text-color)]" />
-          ) : (
-            <Palette className="w-5 h-5 text-[var(--text-color)]" />
-          )}
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-md w-full p-0 rounded-2xl shadow-xl bg-[var(--bg-color)] border-none">
-        <DialogHeader className="px-6 pt-6 pb-4">
-          <DialogTitle className="text-xl font-semibold text-[var(--text-color)] text-center">
-            Theme Settings
-          </DialogTitle>
-          <div className="text-xs text-center mt-1 text-[var(--label-color)]">
-            System color mode:{" "}
-            <span className="font-semibold">{systemColorMode}</span>
-          </div>
-        </DialogHeader>
-
+    <div className="max-w-2xl mx-auto p-4 md:p-8 w-full">
+      {/* Back Button */}
+      <div className="flex items-center mb-2">
+        {location.pathname === "/settings" && (
+          <button
+            onClick={() => navigate(-1)}
+            className="mr-2 p-2 rounded-full hover:bg-[var(--card-bg)] focus:bg-[var(--card-bg)] transition border border-transparent focus-visible:ring-2 focus-visible:ring-[var(--accent-color)]"
+            aria-label="Back"
+          >
+            <svg
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-arrow-left w-5 h-5 text-[var(--text-color)]"
+            >
+              <line x1="19" y1="12" x2="5" y2="12" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+          </button>
+        )}
+        <h1 className="text-2xl font-semibold text-[var(--text-color)] text-center flex-1 mb-1">
+          Theme Settings
+        </h1>
+      </div>
+      <div className="px-0 pb-0 space-y-6">
+        <div className="text-xs text-center mt-1 text-[var(--label-color)]">
+          System color mode:{" "}
+          <span className="font-semibold">{systemColorMode}</span>
+        </div>
         <div className="px-6 pb-6 space-y-6" {...swipeHandlers}>
           {/* Tab Navigation */}
           <div className="flex gap-1 p-1 rounded-lg bg-[var(--card-bg)]/50">
@@ -399,115 +409,62 @@ export default function ThemeSwitcher({ Icon }) {
 
           {/* Built-in Themes */}
           {activeTab === "builtin" && (
-            <div className="space-y-3 overflow-y-auto max-h-[70vh] pr-1">
+            <div className="space-y-3 max-h-[70vh] pr-1">
               <Label className="text-sm font-medium text-[var(--label-color)]">
                 Choose Theme
               </Label>
               <div className="grid grid-cols-3 gap-3">
                 {options.map((opt) => {
-                  if (opt.value !== "custom") {
-                    const isSelected = theme === opt.value;
-                    const labelColor = getContrastColor(opt.color);
-                    return (
-                      <button
-                        key={opt.value}
-                        onClick={() => {
-                          setTheme(opt.value);
-                          setOpen(false);
-                        }}
-                        className={`relative group flex flex-col items-center p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2 ${
+                  if (opt.value === "custom" && theme !== "custom") {
+                    return null;
+                  }
+                  const isSelected = theme === opt.value;
+                  const labelColor = getContrastColor(opt.color);
+                  return (
+                    <button
+                      key={opt.value}
+                      onClick={() => {
+                        setTheme(opt.value);
+                        if (location.pathname !== "/settings") {
+                          navigate("/settings");
+                        }
+                      }}
+                      className={`relative group flex flex-col items-center p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2 ${
+                        isSelected
+                          ? "bg-[var(--card-bg)] ring-2 ring-[var(--accent-color)] ring-offset-2"
+                          : "hover:bg-[var(--card-bg)]/50"
+                      }`}
+                      aria-label={opt.label}
+                    >
+                      <div
+                        className={`w-12 h-12 rounded-xl mb-2 flex items-center justify-center transition-all duration-200 border-2 ${
                           isSelected
-                            ? "bg-[var(--card-bg)] ring-2 ring-[var(--accent-color)] ring-offset-2"
-                            : "hover:bg-[var(--card-bg)]/50"
+                            ? "border-[var(--accent-color)]"
+                            : "border-transparent"
                         }`}
-                        aria-label={opt.label}
+                        style={{ background: opt.color }}
                       >
-                        <div
-                          className={`w-12 h-12 rounded-xl mb-2 flex items-center justify-center transition-all duration-200 border-2 ${
-                            isSelected
-                              ? "border-[var(--accent-color)]"
-                              : "border-transparent"
-                          }`}
-                          style={{ background: opt.color }}
-                        >
-                          {isSelected && (
-                            <Check
-                              className="w-5 h-5"
-                              style={{
-                                color: labelColor,
-                                filter:
-                                  "drop-shadow(0 1px 2px rgba(0,0,0,0.3))",
-                              }}
-                            />
-                          )}
-                        </div>
-                        <span
-                          className={`text-xs font-medium transition-colors duration-200 ${
-                            isSelected
-                              ? "text-[var(--accent-color)]"
-                              : "text-[var(--text-color)]"
-                          }`}
-                        >
-                          {opt.label}
-                        </span>
-                      </button>
-                    );
-                  }
-                  // Custom themes selector: only show if a custom theme is selected
-                  if (theme === "custom") {
-                    return (
-                      <button
-                        key="custom"
-                        onClick={() => {
-                          setTheme("custom");
-                          setActiveTab("custom");
-                        }}
-                        className={`relative group flex flex-col items-center p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-offset-2 ${
-                          theme === "custom"
-                            ? "bg-[var(--card-bg)] ring-2 ring-[var(--accent-color)] ring-offset-2"
-                            : "hover:bg-[var(--card-bg)]/50"
+                        {isSelected && (
+                          <Check
+                            className="w-5 h-5"
+                            style={{
+                              color: labelColor,
+                              filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))",
+                            }}
+                          />
+                        )}
+                      </div>
+                      <span
+                        className={`text-xs font-medium transition-colors duration-200 ${
+                          isSelected
+                            ? "text-[var(--accent-color)]"
+                            : "text-[var(--text-color)]"
                         }`}
-                        aria-label="Custom Themes"
                       >
-                        <div
-                          className={`w-12 h-12 rounded-xl mb-2 flex items-center justify-center transition-all duration-200 border-2 ${
-                            theme === "custom"
-                              ? "border-[var(--accent-color)]"
-                              : "border-transparent"
-                          }`}
-                          style={{
-                            background: currentCustom.colors["--bg-color"],
-                            backgroundImage:
-                              "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
-                          }}
-                        >
-                          {theme === "custom" && (
-                            <Check
-                              className="w-5 h-5"
-                              style={{
-                                color: getContrastColor(
-                                  currentCustom.colors["--bg-color"]
-                                ),
-                                filter:
-                                  "drop-shadow(0 1px 2px rgba(0,0,0,0.3))",
-                              }}
-                            />
-                          )}
-                        </div>
-                        <span
-                          className={`text-xs font-medium transition-colors duration-200 ${
-                            theme === "custom"
-                              ? "text-[var(--accent-color)]"
-                              : "text-[var(--text-color)]"
-                          }`}
-                        >
-                          Custom
-                        </span>
-                      </button>
-                    );
-                  }
-                  // Otherwise, don't render the custom button
-                  return null;
+                        {opt.label}
+                      </span>
+                    </button>
+                  );
                 })}
               </div>
             </div>
@@ -1029,7 +986,7 @@ export default function ThemeSwitcher({ Icon }) {
             </div>
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   );
 }
