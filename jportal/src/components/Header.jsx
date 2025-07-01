@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ThemeSwitcher from "./ThemeSwitcher";
-import { Palette, LogOut } from "lucide-react";
+import { Palette, LogOut, Settings as SettingsIcon } from "lucide-react";
 
 const Header = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
@@ -21,7 +20,13 @@ const Header = ({ setIsAuthenticated }) => {
           JPortal
         </h1>
         <div className="flex items-center gap-2">
-          <ThemeSwitcher Icon={Palette} />
+          <button
+            aria-label="Settings"
+            onClick={() => navigate("/settings")}
+            className="p-2 rounded-full hover:bg-[var(--card-bg)] focus:bg-[var(--card-bg)] transition flex items-center justify-center border border-transparent focus-visible:ring-2 focus-visible:ring-[var(--accent-color)]"
+          >
+            <Palette className="w-6 h-6 text-[var(--text-color)]" />
+          </button>
           <button
             aria-label="Log out"
             onClick={handleLogout}
