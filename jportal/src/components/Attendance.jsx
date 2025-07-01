@@ -23,6 +23,7 @@ import MuiMenuItem from "@mui/material/MenuItem";
 import MuiSelect from "@mui/material/Select";
 import { FormControl, InputLabel } from "@mui/material";
 import TopTabsBar from "./ui/TopTabsBar";
+import { useLocation } from "react-router-dom";
 
 const Attendance = ({
   w,
@@ -342,6 +343,17 @@ const Attendance = ({
     sortedSubjects.sort((a, b) => getSortValue(b) - getSortValue(a));
   }
 
+  const [internalTab, setInternalTab] = useState(activeTab || "overview");
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/attendance") {
+      const entryTab = localStorage.getItem("attendanceEntryTab") || "overview";
+      if (internalTab !== entryTab) {
+        setInternalTab(entryTab);
+      }
+    }
+  }, [location.pathname]);
+
   return (
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4 pt-2">
       <div className="flex flex-col sm:flex-row gap-2 items-center justify-center mb-2">
@@ -593,8 +605,8 @@ const Attendance = ({
           {/* Sidebar Tabs for large screens, horizontal for small */}
           <div className="w-full lg:w-64 flex-shrink-0">
             <Tabs
-              value={activeTab}
-              onValueChange={setActiveTab}
+              value={internalTab}
+              onValueChange={setInternalTab}
               className="w-full lg:w-64"
             >
               <TopTabsBar
@@ -643,8 +655,8 @@ const Attendance = ({
           {/* Content Area */}
           <div className="w-full lg:flex-1 lg:pl-10 lg:min-h-[600px]">
             <Tabs
-              value={activeTab}
-              onValueChange={setActiveTab}
+              value={internalTab}
+              onValueChange={setInternalTab}
               className="w-full"
             >
               <TabsContent value="overview">

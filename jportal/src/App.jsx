@@ -132,7 +132,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
                 setIsAttendanceMetaLoading={setIsAttendanceMetaLoading}
                 isAttendanceDataLoading={isAttendanceDataLoading}
                 setIsAttendanceDataLoading={setIsAttendanceDataLoading}
-                activeTab={activeAttendanceTab}
+                activeTab={activeAttendanceTab || getAttendanceEntryTab()}
                 setActiveTab={setActiveAttendanceTab}
                 dailyDate={attendanceDailyDate}
                 setDailyDate={setAttendanceDailyDate}
@@ -154,7 +154,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
                 setGradesData={setGradesData}
                 semesterData={gradesSemesterData}
                 setSemesterData={setGradesSemesterData}
-                activeTab={activeGradesTab}
+                activeTab={activeGradesTab || getGradesEntryTab()}
                 setActiveTab={setActiveGradesTab}
                 gradeCardSemesters={gradeCardSemesters}
                 setGradeCardSemesters={setGradeCardSemesters}
@@ -291,6 +291,14 @@ function AppWithGlobalSwipe({ children }) {
 
 function getEntryPoint() {
   return localStorage.getItem("entryPoint") || "/attendance";
+}
+
+function getAttendanceEntryTab() {
+  return localStorage.getItem("attendanceEntryTab") || "overview";
+}
+
+function getGradesEntryTab() {
+  return localStorage.getItem("gradesEntryTab") || "overview";
 }
 
 function App() {
