@@ -399,7 +399,7 @@ export default function ThemeSwitcher({ Icon }) {
 
           {/* Built-in Themes */}
           {activeTab === "builtin" && (
-            <div className="space-y-3">
+            <div className="space-y-3 overflow-y-auto max-h-[70vh] pr-1">
               <Label className="text-sm font-medium text-[var(--label-color)]">
                 Choose Theme
               </Label>
@@ -515,7 +515,7 @@ export default function ThemeSwitcher({ Icon }) {
 
           {/* Custom Themes Management */}
           {activeTab === "custom" && (
-            <div className="space-y-4">
+            <div className="space-y-4 overflow-y-auto max-h-[70vh] pr-1">
               <div className="flex items-center justify-between">
                 <Label className="text-sm font-medium text-[var(--label-color)]">
                   Custom Themes
@@ -837,7 +837,7 @@ export default function ThemeSwitcher({ Icon }) {
 
           {/* Community Themes */}
           {activeTab === "community" && (
-            <div className="space-y-4">
+            <div className="space-y-4 overflow-y-auto max-h-[70vh] pr-1">
               <div className="flex items-center justify-between">
                 <Label className="text-sm font-medium text-[var(--label-color)]">
                   Community Themes
