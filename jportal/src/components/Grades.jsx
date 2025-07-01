@@ -41,8 +41,13 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import { Input } from "@/components/ui/input";
 import TopTabsBar from "./ui/TopTabsBar";
+import {
+  formatDecimal,
+  getGpaDecimal,
+  getTargetGpaDecimal,
+} from "../lib/utils";
+import { useLocation } from "react-router-dom";
 
 const BASE_NAME = "";
 
@@ -110,6 +115,18 @@ export default function Grades({
   // Add state for sorting
   const [creditSort, setCreditSort] = useState("default"); // default, asc, desc
   const [gradeSort, setGradeSort] = useState("default"); // default, asc, desc
+
+  const [internalTab, setInternalTab] = useState(activeTab || "overview");
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/grades") {
+      const entryTab = localStorage.getItem("gradesEntryTab") || "overview";
+      if (internalTab !== entryTab) {
+        setInternalTab(entryTab);
+      }
+    }
+  }, [location.pathname]);
 
   // Sorting logic for gradeCard.gradecard
   const getSortedGradeCard = () => {
@@ -404,12 +421,7 @@ export default function Grades({
   }, [activeTab, setActiveTab]);
 
   // format GPA values with one decimal places
-  const formatGPA = (value) => {
-    if (typeof value === "number") {
-      return value % 1 === 0 ? value.toFixed(1) : value.toString();
-    }
-    return value;
-  };
+  const formatGPA = (value) => formatDecimal(value, getGpaDecimal());
 
   const handleCalculateSGPA = () => {
     setCalcError("");
@@ -473,8 +485,8 @@ export default function Grades({
         {/* Sidebar Tabs for large screens, horizontal for small */}
         <div className="w-full lg:w-64 flex-shrink-0">
           <Tabs
-            value={activeTab}
-            onValueChange={setActiveTab}
+            value={internalTab}
+            onValueChange={setInternalTab}
             className="w-full lg:w-64"
           >
             <TopTabsBar
@@ -537,8 +549,8 @@ export default function Grades({
         {/* Content Area */}
         <div className="w-full lg:flex-1 lg:pl-10 lg:min-h-[600px]">
           <Tabs
-            value={activeTab}
-            onValueChange={setActiveTab}
+            value={internalTab}
+            onValueChange={setInternalTab}
             className="w-full"
           >
             <TabsContent value="overview">
@@ -597,7 +609,9 @@ export default function Grades({
                             ticks={undefined}
                             tickCount={5}
                             padding={{ top: 20, bottom: 20 }}
-                            tickFormatter={(value) => value.toFixed(1)}
+                            tickFormatter={(value) =>
+                              formatDecimal(value, getGpaDecimal())
+                            }
                           />
                           <Tooltip
                             contentStyle={{
@@ -652,8 +666,16 @@ export default function Grades({
                                 Semester {sem.stynumber}
                               </h2>
                               <div className="text-xs sm:text-base font-normal text-[var(--label-color)]">
-                                GP: {sem.earnedgradepoints.toFixed(1)}/
-                                {sem.totalcoursecredit * 10}
+                                GP:{" "}
+                                {formatDecimal(
+                                  sem.earnedgradepoints,
+                                  getGpaDecimal()
+                                )}
+                                /
+                                {formatDecimal(
+                                  sem.totalcoursecredit * 10,
+                                  getGpaDecimal()
+                                )}
                               </div>
                             </div>
                             <div className="flex items-center gap-3 sm:gap-6">
@@ -1324,7 +1346,9 @@ export default function Grades({
                   </div>
                 ) : (
                   <div className="text-[var(--accent-color)] text-4xl font-bold">
-                    {requiredSGPA >= 0 ? requiredSGPA.toFixed(2) : "N/A"}
+                    {requiredSGPA >= 0
+                      ? formatDecimal(requiredSGPA, getTargetGpaDecimal())
+                      : "N/A"}
                   </div>
                 )}
               </div>

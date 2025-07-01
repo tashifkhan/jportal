@@ -18,6 +18,7 @@ import {
 import { useSwipeable } from "react-swipeable";
 import { useTheme } from "./ThemeProvider";
 import Loader from "./Loader";
+import { getAttendanceDecimal } from "../lib/utils";
 
 const AttendanceCard = ({
   subject,
@@ -38,9 +39,11 @@ const AttendanceCard = ({
     classesNeeded,
     classesCanMiss,
   } = subject;
-  console.log(name, attendance, combined, lecture, tutorial, practical);
+
   const attendancePercentage =
-    attendance.total > 0 ? combined.toFixed(0) : "100";
+    attendance.total > 0
+      ? Number(combined).toFixed(getAttendanceDecimal())
+      : "100";
   const displayName = name.replace(/\s*\([^)]*\)\s*$/, "");
 
   const [isLoading, setIsLoading] = useState(false);
