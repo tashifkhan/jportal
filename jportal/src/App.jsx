@@ -16,6 +16,7 @@ import Exams from "./components/Exams";
 import Subjects from "./components/Subjects";
 import Profile from "./components/Profile";
 import ThemeSwitcher from "./components/ThemeSwitcher";
+import GeneralSettings from "./components/GeneralSettings";
 import "./App.css";
 
 import {
@@ -108,8 +109,8 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
       </div>
       <div className="md:ml-56 transition-all duration-300">
         <Routes>
-          <Route path="/" element={<Navigate to="/attendance" />} />
-          <Route path="/login" element={<Navigate to="/attendance" />} />
+          <Route path="/" element={<Navigate to={getEntryPoint()} />} />
+          <Route path="/login" element={<Navigate to={getEntryPoint()} />} />
           <Route
             path="/attendance"
             element={
@@ -225,6 +226,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
             }
           />
           <Route path="/settings" element={<ThemeSwitcher />} />
+          <Route path="/general-settings" element={<GeneralSettings />} />
         </Routes>
       </div>
       <Navbar />
@@ -239,7 +241,7 @@ function LoginWrapper({ onLoginSuccess, w }) {
     onLoginSuccess();
     // Add a small delay to ensure state updates before navigation
     setTimeout(() => {
-      navigate("/attendance");
+      navigate(getEntryPoint());
     }, 100);
   };
 
@@ -285,6 +287,10 @@ function AppWithGlobalSwipe({ children }) {
       {children}
     </div>
   );
+}
+
+function getEntryPoint() {
+  return localStorage.getItem("entryPoint") || "/attendance";
 }
 
 function App() {

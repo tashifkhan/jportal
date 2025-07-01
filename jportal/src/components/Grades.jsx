@@ -43,6 +43,7 @@ import {
 } from "@mui/material";
 import { Input } from "@/components/ui/input";
 import TopTabsBar from "./ui/TopTabsBar";
+import { formatDecimal } from "../lib/utils";
 
 export default function Grades({
   w,
@@ -402,12 +403,7 @@ export default function Grades({
   }, [activeTab, setActiveTab]);
 
   // format GPA values with one decimal places
-  const formatGPA = (value) => {
-    if (typeof value === "number") {
-      return value % 1 === 0 ? value.toFixed(1) : value.toString();
-    }
-    return value;
-  };
+  const formatGPA = (value) => formatDecimal(value);
 
   const handleCalculateSGPA = () => {
     setCalcError("");
@@ -595,7 +591,7 @@ export default function Grades({
                             ticks={undefined}
                             tickCount={5}
                             padding={{ top: 20, bottom: 20 }}
-                            tickFormatter={(value) => value.toFixed(1)}
+                            tickFormatter={(value) => formatDecimal(value)}
                           />
                           <Tooltip
                             contentStyle={{
@@ -650,8 +646,8 @@ export default function Grades({
                                 Semester {sem.stynumber}
                               </h2>
                               <div className="text-xs sm:text-base font-normal text-[var(--label-color)]">
-                                GP: {sem.earnedgradepoints.toFixed(1)}/
-                                {sem.totalcoursecredit * 10}
+                                GP: {formatDecimal(sem.earnedgradepoints)}/
+                                {formatDecimal(sem.totalcoursecredit * 10)}
                               </div>
                             </div>
                             <div className="flex items-center gap-3 sm:gap-6">
@@ -1322,7 +1318,7 @@ export default function Grades({
                   </div>
                 ) : (
                   <div className="text-[var(--accent-color)] text-4xl font-bold">
-                    {requiredSGPA >= 0 ? requiredSGPA.toFixed(2) : "N/A"}
+                    {requiredSGPA >= 0 ? formatDecimal(requiredSGPA, 2) : "N/A"}
                   </div>
                 )}
               </div>
