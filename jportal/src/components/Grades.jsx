@@ -712,17 +712,13 @@ export default function Grades({
                     {useMaterialUI ? (
                       <div className="flex flex-col gap-2 mb-2 w-full">
                         <div className="flex-1 min-w-0">
-                          <FormControl
-                            fullWidth
-                            variant="outlined"
-                            sx={{ minWidth: 100 }}
-                          >
+                          <FormControl fullWidth variant="outlined">
                             <InputLabel
                               id="grade-semester-label"
                               sx={{
                                 color: "var(--label-color)",
-                                fontWeight: 400,
                                 fontSize: "1.1rem",
+                                fontWeight: 300,
                               }}
                             >
                               Semester
@@ -740,36 +736,23 @@ export default function Grades({
                               variant="outlined"
                               fullWidth
                               sx={{
-                                minWidth: 100,
+                                minWidth: 120,
                                 background: "var(--card-bg)",
                                 color: "var(--text-color)",
                                 borderRadius: "var(--radius)",
-                                fontSize: "0.95rem",
-                                fontWeight: 400,
-                                height: 36,
-                                boxShadow: "none",
-                                "& .MuiOutlinedInput-root": {
-                                  height: 36,
-                                  borderRadius: "var(--radius)",
-                                  background: "var(--card-bg)",
-                                  color: "var(--text-color)",
-                                  fontWeight: 400,
-                                  fontSize: "0.95rem",
-                                  border: "1px solid var(--border-color)",
-                                  boxShadow: "none",
-                                  "&:hover": {
-                                    borderColor: "var(--accent-color)",
-                                    background: "var(--primary-color)/10",
-                                  },
-                                  "&.Mui-focused": {
-                                    borderColor: "var(--accent-color)",
-                                    background: "var(--primary-color)/10",
-                                  },
-                                },
+                                fontSize: "1.1rem",
+                                fontWeight: 300,
+                                height: 44,
                                 "& .MuiOutlinedInput-notchedOutline": {
                                   borderColor: "var(--border-color)",
-                                  borderWidth: "1px",
                                 },
+                                "&:hover .MuiOutlinedInput-notchedOutline": {
+                                  borderColor: "var(--accent-color)",
+                                },
+                                "&.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                  {
+                                    borderColor: "var(--accent-color)",
+                                  },
                               }}
                             >
                               <MuiMenuItem value="" disabled>
@@ -791,59 +774,17 @@ export default function Grades({
                         <div className="flex gap-2 bg-transparent rounded-xl px-0 py-0 h-10 items-center mt-0">
                           <button
                             type="button"
-                            aria-label="Sort by Credits"
-                            className={`
-                              flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold text-sm transition-all duration-150
-                              focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-8
-                              border
-                              ${
-                                creditSort === "default"
-                                  ? "bg-transparent text-[var(--label-color)] border-[var(--border-color)]"
-                                  : "bg-[var(--accent-color)] text-[var(--card-bg)] border-[var(--accent-color)] shadow"
-                              }
-                              hover:bg-[var(--accent-color)]/10 hover:text-[var(--accent-color)] hover:border-[var(--accent-color)]
-                            `}
-                            style={{
-                              boxShadow:
-                                creditSort !== "default"
-                                  ? "0 2px 8px 0 rgba(0,0,0,0.08)"
-                                  : "none",
-                            }}
-                            onClick={() => {
-                              setCreditSort(nextSortState(creditSort));
-                              setGradeSort("default");
-                            }}
-                          >
-                            <span className="text-[0.98rem] font-medium">
-                              Credits
-                            </span>
-                            <span
-                              className={`
-                                text-xs ml-1 transition-opacity duration-100
-                                ${
-                                  creditSort === "asc" || creditSort === "desc"
-                                    ? "opacity-100"
-                                    : "opacity-0"
-                                }
-                              `}
-                            >
-                              {creditSort === "asc" && "▲"}
-                              {creditSort === "desc" && "▼"}
-                            </span>
-                          </button>
-                          <button
-                            type="button"
                             aria-label="Sort by Grade"
                             className={`
                               flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold text-sm transition-all duration-150
-                              focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-8
-                              border
-                              ${
-                                gradeSort === "default"
-                                  ? "bg-transparent text-[var(--label-color)] border-[var(--border-color)]"
-                                  : "bg-[var(--accent-color)] text-[var(--card-bg)] border-[var(--accent-color)] shadow"
-                              }
-                              hover:bg-[var(--accent-color)]/10 hover:text-[var(--accent-color)] hover:border-[var(--accent-color)]
+                                      focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-8
+                                      border
+                                      ${
+                                        gradeSort === "default"
+                                          ? "bg-transparent text-[var(--label-color)] border-[var(--border-color)]"
+                                          : "bg-[var(--accent-color)] text-[var(--card-bg)] border-[var(--accent-color)] shadow"
+                                      }
+                                      hover:bg-[var(--accent-color)]/10 hover:text-[var(--text-color)] hover:border-[var(--accent-color)]
                             `}
                             style={{
                               boxShadow:
@@ -873,6 +814,49 @@ export default function Grades({
                               {gradeSort === "desc" && "▼"}
                             </span>
                           </button>
+                          <button
+                            type="button"
+                            aria-label="Sort by Credits"
+                            className={`
+                                      flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold text-sm transition-all duration-150
+                                      focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-8
+                                      border
+                                      ${
+                                        creditSort === "default"
+                                          ? "bg-transparent text-[var(--label-color)] border-[var(--border-color)]"
+                                          : "bg-[var(--accent-color)] text-[var(--card-bg)] border-[var(--accent-color)] shadow"
+                                      }
+                                      hover:bg-[var(--accent-color)]/10 hover:text-[var(--text-color)] hover:border-[var(--accent-color)]
+                                    `}
+                            style={{
+                              boxShadow:
+                                creditSort !== "default"
+                                  ? "0 2px 8px 0 rgba(0,0,0,0.08)"
+                                  : "none",
+                            }}
+                            onClick={() => {
+                              setCreditSort(nextSortState(creditSort));
+                              setGradeSort("default");
+                            }}
+                          >
+                            <span className="text-[0.98rem] font-medium">
+                              Credits
+                            </span>
+                            <span
+                              className={`
+                                        text-xs ml-1 transition-opacity duration-100
+                                        ${
+                                          creditSort === "asc" ||
+                                          creditSort === "desc"
+                                            ? "opacity-100"
+                                            : "opacity-0"
+                                        }
+                                      `}
+                            >
+                              {creditSort === "asc" && "▲"}
+                              {creditSort === "desc" && "▼"}
+                            </span>
+                          </button>
                         </div>
                       </div>
                     ) : (
@@ -882,7 +866,7 @@ export default function Grades({
                             onValueChange={handleSemesterChange}
                             value={selectedGradeCardSem?.registration_id}
                           >
-                            <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] w-full max-w-2xl mx-auto rounded-[var(--radius)] h-[44px] min-h-[44px]">
+                            <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] w-full max-w-2xl mx-auto rounded-[var(--radius)">
                               <SelectValue
                                 placeholder={
                                   gradeCardLoading
@@ -908,48 +892,6 @@ export default function Grades({
                         <div className="flex gap-2 bg-transparent rounded-xl px-0 py-0 h-10 items-center mt-0">
                           <button
                             type="button"
-                            aria-label="Sort by Credits"
-                            className={`
-                              flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold text-sm transition-all duration-150
-                              focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-8
-                              border
-                              ${
-                                creditSort === "default"
-                                  ? "bg-transparent text-[var(--label-color)] border-[var(--border-color)]"
-                                  : "bg-[var(--accent-color)] text-[var(--card-bg)] border-[var(--accent-color)] shadow"
-                              }
-                              hover:bg-[var(--accent-color)]/10 hover:text-[var(--accent-color)] hover:border-[var(--accent-color)]
-                            `}
-                            style={{
-                              boxShadow:
-                                creditSort !== "default"
-                                  ? "0 2px 8px 0 rgba(0,0,0,0.08)"
-                                  : "none",
-                            }}
-                            onClick={() => {
-                              setCreditSort(nextSortState(creditSort));
-                              setGradeSort("default");
-                            }}
-                          >
-                            <span className="text-[0.98rem] font-medium">
-                              Credits
-                            </span>
-                            <span
-                              className={`
-                                text-xs ml-1 transition-opacity duration-100
-                                ${
-                                  creditSort === "asc" || creditSort === "desc"
-                                    ? "opacity-100"
-                                    : "opacity-0"
-                                }
-                              `}
-                            >
-                              {creditSort === "asc" && "▲"}
-                              {creditSort === "desc" && "▼"}
-                            </span>
-                          </button>
-                          <button
-                            type="button"
                             aria-label="Sort by Grade"
                             className={`
                               flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold text-sm transition-all duration-150
@@ -960,7 +902,7 @@ export default function Grades({
                                   ? "bg-transparent text-[var(--label-color)] border-[var(--border-color)]"
                                   : "bg-[var(--accent-color)] text-[var(--card-bg)] border-[var(--accent-color)] shadow"
                               }
-                              hover:bg-[var(--accent-color)]/10 hover:text-[var(--accent-color)] hover:border-[var(--accent-color)]
+                            hover:bg-[var(--accent-color)]/10 hover:text-[var(--text-color)] hover:border-[var(--accent-color)]
                             `}
                             style={{
                               boxShadow:
@@ -984,10 +926,53 @@ export default function Grades({
                                     ? "opacity-100"
                                     : "opacity-0"
                                 }
-                              `}
+                                `}
                             >
                               {gradeSort === "asc" && "▲"}
                               {gradeSort === "desc" && "▼"}
+                            </span>
+                          </button>
+                          <button
+                            type="button"
+                            aria-label="Sort by Credits"
+                            className={`
+                                    flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold text-sm transition-all duration-150
+                                    focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] h-8
+                                    border
+                                    ${
+                                      creditSort === "default"
+                                        ? "bg-transparent text-[var(--label-color)] border-[var(--border-color)]"
+                                        : "bg-[var(--accent-color)] text-[var(--card-bg)] border-[var(--accent-color)] shadow"
+                                    }
+                                  hover:bg-[var(--accent-color)]/10 hover:text-[var(--text-color)] hover:border-[var(--accent-color)]
+                                  `}
+                            style={{
+                              boxShadow:
+                                creditSort !== "default"
+                                  ? "0 2px 8px 0 rgba(0,0,0,0.08)"
+                                  : "none",
+                            }}
+                            onClick={() => {
+                              setCreditSort(nextSortState(creditSort));
+                              setGradeSort("default");
+                            }}
+                          >
+                            <span className="text-[0.98rem] font-medium">
+                              Credits
+                            </span>
+                            <span
+                              className={`
+                                      text-xs ml-1 transition-opacity duration-100
+                                      ${
+                                        creditSort === "asc" ||
+                                        creditSort === "desc"
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      }
+                                    `}
+                            >
+                              {creditSort === "asc" && "▲"}
+                              {creditSort === "desc" && "▼"}
                             </span>
                           </button>
                         </div>
