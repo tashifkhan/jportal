@@ -25,6 +25,7 @@ import { FormControl, InputLabel } from "@mui/material";
 import TopTabsBar from "./ui/TopTabsBar";
 import { useLocation } from "react-router-dom";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import Toast from "./ui/Toast";
 
 const Attendance = ({
   w,
@@ -701,7 +702,49 @@ const Attendance = ({
                 </div>
               </TabsContent>
               <TabsContent value="daily">
-                {/* Modern Day-to-day calendar and daily attendance breakdown */}
+                {/* Day-to-day calendar and daily attendance breakdown */}
+                {/* this toast the progress bar or the circle thing this actually tells whats happing pahle it required some guesswork */}
+                <Toast
+                  message={
+                    subjects.length === 0
+                      ? "No subjects to load."
+                      : subjects.every(
+                          (s) => subjectCacheStatus[s.name] === "cached"
+                        )
+                      ? `All ${subjects.length} subjects loaded!`
+                      : `Loaded ${
+                          subjects.filter(
+                            (s) => subjectCacheStatus[s.name] === "cached"
+                          ).length
+                        } of ${subjects.length} subjects...`
+                  }
+                  progress={
+                    subjects.filter(
+                      (s) => subjectCacheStatus[s.name] === "cached"
+                    ).length
+                  }
+                  total={subjects.length}
+                  type={
+                    subjects.every(
+                      (s) => subjectCacheStatus[s.name] === "cached"
+                    )
+                      ? "success"
+                      : "info"
+                  }
+                  duration={
+                    subjects.every(
+                      (s) => subjectCacheStatus[s.name] === "cached"
+                    )
+                      ? 3000
+                      : null
+                  }
+                  loadedList={subjects
+                    .filter((s) => subjectCacheStatus[s.name] === "cached")
+                    .map((s) => s.name)}
+                  pendingList={subjects
+                    .filter((s) => subjectCacheStatus[s.name] !== "cached")
+                    .map((s) => s.name)}
+                />
                 <div className="flex flex-col items-center w-full">
                   <div
                     className={`w-full max-w-[370px] mx-auto flex flex-col items-center ${
@@ -877,27 +920,6 @@ const Attendance = ({
                     )}
                   </div>
                 </div>
-                {subjects.length > 0 && (
-                  <div className="fixed bottom-20 right-6 z-40 drop-shadow-lg">
-                    <div className="bg-[var(--card-bg)] rounded-full p-2 flex items-center justify-center shadow-xl">
-                      <CircleProgress
-                        percentage={
-                          (100 *
-                            subjects.filter(
-                              (s) => subjectCacheStatus[s.name] === "cached"
-                            ).length) /
-                          subjects.length
-                        }
-                        label={`$${
-                          subjects.filter(
-                            (s) => subjectCacheStatus[s.name] === "cached"
-                          ).length
-                        }/${subjects.length}`}
-                        className="w-20 h-20"
-                      />
-                    </div>
-                  </div>
-                )}
               </TabsContent>
             </Tabs>
           </div>
