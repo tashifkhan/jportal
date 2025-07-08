@@ -1,6 +1,12 @@
 import React from "react";
 
-const Loader = ({ message = "Loading...", className = "" }) => {
+const Loader = ({
+  message = "Loading...",
+  className = "",
+  progress,
+  total,
+  showCount,
+}) => {
   const size = 48;
   const radius = 18;
   const strokeWidth = 6;
@@ -60,6 +66,22 @@ const Loader = ({ message = "Loading...", className = "" }) => {
       >
         {message}
       </span>
+      {/* new loader varient for indicating progress lol */}
+      {typeof progress === "number" && typeof total === "number" && (
+        <div className="w-full max-w-xs mt-3">
+          <div className="w-full h-2 bg-[var(--border-color)] rounded overflow-hidden">
+            <div
+              className="h-2 bg-[var(--accent-color)] transition-all duration-300"
+              style={{ width: `${(progress / total) * 100}%` }}
+            />
+          </div>
+          {showCount && (
+            <div className="text-xs text-[var(--label-color)] mt-1 text-center">
+              Loaded {progress} of {total} subjects
+            </div>
+          )}
+        </div>
+      )}
       <style>{`
         @keyframes spin-slow { 100% { transform: rotate(360deg); } }
         .animate-spin-slow { animation: spin-slow 1.2s linear infinite; }

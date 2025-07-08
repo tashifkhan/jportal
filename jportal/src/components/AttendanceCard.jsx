@@ -301,104 +301,171 @@ const AttendanceCard = ({
               </div>
             ) : (
               <>
-                <div
-                  className="w-full max-w-[370px] mx-auto flex flex-col items-center"
-                  {...swipeHandlers}
-                >
-                  <Calendar
-                    mode="single"
-                    modifiers={{
-                      presentSingle: (date) => {
-                        const statuses = getDayStatus(date);
-                        return statuses?.length === 1 && statuses[0] === true;
-                      },
-                      absentSingle: (date) => {
-                        const statuses = getDayStatus(date);
-                        return statuses?.length === 1 && statuses[0] === false;
-                      },
-                      presentDouble: (date) => {
-                        const statuses = getDayStatus(date);
-                        return (
-                          statuses?.length === 2 &&
-                          statuses.every((s) => s === true)
-                        );
-                      },
-                      absentDouble: (date) => {
-                        const statuses = getDayStatus(date);
-                        return (
-                          statuses?.length === 2 &&
-                          statuses.every((s) => s === false)
-                        );
-                      },
-                      mixedDouble: (date) => {
-                        const statuses = getDayStatus(date);
-                        return (
-                          statuses?.length === 2 && statuses[0] !== statuses[1]
-                        );
-                      },
-                      selected: (date) => date === selectedDate,
-                    }}
-                    modifiersStyles={{
-                      presentSingle: {
-                        backgroundColor: "var(--accent-color)",
-                        color: "var(--card-bg)",
-                        borderRadius: "50%",
-                      },
-                      absentSingle: {
-                        backgroundColor: "var(--error-color, #ef4444)",
-                        color: "var(--card-bg)",
-                        borderRadius: "50%",
-                      },
-                      presentDouble: {
-                        backgroundColor: "var(--accent-color)",
-                        color: "var(--card-bg)",
-                        borderRadius: "50%",
-                      },
-                      absentDouble: {
-                        backgroundColor: "var(--error-color, #ef4444)",
-                        color: "var(--card-bg)",
-                        borderRadius: "50%",
-                      },
-                      mixedDouble: {
-                        background:
-                          "linear-gradient(90deg, var(--accent-color) 50%, var(--error-color, #ef4444) 50%)",
-                        color: "var(--card-bg)",
-                        borderRadius: "50%",
-                      },
-                    }}
-                    selected={selectedDate}
-                    onSelect={(date) => setSelectedDate(date)}
-                    className={`pb-2 w-full flex-shrink-0 max-w-full bg-[var(--card-bg)] text-[var(--text-color)] rounded-xl shadow-none border-0`}
-                    classNames={{
-                      months: "flex flex-col space-y-2",
-                      month: "space-y-2 w-full",
-                      caption:
-                        "flex justify-center pt-1 items-center text-lg font-semibold text-[var(--text-color)]",
-                      caption_label:
-                        "text-lg font-semibold text-[var(--text-color)]",
-                      nav: "space-x-1 flex items-center",
-                      nav_button:
-                        "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
-                      nav_button_previous: "absolute left-1",
-                      nav_button_next: "absolute right-1",
-                      table: "w-full border-collapse space-y-1",
-                      head_row: "flex",
-                      head_cell:
-                        "text-[var(--label-color)] rounded-md flex-1 font-normal text-[1rem]",
-                      row: "flex w-full mt-2",
-                      cell: "flex-1 text-center text-base p-0 relative",
-                      day: "h-10 w-10 p-0 font-medium mx-auto text-base",
-                      day_selected:
-                        "bg-[var(--primary-color)] text-[var(--card-bg)]",
-                      day_today: "border border-[var(--primary-color)]",
-                      day_outside: "text-[var(--label-color)] opacity-50",
-                      day_disabled: "text-[var(--label-color)] opacity-50",
-                      day_range_middle: "",
-                      day_hidden: "invisible",
-                    }}
-                  />
-                  {selectedDate && (
-                    <div className="mt-4 w-full">
+                <div className="w-full flex flex-col md:flex-row gap-4 items-start justify-center max-w-[1080px] mx-auto">
+                  {/* Calendar Section */}
+                  <div
+                    className="flex flex-col items-center bg-[var(--card-bg)] rounded-xl shadow-sm p-4 max-w-[370px] w-full"
+                    {...swipeHandlers}
+                  >
+                    <Calendar
+                      mode="single"
+                      modifiers={{
+                        presentSingle: (date) => {
+                          const statuses = getDayStatus(date);
+                          return statuses?.length === 1 && statuses[0] === true;
+                        },
+                        absentSingle: (date) => {
+                          const statuses = getDayStatus(date);
+                          return (
+                            statuses?.length === 1 && statuses[0] === false
+                          );
+                        },
+                        presentDouble: (date) => {
+                          const statuses = getDayStatus(date);
+                          return (
+                            statuses?.length === 2 &&
+                            statuses.every((s) => s === true)
+                          );
+                        },
+                        absentDouble: (date) => {
+                          const statuses = getDayStatus(date);
+                          return (
+                            statuses?.length === 2 &&
+                            statuses.every((s) => s === false)
+                          );
+                        },
+                        mixedDouble: (date) => {
+                          const statuses = getDayStatus(date);
+                          return (
+                            statuses?.length === 2 &&
+                            statuses[0] !== statuses[1]
+                          );
+                        },
+                        selected: (date) => date === selectedDate,
+                      }}
+                      modifiersStyles={{
+                        presentSingle: {
+                          backgroundColor: "var(--accent-color)",
+                          color: "var(--card-bg)",
+                          borderRadius: "50%",
+                        },
+                        absentSingle: {
+                          backgroundColor: "var(--error-color, #ef4444)",
+                          color: "var(--card-bg)",
+                          borderRadius: "50%",
+                        },
+                        presentDouble: {
+                          backgroundColor: "var(--accent-color)",
+                          color: "var(--card-bg)",
+                          borderRadius: "50%",
+                        },
+                        absentDouble: {
+                          backgroundColor: "var(--error-color, #ef4444)",
+                          color: "var(--card-bg)",
+                          borderRadius: "50%",
+                        },
+                        mixedDouble: {
+                          background:
+                            "linear-gradient(90deg, var(--accent-color) 50%, var(--error-color, #ef4444) 50%)",
+                          color: "var(--card-bg)",
+                          borderRadius: "50%",
+                        },
+                      }}
+                      selected={selectedDate}
+                      onSelect={(date) => setSelectedDate(date)}
+                      className={`pb-2 w-full flex-shrink-0 max-w-full bg-[var(--card-bg)] text-[var(--text-color)] rounded-xl shadow-none border-0`}
+                      classNames={{
+                        months: "flex flex-col space-y-2",
+                        month: "space-y-2 w-full",
+                        caption:
+                          "flex justify-center pt-1 items-center text-lg font-semibold text-[var(--text-color)]",
+                        caption_label:
+                          "text-lg font-semibold text-[var(--text-color)]",
+                        nav: "space-x-1 flex items-center",
+                        nav_button:
+                          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+                        nav_button_previous: "absolute left-1",
+                        nav_button_next: "absolute right-1",
+                        table: "w-full border-collapse space-y-1",
+                        head_row: "flex",
+                        head_cell:
+                          "text-[var(--label-color)] rounded-md flex-1 font-normal text-[1rem]",
+                        row: "flex w-full mt-2",
+                        cell: "flex-1 text-center text-base p-0 relative",
+                        day: "h-10 w-10 p-0 font-medium mx-auto text-base",
+                        day_selected:
+                          "bg-[var(--primary-color)] text-[var(--card-bg)]",
+                        day_today: "border border-[var(--primary-color)]",
+                        day_outside: "text-[var(--label-color)] opacity-50",
+                        day_disabled: "text-[var(--label-color)] opacity-50",
+                        day_range_middle: "",
+                        day_hidden: "invisible",
+                      }}
+                    />
+                  </div>
+                  {/* Optional vertical divider for desktop */}
+                  <div className="hidden md:block w-px h-auto bg-[var(--border-color)] mx-2" />
+                  {/* Progress Graph Section */}
+                  <div className="flex-1 flex flex-col items-center bg-[var(--card-bg)] rounded-xl shadow-sm p-4 w-full">
+                    <div className="w-full h-[220px]">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart
+                          data={processAttendanceData()}
+                          margin={{ top: 10, right: 10, left: 32, bottom: 0 }}
+                        >
+                          <CartesianGrid
+                            strokeDasharray="3 3"
+                            stroke="var(--border-color)"
+                          />
+                          <XAxis
+                            dataKey="date"
+                            stroke="var(--label-color)"
+                            tick={{
+                              fill: "var(--label-color)",
+                              fontSize: "0.75rem",
+                              dy: 10,
+                            }}
+                            tickFormatter={(value) => {
+                              const [day, month] = value.split("/");
+                              return `${day}/${month}`;
+                            }}
+                          />
+                          <YAxis
+                            stroke="var(--label-color)"
+                            tick={{
+                              fill: "var(--label-color)",
+                              fontSize: "0.75rem",
+                            }}
+                            domain={[0, 100]}
+                            tickFormatter={(value) => `${value}%`}
+                            width={60}
+                          />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: "var(--card-bg)",
+                              border: "1px solid var(--border-color)",
+                              color: "var(--text-color)",
+                            }}
+                            formatter={(value) => [`${value.toFixed(1)}%`]}
+                          />
+                          <Line
+                            type="monotone"
+                            dataKey="percentage"
+                            stroke="var(--accent-color)"
+                            strokeWidth={2}
+                            dot={{ fill: "var(--accent-color)", r: 4 }}
+                            activeDot={{ r: 6 }}
+                            name="Present"
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </div>
+                {/* Selected Day's Attendance Details Below, Centered */}
+                {selectedDate && (
+                  <div className="w-full flex justify-center mt-4">
+                    <div className="bg-[var(--card-bg)] rounded-xl shadow-sm p-4 max-w-xl w-full text-center">
                       <div className="font-semibold text-lg mb-2 text-[var(--text-color)]">
                         Attendance for{" "}
                         {selectedDate.toLocaleDateString("en-GB")}
@@ -408,12 +475,12 @@ const AttendanceCard = ({
                           No classes scheduled.
                         </div>
                       ) : (
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 items-center">
                           {getClassesForDate(selectedDate).map(
                             (classData, index) => (
                               <div
                                 key={index}
-                                className={`rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm border bg-[var(--card-bg-alt, var(--bg-color))] ${
+                                className={`rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm border bg-[var(--card-bg-alt, var(--bg-color))] max-w-md w-full mx-auto ${
                                   classData.present === "Present"
                                     ? "border-[var(--accent-color)]"
                                     : "border-[var(--error-color,#ef4444)]"
@@ -443,64 +510,8 @@ const AttendanceCard = ({
                         </div>
                       )}
                     </div>
-                  )}
-                </div>
-                {/* Progress Graph Section */}
-                <div className="w-full max-w-[370px] mx-auto flex flex-col items-center py-4">
-                  <div className="w-full h-[220px] bg-[var(--card-bg)] rounded-xl shadow-sm p-2">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <LineChart
-                        data={processAttendanceData()}
-                        margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-                      >
-                        <CartesianGrid
-                          strokeDasharray="3 3"
-                          stroke="var(--border-color)"
-                        />
-                        <XAxis
-                          dataKey="date"
-                          stroke="var(--label-color)"
-                          tick={{
-                            fill: "var(--label-color)",
-                            fontSize: "0.75rem",
-                            dy: 10,
-                          }}
-                          tickFormatter={(value) => {
-                            const [day, month] = value.split("/");
-                            return `${day}/${month}`;
-                          }}
-                        />
-                        <YAxis
-                          stroke="var(--label-color)"
-                          tick={{
-                            fill: "var(--label-color)",
-                            fontSize: "0.75rem",
-                          }}
-                          domain={[0, 100]}
-                          tickFormatter={(value) => `${value}%`}
-                          width={40}
-                        />
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: "var(--card-bg)",
-                            border: "1px solid var(--border-color)",
-                            color: "var(--text-color)",
-                          }}
-                          formatter={(value) => [`${value.toFixed(1)}%`]}
-                        />
-                        <Line
-                          type="monotone"
-                          dataKey="percentage"
-                          stroke="var(--accent-color)"
-                          strokeWidth={2}
-                          dot={{ fill: "var(--accent-color)", r: 4 }}
-                          activeDot={{ r: 6 }}
-                          name="Present"
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
                   </div>
-                </div>
+                )}
               </>
             )}
           </div>
