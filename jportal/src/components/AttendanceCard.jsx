@@ -411,7 +411,7 @@ const AttendanceCard = ({
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart
                           data={processAttendanceData()}
-                          margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+                          margin={{ top: 10, right: 10, left: 32, bottom: 0 }}
                         >
                           <CartesianGrid
                             strokeDasharray="3 3"
@@ -438,7 +438,7 @@ const AttendanceCard = ({
                             }}
                             domain={[0, 100]}
                             tickFormatter={(value) => `${value}%`}
-                            width={40}
+                            width={60}
                           />
                           <Tooltip
                             contentStyle={{
