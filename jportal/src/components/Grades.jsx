@@ -48,6 +48,7 @@ import {
   getTargetGpaDecimal,
 } from "../lib/utils";
 import { useLocation } from "react-router-dom";
+import Toast from "./ui/Toast";
 
 const BASE_NAME = "";
 
@@ -396,12 +397,51 @@ export default function Grades({
     );
   };
 
-  const handleDownloadMarks = async (semester) => {
+  // Toast state for download progress
+  const [downloadToast, setDownloadToast] = useState({
+    open: false,
+    message: "",
+    type: "info",
+    progress: null,
+    total: null,
+  });
+  const [downloading, setDownloading] = useState(false);
+  const [selectedDownloadSem, setSelectedDownloadSem] = useState(null);
+
+  const handleDownloadMarks = async () => {
+    if (!selectedDownloadSem) return;
+    setDownloading(true);
+    setDownloadToast({
+      open: true,
+      message: `Downloading marks for ${selectedDownloadSem.registration_code}...`,
+      type: "info",
+      progress: null,
+      total: null,
+    });
     try {
-      await w.download_marks(semester);
+      await w.download_marks(selectedDownloadSem);
+      setDownloadToast({
+        open: true,
+        message: `Downloaded marks for ${selectedDownloadSem.registration_code}!`,
+        type: "success",
+        progress: null,
+        total: null,
+      });
+      setTimeout(() => setDownloadToast((t) => ({ ...t, open: false })), 2500);
       setIsDownloadDialogOpen(false);
     } catch (err) {
-      console.error("Failed to download marks:", err);
+      setDownloadToast({
+        open: true,
+        message: `Failed to download marks for ${
+          selectedDownloadSem?.registration_code || "semester"
+        }.`,
+        type: "error",
+        progress: null,
+        total: null,
+      });
+      setTimeout(() => setDownloadToast((t) => ({ ...t, open: false })), 3500);
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -1230,23 +1270,70 @@ export default function Grades({
         open={isDownloadDialogOpen}
         onOpenChange={setIsDownloadDialogOpen}
       >
-        <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none rounded-[var(--radius)]">
+        <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none max-w-md w-full rounded-[var(--radius)]">
           <DialogHeader>
-            <DialogTitle className="text-[var(--text-color)]">
+            <DialogTitle className="flex items-center gap-2 text-[var(--text-color)]">
+              <Download className="h-6 w-6" />
               Download Marks
             </DialogTitle>
           </DialogHeader>
-          <div className="space-y-2">
-            {marksSemesters.map((sem) => (
-              <Button
-                key={sem.registration_id}
-                variant="outline"
-                className="w-full text-[var(--text-color)] hover:text-[var(--primary-color)] bg-[var(--card-bg)] hover:bg-[var(--primary-color)] border-none rounded-[var(--radius)]"
-                onClick={() => handleDownloadMarks(sem)}
-              >
-                {sem.registration_code}
-              </Button>
-            ))}
+          <div className="mt-2 flex flex-col gap-2">
+            {marksSemesters.length === 0 ? (
+              <div className="text-center text-[var(--label-color)] py-6">
+                No semesters available.
+              </div>
+            ) : (
+              marksSemesters.map((sem) => (
+                <Button
+                  key={sem.registration_id}
+                  variant="secondary"
+                  className="w-full text-[var(--text-color)] bg-[var(--primary-color)] hover:bg-[var(--accent-color)] border-[var(--border-color)] hover:border-[var(--primary-color)] rounded-[var(--radius)] px-4 h-12 text-lg font-semibold flex items-center justify-between"
+                  onClick={async () => {
+                    setDownloading(true);
+                    setDownloadToast({
+                      open: true,
+                      message: `Downloading marks for ${sem.registration_code}...`,
+                      type: "info",
+                      progress: null,
+                      total: null,
+                    });
+                    try {
+                      await w.download_marks(sem);
+                      setDownloadToast({
+                        open: true,
+                        message: `Downloaded marks for ${sem.registration_code}!`,
+                        type: "success",
+                        progress: null,
+                        total: null,
+                      });
+                      setTimeout(
+                        () => setDownloadToast((t) => ({ ...t, open: false })),
+                        2500
+                      );
+                      setIsDownloadDialogOpen(false);
+                    } catch (err) {
+                      setDownloadToast({
+                        open: true,
+                        message: `Failed to download marks for ${sem.registration_code}.`,
+                        type: "error",
+                        progress: null,
+                        total: null,
+                      });
+                      setTimeout(
+                        () => setDownloadToast((t) => ({ ...t, open: false })),
+                        3500
+                      );
+                    } finally {
+                      setDownloading(false);
+                    }
+                  }}
+                  disabled={downloading}
+                >
+                  <span>{sem.registration_code}</span>
+                  <Download className="h-5 w-5 ml-2" />
+                </Button>
+              ))
+            )}
           </div>
         </DialogContent>
       </Dialog>
@@ -1374,6 +1461,15 @@ export default function Grades({
           </div>
         </DialogContent>
       </Dialog>
+      {downloadToast.open && (
+        <Toast
+          message={downloadToast.message}
+          type={downloadToast.type}
+          progress={downloadToast.progress}
+          total={downloadToast.total}
+          onClose={() => setDownloadToast((t) => ({ ...t, open: false }))}
+        />
+      )}
     </div>
   );
 }

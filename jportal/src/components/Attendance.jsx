@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AttendanceCard from "./AttendanceCard";
 import {
   Select,
@@ -264,8 +264,16 @@ const Attendance = ({
         ...prev,
         [subject.name]: data.studentAttdsummarylist,
       }));
+      setSubjectCacheStatus((p) => ({ ...p, [subject.name]: "cached" }));
     } catch (error) {
-      console.error("Failed to fetch subject attendance:", error);
+      if (error.message && error.message.includes("NO Attendance Found")) {
+        setSubjectCacheStatus((p) => ({
+          ...p,
+          [subject.name]: "noattendance",
+        }));
+      } else {
+        console.error("Failed to fetch subject attendance:", error);
+      }
     }
   };
 
@@ -325,22 +333,57 @@ const Attendance = ({
     sortedSubjects.sort((a, b) => getSortValue(b) - getSortValue(a));
   }
 
+  // ref to track if subject attendance has been fetched for the current semester
+  const hasFetchedSubjectAttendance = useRef({});
+  // swipping led to this uff
+
   useEffect(() => {
-    const loadAllSubjects = async () => {
-      await Promise.all(
+    // only fetch when entering 'daily' tab, and only once per semester
+    if (
+      internalTab === "daily" &&
+      selectedSem?.registration_id &&
+      !hasFetchedSubjectAttendance.current[selectedSem.registration_id]
+    ) {
+      hasFetchedSubjectAttendance.current[selectedSem.registration_id] = true;
+      Promise.all(
         subjects.map(async (subj) => {
-          if (subjectAttendanceData[subj.name]) {
+          if (
+            subjectAttendanceData[subj.name] ||
+            subjectCacheStatus[subj.name] === "noattendance"
+          ) {
             setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "cached" }));
             return;
           }
           setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "fetching" }));
-          await fetchSubjectAttendance(subj);
-          setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "cached" }));
+          try {
+            await fetchSubjectAttendance(subj);
+          } catch (error) {
+            if (
+              error.message &&
+              error.message.includes("NO Attendance Found")
+            ) {
+              setSubjectCacheStatus((p) => ({
+                ...p,
+                [subj.name]: "noattendance",
+              }));
+            } else {
+              console.error("Failed to fetch subject attendance:", error);
+            }
+          }
         })
       );
-    };
-    loadAllSubjects();
-  }, [internalTab, subjects]);
+    }
+  }, [internalTab, selectedSem?.registration_id, subjects]);
+
+  // reset the ref if the semester changes (so we can fetch for new semester)
+  useEffect(() => {
+    if (selectedSem?.registration_id) {
+      if (!hasFetchedSubjectAttendance.current[selectedSem.registration_id]) {
+        // reset subject cache status for new semester
+        setSubjectCacheStatus({});
+      }
+    }
+  }, [selectedSem?.registration_id]);
 
   const getClassesFor = (subjectName, date) => {
     const all = subjectAttendanceData[subjectName];
@@ -354,7 +397,7 @@ const Attendance = ({
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4 pt-2">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-2">
       <div className="flex flex-col sm:flex-row gap-2 items-center justify-center mb-2">
         <div className="flex flex-row gap-1 items-center justify-center w-full max-w-md px-0 py-0">
           {/* Semester Select */}
@@ -709,7 +752,9 @@ const Attendance = ({
                     subjects.length === 0
                       ? "No subjects to load."
                       : subjects.every(
-                          (s) => subjectCacheStatus[s.name] === "cached"
+                          (s) =>
+                            subjectCacheStatus[s.name] === "cached" ||
+                            subjectCacheStatus[s.name] === "noattendance"
                         )
                       ? `All ${subjects.length} subjects loaded!`
                       : `Loaded ${
@@ -726,14 +771,18 @@ const Attendance = ({
                   total={subjects.length}
                   type={
                     subjects.every(
-                      (s) => subjectCacheStatus[s.name] === "cached"
+                      (s) =>
+                        subjectCacheStatus[s.name] === "cached" ||
+                        subjectCacheStatus[s.name] === "noattendance"
                     )
                       ? "success"
                       : "info"
                   }
                   duration={
                     subjects.every(
-                      (s) => subjectCacheStatus[s.name] === "cached"
+                      (s) =>
+                        subjectCacheStatus[s.name] === "cached" ||
+                        subjectCacheStatus[s.name] === "noattendance"
                     )
                       ? 3000
                       : null
@@ -742,7 +791,17 @@ const Attendance = ({
                     .filter((s) => subjectCacheStatus[s.name] === "cached")
                     .map((s) => s.name)}
                   pendingList={subjects
-                    .filter((s) => subjectCacheStatus[s.name] !== "cached")
+                    .filter(
+                      (s) =>
+                        (!subjectCacheStatus[s.name] ||
+                          subjectCacheStatus[s.name] === "fetching") &&
+                        subjectCacheStatus[s.name] !== "noattendance"
+                    )
+                    .map((s) => s.name)}
+                  noAttendanceList={subjects
+                    .filter(
+                      (s) => subjectCacheStatus[s.name] === "noattendance"
+                    )
                     .map((s) => s.name)}
                 />
                 <div className="flex flex-col items-center w-full">
