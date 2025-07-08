@@ -35,7 +35,7 @@ const Toast = ({
 
   return (
     <div
-      className={`fixed bottom-6 right-6 z-50 min-w-[220px] max-w-xs shadow-lg rounded-xl p-4 flex flex-col gap-2 animate-toast-in ${bg} ${border} ${text} ${
+      className={`fixed bottom-24 md:bottom-6 right-6 z-50 min-w-[220px] max-w-xs shadow-lg rounded-xl p-4 flex flex-col gap-2 animate-toast-in ${bg} ${border} ${text} ${
         isClickable
           ? "cursor-pointer hover:bg-[var(--accent-color)]/10 transition"
           : ""

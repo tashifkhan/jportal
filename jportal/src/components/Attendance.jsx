@@ -354,7 +354,7 @@ const Attendance = ({
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4 pt-2">
+    <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-2">
       <div className="flex flex-col sm:flex-row gap-2 items-center justify-center mb-2">
         <div className="flex flex-row gap-1 items-center justify-center w-full max-w-md px-0 py-0">
           {/* Semester Select */}
