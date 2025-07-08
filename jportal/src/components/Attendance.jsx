@@ -24,6 +24,7 @@ import MuiSelect from "@mui/material/Select";
 import { FormControl, InputLabel } from "@mui/material";
 import TopTabsBar from "./ui/TopTabsBar";
 import { useLocation } from "react-router-dom";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const Attendance = ({
   w,
@@ -709,53 +710,93 @@ const Attendance = ({
                         : ""
                     } p-4 mb-6`}
                   >
-                    <Calendar
-                      mode="single"
-                      selected={dailyDate}
-                      onSelect={(d) => {
-                        if (d) setDailyDate(d);
-                      }}
-                      modifiers={{
-                        hasActivity: (date) =>
-                          subjects.some(
-                            (s) => getClassesFor(s.name, date).length > 0
-                          ),
-                      }}
-                      modifiersStyles={{
-                        hasActivity: {
-                          boxShadow: "inset 0 -2px 0 0 var(--accent-color)",
-                          borderRadius: "2px",
-                        },
-                      }}
-                      className={`pb-2 w-full flex-shrink-0 max-w-full bg-[var(--card-bg)] text-[var(--text-color)] rounded-[var(--radius)] shadow-none border-0`}
-                      classNames={{
-                        months: "flex flex-col space-y-2",
-                        month: "space-y-2 w-full",
-                        caption:
-                          "flex justify-center pt-1 items-center text-lg font-semibold text-[var(--text-color)] relative",
-                        caption_label:
-                          "text-lg font-semibold text-[var(--text-color)] mx-2",
-                        nav: "flex items-center gap-0 absolute left-0 right-0 justify-between w-full px-2",
-                        nav_button:
-                          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 mx-0",
-                        nav_button_previous: "",
-                        nav_button_next: "",
-                        table: "w-full border-collapse space-y-1",
-                        head_row: "flex",
-                        head_cell:
-                          "text-[var(--label-color)] rounded-md flex-1 font-normal text-[1rem]",
-                        row: "flex w-full mt-2",
-                        cell: "flex-1 text-center text-base p-0 relative",
-                        day: "h-10 w-10 p-0 font-medium mx-auto text-base",
-                        day_selected:
-                          "bg-[var(--primary-color)] text-[var(--card-bg)]",
-                        day_today: "border border-[var(--primary-color)]",
-                        day_outside: "text-[var(--label-color)] opacity-50",
-                        day_disabled: "text-[var(--label-color)] opacity-50",
-                        day_range_middle: "",
-                        day_hidden: "invisible",
-                      }}
-                    />
+                    <button
+                      onClick={() => setCalendarOpen((open) => !open)}
+                      className={`
+                      flex items-center justify-between w-full
+                      bg-[var(--card-bg)] border border-[var(--accent-color)]
+                      rounded-[var(--radius)] px-4 py-2 mb-2
+                      text-base font-semibold text-[var(--text-color)]
+                      transition-all duration-200
+                      shadow-sm
+                      hover:bg-[var(--accent-color)]/10
+                      hover:border-[var(--primary-color)]
+                      focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]
+                      active:scale-[0.98]
+                      cursor-pointer
+                    `}
+                      style={{ minHeight: 44 }}
+                      aria-label="Toggle calendar"
+                    >
+                      <span className="truncate">
+                        {dailyDate.toLocaleDateString(undefined, {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                      <span
+                        className={`transition-transform duration-200 ${
+                          calendarOpen ? "rotate-180" : ""
+                        }`}
+                      >
+                        {calendarOpen ? (
+                          <ChevronUp className="w-5 h-5 text-[var(--accent-color)]" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 text-[var(--accent-color)]" />
+                        )}
+                      </span>
+                    </button>
+                    {calendarOpen && (
+                      <Calendar
+                        mode="single"
+                        selected={dailyDate}
+                        onSelect={(d) => {
+                          if (d) setDailyDate(d);
+                        }}
+                        modifiers={{
+                          hasActivity: (date) =>
+                            subjects.some(
+                              (s) => getClassesFor(s.name, date).length > 0
+                            ),
+                        }}
+                        modifiersStyles={{
+                          hasActivity: {
+                            boxShadow: "inset 0 -2px 0 0 var(--accent-color)",
+                            borderRadius: "2px",
+                          },
+                        }}
+                        className={`pb-2 w-full flex-shrink-0 max-w-full bg-[var(--card-bg)] text-[var(--text-color)] rounded-[var(--radius)] shadow-none border-0`}
+                        classNames={{
+                          months: "flex flex-col space-y-2",
+                          month: "space-y-2 w-full",
+                          caption:
+                            "flex justify-center pt-1 items-center text-lg font-semibold text-[var(--text-color)] relative",
+                          caption_label:
+                            "text-lg font-semibold text-[var(--text-color)] mx-2",
+                          nav: "flex items-center gap-0 absolute left-0 right-0 justify-between w-full px-2",
+                          nav_button:
+                            "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 mx-0",
+                          nav_button_previous: "",
+                          nav_button_next: "",
+                          table: "w-full border-collapse space-y-1",
+                          head_row: "flex",
+                          head_cell:
+                            "text-[var(--label-color)] rounded-md flex-1 font-normal text-[1rem]",
+                          row: "flex w-full mt-2",
+                          cell: "flex-1 text-center text-base p-0 relative",
+                          day: "h-10 w-10 p-0 font-medium mx-auto text-base",
+                          day_selected:
+                            "bg-[var(--primary-color)] text-[var(--card-bg)]",
+                          day_today: "border border-[var(--primary-color)]",
+                          day_outside: "text-[var(--label-color)] opacity-50",
+                          day_disabled: "text-[var(--label-color)] opacity-50",
+                          day_range_middle: "",
+                          day_hidden: "invisible",
+                        }}
+                      />
+                    )}
                   </div>
                   <div
                     className={`w-full max-w-2xl mx-auto flex flex-col ${
