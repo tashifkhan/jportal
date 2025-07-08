@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Sheet,
   SheetContent,
@@ -50,6 +50,9 @@ const AttendanceCard = ({
   const [selectedDate, setSelectedDate] = useState(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
+  // 1. Create a ref for the scrollable container
+  const scrollableRef = useRef(null);
+
   const { theme } = useTheme();
   const themes = {
     darkBlue: {
@@ -91,7 +94,12 @@ const AttendanceCard = ({
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => changeMonth(1),
     onSwipedRight: () => changeMonth(-1),
-    onSwipedDown: () => setIsSheetOpen(false),
+    onSwipedDown: () => {
+      // Only dismiss if at the top of the scrollable container
+      if (!scrollableRef.current || scrollableRef.current.scrollTop === 0) {
+        setIsSheetOpen(false);
+      }
+    },
     trackMouse: true,
     preventDefaultTouchmoveEvent: true,
   });
@@ -297,7 +305,10 @@ const AttendanceCard = ({
           <SheetHeader>
             {/* <SheetTitle className="text-white">{}</SheetTitle> */}
           </SheetHeader>
-          <div className="h-full overflow-y-auto flex flex-col items-center justify-start pt-4 px-2">
+          <div
+            className="h-full overflow-y-auto flex flex-col items-center justify-start pt-4 px-2"
+            ref={scrollableRef}
+          >
             {isLoading ? (
               <div className="flex items-center justify-center w-full h-full min-h-[300px]">
                 <Loader message="Loading attendance data..." />
