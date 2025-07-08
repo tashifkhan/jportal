@@ -9,6 +9,7 @@ const Toast = ({
   onClose,
   loadedList = [],
   pendingList = [],
+  noAttendanceList = [],
 }) => {
   const [visible, setVisible] = useState(true);
   const [expanded, setExpanded] = useState(false);
@@ -84,7 +85,7 @@ const Toast = ({
             </div>
           )}
           {pendingList.length > 0 && (
-            <div>
+            <div className="mb-2">
               <div className="text-xs font-semibold mb-1 text-yellow-400 uppercase tracking-wide">
                 Pending
               </div>
@@ -93,6 +94,23 @@ const Toast = ({
                   <li
                     key={name}
                     className="pl-2 border-l-4 border-yellow-400 text-yellow-700 text-sm bg-transparent"
+                  >
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {noAttendanceList.length > 0 && (
+            <div>
+              <div className="text-xs font-semibold mb-1 text-gray-400 uppercase tracking-wide">
+                No Attendance
+              </div>
+              <ul className="space-y-1">
+                {noAttendanceList.map((name) => (
+                  <li
+                    key={name}
+                    className="pl-2 border-l-4 border-gray-400 text-gray-500 text-sm bg-transparent"
                   >
                     {name}
                   </li>
