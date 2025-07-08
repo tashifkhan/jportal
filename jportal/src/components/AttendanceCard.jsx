@@ -292,7 +292,7 @@ const AttendanceCard = ({
       >
         <SheetContent
           side="bottom"
-          className="h-[70vh] bg-[var(--card-bg)] text-[var(--text-color)] border-0 overflow-hidden rounded-t-3xl shadow-xl p-0"
+          className="min-h-[70vh] bg-[var(--card-bg)] text-[var(--text-color)] border-0 overflow-hidden rounded-t-3xl shadow-xl p-0"
         >
           <SheetHeader>
             {/* <SheetTitle className="text-white">{}</SheetTitle> */}
