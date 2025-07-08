@@ -185,6 +185,9 @@ const AttendanceCard = ({
     return Object.values(attendanceByDate);
   };
 
+  const isMobile =
+    typeof window !== "undefined" ? window.innerWidth < 768 : false;
+
   return (
     <div
       className={`w-full max-w-2xl mx-auto ${
@@ -301,10 +304,10 @@ const AttendanceCard = ({
               </div>
             ) : (
               <>
-                <div className="w-full flex flex-col md:flex-row gap-4 items-start justify-center max-w-[1080px] mx-auto">
+                <div className="w-full flex flex-col md:flex-row gap-4 items-center justify-center max-w-[1080px] mx-auto">
                   {/* Calendar Section */}
                   <div
-                    className="flex flex-col items-center bg-[var(--card-bg)] rounded-xl shadow-sm p-4 max-w-[370px] w-full"
+                    className="flex flex-col items-center bg-[var(--card-bg)] rounded-xl shadow-sm p-4 w-full md:max-w-[370px] mx-auto"
                     {...swipeHandlers}
                   >
                     <Calendar
@@ -402,16 +405,71 @@ const AttendanceCard = ({
                         day_hidden: "invisible",
                       }}
                     />
+                    {/* Mobile: Selected Day's Attendance Details above the graph */}
+                    {selectedDate && (
+                      <div className="w-full flex justify-center mt-4 md:hidden">
+                        <div className="bg-[var(--card-bg)] rounded-xl shadow-sm p-4 w-full max-w-full text-center mx-auto">
+                          <div className="font-semibold text-lg mb-2 text-[var(--text-color)]">
+                            Attendance for{" "}
+                            {selectedDate.toLocaleDateString("en-GB")}
+                          </div>
+                          {getClassesForDate(selectedDate).length === 0 ? (
+                            <div className="text-[var(--label-color)] text-base">
+                              No classes scheduled.
+                            </div>
+                          ) : (
+                            <div className="flex flex-col gap-2 items-center w-full">
+                              {getClassesForDate(selectedDate).map(
+                                (classData, index) => (
+                                  <div
+                                    key={index}
+                                    className={`rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm border bg-[var(--card-bg-alt, var(--bg-color))] w-full mx-auto ${
+                                      classData.present === "Present"
+                                        ? "border-[var(--accent-color)]"
+                                        : "border-[var(--error-color,#ef4444)]"
+                                    }`}
+                                  >
+                                    <div className="flex-1">
+                                      <div className="font-medium text-[var(--text-color)] text-base">
+                                        {classData.attendanceby}
+                                      </div>
+                                      <div className="text-[var(--label-color)] text-sm">
+                                        {classData.classtype} &bull;{" "}
+                                        {classData.datetime}
+                                      </div>
+                                    </div>
+                                    <div
+                                      className={`font-semibold text-base ml-4 ${
+                                        classData.present === "Present"
+                                          ? "text-[var(--accent-color)]"
+                                          : "text-[var(--error-color,#ef4444)]"
+                                      }`}
+                                    >
+                                      {classData.present}
+                                    </div>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                   {/* Optional vertical divider for desktop */}
                   <div className="hidden md:block w-px h-auto bg-[var(--border-color)] mx-2" />
                   {/* Progress Graph Section */}
-                  <div className="flex-1 flex flex-col items-center bg-[var(--card-bg)] rounded-xl shadow-sm p-4 w-full">
-                    <div className="w-full h-[220px]">
+                  <div className="w-full md:max-w-full flex flex-col items-center bg-[var(--card-bg)] rounded-xl shadow-sm p-4 mx-auto md:flex-1">
+                    <div className="w-full h-[220px] flex items-center justify-center">
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart
                           data={processAttendanceData()}
-                          margin={{ top: 10, right: 10, left: 32, bottom: 0 }}
+                          margin={{
+                            top: 10,
+                            right: 10,
+                            left: isMobile ? 0 : 32,
+                            bottom: 0,
+                          }}
                         >
                           <CartesianGrid
                             strokeDasharray="3 3"
@@ -438,7 +496,7 @@ const AttendanceCard = ({
                             }}
                             domain={[0, 100]}
                             tickFormatter={(value) => `${value}%`}
-                            width={60}
+                            width={isMobile ? 40 : 60}
                           />
                           <Tooltip
                             contentStyle={{
@@ -462,10 +520,10 @@ const AttendanceCard = ({
                     </div>
                   </div>
                 </div>
-                {/* Selected Day's Attendance Details Below, Centered */}
+                {/* Desktop: Selected Day's Attendance Details below the graph */}
                 {selectedDate && (
-                  <div className="w-full flex justify-center mt-4">
-                    <div className="bg-[var(--card-bg)] rounded-xl shadow-sm p-4 max-w-xl w-full text-center">
+                  <div className="w-full justify-center mt-4 hidden md:flex">
+                    <div className="bg-[var(--card-bg)] rounded-xl shadow-sm p-4 w-full max-w-xl text-center">
                       <div className="font-semibold text-lg mb-2 text-[var(--text-color)]">
                         Attendance for{" "}
                         {selectedDate.toLocaleDateString("en-GB")}
@@ -475,12 +533,12 @@ const AttendanceCard = ({
                           No classes scheduled.
                         </div>
                       ) : (
-                        <div className="flex flex-col gap-2 items-center">
+                        <div className="flex flex-col gap-2 items-center w-full">
                           {getClassesForDate(selectedDate).map(
                             (classData, index) => (
                               <div
                                 key={index}
-                                className={`rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm border bg-[var(--card-bg-alt, var(--bg-color))] max-w-md w-full mx-auto ${
+                                className={`rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between shadow-sm border bg-[var(--card-bg-alt, var(--bg-color))] w-full max-w-md mx-auto ${
                                   classData.present === "Present"
                                     ? "border-[var(--accent-color)]"
                                     : "border-[var(--error-color,#ef4444)]"
