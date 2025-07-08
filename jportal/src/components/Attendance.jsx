@@ -267,36 +267,6 @@ const Attendance = ({
     }
   };
 
-  useEffect(() => {
-    if (activeTab !== "daily") return;
-
-    const loadAllSubjects = async () => {
-      await Promise.all(
-        subjects.map(async (subj) => {
-          if (subjectAttendanceData[subj.name]) {
-            setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "cached" }));
-            return;
-          }
-          setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "fetching" }));
-          await fetchSubjectAttendance(subj); // server round‑trip
-          setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "cached" }));
-        })
-      );
-    };
-    loadAllSubjects();
-  }, [activeTab]);
-
-  const getClassesFor = (subjectName, date) => {
-    const all = subjectAttendanceData[subjectName];
-    if (!all) return [];
-    const key = date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-    return all.filter((c) => c.datetime.startsWith(key));
-  };
-
   const [internalTab, setInternalTab] = useState(activeTab || "overview");
   const location = useLocation();
   useEffect(() => {
@@ -352,6 +322,34 @@ const Attendance = ({
   } else if (attendanceSortOrder === "desc") {
     sortedSubjects.sort((a, b) => getSortValue(b) - getSortValue(a));
   }
+
+  useEffect(() => {
+    const loadAllSubjects = async () => {
+      await Promise.all(
+        subjects.map(async (subj) => {
+          if (subjectAttendanceData[subj.name]) {
+            setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "cached" }));
+            return;
+          }
+          setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "fetching" }));
+          await fetchSubjectAttendance(subj);
+          setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "cached" }));
+        })
+      );
+    };
+    loadAllSubjects();
+  }, [internalTab, subjects]);
+
+  const getClassesFor = (subjectName, date) => {
+    const all = subjectAttendanceData[subjectName];
+    if (!all) return [];
+    const key = date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+    return all.filter((c) => c.datetime.startsWith(key));
+  };
 
   return (
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-4 pt-2">
