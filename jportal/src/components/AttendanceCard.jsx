@@ -200,12 +200,12 @@ const AttendanceCard = ({
     <div
       className={`w-full max-w-2xl mx-auto ${
         useCardBackgrounds ? "bg-[var(--card-bg)] rounded-2xl shadow-sm" : ""
-      } px-3 pt-3 sm:pt-5 pb-2 sm:pb-3 flex flex-col gap-1`}
+      } px-4 pt-5 pb-3 flex flex-col gap-1`}
       onClick={handleClick}
       role="button"
       tabIndex={0}
     >
-      <div className="flex items-center justify-between gap-2 sm:gap-4">
+      <div className="flex items-center justify-between gap-4">
         <div className="flex-1 min-w-0">
           <h2 className="text-base sm:text-xl font-light truncate mb-0.5 sm:mb-1 text-[var(--text-color)]">
             {displayName}
