@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
 import Loader from "./Loader";
 import { useTheme } from "./ThemeProvider";
+import { useRef } from "react";
 import {
   TextField as MuiTextField,
   Button as MuiButton,
@@ -39,6 +40,8 @@ export default function Login({ onLoginSuccess, w }) {
     credentials: null,
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [showError, setShowError] = useState(true); // New state for error visibility
+  const errorRef = useRef(null);
   const { useMaterialUI } = useTheme();
 
   // Initialize form
@@ -117,6 +120,10 @@ export default function Login({ onLoginSuccess, w }) {
     performLogin();
   }, [loginStatus.credentials, onLoginSuccess, w]);
 
+  useEffect(() => {
+    if (loginStatus.error) setShowError(true);
+  }, [loginStatus.error]);
+
   // Clean form submission
   function onSubmit(values) {
     setLoginStatus((prev) => ({
@@ -132,15 +139,53 @@ export default function Login({ onLoginSuccess, w }) {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[var(--bg-color)]">
+      <style>{`
+        .fade-in-error {
+          animation: fadeIn 0.4s;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
       <div className="w-full max-w-md space-y-6 p-6 rounded-[var(--radius)] shadow-lg bg-[var(--card-bg)]">
         <div className="space-y-2 text-center text-[var(--text-color)]">
           <h1 className="text-2xl font-bold">Login</h1>
           <p>Enter your credentials to sign in</p>
-          {loginStatus.error && (
-            <p className="text-red-500">{loginStatus.error}</p>
-          )}
         </div>
-
+        {loginStatus.error && showError && (
+          <div
+            ref={errorRef}
+            role="alert"
+            className="fade-in-error mb-4 flex items-center justify-between bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            style={{ fontWeight: 500 }}
+          >
+            <span>{loginStatus.error}</span>
+            <button
+              onClick={() => setShowError(false)}
+              className="ml-4 text-red-700 hover:text-red-900 focus:outline-none"
+              aria-label="Dismiss error"
+              tabIndex={0}
+              type="button"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
