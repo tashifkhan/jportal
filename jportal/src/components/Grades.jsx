@@ -49,6 +49,7 @@ import {
 } from "../lib/utils";
 import { useLocation } from "react-router-dom";
 import Toast from "./ui/Toast";
+import fakedata from "../../fakedata.json";
 
 const BASE_NAME = "";
 
@@ -86,6 +87,7 @@ export default function Grades({
   setIsDownloadDialogOpen,
   marksLoading,
   setMarksLoading,
+  guest = false,
 }) {
   // State for Target CGPA Calculator Modal
   const [isTargetModalOpen, setIsTargetModalOpen] = useState(false);
@@ -264,6 +266,42 @@ export default function Grades({
 
       setMarksLoading(true);
       try {
+        if (guest) {
+          // Guest mode: use fakedata.json and transform to expected structure
+          const semId = selectedMarksSem.registration_id;
+          const marksJson = fakedata.grades.marksData[semId];
+          if (!marksJson || !marksJson.courses) {
+            const errorObj = { error: "marks_not_uploaded" };
+            setMarksSemesterData(errorObj);
+            setMarksData((prev) => ({
+              ...prev,
+              [semId]: errorObj,
+            }));
+            return;
+          }
+
+          // Transform each course's breakup array to exams object
+          const courses = marksJson.courses.map((course) => {
+            const exams = {};
+            if (Array.isArray(course.breakup)) {
+              course.breakup.forEach((b) => {
+                exams[b.label] = { OM: b.marks, FM: b.max };
+              });
+            }
+            return {
+              ...course,
+              exams,
+            };
+          });
+          const result = { courses };
+          setMarksSemesterData(result);
+          setMarksData((prev) => ({
+            ...prev,
+            [semId]: result,
+          }));
+          return;
+        }
+
         const ENDPOINT = `/studentsexamview/printstudent-exammarks/${w.session.instituteid}/${selectedMarksSem.registration_id}/${selectedMarksSem.registration_code}`;
         const localname = await generate_local_name();
         const headers = await w.session.get_headers(localname);
@@ -342,7 +380,7 @@ export default function Grades({
     return () => {
       mounted = false;
     };
-  }, [selectedMarksSem, w.session, marksData]);
+  }, [selectedMarksSem, w.session, marksData, guest]);
 
   const handleSemesterChange = async (value) => {
     setGradeCardLoading(true);
@@ -538,6 +576,11 @@ export default function Grades({
 
   return (
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-36 pt-1">
+      {guest && (
+        <div className="w-full max-w-3xl mx-auto mb-4 rounded-[var(--radius)] bg-[var(--accent-color)] text-[var(--bg-color)] text-center py-2 font-semibold shadow-md">
+          Guest Demo: Viewing Sample Data
+        </div>
+      )}
       <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-0 lg:gap-0 lg:min-h-[600px]">
         {/* Sidebar Tabs for large screens, horizontal for small */}
         <div className="w-full lg:w-64 flex-shrink-0">

@@ -55,6 +55,7 @@ const Attendance = ({
   setIsTrackerOpen,
   subjectCacheStatus,
   setSubjectCacheStatus,
+  guest = false,
 }) => {
   const [attendanceSortOrder, setAttendanceSortOrder] = useState("default"); // default, asc, desc
   const {
@@ -398,6 +399,11 @@ const Attendance = ({
 
   return (
     <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] font-sans px-2 pb-32 pt-2">
+      {guest && (
+        <div className="w-full max-w-3xl mx-auto mb-4 rounded-[var(--radius)] bg-[var(--accent-color)] text-[var(--bg-color)] text-center py-2 font-semibold shadow-md">
+          Guest Demo: Viewing Sample Data
+        </div>
+      )}
       <div className="flex flex-col sm:flex-row gap-2 items-center justify-center mb-2">
         <div className="flex flex-row gap-1 items-center justify-center w-full max-w-md px-0 py-0">
           {/* Semester Select */}

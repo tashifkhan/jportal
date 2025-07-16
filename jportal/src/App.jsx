@@ -30,7 +30,7 @@ import { useSwipeable } from "react-swipeable";
 const w = new WebPortal();
 
 // Create a wrapper component to use the useNavigate hook
-function AuthenticatedApp({ w, setIsAuthenticated }) {
+function AuthenticatedApp({ w, setIsAuthenticated, guest }) {
   const [activeAttendanceTab, setActiveAttendanceTab] = useState("overview");
   const [attendanceData, setAttendanceData] = useState({});
   const [attendanceSemestersData, setAttendanceSemestersData] = useState(null);
@@ -142,6 +142,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
                 setIsTrackerOpen={setIsAttendanceTrackerOpen}
                 subjectCacheStatus={attendanceSubjectCacheStatus}
                 setSubjectCacheStatus={setAttendanceSubjectCacheStatus}
+                guest={guest}
               />
             }
           />
@@ -182,6 +183,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
                 setIsDownloadDialogOpen={setIsDownloadDialogOpen}
                 marksLoading={marksLoading}
                 setMarksLoading={setMarksLoading}
+                guest={guest}
               />
             }
           />
@@ -222,6 +224,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
                 w={w}
                 profileData={profileData}
                 setProfileData={setProfileData}
+                guest={guest}
               />
             }
           />
@@ -234,12 +237,18 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   );
 }
 
-function LoginWrapper({ onLoginSuccess, w }) {
+function LoginWrapper({ setIsAuthenticated, setCurrentW, setIsGuest }) {
   const navigate = useNavigate();
 
-  const handleLoginSuccess = () => {
-    onLoginSuccess();
-    // Add a small delay to ensure state updates before navigation
+  const handleLoginSuccess = (maybeW, opts) => {
+    if (maybeW) {
+      setCurrentW(maybeW);
+      setIsGuest(opts?.guest || false);
+    } else {
+      setCurrentW(w);
+      setIsGuest(false);
+    }
+    setIsAuthenticated(true);
     setTimeout(() => {
       navigate(getEntryPoint());
     }, 100);
@@ -305,6 +314,8 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentW, setCurrentW] = useState(w);
+  const [isGuest, setIsGuest] = useState(false);
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -315,6 +326,8 @@ function App() {
         if (username && password) {
           await w.student_login(username, password);
           if (w.session) {
+            setCurrentW(w);
+            setIsGuest(false);
             setIsAuthenticated(true);
           }
         }
@@ -333,7 +346,7 @@ function App() {
           error.message.includes("Failed to fetch")
         ) {
           setError(
-            "Please check your internet connection. If connected, JIIT Web Portal server is temporarily unavailable."
+            "Please check your internet connection. If connected, JIIT Web Portal server is unavailable."
           );
         } else {
           console.error("Auto-login failed:", error);
@@ -342,6 +355,8 @@ function App() {
         localStorage.removeItem("username");
         localStorage.removeItem("password");
         setIsAuthenticated(false);
+        setCurrentW(w);
+        setIsGuest(false);
       } finally {
         setIsLoading(false);
       }
@@ -361,7 +376,7 @@ function App() {
   return (
     <Router>
       <AppWithGlobalSwipe>
-        {!isAuthenticated || !w.session ? (
+        {!isAuthenticated || !currentW.session ? (
           <Routes>
             <Route
               path="*"
@@ -371,15 +386,20 @@ function App() {
                     <div className="text-red-500 text-center pt-4">{error}</div>
                   )}
                   <LoginWrapper
-                    onLoginSuccess={() => setIsAuthenticated(true)}
-                    w={w}
+                    setIsAuthenticated={setIsAuthenticated}
+                    setCurrentW={setCurrentW}
+                    setIsGuest={setIsGuest}
                   />
                 </>
               }
             />
           </Routes>
         ) : (
-          <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
+          <AuthenticatedApp
+            w={currentW}
+            setIsAuthenticated={setIsAuthenticated}
+            guest={isGuest}
+          />
         )}
       </AppWithGlobalSwipe>
     </Router>

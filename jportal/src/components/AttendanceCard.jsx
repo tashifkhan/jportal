@@ -211,7 +211,7 @@ const AttendanceCard = ({
             {displayName}
           </h2>
           <div className="text-xs sm:text-base font-normal text-[var(--label-color)]">
-            {lecture !== "" && <div>Leecture: {lecture}%</div>}
+            {lecture !== "" && <div>Lecture: {lecture}%</div>}
             {tutorial !== "" && <div>Tutorial: {tutorial}%</div>}
             {practical !== "" && <div>Practical: {practical}%</div>}
           </div>

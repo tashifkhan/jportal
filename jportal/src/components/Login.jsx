@@ -22,6 +22,7 @@ import {
   FormControl as MuiFormControl,
   InputLabel as MuiInputLabel,
 } from "@mui/material";
+import fakedata from "../../fakedata.json";
 
 // Define the form schema
 const formSchema = z.object({
@@ -43,6 +44,78 @@ export default function Login({ onLoginSuccess, w }) {
   const [showError, setShowError] = useState(true); // New state for error visibility
   const errorRef = useRef(null);
   const { useMaterialUI } = useTheme();
+  const [useMock, setUseMock] = useState(false);
+  // Add guest mode state
+  const [isGuest, setIsGuest] = useState(false);
+
+  // Mock API implementation
+  function getMockW() {
+    return {
+      // Attendance
+      get_attendance_meta: async () => ({
+        semesters: fakedata.attendance.semestersData.semesters,
+        latest_header: () => fakedata.attendance.semestersData.latest_header,
+        latest_semester: () =>
+          fakedata.attendance.semestersData.latest_semester,
+      }),
+      get_attendance: async (header, sem) => {
+        const id = sem.registration_id || sem;
+        return fakedata.attendance.attendanceData[id];
+      },
+      get_subject_daily_attendance: async (
+        sem,
+        subjectid,
+        individualsubjectcode,
+        subjectcomponentids
+      ) => {
+        // Return mock subject attendance data
+        const subj = Object.keys(fakedata.attendance.subjectAttendanceData)[0];
+        return {
+          studentAttdsummarylist:
+            fakedata.attendance.subjectAttendanceData[subj],
+        };
+      },
+      // Grades
+      get_sgpa_cgpa: async () => fakedata.grades.gradesData,
+      get_semesters_for_grade_card: async () =>
+        fakedata.grades.gradeCardSemesters,
+      get_grade_card: async (sem) => {
+        const id = sem.registration_id || sem;
+        return fakedata.grades.gradeCards[id];
+      },
+      get_semesters_for_marks: async () => fakedata.grades.marksSemesters,
+      // Simulate PDF marks parsing
+      download_marks: async (sem) => {},
+      // For marks page
+      session: {
+        instituteid: "JIIT",
+        get_headers: async () => ({}),
+      },
+      // For marks data
+      // (simulate pyodide result)
+      // ...
+      // Subjects
+      get_registered_semesters: async () =>
+        fakedata.subjects.semestersData.semesters,
+      get_registered_subjects_and_faculties: async (sem) => {
+        const id = sem.registration_id || sem;
+        return fakedata.subjects.subjectData[id];
+      },
+      // Profile
+      get_personal_info: async () => fakedata.profile,
+      // Exams
+      get_semesters_for_exam_events: async () => fakedata.exams.examSemesters,
+      get_exam_events: async (sem) => fakedata.exams.examEvents,
+      get_exam_schedule: async (event) => ({
+        subjectinfo: fakedata.exams.examSchedule[event.exam_event_id || event],
+      }),
+      // Login
+      student_login: async (enrollmentNumber, password) => {
+        // Always succeed for mock
+        return true;
+      },
+    };
+  }
 
   // Initialize form
   const form = useForm({
@@ -187,7 +260,12 @@ export default function Login({ onLoginSuccess, w }) {
           </div>
         )}
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit((values) => {
+              onSubmit(values);
+            })}
+            className="space-y-4"
+          >
             <FormField
               control={form.control}
               name="enrollmentNumber"
@@ -281,108 +359,108 @@ export default function Login({ onLoginSuccess, w }) {
                       </FormLabel>
                     )}
                     <FormControl>
-                      <div className="relative">
-                        {useMaterialUI ? (
-                          <MuiFormControl fullWidth variant="outlined">
-                            {!loginStatus.isLoading && (
-                              <MuiInputLabel
-                                id="login-password-label"
-                                sx={{ color: "var(--label-color)" }}
-                                shrink={isFilled ? true : undefined}
-                              >
-                                {!isFilled ? "Password" : ""}
-                              </MuiInputLabel>
-                            )}
-                            <MuiTextField
-                              {...field}
-                              type={showPassword ? "text" : "password"}
-                              labelId="login-password-label"
-                              label={
-                                !loginStatus.isLoading && !isFilled
-                                  ? "Password"
-                                  : ""
-                              }
-                              variant="outlined"
-                              fullWidth
-                              sx={{
+                      {useMaterialUI ? (
+                        <MuiFormControl fullWidth variant="outlined">
+                          {!loginStatus.isLoading && (
+                            <MuiInputLabel
+                              id="login-password-label"
+                              sx={{ color: "var(--label-color)" }}
+                              shrink={isFilled ? true : undefined}
+                            >
+                              {!isFilled ? "Password" : ""}
+                            </MuiInputLabel>
+                          )}
+                          <MuiTextField
+                            {...field}
+                            type={showPassword ? "text" : "password"}
+                            labelId="login-password-label"
+                            label={
+                              !loginStatus.isLoading && !isFilled
+                                ? "Password"
+                                : ""
+                            }
+                            variant="outlined"
+                            fullWidth
+                            sx={{
+                              background: "var(--card-bg)",
+                              color: "var(--text-color)",
+                              borderRadius: "var(--radius)",
+                              fontSize: "1.1rem",
+                              fontWeight: 400,
+                              "& .MuiOutlinedInput-root": {
+                                borderRadius: "var(--radius)",
                                 background: "var(--card-bg)",
                                 color: "var(--text-color)",
-                                borderRadius: "var(--radius)",
                                 fontSize: "1.1rem",
                                 fontWeight: 400,
-                                "& .MuiOutlinedInput-root": {
-                                  borderRadius: "var(--radius)",
-                                  background: "var(--card-bg)",
-                                  color: "var(--text-color)",
-                                  fontSize: "1.1rem",
-                                  fontWeight: 400,
-                                  "& fieldset": {
-                                    borderColor: "var(--label-color)",
-                                  },
-                                  "&:hover fieldset": {
-                                    borderColor: "var(--accent-color)",
-                                  },
-                                  "&.Mui-focused fieldset": {
-                                    borderColor: "var(--accent-color)",
-                                  },
+                                "& fieldset": {
+                                  borderColor: "var(--label-color)",
                                 },
-                                "& .MuiInputBase-input": {
-                                  color: "var(--text-color)",
+                                "&:hover fieldset": {
+                                  borderColor: "var(--accent-color)",
                                 },
-                              }}
-                              InputProps={{
-                                style: { color: "var(--text-color)" },
-                                endAdornment: (
-                                  <button
-                                    type="button"
-                                    tabIndex={-1}
-                                    onClick={() => setShowPassword((v) => !v)}
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--label-color)] hover:text-[var(--accent-color)] focus:outline-none"
-                                    aria-label={
-                                      showPassword
-                                        ? "Hide password"
-                                        : "Show password"
-                                    }
-                                  >
-                                    {showPassword ? (
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                      >
-                                        <path d="M17.94 17.94A10.06 10.06 0 0 1 12 20c-5.05 0-9.29-3.14-11-8 1.21-3.06 3.62-5.5 6.58-6.47" />
-                                        <path d="M1 1l22 22" />
-                                        <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c.98 0 1.87-.39 2.53-1.03" />
-                                        <path d="M14.47 14.47A3.5 3.5 0 0 0 12 8.5c-.98 0-1.87.39-2.53 1.03" />
-                                      </svg>
-                                    ) : (
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                      >
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                      </svg>
-                                    )}
-                                  </button>
-                                ),
-                              }}
-                            />
-                          </MuiFormControl>
-                        ) : (
+                                "&.Mui-focused fieldset": {
+                                  borderColor: "var(--accent-color)",
+                                },
+                              },
+                              "& .MuiInputBase-input": {
+                                color: "var(--text-color)",
+                              },
+                            }}
+                            InputProps={{
+                              style: { color: "var(--text-color)" },
+                              endAdornment: (
+                                <button
+                                  type="button"
+                                  tabIndex={-1}
+                                  onClick={() => setShowPassword((v) => !v)}
+                                  className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--label-color)] hover:text-[var(--accent-color)] focus:outline-none"
+                                  aria-label={
+                                    showPassword
+                                      ? "Hide password"
+                                      : "Show password"
+                                  }
+                                >
+                                  {showPassword ? (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="20"
+                                      height="20"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    >
+                                      <path d="M17.94 17.94A10.06 10.06 0 0 1 12 20c-5.05 0-9.29-3.14-11-8 1.21-3.06 3.62-5.5 6.58-6.47" />
+                                      <path d="M1 1l22 22" />
+                                      <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c.98 0 1.87-.39 2.53-1.03" />
+                                      <path d="M14.47 14.47A3.5 3.5 0 0 0 12 8.5c-.98 0-1.87.39-2.53 1.03" />
+                                    </svg>
+                                  ) : (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="20"
+                                      height="20"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    >
+                                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                      <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                  )}
+                                </button>
+                              ),
+                            }}
+                          />
+                        </MuiFormControl>
+                      ) : (
+                        <div className="relative">
                           <Input
                             type={showPassword ? "text" : "password"}
                             {...field}
@@ -390,8 +468,51 @@ export default function Login({ onLoginSuccess, w }) {
                             className="bg-[var(--card-bg)] border border-[var(--label-color)] text-[var(--text-color)] placeholder:text-[var(--label-color)] pr-10 focus:border-[var(--accent-color)] focus:ring-[var(--accent-color)] rounded-[var(--radius)]"
                             style={{ color: "var(--text-color)" }}
                           />
-                        )}
-                      </div>
+                          <button
+                            type="button"
+                            tabIndex={-1}
+                            onClick={() => setShowPassword((v) => !v)}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--label-color)] hover:text-[var(--accent-color)] focus:outline-none"
+                            aria-label={
+                              showPassword ? "Hide password" : "Show password"
+                            }
+                          >
+                            {showPassword ? (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <path d="M17.94 17.94A10.06 10.06 0 0 1 12 20c-5.05 0-9.29-3.14-11-8 1.21-3.06 3.62-5.5 6.58-6.47" />
+                                <path d="M1 1l22 22" />
+                                <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c.98 0 1.87-.39 2.53-1.03" />
+                                <path d="M14.47 14.47A3.5 3.5 0 0 0 12 8.5c-.98 0-1.87.39-2.53 1.03" />
+                              </svg>
+                            ) : (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                              </svg>
+                            )}
+                          </button>
+                        </div>
+                      )}
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -430,6 +551,21 @@ export default function Login({ onLoginSuccess, w }) {
             )}
           </form>
         </Form>
+        {/* Guest Demo Button */}
+        <div className="absolute top-0 right-0 mt-4 mr-4 z-10">
+          <button
+            type="button"
+            className="px-4 py-2 rounded-[var(--radius)] font-bold shadow-lg bg-[var(--accent-color)] text-[var(--bg-color)] hover:bg-[var(--primary-color)] hover:text-[var(--accent-color)] border border-[var(--accent-color)] transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] text-base"
+            style={{ minWidth: 180 }}
+            onClick={() => {
+              setIsGuest(true);
+              onLoginSuccess(getMockW(), { guest: true });
+            }}
+            aria-label="Try Guest Demo"
+          >
+            <span role="img" aria-label="party"></span> Guest Demo
+          </button>
+        </div>
       </div>
     </div>
   );
