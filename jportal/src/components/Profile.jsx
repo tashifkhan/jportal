@@ -5,7 +5,12 @@ import { useSwipeable } from "react-swipeable";
 import TopTabsBar from "./ui/TopTabsBar";
 import { useTheme } from "./ThemeProvider";
 
-export default function Profile({ w, profileData, setProfileData }) {
+export default function Profile({
+  w,
+  profileData,
+  setProfileData,
+  guest = false,
+}) {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("personal");
 
@@ -99,6 +104,11 @@ export default function Profile({ w, profileData, setProfileData }) {
 
   return (
     <div className="min-h-[calc(100vh-10rem)] md:min-h-[calc(100vh-6rem)] flex flex-col w-full">
+      {guest && (
+        <div className="w-full max-w-3xl mx-auto mb-4 rounded-[var(--radius)] bg-[var(--accent-color)] text-[var(--bg-color)] text-center py-2 font-semibold shadow-md">
+          Guest Demo: Viewing Sample Data
+        </div>
+      )}
       <div className="flex-1 flex flex-row w-full max-w-6xl mx-auto">
         <Tabs
           value={activeTab}
