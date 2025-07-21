@@ -17,6 +17,7 @@ import Subjects from "./components/Subjects";
 import Profile from "./components/Profile";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import GeneralSettings from "./components/GeneralSettings";
+import TimeTableIframe from "./components/TimeTableIframe";
 import "./App.css";
 
 import {
@@ -228,6 +229,19 @@ function AuthenticatedApp({ w, setIsAuthenticated, guest }) {
               />
             }
           />
+          <Route
+            path="/timetable"
+            element={
+              <TimeTableIframe
+                w={w}
+                profileData={profileData}
+                setProfileData={setProfileData}
+                subjectData={subjectData}
+                setSubjectData={setSubjectData}
+              />
+            }
+          />
+
           <Route path="/settings" element={<ThemeSwitcher />} />
           <Route path="/general-settings" element={<GeneralSettings />} />
         </Routes>

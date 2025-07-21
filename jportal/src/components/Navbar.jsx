@@ -25,6 +25,11 @@ function Navbar() {
       icon: `${BASE_NAME}/icons/subjects1.svg`,
     },
     {
+      name: "Timetable",
+      path: "/timetable",
+      icon: `/${BASE_NAME}/icons/subjects.svg`,
+    },
+    {
       name: "Profile",
       path: "/profile",
       icon: `${BASE_NAME}/icons/profile.svg`,
