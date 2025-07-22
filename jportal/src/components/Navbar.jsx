@@ -27,7 +27,7 @@ function Navbar() {
     {
       name: "Timetable",
       path: "/timetable",
-      icon: `/${BASE_NAME}/icons/subjects.svg`,
+      icon: `${BASE_NAME}/icons/subjects.svg`,
     },
     {
       name: "Profile",
