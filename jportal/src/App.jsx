@@ -8,6 +8,7 @@ import Grades from './components/Grades'
 import Exams from './components/Exams'
 import Subjects from './components/Subjects'
 import Profile from './components/Profile'
+import PuchAIPopup from './components/PuchAIPopup'
 import './App.css'
 
 import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
@@ -233,6 +234,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(true);
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -291,6 +293,12 @@ function App() {
         ) : (
           <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
         )}
+
+        {/* App Update Popup - Shows on every app open */}
+        <PuchAIPopup
+          isOpen={showUpdatePopup}
+          onClose={() => setShowUpdatePopup(false)}
+        />
       </div>
     </Router>
   );
