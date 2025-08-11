@@ -12,11 +12,11 @@ const PuchAIPopup = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-[#282c2f] rounded-lg max-w-md w-full p-6 relative">
+      <div className="bg-[#282c2f] rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto p-6 relative">
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
         >
           <X size={20} />
         </button>
@@ -63,6 +63,11 @@ const PuchAIPopup = ({ isOpen, onClose }) => {
               </p>
               <p className="text-sm text-gray-300">
                 3. Send any random YouTube video link to the chat
+              </p>
+            </div>
+            <div className="bg-[#1a1d21] p-4 rounded-lg space-y-2">
+              <p className="text-sm text-gray-300">
+                4. Please share this with your friends and family to do the same.
               </p>
             </div>
 
