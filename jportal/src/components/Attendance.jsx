@@ -318,7 +318,7 @@ const Attendance = ({
       </div>
 
       {isAttendanceMetaLoading || isAttendanceDataLoading ? (
-        <div className="flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">
+        <div className="flex items-center justify-center py-4 h-[calc(100vh_-_<header_height>-<navbar_height>)]">
           Loading attendance...
         </div>
       ) : (
@@ -398,7 +398,7 @@ const Attendance = ({
                       },
                     }}
 
-                    // className={` pb-2 text-white w-full flex-shrink-0 max-w-full`}
+                    // className={` pb-2 text-white w-full shrink-0 max-w-full`}
                     classNames={{
                       months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
                       month: "space-y-4 w-full",
@@ -416,7 +416,7 @@ const Attendance = ({
                       cell: "flex-1 text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                       day: "h-8 w-8 p-0 font-normal rounded-[2px] aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
                       day_selected: "bg-[hsl(0,8.7%,20.2%)]",
-                      day_today: "text-accent-foreground !bg-white",
+                      day_today: "text-accent-foreground bg-white!",
                       day_outside: "text-muted-foreground opacity-50",
                       day_disabled: "text-muted-foreground opacity-50",
                       day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
@@ -498,7 +498,7 @@ const Attendance = ({
                     side="bottom"
                     /* hide default close button & force white text */
                     className="h-[45vh] bg-[#242a32] text-white border-0 overflow-hidden
-                         [&_[data-radix-dialog-close]]:hidden"
+                         **:data-radix-dialog-close:hidden"
                   >
                     <SheetHeader>
                       <SheetTitle className="text-sm text-white">

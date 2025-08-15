@@ -268,7 +268,7 @@ export default function Grades({
   };
 
   if (gradesLoading) {
-    return <div className="text-white flex items-center justify-center py-4 h-[calc(100vh-<header_height>-<navbar_height>)]">Loading grades...</div>;
+    return <div className="text-white flex items-center justify-center py-4 h-[calc(100vh_-_<header_height>-<navbar_height>)]">Loading grades...</div>;
   }
 
   return (
