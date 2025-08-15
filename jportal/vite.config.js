@@ -2,7 +2,7 @@ import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
-
+import fs from "fs";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -67,6 +67,18 @@ export default defineConfig({
       },
     }),
   ],
+  server: (() => {
+    if (process.env.NODE_ENV === "development") {
+      return {
+        host: true,
+        https: {
+          key: fs.readFileSync("./certs/localhost-key.pem"),
+          cert: fs.readFileSync("./certs/localhost.pem"),
+        },
+      };
+    }
+    return { host: true };
+  })(),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
