@@ -276,14 +276,14 @@ const Attendance = ({
   };
 
   return (
-    <div className="text-white font-sans">
-      <div className="sticky top-14 bg-[#191c20] z-20">
+    <div className="text-foreground font-sans">
+      <div className="sticky top-14 bg-background z-20">
         <div className="flex gap-2 py-2 px-3">
           <Select
             onValueChange={handleSemesterChange}
             value={selectedSem?.registration_id}
           >
-            <SelectTrigger className="bg-[#191c20] text-white border-white">
+            <SelectTrigger className="bg-background text-foreground border-foreground">
               <SelectValue
                 placeholder={
                   isAttendanceMetaLoading
@@ -294,7 +294,7 @@ const Attendance = ({
                 {selectedSem?.registration_code}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[#191c20] text-white border-white">
+            <SelectContent className="bg-background text-foreground border-foreground">
               {semestersData?.semesters?.map((sem) => (
                 <SelectItem
                   key={sem.registration_id}
@@ -311,7 +311,7 @@ const Attendance = ({
             onChange={handleGoalChange}
             min="-1"
             max="100"
-            className="w-32 bg-[#191c20] text-white border-white"
+            className="w-32 bg-background text-foreground border-foreground"
             placeholder="Goal %"
           />
         </div>
@@ -327,16 +327,16 @@ const Attendance = ({
           onValueChange={setActiveTab}
           className="px-3 pb-4"
         >
-          <TabsList className="grid grid-cols-2 bg-[#191c20]">
+          <TabsList className="grid grid-cols-2 bg-background">
             <TabsTrigger
               value="overview"
-              className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+              className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
             >
               Overview
             </TabsTrigger>
             <TabsTrigger
               value="daily"
-              className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+              className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
             >
               Day‑to‑Day
             </TabsTrigger>
@@ -367,7 +367,7 @@ const Attendance = ({
               <div className="w-full max-w-[320px] flex flex-col">
                 <button
                   onClick={() => setCalendarOpen((o) => !o)}
-                  className="flex items-center justify-between bg-[#242a32] rounded-md px-3 py-2 mb-2 text-sm"
+                  className="flex items-center justify-between bg-secondary rounded-md px-3 py-2 mb-2 text-sm"
                 >
                   <span>{dailyDate.toDateString()}</span>
                   {calendarOpen ? (
@@ -393,12 +393,12 @@ const Attendance = ({
                     }}
                     modifiersStyles={{
                       hasActivity: {
-                        boxShadow: "inset 0 -2px 0 0 rgba(96,165,250,0.8)",
+                        boxShadow: "inset 0 -2px 0 0 var(--color-accent10)",
                         borderRadius: "2px",
                       },
                     }}
 
-                    // className={` pb-2 text-white w-full shrink-0 max-w-full`}
+                    // className={` pb-2 text-foreground w-full shrink-0 max-w-full`}
                     classNames={{
                       months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
                       month: "space-y-4 w-full",
@@ -409,17 +409,17 @@ const Attendance = ({
                       nav_button_previous: "absolute left-1",
                       nav_button_next: "absolute right-1",
                       table: "w-full border-collapse space-y-1",
-                      presentation: "bg-red",
+                      presentation: "bg-destructive",
                       head_row: "flex",
-                      head_cell: "text-gray-500 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                      head_cell: "text-accent6 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
                       row: "flex w-full mt-2",
                       cell: "flex-1 text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                       day: "h-8 w-8 p-0 font-normal rounded-[2px] aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
-                      day_selected: "bg-[hsl(0,8.7%,20.2%)]",
-                      day_today: "text-accent-foreground bg-white!",
-                      day_outside: "text-muted-foreground opacity-50",
+                      day_selected: "bg-day-selected rounded-xs!",
+                      day_today: "text-foreground bg-accent3! rounded-sm!",
+                      day_outside: "text-muted-foreground opacity-30",
                       day_disabled: "text-muted-foreground opacity-50",
-                      day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+                      day_range_middle: "aria-selected:bg-accent aria-selected:text-foreground",
                       day_hidden: "invisible",
                     }}
                   />
@@ -427,7 +427,7 @@ const Attendance = ({
               </div>
 
               {subjects.length === 0 ? (
-                <p className="text-gray-400">No subjects found.</p>
+                <p className="text-muted-foreground">No subjects found.</p>
               ) : (
                 subjects.flatMap((subj) => {
                   const lectures = getClassesFor(subj.name, dailyDate);
@@ -435,7 +435,7 @@ const Attendance = ({
                   return (
                     <div
                       key={subj.name}
-                      className="w-full max-w-lg border-b border-gray-700 py-3"
+                      className="w-full max-w-lg border-b border-accent2 py-3"
                     >
                       <h3 className="font-semibold mb-1">{subj.name}</h3>
                       {lectures.map((cls, i) => (
@@ -443,8 +443,8 @@ const Attendance = ({
                           key={i}
                           className={`flex justify-between text-sm ${
                             cls.present === "Present"
-                              ? "text-green-400"
-                              : "text-red-400"
+                              ? "text-accent5"
+                              : "text-destructive2"
                           }`}
                         >
                           <span>
@@ -462,7 +462,7 @@ const Attendance = ({
               {subjects.every(
                 (s) => getClassesFor(s.name, dailyDate).length === 0,
               ) && (
-                <p className="text-gray-400 mt-4">
+                <p className="text-muted-foreground mt-4">
                   No classes were scheduled on&nbsp;
                   {dailyDate.toLocaleDateString()}
                 </p>
@@ -475,9 +475,9 @@ const Attendance = ({
                   <SheetTrigger asChild>
                     <button
                       className="fixed bottom-20 right-4 z-50
-                           drop-shadow-lg bg-[#242a32] rounded-full
-                           ring-blue-400
-                           hover:ring-blue-300 hover:scale-105
+                           drop-shadow-lg bg-secondary rounded-full
+                           ring-ring
+                           hover:ring-ring-hover hover:scale-105
                            transition-transform cursor-pointer"
                     >
                       <CircleProgress
@@ -497,11 +497,11 @@ const Attendance = ({
                   <SheetContent
                     side="bottom"
                     /* hide default close button & force white text */
-                    className="h-[45vh] bg-[#242a32] text-white border-0 overflow-hidden
+                    className="h-[45vh] bg-secondary text-foreground border-0 overflow-hidden
                          **:data-radix-dialog-close:hidden"
                   >
                     <SheetHeader>
-                      <SheetTitle className="text-sm text-white">
+                      <SheetTitle className="text-sm text-foreground">
                         Fetching daily attendance&nbsp;(
                         {
                           subjects.filter(
@@ -538,13 +538,13 @@ const Attendance = ({
                                 </p>
                               </div>
                               {st === "cached" && (
-                                <Check className="text-green-400 w-5 h-5" />
+                                <Check className="text-accent5 w-5 h-5" />
                               )}
                               {st === "fetching" && (
-                                <Loader2 className="animate-spin text-blue-400 w-5 h-5" />
+                                <Loader2 className="animate-spin text-accent w-5 h-5" />
                               )}
                               {st === "idle" && (
-                                <AlertCircle className="text-gray-500 w-5 h-5" />
+                                <AlertCircle className="text-accent6 w-5 h-5" />
                               )}
                             </div>
                           );

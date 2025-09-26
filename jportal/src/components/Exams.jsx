@@ -7,9 +7,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export default function Exams({ 
-  w, 
-  examSchedule, 
+export default function Exams({
+  w,
+  examSchedule,
   setExamSchedule,
   examSemesters,
   setExamSemesters,
@@ -53,7 +53,7 @@ export default function Exams({
     try {
       const event = examEvents.find(evt => evt.exam_event_id === value)
       setSelectedExamEvent(event)
-      
+
       if (!examSchedule[value]) {
         const response = await w.get_exam_schedule(event)
         setExamSchedule(prev => ({
@@ -80,19 +80,19 @@ export default function Exams({
   }
 
   return (
-    <div className="text-white font-sans">
-      <div className="sticky top-14 bg-[#191c20] z-20">
+    <div className="text-foreground font-sans">
+      <div className="sticky top-14 bg-background z-20">
         <div className="pt-2 pb-4 px-3">
-          <Select 
+          <Select
             onValueChange={handleSemesterChange}
             value={selectedExamSem?.registration_id || ""}
           >
-            <SelectTrigger className="bg-[#191c20] text-white border-white">
+            <SelectTrigger className="bg-background text-foreground border-foreground">
               <SelectValue placeholder="Select semester">
                 {selectedExamSem?.registration_code || "Select semester"}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[#191c20] text-white border-white">
+            <SelectContent className="bg-background text-foreground border-foreground">
               {examSemesters.map((sem) => (
                 <SelectItem key={sem.registration_id} value={sem.registration_id}>
                   {sem.registration_code}
@@ -103,16 +103,16 @@ export default function Exams({
 
           {selectedExamSem && (
             <div className="mt-2">
-              <Select 
+              <Select
                 onValueChange={handleEventChange}
                 value={selectedExamEvent?.exam_event_id || ""}
               >
-                <SelectTrigger className="bg-[#191c20] text-white border-white">
+                <SelectTrigger className="bg-background text-foreground border-foreground">
                   <SelectValue placeholder="Select exam event">
                     {selectedExamEvent?.exam_event_desc || "Select exam event"}
                   </SelectValue>
                 </SelectTrigger>
-                <SelectContent className="bg-[#191c20] text-white border-white">
+                <SelectContent className="bg-background text-foreground border-foreground">
                   {examEvents.map((event) => (
                     <SelectItem key={event.exam_event_id} value={event.exam_event_id}>
                       {event.exam_event_desc}
@@ -134,11 +134,11 @@ export default function Exams({
           <div className="space-y-2 divide-y divide-muted">
             {currentSchedule.map((exam) => {
               // Temporarily add test data
-              
-              
+
+
               return (
-                <div 
-                  key={`${exam.subjectcode}-${exam.datetime}-${exam.datetimefrom}`} 
+                <div
+                  key={`${exam.subjectcode}-${exam.datetime}-${exam.datetimefrom}`}
                   className="py-4 px-2"
                 >
                   <div className="flex items-center justify-between">
@@ -146,17 +146,17 @@ export default function Exams({
                       <h3 className="font-medium">
                         {exam.subjectdesc.split('(')[0].trim()}
                       </h3>
-                      <p className="text-sm text-gray-400">{exam.subjectcode}</p>
+                      <p className="text-sm text-muted-foreground">{exam.subjectcode}</p>
                     </div>
                     {(exam.roomcode || exam.seatno) && (
                       <div className="text-2xl font-medium whitespace-nowrap">
-                        {exam.roomcode && exam.seatno 
+                        {exam.roomcode && exam.seatno
                           ? `${exam.roomcode}-${exam.seatno}`
                           : exam.roomcode || exam.seatno}
                       </div>
                     )}
                   </div>
-                  <div className="mt-2 text-sm text-white">
+                  <div className="mt-2 text-sm text-foreground">
                     <p>{formatDate(exam.datetime)}</p>
                     <p>{exam.datetimeupto}</p>
                   </div>

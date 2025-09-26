@@ -119,7 +119,7 @@ const AttendanceCard = ({
   return (
     <>
       <div
-        className="flex justify-between items-center py-1 border-b border-gray-700 cursor-pointer hover:bg-gray-800/50"
+        className="flex justify-between items-center py-1 border-b border-accent2 cursor-pointer hover:bg-active2"
         onClick={handleClick}
       >
         <div className="flex-1 mr-4">
@@ -131,17 +131,17 @@ const AttendanceCard = ({
         <div className="flex items-center gap-2">
           <div className="text-center">
             <div className="text-sm">{attendance.attended}</div>
-            <div className="h-px w-full bg-gray-700"></div>
+            <div className="h-px w-full bg-accent2"></div>
             <div className="text-sm">{attendance.total}</div>
           </div>
           <div className="flex flex-col items-center">
             <CircleProgress key={Date.now()} percentage={attendancePercentage} />
             {classesNeeded > 0 ? (
-              <div className="text-xs mt-1 text-gray-400">
+              <div className="text-xs mt-1 text-muted-foreground">
                 Attend {classesNeeded}
               </div>
             ) : classesCanMiss > 0 && (
-              <div className="text-xs mt-1 text-gray-400">
+              <div className="text-xs mt-1 text-muted-foreground">
                 Can miss {classesCanMiss}
               </div>
             )}
@@ -153,9 +153,9 @@ const AttendanceCard = ({
         setSelectedSubject(null);
         setSelectedDate(null);
       }}>
-        <SheetContent side="bottom" className="h-[70vh] bg-[#191c20] text-white border-0 overflow-hidden">
+        <SheetContent side="bottom" className="h-[70vh] bg-background text-foreground border-0 overflow-hidden">
           <SheetHeader>
-            {/* <SheetTitle className="text-white">{}</SheetTitle> */}
+            {/* <SheetTitle className="text-foreground">{}</SheetTitle> */}
           </SheetHeader>
           <div className="h-full overflow-y-auto snap-y snap-mandatory">
             {/* Calendar Section */}
@@ -210,49 +210,49 @@ const AttendanceCard = ({
                   }}
                   modifiersStyles={{
                     presentSingle: {
-                      backgroundColor: 'rgba(22, 163, 72, 0.4)',
+                      backgroundColor: 'var(--calendar-positive2)',
                       borderRadius: '50%'
                     },
                     absentSingle: {
-                      backgroundColor: 'rgba(220, 38, 38, 0.4)',
+                      backgroundColor: 'var(--calendar-negative2)',
                       borderRadius: '50%'
                     },
                     presentDouble: {
-                      backgroundColor: 'rgba(22, 163, 72, 0.4)',
+                      backgroundColor: 'var(--calendar-positive2)',
                       borderRadius: '50%'
                     },
                     absentDouble: {
-                      backgroundColor: 'rgba(220, 38, 38, 0.4)',
+                      backgroundColor: 'var(--calendar-negative2)',
                       borderRadius: '50%'
                     },
                     mixedDouble: {
-                      background: 'linear-gradient(90deg, rgba(22, 163, 72, 0.4) 50%, rgba(220, 38, 38, 0.4) 50%)',
+                      background: 'linear-gradient(90deg, var(--calendar-positive2) 50%, var(--calendar-negative2) 50%)',
                       borderRadius: '50%'
                     },
                     presentTriple: {
-                      backgroundColor: 'rgba(22, 163, 72, 0.4)',
+                      backgroundColor: 'var(--calendar-positive2)',
                       borderRadius: '50%'
                     },
                     absentTriple: {
-                      backgroundColor: 'rgba(220, 38, 38, 0.4)',
+                      backgroundColor: 'var(--calendar-negative2)',
                       borderRadius: '50%'
                     },
                     mixedTripleAllPresent: {
-                      background: 'conic-gradient(rgba(22, 163, 72, 0.4) 0deg 240deg, rgba(220, 38, 38, 0.4) 240deg 360deg)',
+                      background: 'conic-gradient(var(--calendar-positive2) 0deg 240deg, var(--calendar-negative2) 240deg 360deg)',
                       borderRadius: '50%'
                     },
                     mixedTripleAllAbsent: {
-                      background: 'conic-gradient(rgba(220, 38, 38, 0.4) 0deg 240deg, rgba(22, 163, 72, 0.4) 240deg 360deg)',
+                      background: 'conic-gradient(var(--calendar-negative2) 0deg 240deg, var(--calendar-positive2) 240deg 360deg)',
                       borderRadius: '50%'
                     },
                     mixedTripleEqual: {
-                      background: 'conic-gradient(rgba(22, 163, 72, 0.4) 0deg 120deg, rgba(220, 38, 38, 0.4) 120deg 240deg, rgba(22, 163, 72, 0.4) 240deg 360deg)',
+                      background: 'conic-gradient(var(--calendar-positive2) 0deg 120deg, var(--calendar-negative2) 120deg 240deg, var(--calendar-positive2) 240deg 360deg)',
                       borderRadius: '50%'
                     },
                   }}
                   selected={selectedDate}
                   onSelect={(date) => setSelectedDate(date)}
-                  className={`pb-2 text-white ${isLoading ? 'animate-pulse' : ''} w-full shrink-0 max-w-full`}
+                  className={`pb-2 text-foreground ${isLoading ? 'animate-pulse' : ''} w-full shrink-0 max-w-full`}
                   classNames={{
                     months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
                     month: "space-y-4 w-full",
@@ -264,15 +264,15 @@ const AttendanceCard = ({
                     nav_button_next: "absolute right-1",
                     table: "w-full border-collapse space-y-1",
                     head_row: "flex",
-                    head_cell: "text-gray-500 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                    head_cell: "text-accent6 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
                     row: "flex w-full mt-2",
                     cell: "flex-1 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                     day: "h-8 w-8 p-0 font-normal aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
-                    day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                    day_today: "bg-accent text-accent-foreground",
-                    day_outside: "text-muted-foreground opacity-50",
+                    day_selected: "bg-primary text-primary-foreground rounded-xs! hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                    day_today: "text-foreground bg-accent3! rounded-full!",
+                    day_outside: "text-muted-foreground opacity-30",
                     day_disabled: "text-muted-foreground opacity-50",
-                    day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+                    day_range_middle: "aria-selected:bg-accent aria-selected:text-foreground",
                     day_hidden: "invisible",
                   }}
                 />
@@ -284,18 +284,18 @@ const AttendanceCard = ({
                         key={index}
                         className={`p-2 rounded ${
                           classData.present === "Present"
-                            ? "bg-green-600/40"
-                            : "bg-red-600/40"
+                            ? "bg-calendar-positive"
+                            : "bg-calendar-negative"
                         }`}
                       >
                         <p className="text-sm">
                           {classData.attendanceby}
                         </p>
 
-                          <p className="text-xs text-gray-400">
+                          <p className="text-xs text-muted-foreground">
                         {classData.classtype} - {classData.present}
                           </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-muted-foreground">
                           {classData.datetime}
                         </p>
                       </div>

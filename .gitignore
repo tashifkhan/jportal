@@ -32,3 +32,5 @@ jportal/dev-dist
 
 certs/
 CLAUDE.md
+
+*.env

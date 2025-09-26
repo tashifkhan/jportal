@@ -45,6 +45,44 @@
   --color-chart-5: var(--chart-5);
 
   /* custom design tokens */
+  --color-destructive2: var(--destructive2);
+  --color-day-selected: var(--day-selected);
+  --color-active: var(--active);
+  --color-active2: var(--active2);
+  --color-accent2: var(--accent2);
+  --color-accent3: var(--accent3);
+  --color-accent3: var(--accent3);
+  --color-accent4: var(--accent4);
+  --color-accent5: var(--accent5);
+  --color-accent6: var(--accent6);
+  --color-accent7: var(--accent7);
+  --color-accent8: var(--accent8);
+  --color-accent9: var(--accent9);
+  --color-accent10: var(--accent10);
+
+  --color-ring: var(--ring);
+  --color-ring-hover: var(--ring-hover);
+
+  --color-calendar-positive: var(--calendar-positive);
+  --color-calendar-negative: var(--calendar-negative);
+  --color-calendar-positive2: var(--calendar-positive2);
+  --color-calendar-negative2: var(--calendar-negative2);
+
+  --color-border-subtle: var(--border-subtle);
+
+  --color-grade-aa: var(--grade-aa);
+  --color-grade-a: var(--grade-a);
+  --color-grade-bb: var(--grade-bb);
+  --color-grade-b: var(--grade-b);
+  --color-grade-cc: var(--grade-cc);
+  --color-grade-c: var(--grade-c);
+  --color-grade-d: var(--grade-d);
+  --color-grade-f: var(--grade-f);
+
+  --color-marks-outstanding: var(--marks-outstanding);
+  --color-marks-good: var(--marks-good);
+  --color-marks-average: var(--marks-average);
+  --color-marks-poor: var(--marks-poor);
 }
 
 /*
@@ -66,38 +104,69 @@
 }
 
 :root {
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(0 0% 3.9%);
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(0 0% 3.9%);
-  --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(0 0% 3.9%);
-  --primary: hsl(215 97.8% 41.8%);
-  --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(0 0% 96.1%);
-  --secondary-foreground: hsl(0 0% 9%);
-  --muted: hsl(0 0% 96.1%);
-  --muted-foreground: hsl(0 0% 45.1%);
-  --accent: hsl(213.1 93.9% 47.8%);
+  --background: hsl(214 12.3% 11.2%);
+  --foreground: hsl(0 0% 100%);
+  --card: hsl(214 12.3% 11.2%);
+  --card-foreground: hsl(0 0% 100%);
+  --popover: hsl(214 12.3% 11.2%);
+  --popover-foreground: hsl(0 0% 100%);
+  --primary: hsl(215 97.8% 81.8%);
+  --primary-foreground: hsl(214 12.3% 11.2%);
+  --secondary: hsl(214 16.3% 16.9%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(215 27.9% 16.9%);
+  --muted-foreground: hsl(217.9 10.6% 64.9%);
+  --accent: hsl(213.1 93.9% 67.8%);
   --accent-foreground: hsl(0 0% 100%);
   --destructive: hsl(0 84.2% 60.2%);
   --destructive-foreground: hsl(0 0% 100%);
-  --border: hsl(0 0% 89.8%);
-  --input: hsl(0 0% 100%);
-  --ring: hsl(215 97.8% 41.8%);
-  --chart-1: hsl(142 69.2% 48%);
-  --chart-2: hsl(213.1 93.9% 57.8%);
-  --chart-3: hsl(0 0% 89.8%);
-  --chart-4: hsl(141 76.2% 46.3%);
+  --border: hsl(216.9 19.1% 26.7%);
+  --input: hsl(214 12.3% 11.2%);
+  --ring: hsl(215 97.8% 81.8%);
+  --chart-1: hsl(142 69.2% 58%);
+  --chart-2: hsl(213.1 93.9% 67.8%);
+  --chart-3: hsl(217 19.1% 26.7%);
+  --chart-4: hsl(141 76.2% 36.3%);
   --chart-5: hsl(0 72.2% 50.6%);
-  --navbar-bg: hsl(0 0% 96.1%);
-  --navbar-hover: hsl(0 0% 89.8%);
-  --tab-active: hsl(0 0% 93%);
-  --text-gray: hsl(0 0% 45.1%);
-  --border-subtle: hsla(0 0% 0% / 0.1);
-  --success-bg: hsla(141 76.2% 46.3% / 0.2);
-  --error-bg: hsla(0 72.2% 50.6% / 0.2);
+
+  --destructive2: hsl(359 100% 69.6%);
+  --day-selected: hsl(0 8.7% 20.2%);
+  --active: hsl(215 27.9% 16.9%);
+  --active2: hsla(216 31% 17.1% / 0.5);
+
+  --accent2: hsl(216.9 19.1% 26.7%);
+  --accent3: hsl(220, 33%, 38%);
+  --accent4: hsl(258 13.6% 84.1%);
+  --accent5: hsl(141.9 69.2% 58%);
+  --accent6: hsl(220 8.9% 46.1%);
+  --accent7: hsl(216 15.4% 34.3%);
+  --accent8: hsl(217.9 10.6% 64.9%);
+  --accent9: hsl(265 13% 91%);
+  --accent10: hsla(213 93.9% 67.8% / 0.8);
+
+  --ring: var(--color-blue-400);
+  --ring-hover: var(--color-blue-300);
+
+  --calendar-positive: hsla(142 100% 32.5% / 0.4);
+  --calendar-negative: hsla(357 100% 45.3% / 0.4);
+  --calendar-positive2: hsla(141 76.2% 36.3% / 0.4);
+  --calendar-negative2: hsla(0 72.2% 50.6% / 0.4);
+  --border-subtle: hsla(0 0% 100% / 0.1);
+
   --radius: 0.5rem;
+  --grade-aa: hsl(150 95.6% 44.7%);
+  --grade-a: hsl(144 100% 39.4%);
+  --grade-bb: hsl(47 100% 49.6%);
+  --grade-b: hsl(44 100% 47.1%);
+  --grade-cc: hsl(39 100% 40.8%);
+  --grade-c: hsl(32 100% 50.8%);
+  --grade-d: hsl(25 100% 50%);
+  --grade-f: hsl(0 84.2% 60.2%);
+
+  --marks-outstanding: hsl(144 100% 39.4%);
+  --marks-good: hsl(44 100% 47.1%);
+  --marks-average: hsl(25 100% 50%);
+  --marks-poor: hsl(0 84.2% 60.2%);
 }
 .dark {
   --background: hsl(214 12.3% 11.2%);
@@ -124,14 +193,45 @@
   --chart-3: hsl(217 19.1% 26.7%);
   --chart-4: hsl(141 76.2% 36.3%);
   --chart-5: hsl(0 72.2% 50.6%);
-  --navbar-bg: hsl(214 16.3% 16.9%);
-  --navbar-hover: hsl(216.9 19.1% 26.7%);
-  --tab-active: hsl(215 27.9% 16.9%);
-  --text-gray: hsl(217.9 10.6% 64.9%);
+
+  --destructive2: hsl(359 100% 69.6%);
+  --day-selected: hsl(0, 8.7%, 20.2%);
+  --active: hsl(215 27.9% 16.9%);
+  --active2: hsla(216 31% 17.1% / 0.5);
+
+  --accent2: hsl(216.9 19.1% 26.7%);
+  --accent3: hsl(220 8.9% 46.1%);
+  --accent4: hsl(217 19.1% 26.7%);
+  --accent5: hsl(141.9 69.2% 58%);
+  --accent6: hsl(217.9 10.6% 64.9%);
+  --accent7: hsl(220 8.9% 46.1%);
+  --accent8: hsl(217.9 10.6% 64.9%);
+  --accent9: hsl(265 13% 91%);
+  --accent10: hsl(213 93.9% 67.8%);
+
+  --ring: var(--color-blue-400);
+  --ring-hover: var(--color-blue-300);
+
+  --calendar-positive: hsla(142 100% 32.5% / 0.4);
+  --calendar-negative: hsla(357 100% 45.3% / 0.4);
+  --calendar-positive2: hsla(141 76.2% 36.3% / 0.4);
+  --calendar-negative2: hsla(0 72.2% 50.6% / 0.4);
+
   --border-subtle: hsla(0 0% 100% / 0.1);
-  --success-bg: hsla(141 76.2% 36.3% / 0.4);
-  --error-bg: hsla(0 72.2% 50.6% / 0.4);
   --radius: 0.5rem;
+  --grade-aa: hsl(150 95.6% 44.7%);
+  --grade-a: hsl(144 100% 39.4%);
+  --grade-bb: hsl(47 100% 49.6%);
+  --grade-b: hsl(44 100% 47.1%);
+  --grade-cc: hsl(39 100% 40.8%);
+  --grade-c: hsl(32 100% 50.8%);
+  --grade-d: hsl(25 100% 50%);
+  --grade-f: hsl(0 84.2% 60.2%);
+
+  --marks-outstanding: hsl(144 100% 39.4%);
+  --marks-good: hsl(44 100% 47.1%);
+  --marks-average: hsl(25 100% 50%);
+  --marks-poor: hsl(0 84.2% 60.2%);
 }
 @layer base {
   * {

@@ -67,18 +67,6 @@ export default defineConfig({
       },
     }),
   ],
-  server: (() => {
-    if (process.env.NODE_ENV === "development") {
-      return {
-        host: true,
-        https: {
-          key: fs.readFileSync("./certs/localhost-key.pem"),
-          cert: fs.readFileSync("./certs/localhost.pem"),
-        },
-      };
-    }
-    return { host: true };
-  })(),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

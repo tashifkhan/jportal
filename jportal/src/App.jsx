@@ -12,9 +12,14 @@ import './App.css'
 
 import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
 
+import MockWebPortal from './components/MockWebPortal';
 
-// Create WebPortal instance at the top level
-const w = new WebPortal();
+// Check if we should use fake data
+const USE_FAKE_DATA = import.meta.env.VITE_USE_FAKE_DATA === 'true';
+
+
+// Create WebPortal or MockWebPortal instance at the top level
+const w = USE_FAKE_DATA ? new MockWebPortal() : new WebPortal();
 
 // Create a wrapper component to use the useNavigate hook
 function AuthenticatedApp({ w, setIsAuthenticated }) {
@@ -90,7 +95,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
 
   return (
     <div className="min-h-screen pb-14 select-none">
-      <div className="sticky top-0 z-30 bg-[#191c20] -mt-[2px]">
+      <div className="sticky top-0 z-30 bg-background -mt-[2px]">
         <Header setIsAuthenticated={setIsAuthenticated} />
       </div>
       <Routes>
@@ -221,6 +226,19 @@ function LoginWrapper({ onLoginSuccess, w }) {
     }, 100);
   };
 
+  // If using fake data, skip login screen
+  useEffect(() => {
+    if (USE_FAKE_DATA) {
+      handleLoginSuccess();
+    }
+  }, []);
+
+  if (USE_FAKE_DATA) {
+    return <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+      Loading fake data...
+    </div>;
+  }
+
   return (
     <Login
       onLoginSuccess={handleLoginSuccess}
@@ -235,6 +253,13 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (USE_FAKE_DATA) {
+      // If using fake data, skip login and authenticate immediately
+      setIsAuthenticated(true);
+      setIsLoading(false);
+      return;
+    }
+
     const username = localStorage.getItem("username");
     const password = localStorage.getItem("password");
 
@@ -268,19 +293,19 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-[#191c20] text-white">
+    return <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
       Signing in...
     </div>;
   }
 
   return (
     <Router>
-      <div className="min-h-screen bg-[#191c20] select-none">
-        {!isAuthenticated || !w.session ? (
+      <div className="min-h-screen bg-background select-none">
+        {!isAuthenticated || (!USE_FAKE_DATA && !w.session) ? (
           <Routes>
             <Route path="*" element={
               <>
-                {error && <div className="text-red-500 text-center pt-4">{error}</div>}
+                {error && <div className="text-destructive text-center pt-4">{error}</div>}
                 <LoginWrapper
                   onLoginSuccess={() => setIsAuthenticated(true)}
                   w={w}

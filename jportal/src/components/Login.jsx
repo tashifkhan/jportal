@@ -106,11 +106,11 @@ export default function Login({ onLoginSuccess, w }) {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-md space-y-6 p-6">
-        <div className="space-y-2 text-center text-white">
+        <div className="space-y-2 text-center text-foreground">
           <h1 className="text-2xl font-bold">Login</h1>
           <p>Enter your credentials to sign in</p>
           {loginStatus.error && (
-            <p className="text-red-500">{loginStatus.error}</p>
+            <p className="text-destructive">{loginStatus.error}</p>
           )}
         </div>
 
@@ -121,9 +121,9 @@ export default function Login({ onLoginSuccess, w }) {
               name="enrollmentNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Enrollment Number</FormLabel>
+                  <FormLabel className="text-foreground">Enrollment Number</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} className="bg-foreground" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -134,9 +134,9 @@ export default function Login({ onLoginSuccess, w }) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Password</FormLabel>
+                  <FormLabel className="text-foreground">Password</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} />
+                    <Input type="password" {...field} className="bg-foreground" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -146,7 +146,7 @@ export default function Login({ onLoginSuccess, w }) {
             <Button
               type="submit"
               variant="outline"
-              className="w-full bg-white text-[#191c20]"
+              className="w-full bg-foreground text-background"
               disabled={loginStatus.isLoading}
             >
               {loginStatus.isLoading ? "Signing in..." : "Sign in"}

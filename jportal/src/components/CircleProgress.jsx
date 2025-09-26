@@ -45,7 +45,7 @@ function CircleProgress({ percentage, label, className = "" }) {
         y="50%"
         dominantBaseline="middle"
         textAnchor="middle"
-        className="text-[13px] max-[375px]:text-[12px] fill-white font-medium"
+        className="text-[13px] max-[375px]:text-[12px] fill-foreground font-medium"
       >
         {label ?? percentage}
       </text>

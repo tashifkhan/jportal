@@ -67,7 +67,7 @@ export default function Grades({
         }
 
         const data = await w.get_sgpa_cgpa();
-        
+
         if (!data || Object.keys(data).length === 0) {
           setGradesError("Grade sheet is not available");
           return;
@@ -232,16 +232,16 @@ export default function Grades({
 
   const getGradeColor = (grade) => {
     const gradeColors = {
-      'A+': 'text-green-400',
-      'A': 'text-green-500',
-      'B+': 'text-yellow-400',
-      'B': 'text-yellow-500',
-      'C+': 'text-yellow-600',
-      'C': 'text-orange-400',
-      'D': 'text-orange-500',
-      'F': 'text-red-500'
+      'A+': 'text-grade-aa',
+      'A': 'text-grade-a',
+      'B+': 'text-grade-bb',
+      'B': 'text-grade-b',
+      'C+': 'text-grade-cc',
+      'C': 'text-grade-c',
+      'D': 'text-grade-d',
+      'F': 'text-grade-f'
     };
-    return gradeColors[grade] || 'text-white';
+    return gradeColors[grade] || 'text-foreground';
   };
 
   const handleDownloadMarks = async (semester) => {
@@ -268,28 +268,28 @@ export default function Grades({
   };
 
   if (gradesLoading) {
-    return <div className="text-white flex items-center justify-center py-4 h-[calc(100vh_-_<header_height>-<navbar_height>)]">Loading grades...</div>;
+    return <div className="text-foreground flex items-center justify-center py-4 h-[calc(100vh_-_<header_height>-<navbar_height>)]">Loading grades...</div>;
   }
 
   return (
-    <div className="text-white pt-2 pb-4 px-3 font-sans">
+    <div className="text-foreground pt-2 pb-4 px-3 font-sans">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-4 bg-[#191c20]">
+        <TabsList className="grid w-full grid-cols-3 mb-4 bg-background">
           <TabsTrigger
             value="overview"
-            className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+            className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
           >
             Overview
           </TabsTrigger>
           <TabsTrigger
             value="semester"
-            className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+            className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
           >
             Semester
           </TabsTrigger>
           <TabsTrigger
             value="marks"
-            className="bg-[#191c20] data-[state=active]:bg-[#1f2937] data-[state=active]:text-white"
+            className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
           >
             Marks
           </TabsTrigger>
@@ -300,7 +300,7 @@ export default function Grades({
             {gradesError ? (
               <div className="w-full max-w-4xl text-center py-8">
                 <p className="text-xl">{gradesError}</p>
-                <p className="text-gray-400 mt-2">Please check back later</p>
+                <p className="text-muted-foreground mt-2">Please check back later</p>
               </div>
             ) : (
               <>
@@ -366,22 +366,22 @@ export default function Grades({
                   {semesterData.map((sem) => (
                     <div
                       key={sem.stynumber}
-                      className="flex justify-between items-center py-1 border-b border-gray-700"
+                      className="flex justify-between items-center py-1 border-b border-accent2"
                     >
                       <div className="flex-1">
                         <h2 className="text-sm font-semibold">Semester {sem.stynumber}</h2>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-muted-foreground">
                           GP: {sem.earnedgradepoints.toFixed(1)}/{sem.totalcoursecredit * 10}
                         </p>
                       </div>
                       <div className="flex items-center gap-6">
                         <div className="text-center">
-                          <div className="text-xl font-bold text-green-400">{sem.sgpa}</div>
-                          <div className="text-xs text-gray-400">SGPA</div>
+                          <div className="text-xl font-bold text-accent5">{sem.sgpa}</div>
+                          <div className="text-xs text-muted-foreground">SGPA</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-xl font-bold text-blue-400">{sem.cgpa}</div>
-                          <div className="text-xs text-gray-400">CGPA</div>
+                          <div className="text-xl font-bold text-accent">{sem.cgpa}</div>
+                          <div className="text-xs text-muted-foreground">CGPA</div>
                         </div>
                       </div>
                     </div>
@@ -397,17 +397,17 @@ export default function Grades({
             {gradeCardSemesters.length === 0 ? (
               <div className="text-center py-8">
                 <p className="text-xl">Grade card is not available yet</p>
-                <p className="text-gray-400 mt-2">Please check back later</p>
+                <p className="text-muted-foreground mt-2">Please check back later</p>
               </div>
             ) : (
               <>
                 <Select onValueChange={handleSemesterChange} value={selectedGradeCardSem?.registration_id}>
-                  <SelectTrigger className="bg-[#191c20] text-white border-white">
+                  <SelectTrigger className="bg-background text-foreground border-foreground">
                     <SelectValue placeholder={gradeCardLoading ? "Loading semesters..." : "Select semester"}>
                       {selectedGradeCardSem?.registration_code}
                     </SelectValue>
                   </SelectTrigger>
-                  <SelectContent className="bg-[#191c20] text-white border-white">
+                  <SelectContent className="bg-background text-foreground border-foreground">
                     {gradeCardSemesters.map((sem) => (
                       <SelectItem key={sem.registration_id} value={sem.registration_id}>
                         {sem.registration_code}
@@ -417,7 +417,7 @@ export default function Grades({
                 </Select>
 
                 {gradeCardLoading ? (
-                  <div className="text-white flex items-center justify-center py-4">Loading subjects...</div>
+                  <div className="text-foreground flex items-center justify-center py-4">Loading subjects...</div>
                 ) : gradeCard ? (
                   <div className="space-y-2 mt-4">
                     {gradeCard.gradecard.map((subject) => (
@@ -443,15 +443,15 @@ export default function Grades({
             {marksSemesters.length === 0 ? (
               <div className="text-center py-8">
                 <p className="text-xl">Marks data is not available yet</p>
-                <p className="text-gray-400 mt-2">Please check back later</p>
+                <p className="text-muted-foreground mt-2">Please check back later</p>
               </div>
             ) : (
               <>
                 <Select onValueChange={handleMarksSemesterChange} value={selectedMarksSem?.registration_id}>
-                  <SelectTrigger className="bg-[#191c20] text-white border-white">
+                  <SelectTrigger className="bg-background text-foreground border-foreground">
                     <SelectValue placeholder="Select semester" />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#191c20] text-white border-white">
+                  <SelectContent className="bg-background text-foreground border-foreground">
                     {marksSemesters.map((sem) => (
                       <SelectItem key={sem.registration_id} value={sem.registration_id}>
                         {sem.registration_code}
@@ -471,7 +471,7 @@ export default function Grades({
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center mt-4 text-gray-400">
+                  <div className="text-center mt-4 text-muted-foreground">
                     Select a semester to view marks
                   </div>
                 )}
@@ -484,7 +484,7 @@ export default function Grades({
       <div className="w-full flex justify-end my-4 max-w-4xl">
         <Button
           variant="secondary"
-          className="flex items-center gap-2 text-gray-300 hover:text-white border-gray-600 hover:border-gray-400 bg-[#191c20] hover:bg-[#1f2937] px-0"
+          className="flex items-center gap-2 text-accent4 hover:text-foreground border-accent7 hover:border-accent8 bg-background hover:bg-active px-0"
           onClick={() => setIsDownloadDialogOpen(true)}
         >
           <Download className="h-4 w-4" />
@@ -493,16 +493,16 @@ export default function Grades({
       </div>
 
       <Dialog open={isDownloadDialogOpen} onOpenChange={setIsDownloadDialogOpen}>
-        <DialogContent className="bg-[#191c20] text-white border-none">
+        <DialogContent className="bg-background text-foreground border-none">
           <DialogHeader>
-            <DialogTitle className="text-gray-200">Download Marks</DialogTitle>
+            <DialogTitle className="text-accent9">Download Marks</DialogTitle>
           </DialogHeader>
           <div className="space-y-2">
             {marksSemesters.map((sem) => (
               <Button
                 key={sem.registration_id}
                 variant="outline"
-                className="w-full text-gray-300 hover:text-white  bg-[#191c20] hover:bg-[#1f2937] border-none"
+                className="w-full text-accent4 hover:text-foreground  bg-background hover:bg-active border-none"
                 onClick={() => handleDownloadMarks(sem)}
               >
                 {sem.registration_code}

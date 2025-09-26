@@ -103,20 +103,20 @@ export default function Subjects({ w, subjectData, setSubjectData, semestersData
   }, {}) || {};
 
   return (
-    <div className="text-white font-sans">
-      <div className="sticky top-14 bg-[#191c20] z-20">
+    <div className="text-foreground font-sans">
+      <div className="sticky top-14 bg-background z-20">
         <div className="py-2 px-3">
           <Select
             onValueChange={handleSemesterChange}
             value={selectedSem?.registration_id}
             disabled={loading}
           >
-            <SelectTrigger className="bg-[#191c20] text-white border-white">
+            <SelectTrigger className="bg-background text-foreground border-foreground">
               <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
                 {selectedSem?.registration_code}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-[#191c20] text-white border-white">
+            <SelectContent className="bg-background text-foreground border-foreground">
               {semestersData?.semesters?.map((sem) => (
                 <SelectItem key={sem.registration_id} value={sem.registration_id}>
                   {sem.registration_code}
