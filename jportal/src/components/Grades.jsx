@@ -315,15 +315,15 @@ export default function Grades({
                         bottom: 20,
                       }}
                     >
-                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                       <XAxis
                         dataKey="stynumber"
-                        stroke="#9CA3AF"
-                        label={{ value: 'Semester', position: 'bottom', fill: '#9CA3AF' }}
+                        stroke="var(--accent8)"
+                        label={{ value: 'Semester', position: 'bottom', fill: 'var(--accent8)' }}
                         tickFormatter={(value) => `${value}`}
                       />
                       <YAxis
-                        stroke="#9CA3AF"
+                        stroke="var(--accent8)"
                         domain={['dataMin', 'dataMax']}
                         ticks={undefined}
                         tickCount={5}
@@ -332,10 +332,10 @@ export default function Grades({
                       />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: '#374151',
+                          backgroundColor: 'var(--border)',
                           border: 'none',
                           borderRadius: '8px',
-                          color: '#fff'
+                          color: 'var(--foreground)',
                         }}
                       />
                       <Legend
@@ -345,18 +345,18 @@ export default function Grades({
                       <Line
                         type="monotone"
                         dataKey="sgpa"
-                        stroke="#4ADE80"
+                        stroke="var(--chart-1)"
                         name="SGPA"
                         strokeWidth={2}
-                        dot={{ fill: '#4ADE80' }}
+                        dot={{ fill: 'var(--chart-1)' }}
                       />
                       <Line
                         type="monotone"
                         dataKey="cgpa"
-                        stroke="#60A5FA"
+                        stroke="var(--chart-2)"
                         name="CGPA"
                         strokeWidth={2}
-                        dot={{ fill: '#60A5FA' }}
+                        dot={{ fill: 'var(--chart-2)' }}
                       />
                     </LineChart>
                   </ResponsiveContainer>

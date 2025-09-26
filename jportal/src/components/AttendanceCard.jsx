@@ -318,37 +318,37 @@ const AttendanceCard = ({
                       bottom: 0,
                     }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                     <XAxis
                       dataKey="date"
-                      stroke="#fff"
-                      tick={{ fill: '#fff', fontSize: '0.75rem', dy: 10 }}
+                      stroke="var(--accent8)"
+                      tick={{ fill: 'var(--accent8)', fontSize: '0.75rem', dy: 10 }}
                       tickFormatter={(value) => {
                         const [day, month] = value.split('/');
                         return `${day}/${month}`;
                       }}
                     />
                     <YAxis
-                      stroke="#fff"
-                      tick={{ fill: '#fff', fontSize: '0.75rem' }}
+                      stroke="var(--accent8)"
+                      tick={{ fill: 'var(--accent8)', fontSize: '0.75rem' }}
                       domain={[0, 100]}
                       tickFormatter={(value) => `${value}%`}
                       width={65}
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: '#191c20',
-                        border: '1px solid #444',
-                        color: '#fff'
+                        backgroundColor: 'var(--background)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--accent8)'
                       }}
                       formatter={(value) => [`${value.toFixed(1)}%`]}
                     />
                     <Line
                       type="monotone"
                       dataKey="percentage"
-                      stroke="#60A5FA"
+                      stroke="var(--chart-2)"
                       strokeWidth={2}
-                      dot={{ fill: '#60A5FA', r: 4 }}
+                      dot={{ fill: 'var(--chart-2)', r: 4 }}
                       activeDot={{ r: 6 }}
                       name="Present"
                     />

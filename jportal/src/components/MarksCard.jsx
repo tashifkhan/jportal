@@ -25,7 +25,7 @@ export default function MarksCard({ course }) {
                 <div className="flex-1">
                   <Progress
                     value={percentage}
-                    className="h-1.5 sm:h-2"
+                    className="h-1.5 sm:h-2 bg-chart-3"
                     indicatorClassName={getProgressColor(percentage)}
                   />
                 </div>

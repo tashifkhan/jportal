@@ -521,7 +521,7 @@ const Attendance = ({
                             ).length) /
                           subjects.length
                         }
-                        className="h-2"
+                        className="h-2 bg-chart-3"
                       />
 
                       <div className="divide-y divide-white/10 mt-4 overflow-y-auto h-[calc(100%-5rem)] pr-1">
