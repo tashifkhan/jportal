@@ -11,6 +11,9 @@ because looking at the jiit web portal is destroying my mental health fr fr (and
 <img src="screenshots/mobile-1.jpg" width="200">
 <img src="screenshots/mobile-6.jpg" width="200">
 </p>
+<p align="center">
+   <img width="1703" height="1024" alt="image" src="https://github.com/user-attachments/assets/e092aaff-aaba-47bf-98f0-90ac0551c488" />
+</p>
 
 ## what even is this
 
