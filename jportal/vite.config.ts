@@ -2,6 +2,7 @@ import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+import svgr from "vite-plugin-svgr";
 import fs from "fs";
 
 // https://vite.dev/config/
@@ -9,6 +10,7 @@ export default defineConfig({
   base: "/jportal/",
   plugins: [
     react(),
+    svgr(),
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: "auto",

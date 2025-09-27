@@ -1,6 +1,6 @@
 function SubjectInfoCard({ subject }) {
   return (
-    <div className="flex justify-between items-center py-1 border-b border-accent2">
+    <div className="flex justify-between items-center py-1 border-b border-border">
       <div className="flex-1 lg:mb-0 mr-4">
         <h2 className="text-sm font-semibold max-[390px]:text-xs">{subject.name}</h2>
         <p className="text-sm lg:text-base max-[390px]:text-xs">

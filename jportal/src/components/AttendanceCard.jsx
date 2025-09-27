@@ -1,33 +1,20 @@
 import React, { useState } from "react";
 import CircleProgress from "./CircleProgress";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const AttendanceCard = ({
   subject,
   selectedSubject,
   setSelectedSubject,
   subjectAttendanceData,
-  fetchSubjectAttendance
+  fetchSubjectAttendance,
 }) => {
   const { name, attendance, combined, lecture, tutorial, practical, classesNeeded, classesCanMiss } = subject;
-  console.log(name, attendance, combined, lecture, tutorial, practical)
-  const attendancePercentage = (attendance.total > 0) ? combined.toFixed(0) : "100";
-  const displayName = name.replace(/\s*\([^)]*\)\s*$/, '');
+  console.log(name, attendance, combined, lecture, tutorial, practical);
+  const attendancePercentage = attendance.total > 0 ? combined.toFixed(0) : "100";
+  const displayName = name.replace(/\s*\([^)]*\)\s*$/, "");
 
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -45,23 +32,21 @@ const AttendanceCard = ({
   const getDayStatus = (date) => {
     if (!subjectAttendanceData[subject.name]) return null;
 
-    const dateStr = date.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
+    const dateStr = date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
 
-    const attendances = subjectAttendanceData[subject.name].filter(
-      a => a.datetime.startsWith(dateStr)
-    );
+    const attendances = subjectAttendanceData[subject.name].filter((a) => a.datetime.startsWith(dateStr));
 
     if (attendances.length === 0) return null;
-    return attendances.map(a => a.present === "Present");
+    return attendances.map((a) => a.present === "Present");
   };
 
   // Add this function to format the date string for display
   const formatDate = (dateStr) => {
-    if (!dateStr) return '';
+    if (!dateStr) return "";
     const date = new Date(dateStr);
     return date.toLocaleDateString();
   };
@@ -71,15 +56,13 @@ const AttendanceCard = ({
     if (!subjectAttendanceData[subject.name] || !dateStr) return [];
 
     const date = new Date(dateStr);
-    const formattedDateStr = date.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
+    const formattedDateStr = date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
 
-    return subjectAttendanceData[subject.name].filter(
-      a => a.datetime.startsWith(formattedDateStr)
-    );
+    return subjectAttendanceData[subject.name].filter((a) => a.datetime.startsWith(formattedDateStr));
   };
 
   // Add new function to process data for the chart
@@ -90,8 +73,8 @@ const AttendanceCard = ({
 
     // Sort all entries by date first
     const sortedData = [...data].sort((a, b) => {
-      const [aDay, aMonth, aYear] = a.datetime.split(' ')[0].split('/');
-      const [bDay, bMonth, bYear] = b.datetime.split(' ')[0].split('/');
+      const [aDay, aMonth, aYear] = a.datetime.split(" ")[0].split("/");
+      const [bDay, bMonth, bYear] = b.datetime.split(" ")[0].split("/");
       return new Date(aYear, aMonth - 1, aDay) - new Date(bYear, bMonth - 1, bDay);
     });
 
@@ -100,8 +83,8 @@ const AttendanceCard = ({
     const attendanceByDate = {};
 
     // Calculate cumulative attendance for each date
-    sortedData.forEach(entry => {
-      const [date] = entry.datetime.split(' ');
+    sortedData.forEach((entry) => {
+      const [date] = entry.datetime.split(" ");
       cumulativeTotal++;
       if (entry.present === "Present") {
         cumulativePresent++;
@@ -109,7 +92,7 @@ const AttendanceCard = ({
 
       attendanceByDate[date] = {
         date,
-        percentage: (cumulativePresent / cumulativeTotal) * 100
+        percentage: (cumulativePresent / cumulativeTotal) * 100,
       };
     });
 
@@ -119,44 +102,41 @@ const AttendanceCard = ({
   return (
     <>
       <div
-        className="flex justify-between items-center py-1 border-b border-accent2 cursor-pointer hover:bg-active2"
+        className="flex justify-between items-center py-1 border-b border-border cursor-pointer hover:bg-accent hover:text-accent-foreground"
         onClick={handleClick}
       >
         <div className="flex-1 mr-4">
           <h2 className="text-sm font-semibold max-[390px]:text-xs ">{displayName}</h2>
-          {lecture !== '' && <p className="text-sm lg:text-base max-[390px]:text-xs">Lecture: {lecture}%</p>}
-          {tutorial !== '' && <p className="text-sm lg:text-base max-[390px]:text-xs">Tutorial: {tutorial}%</p>}
-          {practical !== '' && <p className="text-sm lg:text-base max-[390px]:text-xs">Practical: {practical}%</p>}
+          {lecture !== "" && <p className="text-sm lg:text-base max-[390px]:text-xs">Lecture: {lecture}%</p>}
+          {tutorial !== "" && <p className="text-sm lg:text-base max-[390px]:text-xs">Tutorial: {tutorial}%</p>}
+          {practical !== "" && <p className="text-sm lg:text-base max-[390px]:text-xs">Practical: {practical}%</p>}
         </div>
         <div className="flex items-center gap-2">
           <div className="text-center">
             <div className="text-sm">{attendance.attended}</div>
-            <div className="h-px w-full bg-accent2"></div>
+            <div className="h-px w-full bg-foreground"></div>
             <div className="text-sm">{attendance.total}</div>
           </div>
           <div className="flex flex-col items-center">
             <CircleProgress key={Date.now()} percentage={attendancePercentage} />
             {classesNeeded > 0 ? (
-              <div className="text-xs mt-1 text-muted-foreground">
-                Attend {classesNeeded}
-              </div>
-            ) : classesCanMiss > 0 && (
-              <div className="text-xs mt-1 text-muted-foreground">
-                Can miss {classesCanMiss}
-              </div>
+              <div className="text-xs mt-1 text-muted-foreground">Attend {classesNeeded}</div>
+            ) : (
+              classesCanMiss > 0 && <div className="text-xs mt-1 text-muted-foreground">Can miss {classesCanMiss}</div>
             )}
           </div>
         </div>
       </div>
 
-      <Sheet open={selectedSubject?.name === subject.name} onOpenChange={() => {
-        setSelectedSubject(null);
-        setSelectedDate(null);
-      }}>
+      <Sheet
+        open={selectedSubject?.name === subject.name}
+        onOpenChange={() => {
+          setSelectedSubject(null);
+          setSelectedDate(null);
+        }}
+      >
         <SheetContent side="bottom" className="h-[70vh] bg-background text-foreground border-0 overflow-hidden">
-          <SheetHeader>
-            {/* <SheetTitle className="text-foreground">{}</SheetTitle> */}
-          </SheetHeader>
+          <SheetHeader>{/* <SheetTitle className="text-foreground">{}</SheetTitle> */}</SheetHeader>
           <div className="h-full overflow-y-auto snap-y snap-mandatory">
             {/* Calendar Section */}
             <div className="min-h-full flex flex-col items-center py-4 snap-start">
@@ -174,11 +154,11 @@ const AttendanceCard = ({
                     },
                     presentDouble: (date) => {
                       const statuses = getDayStatus(date);
-                      return statuses?.length === 2 && statuses.every(s => s === true);
+                      return statuses?.length === 2 && statuses.every((s) => s === true);
                     },
                     absentDouble: (date) => {
                       const statuses = getDayStatus(date);
-                      return statuses?.length === 2 && statuses.every(s => s === false);
+                      return statuses?.length === 2 && statuses.every((s) => s === false);
                     },
                     mixedDouble: (date) => {
                       const statuses = getDayStatus(date);
@@ -186,73 +166,78 @@ const AttendanceCard = ({
                     },
                     presentTriple: (date) => {
                       const statuses = getDayStatus(date);
-                      return statuses?.length === 3 && statuses.every(s => s === true);
+                      return statuses?.length === 3 && statuses.every((s) => s === true);
                     },
                     absentTriple: (date) => {
                       const statuses = getDayStatus(date);
-                      return statuses?.length === 3 && statuses.every(s => s === false);
+                      return statuses?.length === 3 && statuses.every((s) => s === false);
                     },
                     mixedTripleAllPresent: (date) => {
                       const statuses = getDayStatus(date);
-                      return statuses?.length === 3 && statuses.filter(s => s === true).length === 2;
+                      return statuses?.length === 3 && statuses.filter((s) => s === true).length === 2;
                     },
                     mixedTripleAllAbsent: (date) => {
                       const statuses = getDayStatus(date);
-                      return statuses?.length === 3 && statuses.filter(s => s === false).length === 2;
+                      return statuses?.length === 3 && statuses.filter((s) => s === false).length === 2;
                     },
                     mixedTripleEqual: (date) => {
                       const statuses = getDayStatus(date);
-                      return statuses?.length === 3 &&
-                             statuses.filter(s => s === true).length ===
-                             statuses.filter(s => s === false).length;
+                      return (
+                        statuses?.length === 3 &&
+                        statuses.filter((s) => s === true).length === statuses.filter((s) => s === false).length
+                      );
                     },
                     selected: (date) => date === selectedDate,
                   }}
                   modifiersStyles={{
                     presentSingle: {
-                      backgroundColor: 'var(--calendar-positive2)',
-                      borderRadius: '50%'
+                      backgroundColor: "color-mix(in srgb, var(--chart-1) 30%, transparent)",
+                      borderRadius: "50%",
                     },
                     absentSingle: {
-                      backgroundColor: 'var(--calendar-negative2)',
-                      borderRadius: '50%'
+                      backgroundColor: "color-mix(in srgb, var(--chart-2) 30%, transparent)",
+                      borderRadius: "50%",
                     },
                     presentDouble: {
-                      backgroundColor: 'var(--calendar-positive2)',
-                      borderRadius: '50%'
+                      backgroundColor: "color-mix(in srgb, var(--chart-1) 30%, transparent)",
+                      borderRadius: "50%",
                     },
                     absentDouble: {
-                      backgroundColor: 'var(--calendar-negative2)',
-                      borderRadius: '50%'
+                      backgroundColor: "color-mix(in srgb, var(--chart-2) 30%, transparent)",
+                      borderRadius: "50%",
                     },
                     mixedDouble: {
-                      background: 'linear-gradient(90deg, var(--calendar-positive2) 50%, var(--calendar-negative2) 50%)',
-                      borderRadius: '50%'
+                      background:
+                        "linear-gradient(90deg, color-mix(in srgb, var(--chart-1) 30%, transparent) 50%, color-mix(in srgb, var(--chart-2) 30%, transparent) 50%)",
+                      borderRadius: "50%",
                     },
                     presentTriple: {
-                      backgroundColor: 'var(--calendar-positive2)',
-                      borderRadius: '50%'
+                      backgroundColor: "color-mix(in srgb, var(--chart-1) 30%, transparent)",
+                      borderRadius: "50%",
                     },
                     absentTriple: {
-                      backgroundColor: 'var(--calendar-negative2)',
-                      borderRadius: '50%'
+                      backgroundColor: "color-mix(in srgb, var(--chart-2) 30%, transparent)",
+                      borderRadius: "50%",
                     },
                     mixedTripleAllPresent: {
-                      background: 'conic-gradient(var(--calendar-positive2) 0deg 240deg, var(--calendar-negative2) 240deg 360deg)',
-                      borderRadius: '50%'
+                      background:
+                        "conic-gradient(color-mix(in srgb, var(--chart-1) 30%, transparent) 0deg 240deg, color-mix(in srgb, var(--chart-2) 30%, transparent) 240deg 360deg)",
+                      borderRadius: "50%",
                     },
                     mixedTripleAllAbsent: {
-                      background: 'conic-gradient(var(--calendar-negative2) 0deg 240deg, var(--calendar-positive2) 240deg 360deg)',
-                      borderRadius: '50%'
+                      background:
+                        "conic-gradient(color-mix(in srgb, var(--chart-2) 30%, transparent) 0deg 240deg, color-mix(in srgb, var(--chart-1) 30%, transparent) 240deg 360deg)",
+                      borderRadius: "50%",
                     },
                     mixedTripleEqual: {
-                      background: 'conic-gradient(var(--calendar-positive2) 0deg 120deg, var(--calendar-negative2) 120deg 240deg, var(--calendar-positive2) 240deg 360deg)',
-                      borderRadius: '50%'
+                      background:
+                        "conic-gradient(color-mix(in srgb, var(--chart-1) 30%, transparent) 0deg 120deg, color-mix(in srgb, var(--chart-2) 30%, transparent) 120deg 240deg, color-mix(in srgb, var(--chart-1) 30%, transparent) 240deg 360deg)",
+                      borderRadius: "50%",
                     },
                   }}
                   selected={selectedDate}
                   onSelect={(date) => setSelectedDate(date)}
-                  className={`pb-2 text-foreground ${isLoading ? 'animate-pulse' : ''} w-full shrink-0 max-w-full`}
+                  className={`pb-2 text-foreground ${isLoading ? "animate-pulse" : ""} w-full shrink-0 max-w-full`}
                   classNames={{
                     months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
                     month: "space-y-4 w-full",
@@ -264,12 +249,14 @@ const AttendanceCard = ({
                     nav_button_next: "absolute right-1",
                     table: "w-full border-collapse space-y-1",
                     head_row: "flex",
-                    head_cell: "text-accent6 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                    head_cell:
+                      "text-accent-foreground opacity-50 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
                     row: "flex w-full mt-2",
                     cell: "flex-1 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                     day: "h-8 w-8 p-0 font-normal aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
-                    day_selected: "bg-primary text-primary-foreground rounded-xs! hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                    day_today: "text-foreground bg-accent3! rounded-full!",
+                    day_selected:
+                      "bg-primary text-primary-foreground rounded-xs! hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                    day_today: "text-foreground bg-accent/50! rounded-full!",
                     day_outside: "text-muted-foreground opacity-30",
                     day_disabled: "text-muted-foreground opacity-50",
                     day_range_middle: "aria-selected:bg-accent aria-selected:text-foreground",
@@ -282,22 +269,14 @@ const AttendanceCard = ({
                     {getClassesForDate(selectedDate).map((classData, index) => (
                       <div
                         key={index}
-                        className={`p-2 rounded ${
-                          classData.present === "Present"
-                            ? "bg-calendar-positive"
-                            : "bg-calendar-negative"
-                        }`}
+                        className={`p-2 rounded ${classData.present === "Present" ? "bg-chart-1/30" : "bg-chart-2/30"}`}
                       >
-                        <p className="text-sm">
-                          {classData.attendanceby}
-                        </p>
+                        <p className="text-sm text-foreground">{classData.attendanceby}</p>
 
-                          <p className="text-xs text-muted-foreground">
-                        {classData.classtype} - {classData.present}
-                          </p>
                         <p className="text-xs text-muted-foreground">
-                          {classData.datetime}
+                          {classData.classtype} - {classData.present}
                         </p>
+                        <p className="text-xs text-muted-foreground">{classData.datetime}</p>
                       </div>
                     ))}
                   </div>
@@ -321,25 +300,25 @@ const AttendanceCard = ({
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                     <XAxis
                       dataKey="date"
-                      stroke="var(--accent8)"
-                      tick={{ fill: 'var(--accent8)', fontSize: '0.75rem', dy: 10 }}
+                      stroke="var(--muted-foreground)"
+                      tick={{ fill: "var(--muted-foreground)", fontSize: "0.75rem", dy: 10 }}
                       tickFormatter={(value) => {
-                        const [day, month] = value.split('/');
+                        const [day, month] = value.split("/");
                         return `${day}/${month}`;
                       }}
                     />
                     <YAxis
-                      stroke="var(--accent8)"
-                      tick={{ fill: 'var(--accent8)', fontSize: '0.75rem' }}
+                      stroke="var(--muted-foreground)"
+                      tick={{ fill: "var(--muted-foreground)", fontSize: "0.75rem" }}
                       domain={[0, 100]}
                       tickFormatter={(value) => `${value}%`}
                       width={65}
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: 'var(--background)',
-                        border: '1px solid var(--border)',
-                        color: 'var(--accent8)'
+                        backgroundColor: "var(--background)",
+                        border: "1px solid var(--border)",
+                        color: "var(--muted-foreground)",
                       }}
                       formatter={(value) => [`${value.toFixed(1)}%`]}
                     />
@@ -348,7 +327,7 @@ const AttendanceCard = ({
                       dataKey="percentage"
                       stroke="var(--chart-2)"
                       strokeWidth={2}
-                      dot={{ fill: 'var(--chart-2)', r: 4 }}
+                      dot={{ fill: "var(--chart-2)", r: 4 }}
                       activeDot={{ r: 6 }}
                       name="Present"
                     />

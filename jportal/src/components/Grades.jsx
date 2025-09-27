@@ -277,19 +277,19 @@ export default function Grades({
         <TabsList className="grid w-full grid-cols-3 mb-4 bg-background">
           <TabsTrigger
             value="overview"
-            className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
+            className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground"
           >
             Overview
           </TabsTrigger>
           <TabsTrigger
             value="semester"
-            className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
+            className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground"
           >
             Semester
           </TabsTrigger>
           <TabsTrigger
             value="marks"
-            className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
+            className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground"
           >
             Marks
           </TabsTrigger>
@@ -318,13 +318,13 @@ export default function Grades({
                       <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                       <XAxis
                         dataKey="stynumber"
-                        stroke="var(--accent8)"
-                        label={{ value: 'Semester', position: 'bottom', fill: 'var(--accent8)' }}
+                        stroke="var(--muted-foreground)"
+                        label={{ value: "Semester", position: "bottom", fill: "var(--muted-foreground)" }}
                         tickFormatter={(value) => `${value}`}
                       />
                       <YAxis
-                        stroke="var(--accent8)"
-                        domain={['dataMin', 'dataMax']}
+                        stroke="var(--muted-foreground)"
+                        domain={["dataMin", "dataMax"]}
                         ticks={undefined}
                         tickCount={5}
                         padding={{ top: 20, bottom: 20 }}
@@ -332,23 +332,20 @@ export default function Grades({
                       />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: 'var(--border)',
-                          border: 'none',
-                          borderRadius: '8px',
-                          color: 'var(--foreground)',
+                          backgroundColor: "var(--border)",
+                          border: "none",
+                          borderRadius: "8px",
+                          color: "var(--foreground)",
                         }}
                       />
-                      <Legend
-                        verticalAlign="top"
-                        height={36}
-                      />
+                      <Legend verticalAlign="top" height={36} />
                       <Line
                         type="monotone"
                         dataKey="sgpa"
                         stroke="var(--chart-1)"
                         name="SGPA"
                         strokeWidth={2}
-                        dot={{ fill: 'var(--chart-1)' }}
+                        dot={{ fill: "var(--chart-1)" }}
                       />
                       <Line
                         type="monotone"
@@ -356,7 +353,7 @@ export default function Grades({
                         stroke="var(--chart-2)"
                         name="CGPA"
                         strokeWidth={2}
-                        dot={{ fill: 'var(--chart-2)' }}
+                        dot={{ fill: "var(--chart-2)" }}
                       />
                     </LineChart>
                   </ResponsiveContainer>
@@ -364,10 +361,7 @@ export default function Grades({
 
                 <div className="space-y-2 w-full max-w-4xl">
                   {semesterData.map((sem) => (
-                    <div
-                      key={sem.stynumber}
-                      className="flex justify-between items-center py-1 border-b border-accent2"
-                    >
+                    <div key={sem.stynumber} className="flex justify-between items-center py-1 border-b border-border">
                       <div className="flex-1">
                         <h2 className="text-sm font-semibold">Semester {sem.stynumber}</h2>
                         <p className="text-sm text-muted-foreground">
@@ -376,11 +370,11 @@ export default function Grades({
                       </div>
                       <div className="flex items-center gap-6">
                         <div className="text-center">
-                          <div className="text-xl font-bold text-accent5">{sem.sgpa}</div>
+                          <div className="text-xl font-bold text-chart-1">{sem.sgpa}</div>
                           <div className="text-xs text-muted-foreground">SGPA</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-xl font-bold text-accent">{sem.cgpa}</div>
+                          <div className="text-xl font-bold text-chart-2">{sem.cgpa}</div>
                           <div className="text-xs text-muted-foreground">CGPA</div>
                         </div>
                       </div>
@@ -421,11 +415,7 @@ export default function Grades({
                 ) : gradeCard ? (
                   <div className="space-y-2 mt-4">
                     {gradeCard.gradecard.map((subject) => (
-                      <GradeCard
-                        key={subject.subjectcode}
-                        subject={subject}
-                        getGradeColor={getGradeColor}
-                      />
+                      <GradeCard key={subject.subjectcode} subject={subject} getGradeColor={getGradeColor} />
                     ))}
                   </div>
                 ) : (
@@ -461,9 +451,7 @@ export default function Grades({
                 </Select>
 
                 {marksLoading ? (
-                  <div className="text-center mt-4">
-                    Loading marks data...
-                  </div>
+                  <div className="text-center mt-4">Loading marks data...</div>
                 ) : marksSemesterData && marksSemesterData.courses ? (
                   <div className="space-y-4 mt-4">
                     {marksSemesterData.courses.map((course) => (
@@ -471,9 +459,7 @@ export default function Grades({
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center mt-4 text-muted-foreground">
-                    Select a semester to view marks
-                  </div>
+                  <div className="text-center mt-4 text-muted-foreground">Select a semester to view marks</div>
                 )}
               </>
             )}
@@ -484,7 +470,7 @@ export default function Grades({
       <div className="w-full flex justify-end my-4 max-w-4xl">
         <Button
           variant="secondary"
-          className="flex items-center gap-2 text-accent4 hover:text-foreground border-accent7 hover:border-accent8 bg-background hover:bg-active px-0"
+          className="flex items-center gap-2 text-popover-foreground hover:text-accent-foreground border-border bg-background hover:bg-accent px-2 cursor-pointer"
           onClick={() => setIsDownloadDialogOpen(true)}
         >
           <Download className="h-4 w-4" />
@@ -495,14 +481,14 @@ export default function Grades({
       <Dialog open={isDownloadDialogOpen} onOpenChange={setIsDownloadDialogOpen}>
         <DialogContent className="bg-background text-foreground border-none">
           <DialogHeader>
-            <DialogTitle className="text-accent9">Download Marks</DialogTitle>
+            <DialogTitle className="text-popover-foreground">Download Marks</DialogTitle>
           </DialogHeader>
           <div className="space-y-2">
             {marksSemesters.map((sem) => (
               <Button
                 key={sem.registration_id}
                 variant="outline"
-                className="w-full text-accent4 hover:text-foreground  bg-background hover:bg-active border-none"
+                className="w-full text-popover-foreground hover:text-accent-foreground bg-background hover:bg-accent border-none"
                 onClick={() => handleDownloadMarks(sem)}
               >
                 {sem.registration_code}

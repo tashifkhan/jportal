@@ -130,7 +130,7 @@ export default function Profile({ w, profileData, setProfileData }) {
         ))}
       </div>
       <div className="text-center bg-background p-4 overflow-auto max-sm:text-sm text-lg">
-      Made with Big 🍆 Energy by <a href="https://github.com/codeblech" className="text-accent">Yash Malik</a>
+      Made with Big 🍆 Energy by <a href="https://github.com/codeblech" className="text-primary">Yash Malik</a>
       </div>
     </div>
   );

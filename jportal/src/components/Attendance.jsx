@@ -279,27 +279,15 @@ const Attendance = ({
     <div className="text-foreground font-sans">
       <div className="sticky top-14 bg-background z-20">
         <div className="flex gap-2 py-2 px-3">
-          <Select
-            onValueChange={handleSemesterChange}
-            value={selectedSem?.registration_id}
-          >
+          <Select onValueChange={handleSemesterChange} value={selectedSem?.registration_id}>
             <SelectTrigger className="bg-background text-foreground border-foreground">
-              <SelectValue
-                placeholder={
-                  isAttendanceMetaLoading
-                    ? "Loading semesters..."
-                    : "Select semester"
-                }
-              >
+              <SelectValue placeholder={isAttendanceMetaLoading ? "Loading semesters..." : "Select semester"}>
                 {selectedSem?.registration_code}
               </SelectValue>
             </SelectTrigger>
             <SelectContent className="bg-background text-foreground border-foreground">
               {semestersData?.semesters?.map((sem) => (
-                <SelectItem
-                  key={sem.registration_id}
-                  value={sem.registration_id}
-                >
+                <SelectItem key={sem.registration_id} value={sem.registration_id}>
                   {sem.registration_code}
                 </SelectItem>
               ))}
@@ -322,29 +310,24 @@ const Attendance = ({
           Loading attendance...
         </div>
       ) : (
-        <Tabs
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="px-3 pb-4"
-        >
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="px-3 pb-4">
           <TabsList className="grid grid-cols-2 bg-background">
             <TabsTrigger
               value="overview"
-              className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
+              className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground"
             >
               Overview
             </TabsTrigger>
             <TabsTrigger
               value="daily"
-              className="bg-background data-[state=active]:bg-active data-[state=active]:text-foreground"
+              className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground"
             >
               Day‑to‑Day
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
-            {selectedSem &&
-            attendanceData[selectedSem.registration_id]?.error ? (
+            {selectedSem && attendanceData[selectedSem.registration_id]?.error ? (
               <div className="flex items-center justify-center py-4">
                 {attendanceData[selectedSem.registration_id].error}
               </div>
@@ -367,14 +350,10 @@ const Attendance = ({
               <div className="w-full max-w-[320px] flex flex-col">
                 <button
                   onClick={() => setCalendarOpen((o) => !o)}
-                  className="flex items-center justify-between bg-secondary rounded-md px-3 py-2 mb-2 text-sm"
+                  className="flex items-center justify-between bg-input rounded-md px-3 py-2 mb-2 text-sm"
                 >
                   <span>{dailyDate.toDateString()}</span>
-                  {calendarOpen ? (
-                    <ChevronUp className="w-4 h-4" />
-                  ) : (
-                    <ChevronDown className="w-4 h-4" />
-                  )}
+                  {calendarOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </button>
                 {calendarOpen && (
                   <Calendar
@@ -386,18 +365,14 @@ const Attendance = ({
                       }
                     }}
                     modifiers={{
-                      hasActivity: (date) =>
-                        subjects.some(
-                          (s) => getClassesFor(s.name, date).length > 0,
-                        ),
+                      hasActivity: (date) => subjects.some((s) => getClassesFor(s.name, date).length > 0),
                     }}
                     modifiersStyles={{
                       hasActivity: {
-                        boxShadow: "inset 0 -2px 0 0 var(--color-accent10)",
+                        boxShadow: "inset 0 -2px 0 0 var(--color-sidebar-accent)",
                         borderRadius: "2px",
                       },
                     }}
-
                     // className={` pb-2 text-foreground w-full shrink-0 max-w-full`}
                     classNames={{
                       months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
@@ -411,12 +386,12 @@ const Attendance = ({
                       table: "w-full border-collapse space-y-1",
                       presentation: "bg-destructive",
                       head_row: "flex",
-                      head_cell: "text-accent6 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                      head_cell: "text-accent-foreground opacity-50 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
                       row: "flex w-full mt-2",
                       cell: "flex-1 text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                       day: "h-8 w-8 p-0 font-normal rounded-[2px] aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
-                      day_selected: "bg-day-selected rounded-xs!",
-                      day_today: "text-foreground bg-accent3! rounded-sm!",
+                      day_selected: "bg-accent/50 rounded-xs!",
+                      day_today: "text-foreground bg-accent/50! rounded-full!",
                       day_outside: "text-muted-foreground opacity-30",
                       day_disabled: "text-muted-foreground opacity-50",
                       day_range_middle: "aria-selected:bg-accent aria-selected:text-foreground",
@@ -433,18 +408,13 @@ const Attendance = ({
                   const lectures = getClassesFor(subj.name, dailyDate);
                   if (lectures.length === 0) return [];
                   return (
-                    <div
-                      key={subj.name}
-                      className="w-full max-w-lg border-b border-accent2 py-3"
-                    >
+                    <div key={subj.name} className="w-full max-w-lg border-b border-accent py-3">
                       <h3 className="font-semibold mb-1">{subj.name}</h3>
                       {lectures.map((cls, i) => (
                         <div
                           key={i}
                           className={`flex justify-between text-sm ${
-                            cls.present === "Present"
-                              ? "text-accent5"
-                              : "text-destructive2"
+                            cls.present === "Present" ? "text-chart-1" : "text-chart-2"
                           }`}
                         >
                           <span>
@@ -459,9 +429,7 @@ const Attendance = ({
               )}
 
               {/* nothing on that day? */}
-              {subjects.every(
-                (s) => getClassesFor(s.name, dailyDate).length === 0,
-              ) && (
+              {subjects.every((s) => getClassesFor(s.name, dailyDate).length === 0) && (
                 <p className="text-muted-foreground mt-4">
                   No classes were scheduled on&nbsp;
                   {dailyDate.toLocaleDateString()}
@@ -469,91 +437,68 @@ const Attendance = ({
               )}
             </div>
 
-            {subjects.length > 0 &&
-              Object.values(subjectCacheStatus).some((s) => s !== "cached") && (
-                <Sheet open={isTrackerOpen} onOpenChange={setIsTrackerOpen}>
-                  <SheetTrigger asChild>
-                    <button
-                      className="fixed bottom-20 right-4 z-50
+            {subjects.length > 0 && Object.values(subjectCacheStatus).some((s) => s !== "cached") && (
+              <Sheet open={isTrackerOpen} onOpenChange={setIsTrackerOpen}>
+                <SheetTrigger asChild>
+                  <button
+                    className="fixed bottom-20 right-4 z-50
                            drop-shadow-lg bg-secondary rounded-full
                            ring-ring
-                           hover:ring-ring-hover hover:scale-105
+                           hover:scale-105
                            transition-transform cursor-pointer"
-                    >
-                      <CircleProgress
-                        percentage={
-                          (100 *
-                            subjects.filter(
-                              (s) => subjectCacheStatus[s.name] === "cached",
-                            ).length) /
-                          subjects.length
-                        }
-                        label={`${subjects.filter((s) => subjectCacheStatus[s.name] === "cached").length}/${subjects.length}`}
-                        className="shadow-inner"
-                      />
-                    </button>
-                  </SheetTrigger>
-
-                  <SheetContent
-                    side="bottom"
-                    /* hide default close button & force white text */
-                    className="h-[45vh] bg-secondary text-foreground border-0 overflow-hidden
-                         **:data-radix-dialog-close:hidden"
                   >
-                    <SheetHeader>
-                      <SheetTitle className="text-sm text-foreground">
-                        Fetching daily attendance&nbsp;(
-                        {
-                          subjects.filter(
-                            (s) => subjectCacheStatus[s.name] === "cached",
-                          ).length
-                        }
-                        /{subjects.length})
-                      </SheetTitle>
-                    </SheetHeader>
+                    <CircleProgress
+                      percentage={
+                        (100 * subjects.filter((s) => subjectCacheStatus[s.name] === "cached").length) / subjects.length
+                      }
+                      label={`${subjects.filter((s) => subjectCacheStatus[s.name] === "cached").length}/${
+                        subjects.length
+                      }`}
+                      className="shadow-inner"
+                    />
+                  </button>
+                </SheetTrigger>
 
-                    <div className="mt-4 space-y-4 px-1 overflow-y-auto h-[calc(100%-3rem)]">
-                      <Progress
-                        value={
-                          (100 *
-                            subjects.filter(
-                              (s) => subjectCacheStatus[s.name] === "cached",
-                            ).length) /
-                          subjects.length
-                        }
-                        className="h-2 bg-chart-3"
-                      />
+                <SheetContent
+                  side="bottom"
+                  /* hide default close button & force white text */
+                  className="h-[45vh] bg-secondary text-foreground border-0 overflow-hidden
+                         **:data-radix-dialog-close:hidden"
+                >
+                  <SheetHeader>
+                    <SheetTitle className="text-sm text-foreground">
+                      Fetching daily attendance&nbsp;(
+                      {subjects.filter((s) => subjectCacheStatus[s.name] === "cached").length}/{subjects.length})
+                    </SheetTitle>
+                  </SheetHeader>
 
-                      <div className="divide-y divide-white/10 mt-4 overflow-y-auto h-[calc(100%-5rem)] pr-1">
-                        {subjects.map((s) => {
-                          const st = subjectCacheStatus[s.name] || "idle";
-                          return (
-                            <div
-                              key={s.name}
-                              className="py-3 flex items-center justify-between"
-                            >
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium truncate">
-                                  {s.name}
-                                </p>
-                              </div>
-                              {st === "cached" && (
-                                <Check className="text-accent5 w-5 h-5" />
-                              )}
-                              {st === "fetching" && (
-                                <Loader2 className="animate-spin text-accent w-5 h-5" />
-                              )}
-                              {st === "idle" && (
-                                <AlertCircle className="text-accent6 w-5 h-5" />
-                              )}
+                  <div className="mt-4 space-y-4 px-1 overflow-y-auto h-[calc(100%-3rem)]">
+                    <Progress
+                      value={
+                        (100 * subjects.filter((s) => subjectCacheStatus[s.name] === "cached").length) / subjects.length
+                      }
+                      className="h-2 bg-chart-3"
+                    />
+
+                    <div className="divide-y divide-white/10 mt-4 overflow-y-auto h-[calc(100%-5rem)] pr-1">
+                      {subjects.map((s) => {
+                        const st = subjectCacheStatus[s.name] || "idle";
+                        return (
+                          <div key={s.name} className="py-3 flex items-center justify-between">
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium truncate">{s.name}</p>
                             </div>
-                          );
-                        })}
-                      </div>
+                            {st === "cached" && <Check className="text-primary w-5 h-5" />}
+                            {st === "fetching" && <Loader2 className="animate-spin text-sidebar-accent w-5 h-5" />}
+                            {st === "idle" && <AlertCircle className="text-secondary-foreground w-5 h-5" />}
+                          </div>
+                        );
+                      })}
                     </div>
-                  </SheetContent>
-                </Sheet>
-              )}
+                  </div>
+                </SheetContent>
+              </Sheet>
+            )}
           </TabsContent>
         </Tabs>
       )}

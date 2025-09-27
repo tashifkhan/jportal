@@ -8,6 +8,8 @@ import Grades from './components/Grades'
 import Exams from './components/Exams'
 import Subjects from './components/Subjects'
 import Profile from './components/Profile'
+import { ThemeProvider } from './components/theme-provider'
+import { ThemeScript } from './components/theme-script'
 import './App.css'
 
 import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
@@ -299,25 +301,30 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="min-h-screen bg-background select-none">
-        {!isAuthenticated || (!USE_FAKE_DATA && !w.session) ? (
-          <Routes>
-            <Route path="*" element={
-              <>
-                {error && <div className="text-destructive text-center pt-4">{error}</div>}
-                <LoginWrapper
-                  onLoginSuccess={() => setIsAuthenticated(true)}
-                  w={w}
-                />
-              </>
-            } />
-          </Routes>
-        ) : (
-          <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
-        )}
-      </div>
-    </Router>
+    <>
+      <ThemeScript />
+      <ThemeProvider>
+        <Router>
+          <div className="min-h-screen bg-background select-none">
+            {!isAuthenticated || (!USE_FAKE_DATA && !w.session) ? (
+              <Routes>
+                <Route path="*" element={
+                  <>
+                    {error && <div className="text-destructive text-center pt-4">{error}</div>}
+                    <LoginWrapper
+                      onLoginSuccess={() => setIsAuthenticated(true)}
+                      w={w}
+                    />
+                  </>
+                } />
+              </Routes>
+            ) : (
+              <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
+            )}
+          </div>
+        </Router>
+      </ThemeProvider>
+    </>
   );
 }
 
