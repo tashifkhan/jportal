@@ -18,10 +18,17 @@ const Header = ({ setIsAuthenticated }) => {
     <header className="bg-background mx-auto px-3 pt-4 pb-2">
       <div className="container-fluid flex justify-between items-center">
         <h1 className="text-foreground text-2xl font-bold lg:text-3xl font-sans">JPortal</h1>
-        <ThemeSelectorDialog />
-        <Button variant="ghost" size="icon" onClick={handleLogout} className="cursor-pointer h-auto flex-col gap-2 p-3">
-          <LogoutIcon className="w-6 h-6 stroke-2 stroke-foreground" />
-        </Button>
+        <div className="flex items-center gap-1">
+          <ThemeSelectorDialog />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleLogout}
+            className="cursor-pointer h-auto flex-col gap-1 p-1"
+          >
+            <LogoutIcon className="w-8 h-8 stroke-2 stroke-foreground" />
+          </Button>
+        </div>
       </div>
     </header>
   );

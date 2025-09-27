@@ -17,7 +17,7 @@ export function ThemeSelectorDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="ghost" size="icon" className="cursor-pointer">
-          <Palette className="h-[1.2rem] w-[1.2rem]" />
+          <Palette className="h-7 w-7" />
           <span className="sr-only">Select theme</span>
         </Button>
       </DialogTrigger>
