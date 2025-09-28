@@ -27,7 +27,7 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
   return (
     <div className={cn("grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4", className)}>
       {Object.entries(defaultPresets)
-        .sort(([, a], [, b]) => (a.label || a).localeCompare(b.label || b))
+        .sort(([keyA, a], [keyB, b]) => (keyA || a.label || "").localeCompare(keyB || b.label || ""))
         .map(([key, preset]) => (
           <Button
             key={key}

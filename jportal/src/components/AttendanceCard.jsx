@@ -191,56 +191,56 @@ const AttendanceCard = ({
                   }}
                   modifiersStyles={{
                     presentSingle: {
-                      backgroundColor: "color-mix(in srgb, var(--chart-1) 30%, transparent)",
+                      backgroundColor: "color-mix(in srgb, var(--chart-3) 30%, transparent)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
                     absentSingle: {
-                      backgroundColor: "color-mix(in srgb, var(--chart-2) 30%, transparent)",
+                      backgroundColor: "color-mix(in srgb, var(--chart-5) 30%, transparent)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
                     presentDouble: {
-                      backgroundColor: "color-mix(in srgb, var(--chart-1) 30%, transparent)",
+                      backgroundColor: "color-mix(in srgb, var(--chart-3) 30%, transparent)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
                     absentDouble: {
-                      backgroundColor: "color-mix(in srgb, var(--chart-2) 30%, transparent)",
+                      backgroundColor: "color-mix(in srgb, var(--chart-5) 30%, transparent)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
                     mixedDouble: {
                       background:
-                        "linear-gradient(90deg, color-mix(in srgb, var(--chart-1) 30%, transparent) 50%, color-mix(in srgb, var(--chart-2) 30%, transparent) 50%)",
+                        "linear-gradient(90deg, color-mix(in srgb, var(--chart-3) 30%, transparent) 50%, color-mix(in srgb, var(--chart-5) 30%, transparent) 50%)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
                     presentTriple: {
-                      backgroundColor: "color-mix(in srgb, var(--chart-1) 30%, transparent)",
+                      backgroundColor: "color-mix(in srgb, var(--chart-3) 30%, transparent)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
                     absentTriple: {
-                      backgroundColor: "color-mix(in srgb, var(--chart-2) 30%, transparent)",
+                      backgroundColor: "color-mix(in srgb, var(--chart-5) 30%, transparent)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
                     mixedTripleAllPresent: {
                       background:
-                        "conic-gradient(color-mix(in srgb, var(--chart-1) 30%, transparent) 0deg 240deg, color-mix(in srgb, var(--chart-2) 30%, transparent) 240deg 360deg)",
+                        "conic-gradient(color-mix(in srgb, var(--chart-3) 30%, transparent) 0deg 240deg, color-mix(in srgb, var(--chart-5) 30%, transparent) 240deg 360deg)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
                     mixedTripleAllAbsent: {
                       background:
-                        "conic-gradient(color-mix(in srgb, var(--chart-2) 30%, transparent) 0deg 240deg, color-mix(in srgb, var(--chart-1) 30%, transparent) 240deg 360deg)",
+                        "conic-gradient(color-mix(in srgb, var(--chart-5) 30%, transparent) 0deg 240deg, color-mix(in srgb, var(--chart-3) 30%, transparent) 240deg 360deg)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
                     mixedTripleEqual: {
                       background:
-                        "conic-gradient(color-mix(in srgb, var(--chart-1) 30%, transparent) 0deg 120deg, color-mix(in srgb, var(--chart-2) 30%, transparent) 120deg 240deg, color-mix(in srgb, var(--chart-1) 30%, transparent) 240deg 360deg)",
+                        "conic-gradient(color-mix(in srgb, var(--chart-3) 30%, transparent) 0deg 120deg, color-mix(in srgb, var(--chart-5) 30%, transparent) 120deg 240deg, color-mix(in srgb, var(--chart-3) 30%, transparent) 240deg 360deg)",
                       borderRadius: "50%",
                       cursor: "pointer",
                     },
@@ -279,7 +279,7 @@ const AttendanceCard = ({
                     {getClassesForDate(selectedDate).map((classData, index) => (
                       <div
                         key={index}
-                        className={`p-2 rounded ${classData.present === "Present" ? "bg-chart-1/30" : "bg-chart-2/30"}`}
+                        className={`p-2 rounded ${classData.present === "Present" ? "bg-chart-3/30" : "bg-chart-5/30"}`}
                       >
                         <p className="text-sm text-foreground">{classData.attendanceby}</p>
 
@@ -335,9 +335,9 @@ const AttendanceCard = ({
                     <Line
                       type="monotone"
                       dataKey="percentage"
-                      stroke="var(--chart-2)"
+                      stroke="var(--chart-5)"
                       strokeWidth={2}
-                      dot={{ fill: "var(--chart-2)", r: 4 }}
+                      dot={{ fill: "var(--chart-5)", r: 4 }}
                       activeDot={{ r: 6 }}
                       name="Present"
                     />
