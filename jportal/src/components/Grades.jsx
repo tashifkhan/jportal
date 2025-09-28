@@ -383,6 +383,16 @@ export default function Grades({
                 </div>
               </>
             )}
+            <div className="w-full flex justify-end my-4 max-w-4xl">
+              <Button
+                variant="secondary"
+                className="flex items-center gap-2 text-popover-foreground hover:text-accent-foreground border-border bg-background hover:bg-accent px-2 cursor-pointer"
+                onClick={() => setIsDownloadDialogOpen(true)}
+              >
+                <Download className="h-4 w-4" />
+                Download Marks
+              </Button>
+            </div>
           </div>
         </TabsContent>
 
@@ -425,6 +435,16 @@ export default function Grades({
                 )}
               </>
             )}
+            <div className="w-full flex justify-end my-4 max-w-4xl">
+              <Button
+                variant="secondary"
+                className="flex items-center gap-2 text-popover-foreground hover:text-accent-foreground border-border bg-background hover:bg-accent px-2 cursor-pointer"
+                onClick={() => setIsDownloadDialogOpen(true)}
+              >
+                <Download className="h-4 w-4" />
+                Download Marks
+              </Button>
+            </div>
           </div>
         </TabsContent>
 
@@ -463,20 +483,19 @@ export default function Grades({
                 )}
               </>
             )}
+            <div className="w-full flex justify-end my-4 max-w-4xl">
+              <Button
+                variant="secondary"
+                className="flex items-center gap-2 text-popover-foreground hover:text-accent-foreground border-border bg-background hover:bg-accent px-2 cursor-pointer"
+                onClick={() => setIsDownloadDialogOpen(true)}
+              >
+                <Download className="h-4 w-4" />
+                Download Marks
+              </Button>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
-
-      <div className="w-full flex justify-end my-4 max-w-4xl">
-        <Button
-          variant="secondary"
-          className="flex items-center gap-2 text-popover-foreground hover:text-accent-foreground border-border bg-background hover:bg-accent px-2 cursor-pointer"
-          onClick={() => setIsDownloadDialogOpen(true)}
-        >
-          <Download className="h-4 w-4" />
-          Download Marks
-        </Button>
-      </div>
 
       <Dialog open={isDownloadDialogOpen} onOpenChange={setIsDownloadDialogOpen}>
         <DialogContent className="bg-background text-foreground border-none">
