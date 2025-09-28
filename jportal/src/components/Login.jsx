@@ -19,7 +19,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function Login({ onLoginSuccess, w }) {
+export default function Login({ onLoginSuccess, onDemoClick, w }) {
   const [loginStatus, setLoginStatus] = useState({
     isLoading: false,
     credentials: null,
@@ -127,6 +127,19 @@ export default function Login({ onLoginSuccess, w }) {
               </Button>
             </form>
           </Form>
+          <div className="mt-4 text-center">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-card px-2 text-muted-foreground">Or</span>
+              </div>
+            </div>
+            <Button variant="outline" className="w-full mt-4" onClick={onDemoClick} disabled={loginStatus.isLoading}>
+              Try Demo Mode
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

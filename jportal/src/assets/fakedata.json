@@ -300,14 +300,14 @@
                 },
                 {
                     "stynumber": 2,
-                    "sgpa": 9.0,
-                    "cgpa": 8.75,
+                    "sgpa": 9.1,
+                    "cgpa": 8.7,
                     "earnedgradepoints": 180,
                     "totalcoursecredit": 20
                 },
                 {
                     "stynumber": 3,
-                    "sgpa": 6.0,
+                    "sgpa": 6.9,
                     "cgpa": 8.5,
                     "earnedgradepoints": 170,
                     "totalcoursecredit": 20
@@ -315,7 +315,7 @@
                 {
                     "stynumber": 4,
                     "sgpa": 7.3,
-                    "cgpa": 8.75,
+                    "cgpa": 8.7,
                     "earnedgradepoints": 180,
                     "totalcoursecredit": 20
                 },
@@ -329,7 +329,7 @@
                 {
                     "stynumber": 6,
                     "sgpa": 6.9,
-                    "cgpa": 8.75,
+                    "cgpa": 8.7,
                     "earnedgradepoints": 180,
                     "totalcoursecredit": 20
                 }
