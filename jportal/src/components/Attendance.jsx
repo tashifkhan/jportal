@@ -325,7 +325,7 @@ const Attendance = ({
   const getSortValue = (subject) => {
     const attended = subject.attendance?.attended ?? 0;
     const total = subject.attendance?.total ?? 0;
-    if (total === 0 && attended === 0) return 101; // lol more than 100 so that alwasy on top
+    if (total === 0 && attended === 0) return 101; // lol more than 100 so that always on top
     return subject.combined ?? 0;
   };
   if (attendanceSortOrder === "asc") {
