@@ -102,7 +102,7 @@ const AttendanceCard = ({
   return (
     <>
       <div
-        className="flex justify-between items-center py-1 border-b border-border cursor-pointer hover:bg-accent hover:text-accent-foreground"
+        className="group flex justify-between items-center py-1 border-b border-border cursor-pointer hover:bg-accent hover:text-accent-foreground"
         onClick={handleClick}
       >
         <div className="flex-1 mr-4">
@@ -114,7 +114,7 @@ const AttendanceCard = ({
         <div className="flex items-center gap-2">
           <div className="text-center">
             <div className="text-sm">{attendance.attended}</div>
-            <div className="h-px w-full bg-foreground"></div>
+            <div className="group-hover:bg-accent-foreground h-px w-full bg-foreground"></div>
             <div className="text-sm">{attendance.total}</div>
           </div>
           <div className="flex flex-col items-center">

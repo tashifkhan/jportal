@@ -1,31 +1,13 @@
 import React, { useState, useEffect } from "react";
 import AttendanceCard from "./AttendanceCard";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Progress } from "@/components/ui/progress";
 import CircleProgress from "./CircleProgress";
-import {
-  Check,
-  Loader2,
-  AlertCircle,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+import { Check, Loader2, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 
 const Attendance = ({
   w,
@@ -54,9 +36,8 @@ const Attendance = ({
   isTrackerOpen,
   setIsTrackerOpen,
   subjectCacheStatus,
-  setSubjectCacheStatus
+  setSubjectCacheStatus,
 }) => {
-
   useEffect(() => {
     const fetchSemesters = async () => {
       if (semestersData) {
@@ -118,9 +99,7 @@ const Attendance = ({
 
   const handleSemesterChange = async (value) => {
     // Update selected semester immediately
-    const semester = semestersData.semesters.find(
-      (sem) => sem.registration_id === value,
-    );
+    const semester = semestersData.semesters.find((sem) => sem.registration_id === value);
     setSelectedSem(semester);
 
     setIsAttendanceDataLoading(true);
@@ -161,71 +140,58 @@ const Attendance = ({
 
   const subjects =
     (selectedSem &&
-      attendanceData[selectedSem.registration_id]?.studentattendancelist?.map(
-        (item) => {
-          const {
-            subjectcode,
-            Ltotalclass,
-            Ltotalpres,
-            Lpercentage,
-            Ttotalclass,
-            Ttotalpres,
-            Tpercentage,
-            Ptotalclass,
-            Ptotalpres,
-            Ppercentage,
-            LTpercantage,
-          } = item;
+      attendanceData[selectedSem.registration_id]?.studentattendancelist?.map((item) => {
+        const {
+          subjectcode,
+          Ltotalclass,
+          Ltotalpres,
+          Lpercentage,
+          Ttotalclass,
+          Ttotalpres,
+          Tpercentage,
+          Ptotalclass,
+          Ptotalpres,
+          Ppercentage,
+          LTpercantage,
+        } = item;
 
-          const { attended, total } = {
-            attended: (Ltotalpres || 0) + (Ttotalpres || 0) + (Ptotalpres || 0),
-            total: (Ltotalclass || 0) + (Ttotalclass || 0) + (Ptotalclass || 0),
-          };
+        const { attended, total } = {
+          attended: (Ltotalpres || 0) + (Ttotalpres || 0) + (Ptotalpres || 0),
+          total: (Ltotalclass || 0) + (Ttotalclass || 0) + (Ptotalclass || 0),
+        };
 
-          const currentPercentage = (attended / total) * 100;
-          const classesNeeded = attendanceGoal
-            ? Math.ceil(
-                (attendanceGoal * total - 100 * attended) /
-                  (100 - attendanceGoal),
-              )
-            : null;
-          const classesCanMiss = attendanceGoal
-            ? Math.floor(
-                (100 * attended - attendanceGoal * total) / attendanceGoal,
-              )
-            : null;
+        const currentPercentage = (attended / total) * 100;
+        const classesNeeded = attendanceGoal
+          ? Math.ceil((attendanceGoal * total - 100 * attended) / (100 - attendanceGoal))
+          : null;
+        const classesCanMiss = attendanceGoal
+          ? Math.floor((100 * attended - attendanceGoal * total) / attendanceGoal)
+          : null;
 
-          return {
-            name: subjectcode,
-            attendance: {
-              attended,
-              total,
-            },
-            combined: LTpercantage,
-            lecture: Lpercentage,
-            tutorial: Tpercentage,
-            practical: Ppercentage,
-            classesNeeded: classesNeeded > 0 ? classesNeeded : 0,
-            classesCanMiss: classesCanMiss > 0 ? classesCanMiss : 0,
-          };
-        },
-      )) ||
+        return {
+          name: subjectcode,
+          attendance: {
+            attended,
+            total,
+          },
+          combined: LTpercantage,
+          lecture: Lpercentage,
+          tutorial: Tpercentage,
+          practical: Ppercentage,
+          classesNeeded: classesNeeded > 0 ? classesNeeded : 0,
+          classesCanMiss: classesCanMiss > 0 ? classesCanMiss : 0,
+        };
+      })) ||
     [];
 
   const fetchSubjectAttendance = async (subject) => {
     try {
       const attendance = attendanceData[selectedSem.registration_id];
-      const subjectData = attendance.studentattendancelist.find(
-        (s) => s.subjectcode === subject.name,
-      );
+      const subjectData = attendance.studentattendancelist.find((s) => s.subjectcode === subject.name);
 
       if (!subjectData) return;
 
-      const subjectcomponentids = [
-        "Lsubjectcomponentid",
-        "Psubjectcomponentid",
-        "Tsubjectcomponentid",
-      ]
+      const subjectcomponentids = ["Lsubjectcomponentid", "Psubjectcomponentid", "Tsubjectcomponentid"]
         .filter((id) => subjectData[id])
         .map((id) => subjectData[id]);
 
@@ -233,7 +199,7 @@ const Attendance = ({
         selectedSem,
         subjectData.subjectid,
         subjectData.individualsubjectcode,
-        subjectcomponentids,
+        subjectcomponentids
       );
 
       setSubjectAttendanceData((prev) => ({
@@ -258,7 +224,7 @@ const Attendance = ({
           setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "fetching" }));
           await fetchSubjectAttendance(subj); // server round‑trip
           setSubjectCacheStatus((p) => ({ ...p, [subj.name]: "cached" }));
-        }),
+        })
       );
     };
     loadAllSubjects();
@@ -386,7 +352,8 @@ const Attendance = ({
                       table: "w-full border-collapse space-y-1",
                       presentation: "bg-destructive",
                       head_row: "flex",
-                      head_cell: "text-accent-foreground opacity-50 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                      head_cell:
+                        "text-accent-foreground opacity-50 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
                       row: "flex w-full mt-2",
                       cell: "flex-1 text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                       day: "h-8 w-8 p-0 font-normal rounded-[2px] aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",
@@ -442,7 +409,7 @@ const Attendance = ({
                 <SheetTrigger asChild>
                   <button
                     className="fixed bottom-20 right-4 z-50
-                           drop-shadow-lg bg-secondary rounded-full
+                           bg-card shadow rounded-full
                            ring-ring
                            hover:scale-105
                            transition-transform cursor-pointer"
@@ -454,7 +421,6 @@ const Attendance = ({
                       label={`${subjects.filter((s) => subjectCacheStatus[s.name] === "cached").length}/${
                         subjects.length
                       }`}
-                      className="shadow-inner"
                     />
                   </button>
                 </SheetTrigger>
@@ -462,7 +428,7 @@ const Attendance = ({
                 <SheetContent
                   side="bottom"
                   /* hide default close button & force white text */
-                  className="h-[45vh] bg-secondary text-foreground border-0 overflow-hidden
+                  className="h-[45vh] bg-background text-foreground border-0 overflow-hidden
                          **:data-radix-dialog-close:hidden"
                 >
                   <SheetHeader>
@@ -477,7 +443,8 @@ const Attendance = ({
                       value={
                         (100 * subjects.filter((s) => subjectCacheStatus[s.name] === "cached").length) / subjects.length
                       }
-                      className="h-2 bg-chart-3"
+                      className="h-2 bg-muted"
+                      indicatorClassName={"bg-primary"}
                     />
 
                     <div className="divide-y divide-white/10 mt-4 overflow-y-auto h-[calc(100%-5rem)] pr-1">
@@ -489,8 +456,8 @@ const Attendance = ({
                               <p className="text-sm font-medium truncate">{s.name}</p>
                             </div>
                             {st === "cached" && <Check className="text-primary w-5 h-5" />}
-                            {st === "fetching" && <Loader2 className="animate-spin text-sidebar-accent w-5 h-5" />}
-                            {st === "idle" && <AlertCircle className="text-secondary-foreground w-5 h-5" />}
+                            {st === "fetching" && <Loader2 className="animate-spin text-muted-foreground w-5 h-5" />}
+                            {st === "idle" && <AlertCircle className="text-primary w-5 h-5" />}
                           </div>
                         );
                       })}

@@ -21,11 +21,7 @@ function CircleProgress({ percentage, label, className = "" }) {
   }, [percentage, circumference]);
 
   return (
-    <svg
-      className={`w-[80px] h-[80px] ${className}`}
-      viewBox="0 0 50 50"
-      preserveAspectRatio="xMidYMid meet"
-    >
+    <svg className={`w-[80px] h-[80px] ${className}`} viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
       <g transform="rotate(-90 25 25)">
         <circle
           cx="25"
@@ -45,7 +41,7 @@ function CircleProgress({ percentage, label, className = "" }) {
         y="50%"
         dominantBaseline="middle"
         textAnchor="middle"
-        className="text-[13px] max-[375px]:text-[12px] fill-foreground font-medium"
+        className="text-[13px] max-[375px]:text-[12px] fill-foreground font-medium group-hover:fill-accent-foreground"
       >
         {label ?? percentage}
       </text>
