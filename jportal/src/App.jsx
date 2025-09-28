@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { HashRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
@@ -17,6 +17,12 @@ import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.2
 
 import MockWebPortal from "./components/MockWebPortal";
 import { TriangleAlert } from "lucide-react";
+
+// Check if we should use fake data
+const USE_FAKE_DATA = import.meta.env.VITE_USE_FAKE_DATA === "true";
+
+// Create WebPortal or MockWebPortal instance at the top level
+const w = USE_FAKE_DATA ? new MockWebPortal() : new WebPortal();
 
 // Create a wrapper component to use the useNavigate hook
 function AuthenticatedApp({ w, setIsAuthenticated }) {
@@ -208,48 +214,43 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   );
 }
 
-function LoginWrapper({ onLoginSuccess, onDemoClick, w }) {
+function LoginWrapper({ onLoginSuccess, w }) {
   const navigate = useNavigate();
 
-  const handleLoginSuccess = useCallback(() => {
+  const handleLoginSuccess = () => {
     onLoginSuccess();
     // Add a small delay to ensure state updates before navigation
     setTimeout(() => {
       navigate("/attendance");
     }, 100);
-  }, [onLoginSuccess, navigate]);
+  };
 
-  const handleDemoClick = useCallback(() => {
-    onDemoClick();
-    // Add a small delay to ensure state updates before navigation
-    setTimeout(() => {
-      navigate("/attendance");
-    }, 100);
-  }, [onDemoClick, navigate]);
+  // If using fake data, skip login screen
+  useEffect(() => {
+    if (USE_FAKE_DATA) {
+      handleLoginSuccess();
+    }
+  }, []);
 
-  return <Login onLoginSuccess={handleLoginSuccess} onDemoClick={handleDemoClick} w={w} />;
+  if (USE_FAKE_DATA) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+        Loading fake data...
+      </div>
+    );
+  }
+
+  return <Login onLoginSuccess={handleLoginSuccess} w={w} />;
 }
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isDemoMode, setIsDemoMode] = useState(false);
-
-  // Create WebPortal or MockWebPortal instance based on demo mode
-  const w = useMemo(() => {
-    return isDemoMode ? new MockWebPortal() : new WebPortal();
-  }, [isDemoMode]);
-
-  const handleDemoMode = () => {
-    setIsDemoMode(true);
-    setIsAuthenticated(true);
-    setError(null);
-  };
 
   useEffect(() => {
-    if (isDemoMode) {
-      // If in demo mode, skip login and authenticate immediately
+    if (USE_FAKE_DATA) {
+      // If using fake data, skip login and authenticate immediately
       setIsAuthenticated(true);
       setIsLoading(false);
       return;
@@ -289,7 +290,7 @@ function App() {
     };
 
     performLogin();
-  }, [isDemoMode, w]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -317,18 +318,14 @@ function App() {
         />
         <Router>
           <div className="min-h-screen bg-background select-none">
-            {!isAuthenticated || (!isDemoMode && !w.session) ? (
+            {!isAuthenticated || (!USE_FAKE_DATA && !w.session) ? (
               <Routes>
                 <Route
                   path="*"
                   element={
                     <>
                       {error && <div className="text-destructive text-center pt-4">{error}</div>}
-                      <LoginWrapper
-                        onLoginSuccess={() => setIsAuthenticated(true)}
-                        onDemoClick={handleDemoMode}
-                        w={w}
-                      />
+                      <LoginWrapper onLoginSuccess={() => setIsAuthenticated(true)} w={w} />
                     </>
                   }
                 />
