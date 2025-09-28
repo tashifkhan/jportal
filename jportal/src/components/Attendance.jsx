@@ -311,7 +311,7 @@ const Attendance = ({
         </div>
       ) : (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="px-3 pb-4">
-          <TabsList className="grid grid-cols-2 bg-background">
+          <TabsList className="grid grid-cols-2 bg-background gap-1">
             <TabsTrigger
               value="overview"
               className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground"
