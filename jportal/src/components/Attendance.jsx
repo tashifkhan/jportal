@@ -350,7 +350,7 @@ const Attendance = ({
               <div className="w-full max-w-[320px] flex flex-col">
                 <button
                   onClick={() => setCalendarOpen((o) => !o)}
-                  className="flex items-center justify-between bg-input rounded-md px-3 py-2 mb-2 text-sm"
+                  className="flex items-center justify-between bg-card text-card-foreground rounded-md px-3 py-2 mb-2 text-sm"
                 >
                   <span>{dailyDate.toDateString()}</span>
                   {calendarOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -408,7 +408,7 @@ const Attendance = ({
                   const lectures = getClassesFor(subj.name, dailyDate);
                   if (lectures.length === 0) return [];
                   return (
-                    <div key={subj.name} className="w-full max-w-lg border-b border-accent py-3">
+                    <div key={subj.name} className="w-full max-w-lg border-b border-border py-3">
                       <h3 className="font-semibold mb-1">{subj.name}</h3>
                       {lectures.map((cls, i) => (
                         <div
