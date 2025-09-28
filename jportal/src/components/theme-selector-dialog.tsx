@@ -20,21 +20,23 @@ export function ThemeSelectorDialog() {
           <span className="sr-only">Select theme</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader>
+      <DialogContent className="max-w-4xl max-h-[80vh] flex flex-col overflow-hidden">
+        <DialogHeader className="sticky top-0 bg-background pb-1 mr-8">
           <DialogTitle>Choose a Theme</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="!hidden md:!block">
             Select a theme preset and toggle between light and dark modes.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h4 className="text-sm font-medium">Dark/Light Mode</h4>
-            <ThemeToggle />
-          </div>
-          <div>
-            <h4 className="text-sm font-medium mb-4">Theme Presets</h4>
-            <ThemeSelector />
+        <div className="overflow-y-auto flex-1 pt-1">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h4 className="text-sm font-medium">Dark/Light Mode</h4>
+              <ThemeToggle />
+            </div>
+            <div>
+              <h4 className="text-sm font-medium mb-4">Theme Presets</h4>
+              <ThemeSelector />
+            </div>
           </div>
         </div>
       </DialogContent>
