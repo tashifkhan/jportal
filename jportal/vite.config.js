@@ -107,13 +107,23 @@ export default defineConfig({
   ],
   server: (() => {
     if (process.env.NODE_ENV === "development") {
-      return {
-        host: true,
-        https: {
-          key: fs.readFileSync('./certs/localhost-key.pem'),
-          cert: fs.readFileSync('./certs/localhost.pem'),
-        },
-      };
+      const keyPath = './certs/localhost-key.pem';
+      const certPath = './certs/localhost.pem';
+      if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
+        return {
+          host: true,
+          https: {
+            key: fs.readFileSync(keyPath),
+            cert: fs.readFileSync(certPath),
+          },
+        };
+      } else {
+        console.warn(
+          `Warning: HTTPS certificate files not found at ${keyPath} and/or ${certPath}. ` +
+          `Starting dev server without HTTPS.`
+        );
+        return { host: true };
+      }
     }
     return { host: true };
   })(),
