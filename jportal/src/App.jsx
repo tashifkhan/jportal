@@ -1,31 +1,32 @@
-import { useState, useEffect } from 'react'
-import { HashRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-import Header from './components/Header';
-import Navbar from './components/Navbar'
-import Login from './components/Login'
-import Attendance from './components/Attendance'
-import Grades from './components/Grades'
-import Exams from './components/Exams'
-import Subjects from './components/Subjects'
-import Profile from './components/Profile'
-import { ThemeProvider } from './components/theme-provider'
-import { ThemeScript } from './components/theme-script'
-import './App.css'
+import { useState, useEffect } from "react";
+import { HashRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+import Login from "./components/Login";
+import Attendance from "./components/Attendance";
+import Grades from "./components/Grades";
+import Exams from "./components/Exams";
+import Subjects from "./components/Subjects";
+import Profile from "./components/Profile";
+import { ThemeProvider } from "./components/theme-provider";
+import { ThemeScript } from "./components/theme-script";
+import { Toaster } from "./components/ui/sonner";
+import "./App.css";
 
 import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
 
-import MockWebPortal from './components/MockWebPortal';
+import MockWebPortal from "./components/MockWebPortal";
+import { TriangleAlert } from "lucide-react";
 
 // Check if we should use fake data
-const USE_FAKE_DATA = import.meta.env.VITE_USE_FAKE_DATA === 'true';
-
+const USE_FAKE_DATA = import.meta.env.VITE_USE_FAKE_DATA === "true";
 
 // Create WebPortal or MockWebPortal instance at the top level
 const w = USE_FAKE_DATA ? new MockWebPortal() : new WebPortal();
 
 // Create a wrapper component to use the useNavigate hook
 function AuthenticatedApp({ w, setIsAuthenticated }) {
-  const [activeAttendanceTab, setActiveAttendanceTab] = useState("overview")
+  const [activeAttendanceTab, setActiveAttendanceTab] = useState("overview");
   const [attendanceData, setAttendanceData] = useState({});
   const [attendanceSemestersData, setAttendanceSemestersData] = useState(null);
 
@@ -46,14 +47,13 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
 
   // Add attendance goal state
   const [attendanceGoal, setAttendanceGoal] = useState(() => {
-    const savedGoal = localStorage.getItem('attendanceGoal');
+    const savedGoal = localStorage.getItem("attendanceGoal");
     return savedGoal ? parseInt(savedGoal) : 75; // Default to 75% if not set
   });
 
   // Add effect to save goal to localStorage when it changes
-  useEffect
-  (() => {
-    localStorage.setItem('attendanceGoal', attendanceGoal.toString());
+  useEffect(() => {
+    localStorage.setItem("attendanceGoal", attendanceGoal.toString());
   }, [attendanceGoal]);
 
   // Add new profile data state
@@ -177,19 +177,22 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
             />
           }
         />
-        <Route path="/exams" element={
-          <Exams
-            w={w}
-            examSchedule={examSchedule}
-            setExamSchedule={setExamSchedule}
-            examSemesters={examSemesters}
-            setExamSemesters={setExamSemesters}
-            selectedExamSem={selectedExamSem}
-            setSelectedExamSem={setSelectedExamSem}
-            selectedExamEvent={selectedExamEvent}
-            setSelectedExamEvent={setSelectedExamEvent}
-          />
-          } />
+        <Route
+          path="/exams"
+          element={
+            <Exams
+              w={w}
+              examSchedule={examSchedule}
+              setExamSchedule={setExamSchedule}
+              examSemesters={examSemesters}
+              setExamSemesters={setExamSemesters}
+              selectedExamSem={selectedExamSem}
+              setSelectedExamSem={setSelectedExamSem}
+              selectedExamEvent={selectedExamEvent}
+              setSelectedExamEvent={setSelectedExamEvent}
+            />
+          }
+        />
         <Route
           path="/subjects"
           element={
@@ -204,13 +207,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
             />
           }
         />
-        <Route path="/profile" element={
-          <Profile
-            w={w}
-            profileData={profileData}
-            setProfileData={setProfileData}
-          />
-        } />
+        <Route path="/profile" element={<Profile w={w} profileData={profileData} setProfileData={setProfileData} />} />
       </Routes>
       <Navbar />
     </div>
@@ -224,7 +221,7 @@ function LoginWrapper({ onLoginSuccess, w }) {
     onLoginSuccess();
     // Add a small delay to ensure state updates before navigation
     setTimeout(() => {
-      navigate('/attendance');
+      navigate("/attendance");
     }, 100);
   };
 
@@ -236,17 +233,14 @@ function LoginWrapper({ onLoginSuccess, w }) {
   }, []);
 
   if (USE_FAKE_DATA) {
-    return <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-      Loading fake data...
-    </div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+        Loading fake data...
+      </div>
+    );
   }
 
-  return (
-    <Login
-      onLoginSuccess={handleLoginSuccess}
-      w={w}
-    />
-  );
+  return <Login onLoginSuccess={handleLoginSuccess} w={w} />;
 }
 
 function App() {
@@ -274,12 +268,16 @@ function App() {
           }
         }
       } catch (error) {
-        if (error instanceof LoginError && error.message.includes("JIIT Web Portal server is temporarily unavailable")) {
+        if (
+          error instanceof LoginError &&
+          error.message.includes("JIIT Web Portal server is temporarily unavailable")
+        ) {
           setError("JIIT Web Portal server is temporarily unavailable. Please try again later.");
         } else if (error instanceof LoginError && error.message.includes("Failed to fetch")) {
-          setError("Please check your internet connection. If connected, JIIT Web Portal server is temporarily unavailable.");
-        }
-        else {
+          setError(
+            "Please check your internet connection. If connected, JIIT Web Portal server is temporarily unavailable."
+          );
+        } else {
           console.error("Auto-login failed:", error);
           setError("Auto-login failed. Please login again.");
         }
@@ -295,28 +293,42 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-      Signing in...
-    </div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">Signing in...</div>
+    );
   }
 
   return (
     <>
       <ThemeScript />
       <ThemeProvider>
+        <Toaster
+          richColors
+          icons={{
+            error: <TriangleAlert className="h-4 w-4" />,
+          }}
+          toastOptions={{
+            style: {
+              background: "var(--popover)",
+              color: "var(--popover-foreground)",
+              border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-lg)",
+            },
+          }}
+        />
         <Router>
           <div className="min-h-screen bg-background select-none">
             {!isAuthenticated || (!USE_FAKE_DATA && !w.session) ? (
               <Routes>
-                <Route path="*" element={
-                  <>
-                    {error && <div className="text-destructive text-center pt-4">{error}</div>}
-                    <LoginWrapper
-                      onLoginSuccess={() => setIsAuthenticated(true)}
-                      w={w}
-                    />
-                  </>
-                } />
+                <Route
+                  path="*"
+                  element={
+                    <>
+                      {error && <div className="text-destructive text-center pt-4">{error}</div>}
+                      <LoginWrapper onLoginSuccess={() => setIsAuthenticated(true)} w={w} />
+                    </>
+                  }
+                />
               </Routes>
             ) : (
               <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
@@ -328,4 +340,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

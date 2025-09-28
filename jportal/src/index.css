@@ -62,14 +62,14 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --shadow-2xs: var(--shadow-2xs);
-  --shadow-xs: var(--shadow-xs);
-  --shadow-sm: var(--shadow-sm);
-  --shadow: var(--shadow);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-xl: var(--shadow-xl);
-  --shadow-2xl: var(--shadow-2xl);
+  --shadow-2xs: var(--shadow-offset-x, 0) var(--shadow-offset-y, 1px) var(--shadow-blur, 2px) var(--shadow-spread, 0) color-mix(in srgb, var(--shadow-color, #000000) calc(var(--shadow-opacity, 0.05) * 100%), transparent);
+  --shadow-xs: var(--shadow-offset-x, 0) var(--shadow-offset-y, 1px) var(--shadow-blur, 3px) var(--shadow-spread, 0) color-mix(in srgb, var(--shadow-color, #000000) calc(var(--shadow-opacity, 0.1) * 100%), transparent);
+  --shadow-sm: var(--shadow-offset-x, 0) var(--shadow-offset-y, 1px) var(--shadow-blur, 4px) var(--shadow-spread, 0) color-mix(in srgb, var(--shadow-color, #000000) calc(var(--shadow-opacity, 0.1) * 100%), transparent);
+  --shadow: var(--shadow-offset-x, 0) var(--shadow-offset-y, 2px) var(--shadow-blur, 6px) var(--shadow-spread, 0) color-mix(in srgb, var(--shadow-color, #000000) calc(var(--shadow-opacity, 0.1) * 100%), transparent);
+  --shadow-md: var(--shadow-offset-x, 0) var(--shadow-offset-y, 4px) var(--shadow-blur, 10px) var(--shadow-spread, -1px) color-mix(in srgb, var(--shadow-color, #000000) calc(var(--shadow-opacity, 0.1) * 100%), transparent);
+  --shadow-lg: var(--shadow-offset-x, 0) var(--shadow-offset-y, 8px) var(--shadow-blur, 16px) var(--shadow-spread, -2px) color-mix(in srgb, var(--shadow-color, #000000) calc(var(--shadow-opacity, 0.1) * 100%), transparent);
+  --shadow-xl: var(--shadow-offset-x, 0) var(--shadow-offset-y, 12px) var(--shadow-blur, 24px) var(--shadow-spread, -3px) color-mix(in srgb, var(--shadow-color, #000000) calc(var(--shadow-opacity, 0.25) * 100%), transparent);
+  --shadow-2xl: var(--shadow-offset-x, 0) var(--shadow-offset-y, 24px) var(--shadow-blur, 48px) var(--shadow-spread, -6px) color-mix(in srgb, var(--shadow-color, #000000) calc(var(--shadow-opacity, 0.3) * 100%), transparent);
 
   /* custom JPortal colors */
   --color-grade-aa: var(--grade-aa);

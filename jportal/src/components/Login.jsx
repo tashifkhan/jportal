@@ -1,17 +1,12 @@
-import { useState, useEffect } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { useState, useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
 
 // Define the form schema
@@ -22,13 +17,12 @@ const formSchema = z.object({
   password: z.string({
     required_error: "Password is required",
   }),
-})
+});
 
 export default function Login({ onLoginSuccess, w }) {
   const [loginStatus, setLoginStatus] = useState({
     isLoading: false,
-    error: null,
-    credentials: null
+    credentials: null,
   });
 
   // Initialize form
@@ -38,7 +32,7 @@ export default function Login({ onLoginSuccess, w }) {
       enrollmentNumber: "",
       password: "",
     },
-  })
+  });
 
   // Handle side effects in useEffect
   useEffect(() => {
@@ -46,114 +40,95 @@ export default function Login({ onLoginSuccess, w }) {
 
     const performLogin = async () => {
       try {
-        await w.student_login(
-          loginStatus.credentials.enrollmentNumber,
-          loginStatus.credentials.password
-        );
+        await w.student_login(loginStatus.credentials.enrollmentNumber, loginStatus.credentials.password);
 
         // Store credentials in localStorage
         localStorage.setItem("username", loginStatus.credentials.enrollmentNumber);
         localStorage.setItem("password", loginStatus.credentials.password);
 
         console.log("Login successful");
-        setLoginStatus(prev => ({
+        setLoginStatus((prev) => ({
           ...prev,
           isLoading: false,
           credentials: null,
         }));
         onLoginSuccess();
       } catch (error) {
-        if (error instanceof LoginError && error.message.includes("JIIT Web Portal server is temporarily unavailable")) {
-          console.error("JIIT Web Portal server is temporarily unavailable")
-          setLoginStatus(prev => ({
-            ...prev,
-            isLoading: false,
-            error: "JIIT Web Portal server is temporarily unavailable. Please try again later.",
-            credentials: null,
-          }));
+        if (
+          error instanceof LoginError &&
+          error.message.includes("JIIT Web Portal server is temporarily unavailable")
+        ) {
+          console.error("JIIT Web Portal server is temporarily unavailable");
+          toast.error("JIIT Web Portal server is temporarily unavailable. Please try again later.");
         } else if (error instanceof LoginError && error.message.includes("Failed to fetch")) {
-          setLoginStatus(prev => ({
-            ...prev,
-            isLoading: false,
-            error: "Please check your internet connection. If connected, JIIT Web Portal server is unavailable.",
-            credentials: null,
-          }));
+          toast.error("Please check your internet connection. If connected, JIIT Web Portal server is unavailable.");
         } else {
           console.error("Login failed:", error);
-          setLoginStatus(prev => ({
-            ...prev,
-            isLoading: false,
-            error: "Login failed. Please check your credentials.",
-            credentials: null,
-          }));
+          toast.error("Login failed. Please check your credentials.");
         }
+        setLoginStatus((prev) => ({
+          ...prev,
+          isLoading: false,
+          credentials: null,
+        }));
       }
     };
 
-    setLoginStatus(prev => ({ ...prev, isLoading: true }));
+    setLoginStatus((prev) => ({ ...prev, isLoading: true }));
     performLogin();
   }, [loginStatus.credentials, onLoginSuccess, w]);
 
   // Clean form submission
   function onSubmit(values) {
-    setLoginStatus(prev => ({
+    setLoginStatus((prev) => ({
       ...prev,
       credentials: values,
-      error: null
     }));
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md space-y-6 p-6">
-        <div className="space-y-2 text-center text-foreground">
-          <h1 className="text-2xl font-bold">Login</h1>
-          <p>Enter your credentials to sign in</p>
-          {loginStatus.error && (
-            <p className="text-destructive">{loginStatus.error}</p>
-          )}
-        </div>
-
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="enrollmentNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-foreground">Enrollment Number</FormLabel>
-                  <FormControl>
-                    <Input {...field} className="bg-foreground" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-foreground">Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" {...field} className="bg-foreground" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div></div><div></div>
-            <Button
-              type="submit"
-              variant="outline"
-              className="w-full bg-foreground text-background"
-              disabled={loginStatus.isLoading}
-            >
-              {loginStatus.isLoading ? "Signing in..." : "Sign in"}
-            </Button>
-          </form>
-        </Form>
-      </div>
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+          <CardDescription>Enter your credentials to sign in</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="enrollmentNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enrollment Number</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="cursor-pointer w-full" disabled={loginStatus.isLoading}>
+                {loginStatus.isLoading ? "Signing in..." : "Sign in"}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
     </div>
-  )
+  );
 }
