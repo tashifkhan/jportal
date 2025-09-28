@@ -15,9 +15,9 @@ export function ThemeToggle({ className, ...props }: ThemeToggleProps) {
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       size="icon"
-      className={cn("cursor-pointer", className)}
+      className={cn("cursor-pointer rounded-full", className)}
       {...props}
       onClick={handleThemeToggle}
     >

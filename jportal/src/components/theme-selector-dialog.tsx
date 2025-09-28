@@ -1,4 +1,3 @@
-import React from "react";
 import { Palette } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -16,7 +15,7 @@ export function ThemeSelectorDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon" className="cursor-pointer">
+        <Button variant="ghost" size="icon" className="cursor-pointer rounded-full">
           <Palette className="h-7 w-7" />
           <span className="sr-only">Select theme</span>
         </Button>
