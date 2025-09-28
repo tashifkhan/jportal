@@ -23,6 +23,8 @@
                     {
                         "subjectdesc": "15B11EC611",
                         "subjectcode": "TELECOMMUNICATION NETWORKS",
+                        "individualsubjectcode": "15B11EC611",
+                        "subjectid": "1",
                         "Ltotalclass": 36,
                         "Ltotalpres": 28,
                         "Lpercentage": 77.8,
@@ -37,6 +39,8 @@
                     {
                         "subjectdesc": "15B17EC671",
                         "subjectcode": "TELECOMMUNICATION NETWORKS LAB",
+                        "individualsubjectcode": "15B17EC671",
+                        "subjectid": "2",
                         "Ltotalclass": 0,
                         "Ltotalpres": 0,
                         "Lpercentage": 0,
@@ -51,6 +55,8 @@
                     {
                         "subjectdesc": "15B19EC691",
                         "subjectcode": "MINOR PROJECT-2",
+                        "individualsubjectcode": "15B19EC691",
+                        "subjectid": "3",
                         "Ltotalclass": 0,
                         "Ltotalpres": 0,
                         "Lpercentage": 0,
@@ -65,6 +71,8 @@
                     {
                         "subjectdesc": "17B11EC731",
                         "subjectcode": "MOBILE COMMUNICATION",
+                        "individualsubjectcode": "17B11EC731",
+                        "subjectid": "4",
                         "Ltotalclass": 39,
                         "Ltotalpres": 28,
                         "Lpercentage": 71.8,
@@ -79,6 +87,8 @@
                     {
                         "subjectdesc": "20B12HS311",
                         "subjectcode": "GLOBAL POLITICS",
+                        "individualsubjectcode": "20B12HS311",
+                        "subjectid": "5",
                         "Ltotalclass": 39,
                         "Ltotalpres": 27,
                         "Lpercentage": 66.7,
@@ -93,6 +103,8 @@
                     {
                         "subjectdesc": "18B11EC315",
                         "subjectcode": "VLSI Design",
+                        "individualsubjectcode": "18B11EC315",
+                        "subjectid": "6",
                         "Ltotalclass": 48,
                         "Ltotalpres": 34,
                         "Lpercentage": 78.4,
@@ -107,6 +119,8 @@
                     {
                         "subjectdesc": "18B15EC315",
                         "subjectcode": "VLSI Design Lab-II",
+                        "individualsubjectcode": "18B15EC315",
+                        "subjectid": "7",
                         "Ltotalclass": 0,
                         "Ltotalpres": 0,
                         "Lpercentage": 0,
@@ -121,6 +135,8 @@
                     {
                         "subjectdesc": "24B16HS311",
                         "subjectcode": "Basics of Creative Writing",
+                        "individualsubjectcode": "24B16HS311",
+                        "subjectid": "8",
                         "Ltotalclass": 26,
                         "Ltotalpres": 20,
                         "Lpercentage": 76.9,
@@ -135,6 +151,8 @@
                     {
                         "subjectdesc": "24B12EC411",
                         "subjectcode": "Fundamentals of Electric Vehicle",
+                        "individualsubjectcode": "24B12EC411",
+                        "subjectid": "9",
                         "Ltotalclass": 40,
                         "Ltotalpres": 27,
                         "Lpercentage": 67.5,
@@ -149,6 +167,8 @@
                     {
                         "subjectdesc": "24B12HS316",
                         "subjectcode": "Popular Literature",
+                        "individualsubjectcode": "24B12HS316",
+                        "subjectid": "10",
                         "Ltotalclass": 40,
                         "Ltotalpres": 29,
                         "Lpercentage": 72.5,
@@ -166,19 +186,19 @@
         "subjectAttendanceData": {
             "15B11EC611": [
                 {
-                    "datetime": "01/09/2023 09:00",
+                    "datetime": "01/09/2025 09:00",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "02/09/2023 09:00",
+                    "datetime": "02/09/2025 09:00",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "03/09/2023 09:00",
+                    "datetime": "03/09/2025 09:00",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
@@ -186,13 +206,13 @@
             ],
             "15B17EC671": [
                 {
-                    "datetime": "01/09/2023 11:00",
+                    "datetime": "01/09/2025 11:00",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "08/09/2023 11:00",
+                    "datetime": "08/09/2025 11:00",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
@@ -200,7 +220,7 @@
             ],
             "15B19EC691": [
                 {
-                    "datetime": "05/09/2023 10:00",
+                    "datetime": "05/09/2025 10:00",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
@@ -208,13 +228,13 @@
             ],
             "17B11EC731": [
                 {
-                    "datetime": "01/09/2023 12:00",
+                    "datetime": "01/09/2025 12:00",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "03/09/2023 12:00",
+                    "datetime": "03/09/2025 12:00",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
@@ -222,13 +242,13 @@
             ],
             "18B11EC315": [
                 {
-                    "datetime": "01/09/2023 14:00",
+                    "datetime": "01/09/2025 14:00",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "02/09/2023 14:00",
+                    "datetime": "02/09/2025 14:00",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
@@ -236,7 +256,7 @@
             ],
             "18B15EC315": [
                 {
-                    "datetime": "04/09/2023 15:00",
+                    "datetime": "04/09/2025 15:00",
                     "classtype": "Practical",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
@@ -244,13 +264,13 @@
             ],
             "20B12HS311": [
                 {
-                    "datetime": "01/09/2023 16:00",
+                    "datetime": "01/09/2025 16:00",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "02/09/2023 16:00",
+                    "datetime": "02/09/2025 16:00",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
@@ -258,7 +278,7 @@
             ],
             "24B12EC411": [
                 {
-                    "datetime": "01/09/2023 17:00",
+                    "datetime": "01/09/2025 17:00",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
@@ -266,7 +286,7 @@
             ],
             "24B12HS316": [
                 {
-                    "datetime": "01/09/2023 18:00",
+                    "datetime": "01/09/2025 18:00",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
@@ -274,13 +294,13 @@
             ],
             "24B16HS311": [
                 {
-                    "datetime": "01/09/2023 19:00",
+                    "datetime": "01/09/2025 19:00",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "08/09/2023 19:00",
+                    "datetime": "08/09/2025 19:00",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
@@ -841,7 +861,7 @@
                 {
                     "subjectcode": "MATH101",
                     "subjectdesc": "Mathematics I (L)",
-                    "datetime": "15/09/2023",
+                    "datetime": "15/09/2025",
                     "datetimefrom": "09:00",
                     "datetimeupto": "10:00",
                     "roomcode": "LT1",
@@ -852,7 +872,7 @@
                 {
                     "subjectcode": "PHY101",
                     "subjectdesc": "Physics I (L)",
-                    "datetime": "30/11/2023",
+                    "datetime": "30/11/2025",
                     "datetimefrom": "15:30",
                     "datetimeupto": "17:00",
                     "roomcode": "Lt3",

@@ -22,8 +22,10 @@ export default class MockWebPortal {
     return fakeData.attendance.attendanceData[semKey] || { studentattendancelist: [] };
   }
 
-  async get_subject_daily_attendance(subjectCode) {
-    return fakeData.attendance.subjectAttendanceData[subjectCode] || [];
+  async get_subject_daily_attendance(semester, subjectid, individualsubjectcode, subjectcomponentids) {
+    return {
+      studentAttdsummarylist: fakeData.attendance.subjectAttendanceData[individualsubjectcode] || []
+    };
   }
 
   async get_sgpa_cgpa() {
