@@ -350,7 +350,7 @@ const Attendance = ({
               <div className="w-full max-w-[320px] flex flex-col">
                 <button
                   onClick={() => setCalendarOpen((o) => !o)}
-                  className="flex items-center justify-between bg-card text-card-foreground rounded-md px-3 py-2 mb-2 text-sm"
+                  className="flex items-center justify-between bg-card text-card-foreground rounded-md px-3 py-2 mb-2 text-sm cursor-pointer"
                 >
                   <span>{dailyDate.toDateString()}</span>
                   {calendarOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
