@@ -89,9 +89,23 @@ export function ThemeSelectorDialog() {
     const touch = event.touches[0];
     touchStartRef.current = { x: touch.clientX, y: touch.clientY };
     hasSwipedRef.current = false;
+    isHoldingRef.current = false;
+
+    // Start hold timer for touch devices
+    holdTimeoutRef.current = setTimeout(() => {
+      isHoldingRef.current = true;
+      const { clientX: x, clientY: y } = touch;
+      toggleTheme({ x, y });
+    }, 500); // 500ms hold time
   };
 
   const handleTouchEnd = (event: React.TouchEvent<HTMLButtonElement>) => {
+    // Clear hold timeout if it exists
+    if (holdTimeoutRef.current) {
+      clearTimeout(holdTimeoutRef.current);
+      holdTimeoutRef.current = null;
+    }
+
     if (!touchStartRef.current) return;
 
     const touch = event.changedTouches[0];
@@ -128,6 +142,15 @@ export function ThemeSelectorDialog() {
     touchStartRef.current = null;
   };
 
+  const handleTouchCancel = () => {
+    // Clear hold timeout if touch is cancelled
+    if (holdTimeoutRef.current) {
+      clearTimeout(holdTimeoutRef.current);
+      holdTimeoutRef.current = null;
+    }
+    touchStartRef.current = null;
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -141,6 +164,7 @@ export function ThemeSelectorDialog() {
           onClick={handleClick}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchCancel}
         >
           <Palette className="h-7 w-7" />
           <span className="sr-only">Select theme</span>
