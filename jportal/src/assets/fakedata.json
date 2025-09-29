@@ -3917,6 +3917,58 @@
                         "audtsubject": "Y"
                     }
                 ]
+            },
+            "2025ODDSEM": {
+                "subjects": [
+                    {
+                        "subject_code": "15B11CI511",
+                        "subject_desc": "COMPUTER NETWORKS",
+                        "credits": 3,
+                        "subject_component_code": "L",
+                        "employee_name": "SAMRITI KALIA",
+                        "audtsubject": "N"
+                    },
+                    {
+                        "subject_code": "15B17CI571",
+                        "subject_desc": "COMPUTER NETWORKS LAB",
+                        "credits": 1,
+                        "subject_component_code": "P",
+                        "employee_name": "SAMRITI KALIA",
+                        "audtsubject": "N"
+                    },
+                    {
+                        "subject_code": "17B11CI731",
+                        "subject_desc": "DATABASE MANAGEMENT SYSTEMS",
+                        "credits": 4,
+                        "subject_component_code": "L",
+                        "employee_name": "SAMRITI KALIA",
+                        "audtsubject": "N"
+                    },
+                    {
+                        "subject_code": "17B17CI791",
+                        "subject_desc": "DATABASE MANAGEMENT SYSTEMS LAB",
+                        "credits": 1,
+                        "subject_component_code": "P",
+                        "employee_name": "RAJESH KUMAR",
+                        "audtsubject": "N"
+                    },
+                    {
+                        "subject_code": "20B11CI211",
+                        "subject_desc": "OPERATING SYSTEMS",
+                        "credits": 4,
+                        "subject_component_code": "L",
+                        "employee_name": "RUBY BENIWAL",
+                        "audtsubject": "N"
+                    },
+                    {
+                        "subject_code": "20B12HS411",
+                        "subject_desc": "ORGANIZATIONAL BEHAVIOR",
+                        "credits": 3,
+                        "subject_component_code": "L",
+                        "employee_name": "HARLEEN KAUR",
+                        "audtsubject": "N"
+                    }
+                ]
             }
         }
     },
