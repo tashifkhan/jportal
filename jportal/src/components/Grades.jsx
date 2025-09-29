@@ -274,7 +274,7 @@ export default function Grades({
   return (
     <div className="text-foreground pt-2 pb-4 px-3 font-sans">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-4 bg-background gap-1">
+        <TabsList className="grid w-full grid-cols-3 mb-4 bg-background gap-3">
           <TabsTrigger
             value="overview"
             className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground"
