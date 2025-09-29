@@ -7,11 +7,11 @@ import ProfileIcon from "@/../public/icons/profile.svg?react";
 
 function Navbar() {
   const navItems = [
-    { name: "ATTENDANCE", path: "/attendance", icon: <AttendanceIcon className="fill-foreground w-5 h-5" /> },
-    { name: "  GRADES  ", path: "/grades", icon: <GradesIcon className="fill-foreground w-5 h-5" /> },
-    { name: "  EXAMS", path: "/exams", icon: <ExamsIcon className="fill-foreground w-5 h-5" /> },
-    { name: " SUBJECTS ", path: "/subjects", icon: <SubjectsIcon className="fill-foreground w-5 h-5" /> },
-    { name: " PROFILE ", path: "/profile", icon: <ProfileIcon className="fill-foreground w-5 h-5" /> },
+    { name: "ATTENDANCE", path: "/attendance", icon: <AttendanceIcon className="primary-foreground w-5 h-5" /> },
+    { name: "  GRADES  ", path: "/grades", icon: <GradesIcon className="primary-foreground w-5 h-5" /> },
+    { name: "  EXAMS", path: "/exams", icon: <ExamsIcon className="primary-foreground w-5 h-5" /> },
+    { name: " SUBJECTS ", path: "/subjects", icon: <SubjectsIcon className="primary-foreground w-5 h-5" /> },
+    { name: " PROFILE ", path: "/profile", icon: <ProfileIcon className="primary-foreground w-5 h-5" /> },
   ];
 
   return (
@@ -27,7 +27,13 @@ function Navbar() {
         >
           {({ isActive }) => (
             <div className="flex flex-col items-center">
-              <div className={`hover:bg-accent rounded-xl w-full p-1 flex items-center justify-center ${isActive ? "bg-primary/70" : ""}`}>{item.icon}</div>
+              <div
+                className={`hover:bg-primary rounded-xl w-full p-1 flex items-center justify-center ${
+                  isActive ? "bg-primary" : ""
+                }`}
+              >
+                {item.icon}
+              </div>
               <p className="max-[370px]:text-[0.6rem] max-[390px]:text-[0.7rem] text-xs text-left">{item.name}</p>
             </div>
           )}
