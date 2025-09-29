@@ -326,9 +326,12 @@ const AttendanceCard = ({
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: "var(--background)",
+                        backgroundColor: "var(--card)",
                         border: "1px solid var(--border)",
-                        color: "var(--muted-foreground)",
+                        color: "var(--card-foreground)",
+                      }}
+                      wrapperStyle={{
+                        boxShadow: "var(--shadow)",
                       }}
                       formatter={(value) => [`${value.toFixed(1)}%`]}
                     />

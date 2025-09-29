@@ -332,10 +332,13 @@ export default function Grades({
                       />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "var(--border)",
+                          backgroundColor: "var(--card)",
                           border: "none",
                           borderRadius: "8px",
-                          color: "var(--foreground)",
+                          color: "var(--card-foreground)",
+                        }}
+                        wrapperStyle={{
+                          boxShadow: "var(--shadow)",
                         }}
                       />
                       <Legend verticalAlign="top" height={36} />
