@@ -96,6 +96,10 @@ export default function Login({ onLoginSuccess, w }) {
             <h1 className="text-foreground text-2xl font-bold lg:text-3xl font-sans">JPortal</h1>
             <div className="flex items-center gap-1">
               <ThemeSelectorDialog />
+              {/* empty div to balance the flex layout. otherwise theme selector button is too close to screen edge and causes trouble on mobile.*/}
+              <div className="w-10 h-10">
+
+              </div>
             </div>
           </div>
         </header>
