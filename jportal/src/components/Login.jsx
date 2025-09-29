@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.20/dist/jsjiit.esm.js";
+import { ThemeSelectorDialog } from "./theme-selector-dialog";
 
 // Define the form schema
 const formSchema = z.object({
@@ -88,6 +89,18 @@ export default function Login({ onLoginSuccess, w }) {
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
+      {/* Header with theme toggle */}
+      <div className="absolute top-0 left-0 right-0 z-10">
+        <header className="bg-background mx-auto px-3 pt-4 pb-2">
+          <div className="container-fluid flex justify-between items-center">
+            <h1 className="text-foreground text-2xl font-bold lg:text-3xl font-sans">JPortal</h1>
+            <div className="flex items-center gap-1">
+              <ThemeSelectorDialog />
+            </div>
+          </div>
+        </header>
+      </div>
+
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Login</CardTitle>
