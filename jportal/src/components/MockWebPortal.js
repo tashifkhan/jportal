@@ -66,13 +66,18 @@ export default class MockWebPortal {
     return fakeData.profile;
   }
 
+  async get_semesters_for_exam_events() {
+    return fakeData.exams.examSemesters || [];
+  }
+
   async get_exam_events(semester) {
-    return fakeData.exams.examEvents || [];
+    const semKey = semester.registration_code || semester;
+    return fakeData.exams.examEvents[semKey] || [];
   }
 
   async get_exam_schedule(event) {
-    const eventKey = event.exam_event_id || event;
-    return fakeData.exams.examSchedule[eventKey] || [];
+    const eventKey = event.exameventid || event.exam_event_id || event;
+    return { subjectinfo: fakeData.exams.examSchedule[eventKey] || [] };
   }
 
   async get_registered_semesters() {

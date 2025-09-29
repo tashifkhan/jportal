@@ -51,7 +51,7 @@ export default function Exams({
   const handleEventChange = async (value) => {
     setLoading(true)
     try {
-      const event = examEvents.find(evt => evt.exam_event_id === value)
+      const event = examEvents.find(evt => (evt.exameventid || evt.exam_event_id) === value)
       setSelectedExamEvent(event)
 
       if (!examSchedule[value]) {
@@ -66,7 +66,7 @@ export default function Exams({
     }
   }
 
-  const currentSchedule = selectedExamEvent && examSchedule[selectedExamEvent.exam_event_id]
+  const currentSchedule = selectedExamEvent && examSchedule[selectedExamEvent.exameventid || selectedExamEvent.exam_event_id]
 
   // Format date string to a more readable format
   const formatDate = (dateStr) => {
@@ -105,17 +105,17 @@ export default function Exams({
             <div className="mt-2">
               <Select
                 onValueChange={handleEventChange}
-                value={selectedExamEvent?.exam_event_id || ""}
+                value={(selectedExamEvent?.exameventid || selectedExamEvent?.exam_event_id) || ""}
               >
                 <SelectTrigger className="bg-background text-foreground border-foreground">
                   <SelectValue placeholder="Select exam event">
-                    {selectedExamEvent?.exam_event_desc || "Select exam event"}
+                    {selectedExamEvent?.exameventdesc || selectedExamEvent?.exam_event_desc || "Select exam event"}
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent className="bg-background text-foreground border-foreground">
                   {examEvents.map((event) => (
-                    <SelectItem key={event.exam_event_id} value={event.exam_event_id}>
-                      {event.exam_event_desc}
+                    <SelectItem key={event.exameventid || event.exam_event_id} value={event.exameventid || event.exam_event_id}>
+                      {event.exameventdesc || event.exam_event_desc}
                     </SelectItem>
                   ))}
                 </SelectContent>
