@@ -3,7 +3,7 @@ import { defaultLightThemeStyles, defaultDarkThemeStyles } from "../config/theme
 export function ThemeScript() {
   const scriptContent = `
     // ----- FONT LOADING UTILITIES -----
-    const DEFAULT_FONT_WEIGHTS = ["400"];
+    const DEFAULT_FONT_WEIGHTS = ["400", "500", "600", "700"];
 
     function extractFontFamily(fontFamilyValue) {
       if (!fontFamilyValue) return null;

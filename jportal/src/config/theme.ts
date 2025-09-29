@@ -1,6 +1,22 @@
 import { ThemeEditorState } from "../types/editor";
 import { ThemeStyleProps } from "../types/theme";
 
+// Common styles that are shared between light and dark modes
+// These will be taken from the light mode and applied regardless of current mode
+export const COMMON_STYLES = [
+  "font-sans",
+  "font-serif",
+  "font-mono",
+  "radius",
+  "shadow-opacity",
+  "shadow-blur",
+  "shadow-spread",
+  "shadow-offset-x",
+  "shadow-offset-y",
+  "letter-spacing",
+  "spacing",
+] as const;
+
 export const DEFAULT_FONT_SANS =
   "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'";
 
@@ -181,7 +197,7 @@ export const defaultThemeState: ThemeEditorState = {
     typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light",
-  preset: "default",
+  preset: "adefault",
   hslAdjustments: {
     hueShift: 0,
     saturationScale: 1,

@@ -10,6 +10,7 @@ import Subjects from "./components/Subjects";
 import Profile from "./components/Profile";
 import { ThemeProvider } from "./components/theme-provider";
 import { ThemeScript } from "./components/theme-script";
+import { DynamicFontLoader } from "./components/DynamicFontLoader";
 import { Toaster } from "./components/ui/sonner";
 import "./App.css";
 
@@ -302,6 +303,7 @@ function App() {
     <>
       <ThemeScript />
       <ThemeProvider>
+        <DynamicFontLoader />
         <Toaster
           richColors
           icons={{

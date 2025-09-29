@@ -162,7 +162,7 @@ export const useThemeStore = create<ThemeStore>()(
 
       hasUnsavedChanges: () => {
         const themeState = get().themeState;
-        const presetThemeStyles = getPresetThemeStyles(themeState.preset ?? "default");
+        const presetThemeStyles = getPresetThemeStyles(themeState.preset ?? "adefault");
         const stylesChanged = !isDeepEqual(themeState.styles, presetThemeStyles);
         const hslChanged = !isDeepEqual(
           themeState.hslAdjustments,
@@ -173,7 +173,7 @@ export const useThemeStore = create<ThemeStore>()(
 
       resetToCurrentPreset: () => {
         const currentThemeState = get().themeState;
-        const presetThemeStyles = getPresetThemeStyles(currentThemeState.preset ?? "default");
+        const presetThemeStyles = getPresetThemeStyles(currentThemeState.preset ?? "adefault");
         const newThemeState: ThemeEditorState = {
           ...currentThemeState,
           styles: presetThemeStyles,

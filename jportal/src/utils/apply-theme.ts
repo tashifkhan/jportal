@@ -1,5 +1,6 @@
 import { ThemeEditorState } from "../types/editor";
 import { ThemeStyleProps, ThemeStyles } from "../types/theme";
+import { COMMON_STYLES } from "../config/theme";
 
 type Theme = "dark" | "light";
 
@@ -17,13 +18,32 @@ const updateThemeClass = (root: HTMLElement, mode: Theme) => {
   }
 };
 
+const applyCommonStyles = (root: HTMLElement, themeStyles: ThemeStyleProps) => {
+  Object.entries(themeStyles)
+    .filter(([key]) =>
+      COMMON_STYLES.includes(
+        key as (typeof COMMON_STYLES)[number]
+      )
+    )
+    .forEach(([key, value]) => {
+      if (typeof value === "string") {
+        applyStyleToElement(root, key, value);
+      }
+    });
+};
+
 const applyThemeColors = (
   root: HTMLElement,
   themeStyles: ThemeStyles,
   mode: Theme
 ) => {
   Object.entries(themeStyles[mode]).forEach(([key, value]) => {
-    if (typeof value === "string") {
+    if (
+      typeof value === "string" &&
+      !COMMON_STYLES.includes(
+        key as (typeof COMMON_STYLES)[number]
+      )
+    ) {
       applyStyleToElement(root, key, value);
     }
   });
@@ -39,7 +59,9 @@ export const applyThemeToElement = (
   if (!rootElement) return;
 
   updateThemeClass(rootElement, mode);
-  // Apply mode-specific colors and styles
+  // Apply common styles (like fonts, radius) based on the 'light' mode definition
+  applyCommonStyles(rootElement, themeStyles.light);
+  // Apply mode-specific colors
   applyThemeColors(rootElement, themeStyles, mode);
 };
 

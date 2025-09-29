@@ -39,6 +39,9 @@ const basePresets: Record<string, ThemePreset> = {
         "sidebar-accent-foreground": "#bfdbfe",
         "sidebar-border": "#404040",
         "sidebar-ring": "#3b82f6",
+        "font-sans": 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+        "font-serif": 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+        "font-mono": 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
       },
       dark: {
         background: "#191c20",
