@@ -163,7 +163,7 @@
 @supports (view-transition-name: none) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation-duration: 1.2s;
+    animation-duration: 1s;
   }
 
   ::view-transition-new(root) {
