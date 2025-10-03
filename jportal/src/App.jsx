@@ -8,6 +8,7 @@ import Grades from "./components/Grades";
 import Exams from "./components/Exams";
 import Subjects from "./components/Subjects";
 import Profile from "./components/Profile";
+import Cloudflare from "@/components/Cloudflare";
 import { ThemeProvider } from "./components/theme-provider";
 import { ThemeScript } from "./components/theme-script";
 import { DynamicFontLoader } from "./components/DynamicFontLoader";
@@ -18,6 +19,10 @@ import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.2
 
 import MockWebPortal from "./components/MockWebPortal";
 import { TriangleAlert } from "lucide-react";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 // Check if we should use fake data
 const USE_FAKE_DATA = import.meta.env.VITE_USE_FAKE_DATA === "true";
@@ -299,7 +304,9 @@ function App() {
         <ThemeScript />
         <ThemeProvider>
           <DynamicFontLoader />
-        <div className="min-h-screen flex items-center justify-center bg-background text-foreground">Signing in...</div>
+          <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+            Signing in...
+          </div>
         </ThemeProvider>
       </>
     );
@@ -310,39 +317,45 @@ function App() {
       <ThemeScript />
       <ThemeProvider>
         <DynamicFontLoader />
-        <Toaster
-          richColors
-          icons={{
-            error: <TriangleAlert className="h-4 w-4" />,
-          }}
-          toastOptions={{
-            style: {
-              background: "var(--popover)",
-              color: "var(--popover-foreground)",
-              border: "1px solid var(--border)",
-              boxShadow: "var(--shadow-lg)",
-            },
-          }}
-        />
-        <Router>
-          <div className="min-h-screen bg-background select-none">
-            {!isAuthenticated || (!USE_FAKE_DATA && !w.session) ? (
+        <QueryClientProvider client={queryClient}>
+          <Toaster
+            richColors
+            icons={{
+              error: <TriangleAlert className="h-4 w-4" />,
+            }}
+            toastOptions={{
+              style: {
+                background: "var(--popover)",
+                color: "var(--popover-foreground)",
+                border: "1px solid var(--border)",
+                boxShadow: "var(--shadow-lg)",
+              },
+            }}
+          />
+          <Router>
+            <div className="min-h-screen bg-background select-none">
               <Routes>
-                <Route
-                  path="*"
-                  element={
-                    <>
-                      {error && <div className="text-destructive text-center pt-4">{error}</div>}
-                      <LoginWrapper onLoginSuccess={() => setIsAuthenticated(true)} w={w} />
-                    </>
-                  }
-                />
+                {/* Public route - accessible without authentication */}
+              <Route path="/stats" element={<Cloudflare />} />
+
+                {/* Protected routes - require authentication */}
+                {!isAuthenticated || (!USE_FAKE_DATA && !w.session) ? (
+                  <Route
+                    path="*"
+                    element={
+                      <>
+                        {error && <div className="text-destructive text-center pt-4">{error}</div>}
+                        <LoginWrapper onLoginSuccess={() => setIsAuthenticated(true)} w={w} />
+                      </>
+                    }
+                  />
+                ) : (
+                  <Route path="/*" element={<AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />} />
+                )}
               </Routes>
-            ) : (
-              <AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />
-            )}
-          </div>
-        </Router>
+            </div>
+          </Router>
+        </QueryClientProvider>
       </ThemeProvider>
     </>
   );

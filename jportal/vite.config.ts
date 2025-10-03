@@ -1,12 +1,15 @@
 import path from "path";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 import svgr from "vite-plugin-svgr";
 import fs from "fs";
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+
+  return {
   base: "/jportal/",
   plugins: [
     react(),
@@ -74,4 +77,23 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      '/api/cloudflare': {
+        target: 'https://api.cloudflare.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/cloudflare/, ''),
+        configure: (proxy, options) => {
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            // Add Authorization header from environment variable
+            const token = env.VITE_CLOUDFLARE_API_TOKEN;
+            if (token) {
+              proxyReq.setHeader('Authorization', `Bearer ${token}`);
+            }
+          });
+        },
+      },
+    },
+  },
+};
 });

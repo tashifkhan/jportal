@@ -2,14 +2,14 @@ import { ThemePreset } from "../types/theme";
 import { extendAllThemePresets } from "./extend-theme-presets";
 
 const basePresets: Record<string, ThemePreset> = {
-  "adefault": {
+  adefault: {
     label: "Default",
     styles: {
       light: {
         background: "#191c20",
-        foreground: "#ffffff",
-        card: "#ffffff",
-        "card-foreground": "#333333",
+        foreground: "#e5e5e5",
+        card: "#1F252B",
+        "card-foreground": "#e5e5e5",
         popover: "#ffffff",
         "popover-foreground": "#D4D1DC",
         primary: "#3b82f6",
@@ -39,15 +39,17 @@ const basePresets: Record<string, ThemePreset> = {
         "sidebar-accent-foreground": "#bfdbfe",
         "sidebar-border": "#404040",
         "sidebar-ring": "#3b82f6",
-        "font-sans": 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+        "font-sans":
+          'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
         "font-serif": 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
-        "font-mono": 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+        "font-mono":
+          'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
       },
       dark: {
         background: "#191c20",
-        foreground: "#ffffff",
-        card: "#ffffff",
-        "card-foreground": "#333333",
+        foreground: "#e5e5e5",
+        card: "#1F252B",
+        "card-foreground": "#e5e5e5",
         popover: "#ffffff",
         "popover-foreground": "#D4D1DC",
         primary: "#3b82f6",
@@ -3587,7 +3589,6 @@ const basePresets: Record<string, ThemePreset> = {
     },
   },
 };
-
 
 // Export the extended presets with all custom JPortal variables
 export const defaultPresets = extendAllThemePresets(basePresets);

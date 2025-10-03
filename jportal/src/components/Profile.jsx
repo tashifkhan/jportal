@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+
 
 export default function Profile({ w, profileData, setProfileData }) {
   const [loading, setLoading] = useState(true);
@@ -39,7 +42,7 @@ export default function Profile({ w, profileData, setProfileData }) {
   return (
     <div className="text-foreground pt-2 pb-4 px-3 font-sans space-y-4">
       {/* Personal Information */}
-      <div className="bg-background p-4 rounded-lg border border-foreground/10">
+      <div className="bg-card p-4 rounded-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
         <div className="grid">
           <InfoRow label="Name" value={info.studentname} />
@@ -53,7 +56,7 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Academic Information */}
-      <div className="bg-background p-4 rounded-lg border border-foreground/10">
+      <div className="bg-card p-4 rounded-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">Academic Information</h2>
         <div className="grid">
           <InfoRow label="Program" value={info.programcode} />
@@ -68,7 +71,7 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Contact Information */}
-      <div className="bg-background p-4 rounded-lg border border-foreground/10">
+      <div className="bg-card p-4 rounded-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
         <div className="grid">
           <InfoRow label="Student Email (College)" value={info.studentemailid} />
@@ -79,7 +82,7 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Family Information */}
-      <div className="bg-background p-4 rounded-lg border border-foreground/10 overflow-auto">
+      <div className="bg-card p-4 rounded-lg shadow-lg overflow-auto">
         <h2 className="text-xl font-semibold mb-4">Family Information</h2>
         <div className="grid gap-2">
           <InfoRow label="Father's Name" value={info.fathersname} />
@@ -91,7 +94,7 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Address Information */}
-      <div className="bg-background p-4 rounded-lg border border-foreground/10">
+      <div className="bg-card p-4 rounded-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">Current Address</h2>
         <div className="grid">
           <InfoRow label="Address" value={[info.caddress1, info.caddress3].filter(Boolean).join(", ")} />
@@ -103,10 +106,13 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Permanent Address */}
-      <div className="bg-background p-4 rounded-lg border border-foreground/10">
+      <div className="bg-card p-4 rounded-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">Permanent Address</h2>
         <div className="grid">
-          <InfoRow label="Address" value={[info.paddress1, info.paddress2, info.paddress3].filter(Boolean).join(", ")} />
+          <InfoRow
+            label="Address"
+            value={[info.paddress1, info.paddress2, info.paddress3].filter(Boolean).join(", ")}
+          />
           <InfoRow label="City" value={info.pcityname} />
           <InfoRow label="District" value={info.pdistrict} />
           <InfoRow label="State" value={info.pstatename} />
@@ -115,7 +121,7 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Educational Qualifications */}
-      <div className="bg-background p-4 rounded-lg border border-foreground/10">
+      <div className="bg-card p-4 rounded-lg shadow-lg">
         <h2 className="text-xl font-semibold mb-4">Educational Qualifications</h2>
         {qualifications.map((qual, index) => (
           <div key={index} className="grid">
@@ -129,8 +135,12 @@ export default function Profile({ w, profileData, setProfileData }) {
           </div>
         ))}
       </div>
-      <div className="text-center bg-background p-4 overflow-auto max-sm:text-sm text-lg">
-      Made with Big 🍆 Energy by <a href="https://github.com/codeblech" className="text-primary">Yash Malik</a>
+      
+      <div className="text-center p-4 overflow-auto max-sm:text-sm text-lg">
+        Made with Big 🍆 Energy by{" "}
+        <a href="https://github.com/codeblech" className="text-primary">
+          Yash Malik
+        </a>
       </div>
     </div>
   );
