@@ -106,12 +106,8 @@ export default function Subjects({ w, subjectData, setSubjectData, semestersData
     <div className="text-foreground font-sans">
       <div className="sticky top-14 bg-background z-20">
         <div className="py-2 px-3">
-          <Select
-            onValueChange={handleSemesterChange}
-            value={selectedSem?.registration_id}
-            disabled={loading}
-          >
-            <SelectTrigger className="bg-background text-foreground border-foreground">
+          <Select onValueChange={handleSemesterChange} value={selectedSem?.registration_id} disabled={loading}>
+            <SelectTrigger className="bg-background text-foreground border-foreground cursor-pointer hover:bg-accent hover:text-accent-foreground">
               <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
                 {selectedSem?.registration_code}
               </SelectValue>

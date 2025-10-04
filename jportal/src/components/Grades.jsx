@@ -409,7 +409,7 @@ export default function Grades({
             ) : (
               <>
                 <Select onValueChange={handleSemesterChange} value={selectedGradeCardSem?.registration_id}>
-                  <SelectTrigger className="bg-background text-foreground border-foreground">
+                  <SelectTrigger className="bg-background text-foreground border-foreground cursor-pointer hover:bg-accent hover:text-accent-foreground">
                     <SelectValue placeholder={gradeCardLoading ? "Loading semesters..." : "Select semester"}>
                       {selectedGradeCardSem?.registration_code}
                     </SelectValue>
@@ -461,7 +461,7 @@ export default function Grades({
             ) : (
               <>
                 <Select onValueChange={handleMarksSemesterChange} value={selectedMarksSem?.registration_id}>
-                  <SelectTrigger className="bg-background text-foreground border-foreground">
+                  <SelectTrigger className="bg-background text-foreground border-foreground cursor-pointer hover:bg-accent hover:text-accent-foreground">
                     <SelectValue placeholder="Select semester" />
                   </SelectTrigger>
                   <SelectContent className="bg-background text-foreground border-foreground">

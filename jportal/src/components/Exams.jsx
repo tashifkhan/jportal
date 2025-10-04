@@ -83,11 +83,8 @@ export default function Exams({
     <div className="text-foreground font-sans">
       <div className="sticky top-14 bg-background z-20">
         <div className="pt-2 pb-4 px-3">
-          <Select
-            onValueChange={handleSemesterChange}
-            value={selectedExamSem?.registration_id || ""}
-          >
-            <SelectTrigger className="bg-background text-foreground border-foreground">
+          <Select onValueChange={handleSemesterChange} value={selectedExamSem?.registration_id || ""}>
+            <SelectTrigger className="bg-background text-foreground border-foreground cursor-pointer hover:bg-accent hover:text-accent-foreground">
               <SelectValue placeholder="Select semester">
                 {selectedExamSem?.registration_code || "Select semester"}
               </SelectValue>
@@ -105,16 +102,19 @@ export default function Exams({
             <div className="mt-2">
               <Select
                 onValueChange={handleEventChange}
-                value={(selectedExamEvent?.exameventid || selectedExamEvent?.exam_event_id) || ""}
+                value={selectedExamEvent?.exameventid || selectedExamEvent?.exam_event_id || ""}
               >
-                <SelectTrigger className="bg-background text-foreground border-foreground">
+                <SelectTrigger className="bg-background text-foreground border-foreground cursor-pointer hover:bg-accent hover:text-accent-foreground">
                   <SelectValue placeholder="Select exam event">
                     {selectedExamEvent?.exameventdesc || selectedExamEvent?.exam_event_desc || "Select exam event"}
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent className="bg-background text-foreground border-foreground">
                   {examEvents.map((event) => (
-                    <SelectItem key={event.exameventid || event.exam_event_id} value={event.exameventid || event.exam_event_id}>
+                    <SelectItem
+                      key={event.exameventid || event.exam_event_id}
+                      value={event.exameventid || event.exam_event_id}
+                    >
                       {event.exameventdesc || event.exam_event_desc}
                     </SelectItem>
                   ))}
@@ -127,25 +127,17 @@ export default function Exams({
 
       <div className="px-3 pb-4">
         {loading ? (
-          <div className="flex items-center justify-center py-4">
-            Loading...
-          </div>
+          <div className="flex items-center justify-center py-4">Loading...</div>
         ) : currentSchedule?.length > 0 ? (
           <div className="space-y-2 divide-y divide-muted">
             {currentSchedule.map((exam) => {
               // Temporarily add test data
 
-
               return (
-                <div
-                  key={`${exam.subjectcode}-${exam.datetime}-${exam.datetimefrom}`}
-                  className="py-4 px-2"
-                >
+                <div key={`${exam.subjectcode}-${exam.datetime}-${exam.datetimefrom}`} className="py-4 px-2">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-medium">
-                        {exam.subjectdesc.split('(')[0].trim()}
-                      </h3>
+                      <h3 className="font-medium">{exam.subjectdesc.split("(")[0].trim()}</h3>
                       <p className="text-sm text-muted-foreground">{exam.subjectcode}</p>
                     </div>
                     {(exam.roomcode || exam.seatno) && (
@@ -165,11 +157,9 @@ export default function Exams({
             })}
           </div>
         ) : selectedExamEvent ? (
-          <div className="flex items-center justify-center py-4">
-            No exam schedule available
-          </div>
+          <div className="flex items-center justify-center py-4">No exam schedule available</div>
         ) : null}
       </div>
     </div>
-  )
+  );
 }
