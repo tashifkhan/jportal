@@ -41,6 +41,53 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
     setDateRange(newRange);
   };
 
+  // Helper function to generate dynamic description based on date range
+  const getDateRangeDescription = () => {
+    const now = new Date();
+    const diffMs = now.getTime() - dateRange.from.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    // Check if the 'to' date is within the last hour (considering it's "now")
+    const isToDateRecent = now.getTime() - dateRange.to.getTime() < 60 * 60 * 1000;
+
+    if (isToDateRecent) {
+      if (diffMinutes <= 15) {
+        return "last 15 minutes";
+      } else if (diffMinutes <= 30) {
+        return "last 30 minutes";
+      } else if (diffMinutes <= 60) {
+        return "last hour";
+      } else if (diffHours <= 3) {
+        return "last 3 hours";
+      } else if (diffHours <= 6) {
+        return "last 6 hours";
+      } else if (diffHours <= 12) {
+        return "last 12 hours";
+      } else if (diffHours <= 24) {
+        return "last 24 hours";
+      } else if (diffDays <= 3) {
+        return `last ${diffDays} days`;
+      } else if (diffDays <= 7) {
+        return "last 7 days";
+      } else if (diffDays <= 14) {
+        return "last 2 weeks";
+      } else if (diffDays <= 30) {
+        return "last 30 days";
+      }
+    }
+
+    // Fallback to date range format for custom ranges with duration
+    const customRangeDays = Math.ceil((dateRange.to.getTime() - dateRange.from.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (customRangeDays === 1) {
+      return `${dateRange.from.toLocaleDateString()} (1 day)`;
+    } else {
+      return `${customRangeDays} days (${dateRange.from.toLocaleDateString()} to ${dateRange.to.toLocaleDateString()})`;
+    }
+  };
+
   const { data: aggregateData, isLoading: aggregateLoading } = useFetchWebAnalyticsAggregate(
     dateRange.from,
     dateRange.to
@@ -102,7 +149,7 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
         <Card>
           <CardHeader>
             <CardTitle>Visits Over Time</CardTitle>
-            <CardDescription>Unique visitor count over the last 7 days (15-minute intervals)</CardDescription>
+            <CardDescription>Total visitor count over the {getDateRangeDescription()}</CardDescription>
           </CardHeader>
           <CardContent>
             {sparklineLoading ? (
@@ -176,7 +223,7 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
         <Card>
           <CardHeader>
             <CardTitle>Page Views Over Time</CardTitle>
-            <CardDescription>Total page views over the last 7 days (15-minute intervals)</CardDescription>
+            <CardDescription>Total page views over the {getDateRangeDescription()}</CardDescription>
           </CardHeader>
           <CardContent>
             {sparklineLoading ? (

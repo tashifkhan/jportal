@@ -72,7 +72,10 @@ export default function DateRangeSelector({ onDateRangeChange }) {
       {selectedPreset === "custom" && (
         <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
           <PopoverTrigger asChild>
-            <Button variant="outline" className="w-full sm:w-[280px] justify-start text-left font-normal">
+            <Button
+              variant="outline"
+              className="w-full sm:w-[280px] justify-start text-left font-normal cursor-pointer"
+            >
               <CalendarIcon className="mr-2 h-4 w-4" />
               {customRange?.from ? (
                 customRange.to ? (
@@ -108,7 +111,7 @@ export default function DateRangeSelector({ onDateRangeChange }) {
       )}
 
       <Select value={selectedPreset} onValueChange={handlePresetChange}>
-        <SelectTrigger className="w-full sm:w-[200px]">
+        <SelectTrigger className="bg-background text-foreground border-border w-full sm:w-[200px] cursor-pointer">
           <SelectValue>{getDisplayValue()}</SelectValue>
         </SelectTrigger>
         <SelectContent>
