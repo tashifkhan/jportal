@@ -7,13 +7,13 @@ import {
   useFetchWebAnalyticsOS,
   useFetchWebAnalyticsSparkline,
 } from "@/hooks/cloudflare";
-import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, Cell, LineChart, Line, CartesianGrid } from "recharts";
+import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, Cell, CartesianGrid, AreaChart, Area } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useThemeStore } from "@/stores/theme-store";
 import PublicHeader from "./PublicHeader";
 import DateRangeSelector from "./DateRangeSelector";
 
-export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated = null }) {
+export default function Cloudflare() {
   // Subscribe to theme changes to trigger re-render
   const themeState = useThemeStore((state) => state.themeState);
 
@@ -142,7 +142,6 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
               )}
             </CardContent>
           </Card>
-
         </div>
 
         {/* Visits Over Time */}
@@ -164,7 +163,7 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
                 }}
                 className="h-[300px] w-full"
               >
-                <LineChart
+                <AreaChart
                   accessibilityLayer
                   data={sparklineData.visits}
                   margin={{
@@ -174,7 +173,13 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
                     bottom: 12,
                   }}
                 >
-                  <CartesianGrid vertical={false} />
+                  <defs>
+                    <linearGradient id="visitsGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor={getChartColor(0)} stopOpacity={0.3} />
+                      <stop offset="100%" stopColor={getChartColor(0)} stopOpacity={0.05} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" opacity={0.3} />
                   <XAxis
                     dataKey="timestamp"
                     tickLine={false}
@@ -182,7 +187,7 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
                     tickMargin={8}
                     tickFormatter={(value) => {
                       const date = new Date(value);
-                      return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+                      return date.toLocaleDateString([], { month: "short", day: "numeric" });
                     }}
                   />
                   <YAxis tickLine={false} axisLine={false} tickMargin={8} />
@@ -210,8 +215,14 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
                       return null;
                     }}
                   />
-                  <Line type="monotone" dataKey="visits" stroke={getChartColor(0)} strokeWidth={2} dot={false} />
-                </LineChart>
+                  <Area
+                    type="monotone"
+                    dataKey="visits"
+                    stroke={getChartColor(0)}
+                    fill="url(#visitsGradient)"
+                    strokeWidth={2}
+                  />
+                </AreaChart>
               </ChartContainer>
             ) : (
               <p className="text-center text-muted-foreground py-8">No visits data available</p>
@@ -238,7 +249,7 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
                 }}
                 className="h-[300px] w-full"
               >
-                <LineChart
+                <AreaChart
                   accessibilityLayer
                   data={sparklineData.pageviews}
                   margin={{
@@ -248,7 +259,13 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
                     bottom: 12,
                   }}
                 >
-                  <CartesianGrid vertical={false} />
+                  <defs>
+                    <linearGradient id="pageviewsGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor={getChartColor(1)} stopOpacity={0.3} />
+                      <stop offset="100%" stopColor={getChartColor(1)} stopOpacity={0.05} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" opacity={0.3} />
                   <XAxis
                     dataKey="timestamp"
                     tickLine={false}
@@ -256,7 +273,7 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
                     tickMargin={8}
                     tickFormatter={(value) => {
                       const date = new Date(value);
-                      return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+                      return date.toLocaleDateString([], { month: "short", day: "numeric" });
                     }}
                   />
                   <YAxis tickLine={false} axisLine={false} tickMargin={8} />
@@ -284,8 +301,14 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
                       return null;
                     }}
                   />
-                  <Line type="monotone" dataKey="pageviews" stroke={getChartColor(1)} strokeWidth={2} dot={false} />
-                </LineChart>
+                  <Area
+                    type="monotone"
+                    dataKey="pageviews"
+                    stroke={getChartColor(1)}
+                    fill="url(#pageviewsGradient)"
+                    strokeWidth={2}
+                  />
+                </AreaChart>
               </ChartContainer>
             ) : (
               <p className="text-center text-muted-foreground py-8">No pageviews data available</p>
