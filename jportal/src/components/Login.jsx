@@ -20,7 +20,7 @@ const formSchema = z.object({
   }),
 });
 
-export default function Login({ onLoginSuccess, w }) {
+export default function Login({ onLoginSuccess, onDemoLogin, w }) {
   const [loginStatus, setLoginStatus] = useState({
     isLoading: false,
     credentials: null,
@@ -34,6 +34,11 @@ export default function Login({ onLoginSuccess, w }) {
       password: "",
     },
   });
+
+  // Handle demo login
+  const handleDemoLogin = () => {
+    onDemoLogin();
+  };
 
   // Handle side effects in useEffect
   useEffect(() => {
@@ -130,6 +135,23 @@ export default function Login({ onLoginSuccess, w }) {
               />
               <Button type="submit" className="cursor-pointer w-full" disabled={loginStatus.isLoading}>
                 {loginStatus.isLoading ? "Signing in..." : "Sign in"}
+              </Button>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">Or</span>
+                </div>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                className="cursor-pointer w-full"
+                onClick={handleDemoLogin}
+                disabled={loginStatus.isLoading}
+              >
+                Try Demo
               </Button>
             </form>
           </Form>

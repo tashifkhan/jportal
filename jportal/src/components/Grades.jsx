@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer
-} from "recharts";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import GradeCard from "./GradeCard";
-import { Button } from "@/components/ui/button"
-import { Download } from "lucide-react"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import MarksCard from "./MarksCard";
 import { generate_local_name, API } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.16/dist/jsjiit.esm.js";
+import MockWebPortal from "./MockWebPortal";
 
 export default function Grades({
   w,
@@ -56,7 +43,7 @@ export default function Grades({
   isDownloadDialogOpen,
   setIsDownloadDialogOpen,
   marksLoading,
-  setMarksLoading
+  setMarksLoading,
 }) {
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +63,7 @@ export default function Grades({
         setGradesData(data);
         setSemesterData(data.semesterList);
       } catch (err) {
-        if (err.message.includes('Unexpected end of JSON input')) {
+        if (err.message.includes("Unexpected end of JSON input")) {
           setGradesError("Grade sheet is not available");
         } else {
           setGradesError("Failed to fetch grade data");
@@ -104,9 +91,9 @@ export default function Grades({
             const data = await w.get_grade_card(latestSemester);
             data.semesterId = latestSemester.registration_id;
             setGradeCard(data);
-            setGradeCards(prev => ({
+            setGradeCards((prev) => ({
               ...prev,
-              [latestSemester.registration_id]: data
+              [latestSemester.registration_id]: data,
             }));
           }
         } catch (err) {
@@ -141,52 +128,67 @@ export default function Grades({
 
       setMarksLoading(true);
       try {
-        const ENDPOINT = `/studentsexamview/printstudent-exammarks/${w.session.instituteid}/${selectedMarksSem.registration_id}/${selectedMarksSem.registration_code}`;
-        const localname = await generate_local_name();
-        const headers = await w.session.get_headers(localname);
+        // Check if we're in demo mode by checking the instance type
+        if (w instanceof MockWebPortal) {
+          // Demo mode: Use the download_marks method which returns the fake data
+          const result = await w.download_marks(selectedMarksSem);
 
-        const pyodide = await loadPyodide();
+          if (mounted) {
+            setMarksSemesterData(result);
+            setMarksData((prev) => ({
+              ...prev,
+              [selectedMarksSem.registration_id]: result,
+            }));
+          }
+        } else {
+          // Real mode: process PDF using Pyodide
+          const ENDPOINT = `/studentsexamview/printstudent-exammarks/${w.session.instituteid}/${selectedMarksSem.registration_id}/${selectedMarksSem.registration_code}`;
+          const localname = await generate_local_name();
+          const headers = await w.session.get_headers(localname);
 
-        pyodide.globals.set('ENDPOINT', ENDPOINT);
-        pyodide.globals.set('fetchOptions', { method: 'GET', headers });
-        pyodide.globals.set('API', API);
+          const pyodide = await loadPyodide();
 
-        const res = await pyodide.runPythonAsync(`
-          import pyodide_js
-          import asyncio
-          import pyodide.http
+          pyodide.globals.set("ENDPOINT", ENDPOINT);
+          pyodide.globals.set("fetchOptions", { method: "GET", headers });
+          pyodide.globals.set("API", API);
 
-          marks = {}
+          const res = await pyodide.runPythonAsync(`
+            import pyodide_js
+            import asyncio
+            import pyodide.http
 
-          async def process_pdf():
-              global marks
-              await pyodide_js.loadPackage("/jportal/artifact/PyMuPDF-1.24.12-cp311-abi3-emscripten_3_1_32_wasm32.whl")
-              await pyodide_js.loadPackage("/jportal/artifact/jiit_marks-0.2.0-py3-none-any.whl")
+            marks = {}
 
-              import pymupdf
-              from jiit_marks import parse_report
+            async def process_pdf():
+                global marks
+                await pyodide_js.loadPackage("/jportal/artifact/PyMuPDF-1.24.12-cp311-abi3-emscripten_3_1_32_wasm32.whl")
+                await pyodide_js.loadPackage("/jportal/artifact/jiit_marks-0.2.0-py3-none-any.whl")
 
-              r = await pyodide.http.pyfetch(API+ENDPOINT, **(fetchOptions.to_py()))
-              data = await r.bytes()
+                import pymupdf
+                from jiit_marks import parse_report
 
-              doc = pymupdf.Document(stream=data)
-              marks = parse_report(doc)
-              return marks
+                r = await pyodide.http.pyfetch(API+ENDPOINT, **(fetchOptions.to_py()))
+                data = await r.bytes()
 
-          await process_pdf()
-        `);
+                doc = pymupdf.Document(stream=data)
+                marks = parse_report(doc)
+                return marks
 
-        if (mounted) {
-          const result = res.toJs({
-            dict_converter: Object.fromEntries,
-            create_pyproxies: false
-          });
+            await process_pdf()
+          `);
 
-          setMarksSemesterData(result);
-          setMarksData(prev => ({
-            ...prev,
-            [selectedMarksSem.registration_id]: result
-          }));
+          if (mounted) {
+            const result = res.toJs({
+              dict_converter: Object.fromEntries,
+              create_pyproxies: false,
+            });
+
+            setMarksSemesterData(result);
+            setMarksData((prev) => ({
+              ...prev,
+              [selectedMarksSem.registration_id]: result,
+            }));
+          }
         }
       } catch (error) {
         console.error("Failed to load marks:", error);
@@ -209,7 +211,7 @@ export default function Grades({
   const handleSemesterChange = async (value) => {
     setGradeCardLoading(true);
     try {
-      const semester = gradeCardSemesters.find(sem => sem.registration_id === value);
+      const semester = gradeCardSemesters.find((sem) => sem.registration_id === value);
       setSelectedGradeCardSem(semester);
 
       if (gradeCards[value]) {
@@ -218,9 +220,9 @@ export default function Grades({
         const data = await w.get_grade_card(semester);
         data.semesterId = value;
         setGradeCard(data);
-        setGradeCards(prev => ({
+        setGradeCards((prev) => ({
           ...prev,
-          [value]: data
+          [value]: data,
         }));
       }
     } catch (error) {
@@ -232,16 +234,16 @@ export default function Grades({
 
   const getGradeColor = (grade) => {
     const gradeColors = {
-      'A+': 'text-grade-aa',
-      'A': 'text-grade-a',
-      'B+': 'text-grade-bb',
-      'B': 'text-grade-b',
-      'C+': 'text-grade-cc',
-      'C': 'text-grade-c',
-      'D': 'text-grade-d',
-      'F': 'text-grade-f'
+      "A+": "text-grade-aa",
+      A: "text-grade-a",
+      "B+": "text-grade-bb",
+      B: "text-grade-b",
+      "C+": "text-grade-cc",
+      C: "text-grade-c",
+      D: "text-grade-d",
+      F: "text-grade-f",
     };
-    return gradeColors[grade] || 'text-foreground';
+    return gradeColors[grade] || "text-foreground";
   };
 
   const handleDownloadMarks = async (semester) => {
@@ -255,7 +257,7 @@ export default function Grades({
 
   const handleMarksSemesterChange = async (value) => {
     try {
-      const semester = marksSemesters.find(sem => sem.registration_id === value);
+      const semester = marksSemesters.find((sem) => sem.registration_id === value);
       setSelectedMarksSem(semester);
 
       // If we have cached data, use it immediately
@@ -268,7 +270,11 @@ export default function Grades({
   };
 
   if (gradesLoading) {
-    return <div className="text-foreground flex items-center justify-center py-4 h-[calc(100vh_-_<header_height>-<navbar_height>)]">Loading grades...</div>;
+    return (
+      <div className="text-foreground flex items-center justify-center py-4 h-[calc(100vh_-_<header_height>-<navbar_height>)]">
+        Loading grades...
+      </div>
+    );
   }
 
   return (

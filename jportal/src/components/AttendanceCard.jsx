@@ -260,7 +260,7 @@ const AttendanceCard = ({
                     table: "w-full border-collapse space-y-1",
                     head_row: "flex",
                     head_cell:
-                      "text-accent-foreground opacity-50 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                      "text-foreground opacity-50 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
                     row: "flex w-full mt-2",
                     cell: "flex-1 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                     day: "h-8 w-8 p-0 font-normal aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",

@@ -335,8 +335,8 @@ const Attendance = ({
                     }}
                     modifiersStyles={{
                       hasActivity: {
-                        boxShadow: "inset 0 -2px 0 0 var(--color-sidebar-accent)",
-                        borderRadius: "2px",
+                        boxShadow: "inset 0 -2px 0 0 var(--color-primary)",
+                        borderRadius: "3px",
                       },
                     }}
                     // className={` pb-2 text-foreground w-full shrink-0 max-w-full`}
@@ -353,7 +353,7 @@ const Attendance = ({
                       presentation: "bg-destructive",
                       head_row: "flex",
                       head_cell:
-                        "text-accent-foreground opacity-50 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
+                        "text-foreground opacity-50 rounded-md flex-1 font-normal text-[0.8rem] max-[390px]:text-[0.7rem]",
                       row: "flex w-full mt-2",
                       cell: "flex-1 text-center text-sm p-0 relative first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                       day: "h-8 w-8 p-0 font-normal rounded-[2px] aria-selected:opacity-100 mx-auto max-[390px]:h-6 max-[390px]:w-6 max-[390px]:text-xs",

@@ -24,14 +24,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
-// Check if we should use fake data
-const USE_FAKE_DATA = import.meta.env.VITE_USE_FAKE_DATA === "true";
-
-// Create WebPortal or MockWebPortal instance at the top level
-const w = USE_FAKE_DATA ? new MockWebPortal() : new WebPortal();
+// Create both portal instances at the top level
+const realPortal = new WebPortal();
+const mockPortal = new MockWebPortal();
 
 // Create a wrapper component to use the useNavigate hook
-function AuthenticatedApp({ w, setIsAuthenticated }) {
+function AuthenticatedApp({ w, setIsAuthenticated, setIsDemoMode }) {
   const [activeAttendanceTab, setActiveAttendanceTab] = useState("overview");
   const [attendanceData, setAttendanceData] = useState({});
   const [attendanceSemestersData, setAttendanceSemestersData] = useState(null);
@@ -104,7 +102,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   return (
     <div className="min-h-screen pb-14 select-none">
       <div className="sticky top-0 z-30 bg-background -mt-[2px]">
-        <Header setIsAuthenticated={setIsAuthenticated} />
+        <Header setIsAuthenticated={setIsAuthenticated} setIsDemoMode={setIsDemoMode} />
       </div>
       <Routes>
         <Route path="/" element={<Navigate to="/attendance" />} />
@@ -220,7 +218,7 @@ function AuthenticatedApp({ w, setIsAuthenticated }) {
   );
 }
 
-function LoginWrapper({ onLoginSuccess, w }) {
+function LoginWrapper({ onLoginSuccess, onDemoLogin, w }) {
   const navigate = useNavigate();
 
   const handleLoginSuccess = () => {
@@ -231,46 +229,37 @@ function LoginWrapper({ onLoginSuccess, w }) {
     }, 100);
   };
 
-  // If using fake data, skip login screen
-  useEffect(() => {
-    if (USE_FAKE_DATA) {
-      handleLoginSuccess();
-    }
-  }, []);
+  const handleDemoLogin = () => {
+    onDemoLogin();
+    // Add a small delay to ensure state updates before navigation
+    setTimeout(() => {
+      navigate("/attendance");
+    }, 100);
+  };
 
-  if (USE_FAKE_DATA) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        Loading fake data...
-      </div>
-    );
-  }
-
-  return <Login onLoginSuccess={handleLoginSuccess} w={w} />;
+  return <Login onLoginSuccess={handleLoginSuccess} onDemoLogin={handleDemoLogin} w={w} />;
 }
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isDemoMode, setIsDemoMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (USE_FAKE_DATA) {
-      // If using fake data, skip login and authenticate immediately
-      setIsAuthenticated(true);
-      setIsLoading(false);
-      return;
-    }
+  // Determine which portal to use based on demo mode
+  const activePortal = isDemoMode ? mockPortal : realPortal;
 
+  useEffect(() => {
     const username = localStorage.getItem("username");
     const password = localStorage.getItem("password");
 
     const performLogin = async () => {
       try {
         if (username && password) {
-          await w.student_login(username, password);
-          if (w.session) {
+          await realPortal.student_login(username, password);
+          if (realPortal.session) {
             setIsAuthenticated(true);
+            setIsDemoMode(false);
           }
         }
       } catch (error) {
@@ -297,6 +286,16 @@ function App() {
 
     performLogin();
   }, []);
+
+  const handleRealLogin = () => {
+    setIsAuthenticated(true);
+    setIsDemoMode(false);
+  };
+
+  const handleDemoLogin = () => {
+    setIsAuthenticated(true);
+    setIsDemoMode(true);
+  };
 
   if (isLoading) {
     return (
@@ -336,21 +335,34 @@ function App() {
             <div className="min-h-screen bg-background select-none">
               <Routes>
                 {/* Public route - accessible without authentication */}
-              <Route path="/stats" element={<Cloudflare />} />
+                <Route path="/stats" element={<Cloudflare />} />
 
                 {/* Protected routes - require authentication */}
-                {!isAuthenticated || (!USE_FAKE_DATA && !w.session) ? (
+                {!isAuthenticated ? (
                   <Route
                     path="*"
                     element={
                       <>
                         {error && <div className="text-destructive text-center pt-4">{error}</div>}
-                        <LoginWrapper onLoginSuccess={() => setIsAuthenticated(true)} w={w} />
+                        <LoginWrapper
+                          onLoginSuccess={handleRealLogin}
+                          onDemoLogin={handleDemoLogin}
+                          w={realPortal}
+                        />
                       </>
                     }
                   />
                 ) : (
-                  <Route path="/*" element={<AuthenticatedApp w={w} setIsAuthenticated={setIsAuthenticated} />} />
+                  <Route
+                    path="/*"
+                    element={
+                      <AuthenticatedApp
+                        w={activePortal}
+                        setIsAuthenticated={setIsAuthenticated}
+                        setIsDemoMode={setIsDemoMode}
+                      />
+                    }
+                  />
                 )}
               </Routes>
             </div>

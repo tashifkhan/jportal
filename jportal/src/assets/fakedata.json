@@ -286,217 +286,217 @@
         "subjectAttendanceData": {
             "15B11EC611": [
                 {
-                    "datetime": "01/01/2025 10:00",
+                    "datetime": "01/01/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "01/02/2025 20:00",
+                    "datetime": "01/02/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "02/03/2025 10:00",
+                    "datetime": "02/03/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "02/04/2025 15:00",
+                    "datetime": "02/04/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "03/05/2025 15:00",
+                    "datetime": "03/05/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "03/06/2025 15:00",
+                    "datetime": "03/06/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "06/01/2025 13:00",
+                    "datetime": "06/01/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "06/01/2025 14:00",
+                    "datetime": "06/01/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "09/02/2025 10:00",
+                    "datetime": "09/02/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "09/03/2025 20:00",
+                    "datetime": "09/03/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "10/04/2025 12:00",
+                    "datetime": "10/04/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "10/05/2025 16:00",
+                    "datetime": "10/05/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "13/06/2025 18:00",
+                    "datetime": "13/06/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "14/02/2025 17:00",
+                    "datetime": "14/02/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "15/01/2025 17:00",
+                    "datetime": "15/01/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "16/02/2025 16:00",
+                    "datetime": "16/02/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "16/03/2025 19:00",
+                    "datetime": "16/03/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "17/04/2025 09:00",
+                    "datetime": "17/04/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "18/05/2025 11:00",
+                    "datetime": "18/05/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "18/06/2025 12:00",
+                    "datetime": "18/06/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "18/03/2025 14:00",
+                    "datetime": "18/03/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "18/01/2025 20:00",
+                    "datetime": "18/01/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "18/02/2025 20:00",
+                    "datetime": "18/02/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "19/03/2025 09:00",
+                    "datetime": "19/03/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "20/04/2025 15:00",
+                    "datetime": "20/04/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "21/05/2025 11:00",
+                    "datetime": "21/05/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "21/06/2025 11:00",
+                    "datetime": "21/06/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "21/04/2025 14:00",
+                    "datetime": "21/04/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "22/01/2025 16:00",
+                    "datetime": "22/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "22/02/2025 18:00",
+                    "datetime": "22/02/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "23/03/2025 15:00",
+                    "datetime": "23/03/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "23/04/2025 20:00",
+                    "datetime": "23/04/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "24/05/2025 11:00",
+                    "datetime": "24/05/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "26/06/2025 12:00",
+                    "datetime": "26/06/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "28/05/2025 15:00",
+                    "datetime": "28/05/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "30/01/2025 13:00",
+                    "datetime": "30/01/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
@@ -504,73 +504,73 @@
             ],
             "15B17EC671": [
                 {
-                    "datetime": "02/01/2025 14:00",
+                    "datetime": "02/01/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "03/02/2025 09:00",
+                    "datetime": "03/02/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Practical",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "04/03/2025 20:00",
+                    "datetime": "04/03/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "05/04/2025 16:00",
+                    "datetime": "05/04/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "05/05/2025 17:00",
+                    "datetime": "05/05/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "08/06/2025 10:00",
+                    "datetime": "08/06/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "15/01/2025 12:00",
+                    "datetime": "15/01/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Practical",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "15/01/2025 16:00",
+                    "datetime": "15/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "16/02/2025 17:00",
+                    "datetime": "16/02/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "28/03/2025 10:00",
+                    "datetime": "28/03/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "30/04/2025 13:00",
+                    "datetime": "30/04/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "30/05/2025 20:00",
+                    "datetime": "30/05/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
@@ -579,235 +579,235 @@
             "15B19EC691": [],
             "17B11EC731": [
                 {
-                    "datetime": "01/01/2025 19:00",
+                    "datetime": "01/01/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "02/02/2025 09:00",
+                    "datetime": "02/02/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "02/03/2025 19:00",
+                    "datetime": "02/03/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "03/04/2025 12:00",
+                    "datetime": "03/04/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "03/05/2025 15:00",
+                    "datetime": "03/05/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "04/06/2025 13:00",
+                    "datetime": "04/06/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "06/01/2025 09:00",
+                    "datetime": "06/01/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "06/01/2025 16:00",
+                    "datetime": "06/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "06/02/2025 19:00",
+                    "datetime": "06/02/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "07/03/2025 13:00",
+                    "datetime": "07/03/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "07/04/2025 14:00",
+                    "datetime": "07/04/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "08/05/2025 14:00",
+                    "datetime": "08/05/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "08/06/2025 16:00",
+                    "datetime": "08/06/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "09/02/2025 14:00",
+                    "datetime": "09/02/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "11/01/2025 12:00",
+                    "datetime": "11/01/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "11/02/2025 14:00",
+                    "datetime": "11/02/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "13/03/2025 13:00",
+                    "datetime": "13/03/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "13/04/2025 18:00",
+                    "datetime": "13/04/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "13/05/2025 20:00",
+                    "datetime": "13/05/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "14/06/2025 15:00",
+                    "datetime": "14/06/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "15/03/2025 09:00",
+                    "datetime": "15/03/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "15/01/2025 12:00",
+                    "datetime": "15/01/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "15/02/2025 16:00",
+                    "datetime": "15/02/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "16/03/2025 14:00",
+                    "datetime": "16/03/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "17/04/2025 20:00",
+                    "datetime": "17/04/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "17/05/2025 20:00",
+                    "datetime": "17/05/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "19/06/2025 12:00",
+                    "datetime": "19/06/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "19/04/2025 20:00",
+                    "datetime": "19/04/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "20/01/2025 15:00",
+                    "datetime": "20/01/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "20/02/2025 18:00",
+                    "datetime": "20/02/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "20/03/2025 19:00",
+                    "datetime": "20/03/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "21/04/2025 11:00",
+                    "datetime": "21/04/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "24/05/2025 11:00",
+                    "datetime": "24/05/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "24/06/2025 17:00",
+                    "datetime": "24/06/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "25/05/2025 10:00",
+                    "datetime": "25/05/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "26/01/2025 10:00",
+                    "datetime": "26/01/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "26/02/2025 11:00",
+                    "datetime": "26/02/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "27/03/2025 16:00",
+                    "datetime": "27/03/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "29/04/2025 19:00",
+                    "datetime": "29/04/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
@@ -815,283 +815,283 @@
             ],
             "20B12HS311": [
                 {
-                    "datetime": "01/01/2025 17:00",
+                    "datetime": "01/01/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "01/02/2025 17:00",
+                    "datetime": "01/02/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "02/03/2025 12:00",
+                    "datetime": "02/03/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "02/04/2025 17:00",
+                    "datetime": "02/04/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "03/05/2025 14:00",
+                    "datetime": "03/05/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "04/06/2025 14:00",
+                    "datetime": "04/06/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "05/01/2025 18:00",
+                    "datetime": "05/01/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "06/01/2025 14:00",
+                    "datetime": "06/01/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "06/02/2025 16:00",
+                    "datetime": "06/02/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "06/03/2025 16:00",
+                    "datetime": "06/03/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "06/04/2025 16:00",
+                    "datetime": "06/04/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "07/05/2025 11:00",
+                    "datetime": "07/05/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "07/06/2025 18:00",
+                    "datetime": "07/06/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "07/02/2025 20:00",
+                    "datetime": "07/02/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "08/01/2025 11:00",
+                    "datetime": "08/01/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "09/02/2025 11:00",
+                    "datetime": "09/02/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "09/03/2025 14:00",
+                    "datetime": "09/03/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "09/04/2025 17:00",
+                    "datetime": "09/04/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "09/05/2025 20:00",
+                    "datetime": "09/05/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "10/06/2025 11:00",
+                    "datetime": "10/06/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "11/03/2025 11:00",
+                    "datetime": "11/03/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "11/01/2025 15:00",
+                    "datetime": "11/01/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "11/02/2025 18:00",
+                    "datetime": "11/02/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "12/03/2025 09:00",
+                    "datetime": "12/03/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "14/04/2025 19:00",
+                    "datetime": "14/04/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "15/05/2025 15:00",
+                    "datetime": "15/05/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "15/06/2025 17:00",
+                    "datetime": "15/06/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "16/04/2025 09:00",
+                    "datetime": "16/04/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "16/01/2025 20:00",
+                    "datetime": "16/01/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "17/02/2025 17:00",
+                    "datetime": "17/02/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "17/03/2025 17:00",
+                    "datetime": "17/03/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "19/04/2025 10:00",
+                    "datetime": "19/04/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "19/05/2025 11:00",
+                    "datetime": "19/05/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "20/06/2025 20:00",
+                    "datetime": "20/06/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "21/05/2025 10:00",
+                    "datetime": "21/05/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "22/01/2025 11:00",
+                    "datetime": "22/01/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "23/02/2025 14:00",
+                    "datetime": "23/02/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "24/03/2025 15:00",
+                    "datetime": "24/03/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "24/04/2025 15:00",
+                    "datetime": "24/04/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "24/05/2025 18:00",
+                    "datetime": "24/05/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "25/06/2025 10:00",
+                    "datetime": "25/06/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "26/06/2025 18:00",
+                    "datetime": "26/06/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "27/01/2025 11:00",
+                    "datetime": "27/01/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "27/02/2025 11:00",
+                    "datetime": "27/02/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "27/03/2025 15:00",
+                    "datetime": "27/03/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "28/04/2025 11:00",
+                    "datetime": "28/04/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "29/05/2025 10:00",
+                    "datetime": "29/05/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
@@ -1099,355 +1099,355 @@
             ],
             "18B11EC315": [
                 {
-                    "datetime": "02/01/2025 10:00",
+                    "datetime": "02/01/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "02/02/2025 12:00",
+                    "datetime": "02/02/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "03/03/2025 10:00",
+                    "datetime": "03/03/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Tutorial",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "03/04/2025 13:00",
+                    "datetime": "03/04/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "03/05/2025 13:00",
+                    "datetime": "03/05/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "04/06/2025 13:00",
+                    "datetime": "04/06/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "04/01/2025 18:00",
+                    "datetime": "04/01/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "05/01/2025 18:00",
+                    "datetime": "05/01/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "05/02/2025 19:00",
+                    "datetime": "05/02/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "07/03/2025 09:00",
+                    "datetime": "07/03/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Tutorial",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "07/04/2025 15:00",
+                    "datetime": "07/04/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "08/05/2025 13:00",
+                    "datetime": "08/05/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "08/06/2025 17:00",
+                    "datetime": "08/06/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "09/02/2025 15:00",
+                    "datetime": "09/02/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "10/01/2025 17:00",
+                    "datetime": "10/01/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "11/02/2025 13:00",
+                    "datetime": "11/02/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "11/03/2025 17:00",
+                    "datetime": "11/03/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "12/04/2025 10:00",
+                    "datetime": "12/04/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "12/05/2025 12:00",
+                    "datetime": "12/05/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "12/06/2025 12:00",
+                    "datetime": "12/06/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "12/03/2025 13:00",
+                    "datetime": "12/03/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "13/01/2025 11:00",
+                    "datetime": "13/01/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "14/02/2025 16:00",
+                    "datetime": "14/02/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "15/03/2025 10:00",
+                    "datetime": "15/03/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "15/04/2025 20:00",
+                    "datetime": "15/04/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "16/05/2025 11:00",
+                    "datetime": "16/05/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "17/06/2025 09:00",
+                    "datetime": "17/06/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "17/04/2025 14:00",
+                    "datetime": "17/04/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "17/01/2025 17:00",
+                    "datetime": "17/01/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "17/02/2025 17:00",
+                    "datetime": "17/02/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "18/03/2025 11:00",
+                    "datetime": "18/03/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "18/04/2025 12:00",
+                    "datetime": "18/04/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "19/05/2025 16:00",
+                    "datetime": "19/05/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "19/06/2025 16:00",
+                    "datetime": "19/06/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "19/05/2025 20:00",
+                    "datetime": "19/05/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "21/01/2025 10:00",
+                    "datetime": "21/01/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "21/02/2025 11:00",
+                    "datetime": "21/02/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "21/03/2025 13:00",
+                    "datetime": "21/03/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "21/04/2025 16:00",
+                    "datetime": "21/04/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "22/05/2025 10:00",
+                    "datetime": "22/05/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Tutorial",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "22/06/2025 17:00",
+                    "datetime": "22/06/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "23/06/2025 10:00",
+                    "datetime": "23/06/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "23/01/2025 11:00",
+                    "datetime": "23/01/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "23/02/2025 13:00",
+                    "datetime": "23/02/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "23/03/2025 19:00",
+                    "datetime": "23/03/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "24/04/2025 11:00",
+                    "datetime": "24/04/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "24/05/2025 14:00",
+                    "datetime": "24/05/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Tutorial",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "25/06/2025 09:00",
+                    "datetime": "25/06/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "25/01/2025 10:00",
+                    "datetime": "25/01/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "25/01/2025 17:00",
+                    "datetime": "25/01/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "26/02/2025 10:00",
+                    "datetime": "26/02/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "27/03/2025 12:00",
+                    "datetime": "27/03/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "27/04/2025 13:00",
+                    "datetime": "27/04/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "27/05/2025 13:00",
+                    "datetime": "27/05/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "27/06/2025 15:00",
+                    "datetime": "27/06/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "27/02/2025 18:00",
+                    "datetime": "27/02/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "29/01/2025 14:00",
+                    "datetime": "29/01/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "29/02/2025 16:00",
+                    "datetime": "29/02/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "30/03/2025 10:00",
+                    "datetime": "30/03/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
@@ -1455,79 +1455,79 @@
             ],
             "18B15EC315": [
                 {
-                    "datetime": "02/01/2025 17:00",
+                    "datetime": "02/01/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Practical",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "03/02/2025 09:00",
+                    "datetime": "03/02/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "04/03/2025 09:00",
+                    "datetime": "04/03/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Practical",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "11/04/2025 11:00",
+                    "datetime": "11/04/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "13/05/2025 18:00",
+                    "datetime": "13/05/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "14/06/2025 20:00",
+                    "datetime": "14/06/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "17/01/2025 16:00",
+                    "datetime": "17/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "18/01/2025 16:00",
+                    "datetime": "18/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "22/02/2025 16:00",
+                    "datetime": "22/02/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "24/03/2025 14:00",
+                    "datetime": "24/03/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "25/04/2025 15:00",
+                    "datetime": "25/04/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "27/05/2025 20:00",
+                    "datetime": "27/05/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Practical",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "29/06/2025 15:00",
+                    "datetime": "29/06/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
@@ -1535,157 +1535,157 @@
             ],
             "24B16HS311": [
                 {
-                    "datetime": "02/01/2025 18:00",
+                    "datetime": "02/01/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "03/02/2025 12:00",
+                    "datetime": "03/02/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "04/03/2025 12:00",
+                    "datetime": "04/03/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "06/04/2025 10:00",
+                    "datetime": "06/04/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "06/05/2025 17:00",
+                    "datetime": "06/05/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "09/06/2025 11:00",
+                    "datetime": "09/06/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "09/01/2025 20:00",
+                    "datetime": "09/01/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "10/01/2025 13:00",
+                    "datetime": "10/01/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "12/02/2025 16:00",
+                    "datetime": "12/02/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "13/03/2025 09:00",
+                    "datetime": "13/03/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "14/04/2025 17:00",
+                    "datetime": "14/04/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "14/05/2025 19:00",
+                    "datetime": "14/05/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "18/06/2025 16:00",
+                    "datetime": "18/06/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "18/02/2025 17:00",
+                    "datetime": "18/02/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "18/01/2025 17:00",
+                    "datetime": "18/01/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "18/02/2025 19:00",
+                    "datetime": "18/02/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "21/03/2025 19:00",
+                    "datetime": "21/03/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "22/04/2025 11:00",
+                    "datetime": "22/04/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "23/05/2025 13:00",
+                    "datetime": "23/05/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "23/06/2025 17:00",
+                    "datetime": "23/06/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "24/03/2025 13:00",
+                    "datetime": "24/03/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "25/01/2025 14:00",
+                    "datetime": "25/01/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "27/02/2025 10:00",
+                    "datetime": "27/02/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "29/03/2025 17:00",
+                    "datetime": "29/03/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "30/04/2025 16:00",
+                    "datetime": "30/04/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "30/05/2025 17:00",
+                    "datetime": "30/05/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
@@ -1693,241 +1693,241 @@
             ],
             "24B12EC411": [
                 {
-                    "datetime": "01/01/2025 15:00",
+                    "datetime": "01/01/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "04/02/2025 10:00",
+                    "datetime": "04/02/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "04/03/2025 11:00",
+                    "datetime": "04/03/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "05/04/2025 11:00",
+                    "datetime": "05/04/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "05/05/2025 12:00",
+                    "datetime": "05/05/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "05/06/2025 17:00",
+                    "datetime": "05/06/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "07/01/2025 16:00",
+                    "datetime": "07/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "08/01/2025 17:00",
+                    "datetime": "08/01/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "09/02/2025 12:00",
+                    "datetime": "09/02/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "09/03/2025 13:00",
+                    "datetime": "09/03/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "09/04/2025 19:00",
+                    "datetime": "09/04/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "10/05/2025 10:00",
+                    "datetime": "10/05/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "10/06/2025 17:00",
+                    "datetime": "10/06/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "11/02/2025 13:00",
+                    "datetime": "11/02/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "11/01/2025 18:00",
+                    "datetime": "11/01/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "13/02/2025 13:00",
+                    "datetime": "13/02/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "13/03/2025 15:00",
+                    "datetime": "13/03/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "15/04/2025 15:00",
+                    "datetime": "15/04/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "15/05/2025 18:00",
+                    "datetime": "15/05/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "16/06/2025 16:00",
+                    "datetime": "16/06/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "18/03/2025 10:00",
+                    "datetime": "18/03/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "18/01/2025 14:00",
+                    "datetime": "18/01/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "19/02/2025 11:00",
+                    "datetime": "19/02/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "19/03/2025 12:00",
+                    "datetime": "19/03/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "19/04/2025 17:00",
+                    "datetime": "19/04/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "19/05/2025 20:00",
+                    "datetime": "19/05/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "21/06/2025 09:00",
+                    "datetime": "21/06/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "21/04/2025 17:00",
+                    "datetime": "21/04/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "22/01/2025 19:00",
+                    "datetime": "22/01/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "23/02/2025 10:00",
+                    "datetime": "23/02/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "23/03/2025 12:00",
+                    "datetime": "23/03/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "23/04/2025 18:00",
+                    "datetime": "23/04/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "24/05/2025 17:00",
+                    "datetime": "24/05/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "24/06/2025 19:00",
+                    "datetime": "24/06/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "25/05/2025 16:00",
+                    "datetime": "25/05/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "26/01/2025 16:00",
+                    "datetime": "26/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "27/02/2025 14:00",
+                    "datetime": "27/02/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "28/03/2025 11:00",
+                    "datetime": "28/03/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "28/04/2025 13:00",
+                    "datetime": "28/04/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "30/05/2025 09:00",
+                    "datetime": "30/05/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
@@ -1935,241 +1935,241 @@
             ],
             "24B12HS316": [
                 {
-                    "datetime": "01/01/2025 19:00",
+                    "datetime": "01/01/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "03/02/2025 14:00",
+                    "datetime": "03/02/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "03/03/2025 18:00",
+                    "datetime": "03/03/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "04/04/2025 09:00",
+                    "datetime": "04/04/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "04/05/2025 10:00",
+                    "datetime": "04/05/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "04/06/2025 15:00",
+                    "datetime": "04/06/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "04/01/2025 16:00",
+                    "datetime": "04/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "05/01/2025 16:00",
+                    "datetime": "05/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "05/02/2025 17:00",
+                    "datetime": "05/02/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "05/03/2025 19:00",
+                    "datetime": "05/03/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "08/04/2025 10:00",
+                    "datetime": "08/04/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "08/05/2025 14:00",
+                    "datetime": "08/05/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "09/06/2025 16:00",
+                    "datetime": "09/06/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "10/02/2025 14:00",
+                    "datetime": "10/02/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "11/01/2025 09:00",
+                    "datetime": "11/01/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "11/02/2025 20:00",
+                    "datetime": "11/02/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "12/03/2025 10:00",
+                    "datetime": "12/03/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "12/04/2025 16:00",
+                    "datetime": "12/04/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "13/05/2025 17:00",
+                    "datetime": "13/05/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "16/06/2025 09:00",
+                    "datetime": "16/06/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "16/03/2025 15:00",
+                    "datetime": "16/03/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "17/01/2025 15:00",
+                    "datetime": "17/01/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "17/02/2025 20:00",
+                    "datetime": "17/02/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "18/03/2025 14:00",
+                    "datetime": "18/03/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "21/04/2025 17:00",
+                    "datetime": "21/04/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "21/05/2025 18:00",
+                    "datetime": "21/05/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "23/06/2025 19:00",
+                    "datetime": "23/06/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "24/04/2025 11:00",
+                    "datetime": "24/04/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "24/01/2025 16:00",
+                    "datetime": "24/01/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "25/02/2025 20:00",
+                    "datetime": "25/02/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "25/03/2025 20:00",
+                    "datetime": "25/03/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "26/04/2025 12:00",
+                    "datetime": "26/04/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "26/05/2025 12:00",
+                    "datetime": "26/05/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "27/06/2025 11:00",
+                    "datetime": "27/06/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "28/05/2025 11:00",
+                    "datetime": "28/05/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "29/01/2025 09:00",
+                    "datetime": "29/01/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "29/02/2025 11:00",
+                    "datetime": "29/02/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "29/03/2025 13:00",
+                    "datetime": "29/03/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "30/04/2025 16:00",
+                    "datetime": "30/04/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "30/05/2025 20:00",
+                    "datetime": "30/05/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
@@ -2177,253 +2177,253 @@
             ],
             "15B11CI511": [
                 {
-                    "datetime": "01/07/2025 19:00",
+                    "datetime": "01/07/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "03/08/2025 16:30",
+                    "datetime": "03/08/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "03/11/2025 17:00",
+                    "datetime": "03/11/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "04/08/2025 14:00",
+                    "datetime": "04/08/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "06/12/2025 13:00",
+                    "datetime": "06/12/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "08/12/2025 12:00",
+                    "datetime": "08/12/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "09/07/2025 17:30",
+                    "datetime": "09/07/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "09/10/2025 18:30",
+                    "datetime": "09/10/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "09/12/2025 15:00",
+                    "datetime": "09/12/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "10/08/2025 09:00",
+                    "datetime": "10/08/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "10/10/2025 15:30",
+                    "datetime": "10/10/2025 (03:30:PM - 04:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "10/10/2025 20:00",
+                    "datetime": "10/10/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "11/11/2025 20:00",
+                    "datetime": "11/11/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "12/07/2025 20:00",
+                    "datetime": "12/07/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "12/08/2025 16:30",
+                    "datetime": "12/08/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "12/12/2025 17:30",
+                    "datetime": "12/12/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "14/07/2025 19:00",
+                    "datetime": "14/07/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "14/09/2025 14:30",
+                    "datetime": "14/09/2025 (02:30:PM - 03:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "17/07/2025 20:00",
+                    "datetime": "17/07/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "17/08/2025 18:30",
+                    "datetime": "17/08/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "18/11/2025 13:30",
+                    "datetime": "18/11/2025 (01:30:PM - 02:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "21/07/2025 15:00",
+                    "datetime": "21/07/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "21/09/2025 15:00",
+                    "datetime": "21/09/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "21/12/2025 19:00",
+                    "datetime": "21/12/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "22/09/2025 16:00",
+                    "datetime": "22/09/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "22/11/2025 15:30",
+                    "datetime": "22/11/2025 (03:30:PM - 04:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "23/09/2025 19:30",
+                    "datetime": "23/09/2025 (07:30:PM - 08:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "23/10/2025 14:30",
+                    "datetime": "23/10/2025 (02:30:PM - 03:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "24/12/2025 17:00",
+                    "datetime": "24/12/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "25/09/2025 11:00",
+                    "datetime": "25/09/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "25/11/2025 12:00",
+                    "datetime": "25/11/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "26/09/2025 10:30",
+                    "datetime": "26/09/2025 (10:30:AM - 11:20:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "26/09/2025 18:30",
+                    "datetime": "26/09/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "26/10/2025 09:30",
+                    "datetime": "26/10/2025 (09:30:AM - 10:20:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "26/12/2025 18:00",
+                    "datetime": "26/12/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "27/07/2025 14:00",
+                    "datetime": "27/07/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "27/10/2025 09:00",
+                    "datetime": "27/10/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "28/11/2025 19:00",
+                    "datetime": "28/11/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "29/11/2025 14:30",
+                    "datetime": "29/11/2025 (02:30:PM - 03:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "30/08/2025 17:30",
+                    "datetime": "30/08/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "31/08/2025 15:00",
+                    "datetime": "31/08/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "31/10/2025 09:00",
+                    "datetime": "31/10/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
@@ -2431,85 +2431,85 @@
             ],
             "15B17CI571": [
                 {
-                    "datetime": "02/08/2025 17:30",
+                    "datetime": "02/08/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "02/09/2025 15:30",
+                    "datetime": "02/09/2025 (03:30:PM - 04:20:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "06/12/2025 15:30",
+                    "datetime": "06/12/2025 (03:30:PM - 04:20:PM)",
                     "classtype": "Practical",
                     "present": "Absent",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "06/12/2025 19:00",
+                    "datetime": "06/12/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "07/08/2025 09:00",
+                    "datetime": "07/08/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "08/11/2025 16:00",
+                    "datetime": "08/11/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "10/11/2025 16:30",
+                    "datetime": "10/11/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "13/10/2025 17:30",
+                    "datetime": "13/10/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "17/07/2025 18:00",
+                    "datetime": "17/07/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "18/10/2025 14:00",
+                    "datetime": "18/10/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Practical",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "21/08/2025 09:30",
+                    "datetime": "21/08/2025 (09:30:AM - 10:20:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "22/07/2025 10:30",
+                    "datetime": "22/07/2025 (10:30:AM - 11:20:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "24/09/2025 19:30",
+                    "datetime": "24/09/2025 (07:30:PM - 08:20:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "30/07/2025 17:30",
+                    "datetime": "30/07/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
@@ -2517,241 +2517,241 @@
             ],
             "17B11CI731": [
                 {
-                    "datetime": "02/07/2025 14:00",
+                    "datetime": "02/07/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "02/08/2025 10:00",
+                    "datetime": "02/08/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "02/09/2025 17:00",
+                    "datetime": "02/09/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "02/12/2025 20:00",
+                    "datetime": "02/12/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "03/10/2025 10:30",
+                    "datetime": "03/10/2025 (10:30:AM - 11:20:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "04/08/2025 11:00",
+                    "datetime": "04/08/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "04/10/2025 10:30",
+                    "datetime": "04/10/2025 (10:30:AM - 11:20:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "06/07/2025 13:00",
+                    "datetime": "06/07/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "06/09/2025 12:00",
+                    "datetime": "06/09/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "06/11/2025 09:00",
+                    "datetime": "06/11/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "07/07/2025 18:00",
+                    "datetime": "07/07/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "07/11/2025 11:00",
+                    "datetime": "07/11/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "08/07/2025 16:00",
+                    "datetime": "08/07/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "10/09/2025 16:30",
+                    "datetime": "10/09/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "10/12/2025 17:00",
+                    "datetime": "10/12/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "11/08/2025 15:30",
+                    "datetime": "11/08/2025 (03:30:PM - 04:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "11/08/2025 20:00",
+                    "datetime": "11/08/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "12/08/2025 20:00",
+                    "datetime": "12/08/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "12/12/2025 17:00",
+                    "datetime": "12/12/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "13/10/2025 20:00",
+                    "datetime": "13/10/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "15/11/2025 16:30",
+                    "datetime": "15/11/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "15/11/2025 18:00",
+                    "datetime": "15/11/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "16/12/2025 16:30",
+                    "datetime": "16/12/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "16/12/2025 20:00",
+                    "datetime": "16/12/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "17/09/2025 13:30",
+                    "datetime": "17/09/2025 (01:30:PM - 02:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "18/08/2025 19:00",
+                    "datetime": "18/08/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "18/10/2025 19:00",
+                    "datetime": "18/10/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "18/11/2025 14:00",
+                    "datetime": "18/11/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "20/10/2025 10:30",
+                    "datetime": "20/10/2025 (10:30:AM - 11:20:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "20/11/2025 10:00",
+                    "datetime": "20/11/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "22/09/2025 20:00",
+                    "datetime": "22/09/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "23/09/2025 18:00",
+                    "datetime": "23/09/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "25/07/2025 16:30",
+                    "datetime": "25/07/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "26/07/2025 17:30",
+                    "datetime": "26/07/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "27/07/2025 09:00",
+                    "datetime": "27/07/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "28/08/2025 17:00",
+                    "datetime": "28/08/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "29/09/2025 19:00",
+                    "datetime": "29/09/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "29/10/2025 12:00",
+                    "datetime": "29/10/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "29/10/2025 17:30",
+                    "datetime": "29/10/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "30/12/2025 17:00",
+                    "datetime": "30/12/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
@@ -2759,85 +2759,85 @@
             ],
             "17B17CI791": [
                 {
-                    "datetime": "03/07/2025 15:30",
+                    "datetime": "03/07/2025 (03:30:PM - 04:20:PM)",
                     "classtype": "Practical",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "04/08/2025 12:00",
+                    "datetime": "04/08/2025 (12:00:PM - 12:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "04/09/2025 17:00",
+                    "datetime": "04/09/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "05/10/2025 19:00",
+                    "datetime": "05/10/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "07/08/2025 17:00",
+                    "datetime": "07/08/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "09/07/2025 18:00",
+                    "datetime": "09/07/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "11/12/2025 11:00",
+                    "datetime": "11/12/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "14/08/2025 18:00",
+                    "datetime": "14/08/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "15/07/2025 09:00",
+                    "datetime": "15/07/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "22/09/2025 14:00",
+                    "datetime": "22/09/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "23/11/2025 18:00",
+                    "datetime": "23/11/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "26/10/2025 18:30",
+                    "datetime": "26/10/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "28/12/2025 09:30",
+                    "datetime": "28/12/2025 (09:30:AM - 10:20:AM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "30/11/2025 14:00",
+                    "datetime": "30/11/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Practical",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
@@ -2845,229 +2845,229 @@
             ],
             "20B11CI211": [
                 {
-                    "datetime": "04/07/2025 16:00",
+                    "datetime": "04/07/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "05/07/2025 09:00",
+                    "datetime": "05/07/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "05/07/2025 19:00",
+                    "datetime": "05/07/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "05/08/2025 14:00",
+                    "datetime": "05/08/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "05/11/2025 18:30",
+                    "datetime": "05/11/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "06/08/2025 13:00",
+                    "datetime": "06/08/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "06/09/2025 14:00",
+                    "datetime": "06/09/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "07/10/2025 17:30",
+                    "datetime": "07/10/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "08/12/2025 16:30",
+                    "datetime": "08/12/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "09/08/2025 12:30",
+                    "datetime": "09/08/2025 (12:30:PM - 01:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "10/12/2025 19:30",
+                    "datetime": "10/12/2025 (07:30:PM - 08:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "12/10/2025 20:00",
+                    "datetime": "12/10/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "13/11/2025 19:00",
+                    "datetime": "13/11/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "13/12/2025 14:30",
+                    "datetime": "13/12/2025 (02:30:PM - 03:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "14/10/2025 17:00",
+                    "datetime": "14/10/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "16/07/2025 16:00",
+                    "datetime": "16/07/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "16/08/2025 11:30",
+                    "datetime": "16/08/2025 (11:30:AM - 12:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "16/09/2025 11:30",
+                    "datetime": "16/09/2025 (11:30:AM - 12:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "16/11/2025 13:30",
+                    "datetime": "16/11/2025 (01:30:PM - 02:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "17/07/2025 11:30",
+                    "datetime": "17/07/2025 (11:30:AM - 12:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "18/07/2025 14:30",
+                    "datetime": "18/07/2025 (02:30:PM - 03:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "18/09/2025 13:30",
+                    "datetime": "18/09/2025 (01:30:PM - 02:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "18/10/2025 15:00",
+                    "datetime": "18/10/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "18/11/2025 14:00",
+                    "datetime": "18/11/2025 (02:00:PM - 02:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "20/10/2025 19:00",
+                    "datetime": "20/10/2025 (07:00:PM - 07:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "20/12/2025 09:00",
+                    "datetime": "20/12/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "20/12/2025 17:30",
+                    "datetime": "20/12/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "23/07/2025 17:30",
+                    "datetime": "23/07/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "23/11/2025 12:30",
+                    "datetime": "23/11/2025 (12:30:PM - 01:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "24/09/2025 09:00",
+                    "datetime": "24/09/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "24/10/2025 11:30",
+                    "datetime": "24/10/2025 (11:30:AM - 12:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "26/11/2025 20:30",
+                    "datetime": "26/11/2025 (08:30:PM - 09:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "27/09/2025 10:30",
+                    "datetime": "27/09/2025 (10:30:AM - 11:20:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "28/08/2025 15:00",
+                    "datetime": "28/08/2025 (03:00:PM - 03:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "29/08/2025 17:00",
+                    "datetime": "29/08/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "29/09/2025 18:30",
+                    "datetime": "29/09/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "31/08/2025 13:30",
+                    "datetime": "31/08/2025 (01:30:PM - 02:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "31/12/2025 09:30",
+                    "datetime": "31/12/2025 (09:30:AM - 10:20:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
@@ -3075,217 +3075,217 @@
             ],
             "20B12HS411": [
                 {
-                    "datetime": "01/07/2025 10:00",
+                    "datetime": "01/07/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "01/08/2025 20:00",
+                    "datetime": "01/08/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "02/08/2025 12:30",
+                    "datetime": "02/08/2025 (12:30:PM - 01:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "02/09/2025 20:30",
+                    "datetime": "02/09/2025 (08:30:PM - 09:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "02/11/2025 20:30",
+                    "datetime": "02/11/2025 (08:30:PM - 09:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "04/09/2025 10:30",
+                    "datetime": "04/09/2025 (10:30:AM - 11:20:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "04/12/2025 20:00",
+                    "datetime": "04/12/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
                 },
                 {
-                    "datetime": "05/11/2025 10:00",
+                    "datetime": "05/11/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "05/11/2025 11:30",
+                    "datetime": "05/11/2025 (11:30:AM - 12:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "06/09/2025 17:00",
+                    "datetime": "06/09/2025 (05:00:PM - 05:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "ILA JOSHI"
                 },
                 {
-                    "datetime": "06/11/2025 15:30",
+                    "datetime": "06/11/2025 (03:30:PM - 04:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "07/11/2025 13:00",
+                    "datetime": "07/11/2025 (01:00:PM - 01:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "08/07/2025 16:30",
+                    "datetime": "08/07/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "10/09/2025 18:30",
+                    "datetime": "10/09/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "12/08/2025 18:30",
+                    "datetime": "12/08/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "12/12/2025 17:30",
+                    "datetime": "12/12/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "14/12/2025 18:30",
+                    "datetime": "14/12/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "15/10/2025 14:30",
+                    "datetime": "15/10/2025 (02:30:PM - 03:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "15/10/2025 19:30",
+                    "datetime": "15/10/2025 (07:30:PM - 08:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "17/08/2025 17:30",
+                    "datetime": "17/08/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "18/11/2025 14:30",
+                    "datetime": "18/11/2025 (02:30:PM - 03:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "20/12/2025 14:30",
+                    "datetime": "20/12/2025 (02:30:PM - 03:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "21/07/2025 16:00",
+                    "datetime": "21/07/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "21/08/2025 09:00",
+                    "datetime": "21/08/2025 (09:00:AM - 09:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "21/10/2025 10:00",
+                    "datetime": "21/10/2025 (10:00:AM - 10:50:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "VISHAL NARAIN SAXENA"
                 },
                 {
-                    "datetime": "21/12/2025 10:30",
+                    "datetime": "21/12/2025 (10:30:AM - 11:20:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "HARLEEN KAUR"
                 },
                 {
-                    "datetime": "23/07/2025 14:30",
+                    "datetime": "23/07/2025 (02:30:PM - 03:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "23/08/2025 20:00",
+                    "datetime": "23/08/2025 (08:00:PM - 08:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "24/07/2025 16:30",
+                    "datetime": "24/07/2025 (04:30:PM - 05:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PRIYA SHARMA"
                 },
                 {
-                    "datetime": "24/12/2025 10:30",
+                    "datetime": "24/12/2025 (10:30:AM - 11:20:AM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RAJESH KUMAR"
                 },
                 {
-                    "datetime": "25/10/2025 16:00",
+                    "datetime": "25/10/2025 (04:00:PM - 04:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "26/10/2025 18:30",
+                    "datetime": "26/10/2025 (06:30:PM - 07:20:PM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "SAMRITI KALIA"
                 },
                 {
-                    "datetime": "27/10/2025 17:30",
+                    "datetime": "27/10/2025 (05:30:PM - 06:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "SAURABH CHATURVEDI"
                 },
                 {
-                    "datetime": "28/07/2025 11:00",
+                    "datetime": "28/07/2025 (11:00:AM - 11:50:AM)",
                     "classtype": "Lecture",
                     "present": "Absent",
                     "attendanceby": "MOHUA DUTTA"
                 },
                 {
-                    "datetime": "30/09/2025 11:30",
+                    "datetime": "30/09/2025 (11:30:AM - 12:20:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "PANKAJ KUMAR YADAV"
                 },
                 {
-                    "datetime": "30/09/2025 18:00",
+                    "datetime": "30/09/2025 (06:00:PM - 06:50:PM)",
                     "classtype": "Lecture",
                     "present": "Present",
                     "attendanceby": "RUBY BENIWAL"
@@ -3472,212 +3472,166 @@
                     {
                         "code": "15B11EC611",
                         "name": "TELECOMMUNICATION NETWORKS",
-                        "marks": 48,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 EVEN SEM",
-                                "marks": 10,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 10,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025EVE-20MARKS",
-                                "marks": 19,
-                                "max": 20
+                            "T2": {
+                                "OM": 19,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 19,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 19,
+                                "FM": 35
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "15B17EC671",
                         "name": "TELECOMMUNICATION NETWORKS LAB",
-                        "marks": 22,
-                        "max_marks": 40,
-                        "breakup": [
-                            {
-                                "label": "END VVIA-LAB-25EVEN",
-                                "marks": 12,
-                                "max": 20
+                        "exams": {
+                            "END VIVA": {
+                                "OM": 12,
+                                "FM": 20
                             },
-                            {
-                                "label": "MID VIVA-LAB 25 EVEN",
-                                "marks": 10,
-                                "max": 20
+                            "MID VIVA": {
+                                "OM": 10,
+                                "FM": 20
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "15B19EC691",
                         "name": "MINOR PROJECT-2",
-                        "marks": 30,
-                        "max_marks": 40,
-                        "breakup": [
-                            {
-                                "label": "END VVIA-LAB-25EVEN",
-                                "marks": 16,
-                                "max": 20
+                        "exams": {
+                            "END VIVA": {
+                                "OM": 16,
+                                "FM": 20
                             },
-                            {
-                                "label": "MID VIVA-LAB 25 EVEN",
-                                "marks": 14,
-                                "max": 20
+                            "MID VIVA": {
+                                "OM": 14,
+                                "FM": 20
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "17B11EC731",
                         "name": "MOBILE COMMUNICATION",
-                        "marks": 44,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 EVEN SEM",
-                                "marks": 15,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 15,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025EVE-20MARKS",
-                                "marks": 12.5,
-                                "max": 20
+                            "T2": {
+                                "OM": 12.5,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 16.5,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 16.5,
+                                "FM": 35
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "18B11EC315",
                         "name": "VLSI Design",
-                        "marks": 35,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 EVEN SEM",
-                                "marks": 8.5,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 8.5,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025EVE-20MARKS",
-                                "marks": 10.5,
-                                "max": 20
+                            "T2": {
+                                "OM": 10.5,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 16,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 16,
+                                "FM": 35
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "18B15EC315",
                         "name": "VLSI Design Lab-II",
-                        "marks": 18,
-                        "max_marks": 40,
-                        "breakup": [
-                            {
-                                "label": "END VVIA-LAB-25EVEN",
-                                "marks": 10,
-                                "max": 20
+                        "exams": {
+                            "END VIVA": {
+                                "OM": 10,
+                                "FM": 20
                             },
-                            {
-                                "label": "MID VIVA-LAB 25 EVEN",
-                                "marks": 8,
-                                "max": 20
+                            "MID VIVA": {
+                                "OM": 8,
+                                "FM": 20
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "20B12HS311",
                         "name": "GLOBAL POLITICS",
-                        "marks": 60.5,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 EVEN SEM",
-                                "marks": 16,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 16,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025EVE-20MARKS",
-                                "marks": 17,
-                                "max": 20
+                            "T2": {
+                                "OM": 17,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 27.5,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 27.5,
+                                "FM": 35
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "24B12EC411",
                         "name": "Fundamentals of Electric Vehicle",
-                        "marks": 53,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 EVEN SEM",
-                                "marks": 15,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 15,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025EVE-20MARKS",
-                                "marks": 13,
-                                "max": 20
+                            "T2": {
+                                "OM": 13,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 25,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 25,
+                                "FM": 35
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "24B12HS316",
                         "name": "Popular Literature",
-                        "marks": 50,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 EVEN SEM",
-                                "marks": 12,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 12,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025EVE-20MARKS",
-                                "marks": 11.5,
-                                "max": 20
+                            "T2": {
+                                "OM": 11.5,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 26.5,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 26.5,
+                                "FM": 35
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "24B16HS311",
                         "name": "Basics of Creative Writing",
-                        "marks": 39,
-                        "max_marks": 70,
-                        "breakup": [
-                            {
-                                "label": "ENDTERM-40 MARKS",
-                                "marks": 19,
-                                "max": 40
+                        "exams": {
+                            "ENDTERM": {
+                                "OM": 19,
+                                "FM": 40
                             },
-                            {
-                                "label": "MIDTERM-30 MARKS",
-                                "marks": 20,
-                                "max": 30
+                            "MIDTERM": {
+                                "OM": 20,
+                                "FM": 30
                             }
-                        ]
+                        }
                     }
                 ]
             },
@@ -3686,130 +3640,102 @@
                     {
                         "code": "15B11CI511",
                         "name": "COMPUTER NETWORKS",
-                        "marks": 48,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 ODD SEM",
-                                "marks": 9,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 9,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025ODD-20MARKS",
-                                "marks": 11,
-                                "max": 20
+                            "T2": {
+                                "OM": 11,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 28,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 28,
+                                "FM": 35
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "15B17CI571",
                         "name": "COMPUTER NETWORKS LAB",
-                        "marks": 26,
-                        "max_marks": 40,
-                        "breakup": [
-                            {
-                                "label": "MID VIVA-LAB 25 ODD",
-                                "marks": 14,
-                                "max": 20
+                        "exams": {
+                            "MID VIVA": {
+                                "OM": 14,
+                                "FM": 20
                             },
-                            {
-                                "label": "END VIVA-LAB-25ODD",
-                                "marks": 12,
-                                "max": 20
+                            "END VIVA": {
+                                "OM": 12,
+                                "FM": 20
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "17B11CI731",
                         "name": "DATABASE MANAGEMENT SYSTEMS",
-                        "marks": 48,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 ODD SEM",
-                                "marks": 8,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 8,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025ODD-20MARKS",
-                                "marks": 14,
-                                "max": 20
+                            "T2": {
+                                "OM": 14,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 26,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 26,
+                                "FM": 35
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "17B17CI791",
                         "name": "DATABASE MANAGEMENT SYSTEMS LAB",
-                        "marks": 24,
-                        "max_marks": 40,
-                        "breakup": [
-                            {
-                                "label": "MID VIVA-LAB 25 ODD",
-                                "marks": 13,
-                                "max": 20
+                        "exams": {
+                            "MID VIVA": {
+                                "OM": 13,
+                                "FM": 20
                             },
-                            {
-                                "label": "END VIVA-LAB-25ODD",
-                                "marks": 11,
-                                "max": 20
+                            "END VIVA": {
+                                "OM": 11,
+                                "FM": 20
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "20B11CI211",
                         "name": "OPERATING SYSTEMS",
-                        "marks": 49,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 ODD SEM",
-                                "marks": 20,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 20,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025ODD-20MARKS",
-                                "marks": 6,
-                                "max": 20
+                            "T2": {
+                                "OM": 6,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 23,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 23,
+                                "FM": 35
                             }
-                        ]
+                        }
                     },
                     {
                         "code": "20B12HS411",
                         "name": "ORGANIZATIONAL BEHAVIOR",
-                        "marks": 52,
-                        "max_marks": 75,
-                        "breakup": [
-                            {
-                                "label": "T1-2025 ODD SEM",
-                                "marks": 18,
-                                "max": 20
+                        "exams": {
+                            "T1": {
+                                "OM": 18,
+                                "FM": 20
                             },
-                            {
-                                "label": "T2-2025ODD-20MARKS",
-                                "marks": 15,
-                                "max": 20
+                            "T2": {
+                                "OM": 15,
+                                "FM": 20
                             },
-                            {
-                                "label": "ENDTERM-35 MARKS",
-                                "marks": 19,
-                                "max": 35
+                            "ENDTERM": {
+                                "OM": 19,
+                                "FM": 35
                             }
-                        ]
+                        }
                     }
                 ]
             }

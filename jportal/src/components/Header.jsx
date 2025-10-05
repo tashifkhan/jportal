@@ -5,7 +5,7 @@ import LogoutIcon from "@/../public/icons/logout.svg?react";
 import { Link } from "react-router-dom";
 import { ChartNoAxesCombined } from "lucide-react";
 
-const Header = ({ setIsAuthenticated }) => {
+const Header = ({ setIsAuthenticated, setIsDemoMode }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -13,6 +13,9 @@ const Header = ({ setIsAuthenticated }) => {
     localStorage.removeItem("password");
     localStorage.removeItem("attendanceData");
     setIsAuthenticated(false);
+    if (setIsDemoMode) {
+      setIsDemoMode(false);
+    }
     navigate("/login");
   };
 
