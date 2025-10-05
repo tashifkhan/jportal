@@ -120,6 +120,18 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Visitors</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {aggregateLoading ? (
+                <Skeleton className="h-8 w-24" />
+              ) : (
+                <div className="text-primary text-2xl font-bold">{aggregateData?.visits.toLocaleString()}</div>
+              )}
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Page Views</CardTitle>
             </CardHeader>
             <CardContent>
@@ -131,18 +143,6 @@ export default function Cloudflare({ isAuthenticated = false, setIsAuthenticated
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Visitors</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {aggregateLoading ? (
-                <Skeleton className="h-8 w-24" />
-              ) : (
-                <div className="text-primary text-2xl font-bold">{aggregateData?.visits.toLocaleString()}</div>
-              )}
-            </CardContent>
-          </Card>
         </div>
 
         {/* Visits Over Time */}

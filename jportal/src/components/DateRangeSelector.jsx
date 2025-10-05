@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
+import { TimePicker } from "@/components/ui/time-picker";
 
 const PRESET_RANGES = {
   "15min": { label: "Last 15 minutes", minutes: 15 },
@@ -15,10 +16,23 @@ const PRESET_RANGES = {
   custom: { label: "Custom range", minutes: null },
 };
 
-export default function DateRangeSelector({ onDateRangeChange }) {
+export default function DateRangeSelector({ onDateRangeChange, className }) {
   const [selectedPreset, setSelectedPreset] = useState("7days");
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [customRange, setCustomRange] = useState(undefined);
+
+  // Initialize start time to 00:00 and end time to 23:59
+  const [startTimeDate, setStartTimeDate] = useState(() => {
+    const date = new Date();
+    date.setHours(0, 0, 0, 0);
+    return date;
+  });
+
+  const [endTimeDate, setEndTimeDate] = useState(() => {
+    const date = new Date();
+    date.setHours(23, 59, 0, 0);
+    return date;
+  });
 
   const handlePresetChange = (value) => {
     setSelectedPreset(value);
@@ -47,16 +61,44 @@ export default function DateRangeSelector({ onDateRangeChange }) {
 
     // Only update if we have both from and to dates
     if (range?.from && range?.to) {
-      // Set 'to' time to end of day
+      // Set 'to' time from endTimeDate state
       const to = new Date(range.to);
-      to.setHours(23, 59, 59, 999);
+      to.setHours(endTimeDate.getHours(), endTimeDate.getMinutes(), 59, 999);
 
-      // Set 'from' time to start of day
+      // Set 'from' time from startTimeDate state
       const from = new Date(range.from);
-      from.setHours(0, 0, 0, 0);
+      from.setHours(startTimeDate.getHours(), startTimeDate.getMinutes(), 0, 0);
 
       onDateRangeChange({ from, to });
       // Let the user close the calendar themselves by clicking away
+    }
+  };
+
+  const handleStartTimeChange = (date) => {
+    setStartTimeDate(date);
+    // Re-trigger date range change if dates are already selected
+    if (customRange?.from && customRange?.to && date) {
+      const from = new Date(customRange.from);
+      from.setHours(date.getHours(), date.getMinutes(), 0, 0);
+
+      const to = new Date(customRange.to);
+      to.setHours(endTimeDate.getHours(), endTimeDate.getMinutes(), 59, 999);
+
+      onDateRangeChange({ from, to });
+    }
+  };
+
+  const handleEndTimeChange = (date) => {
+    setEndTimeDate(date);
+    // Re-trigger date range change if dates are already selected
+    if (customRange?.from && customRange?.to && date) {
+      const from = new Date(customRange.from);
+      from.setHours(startTimeDate.getHours(), startTimeDate.getMinutes(), 0, 0);
+
+      const to = new Date(customRange.to);
+      to.setHours(date.getHours(), date.getMinutes(), 59, 999);
+
+      onDateRangeChange({ from, to });
     }
   };
 
@@ -108,6 +150,11 @@ export default function DateRangeSelector({ onDateRangeChange }) {
                   "day-outside text-muted-foreground opacity-50 aria-selected:bg-transparent aria-selected:text-accent-foreground aria-selected:opacity-70",
               }}
             />
+            <div className="border-t flex items-center justify-between gap-8 px-10 py-2">
+              <TimePicker date={startTimeDate} setDate={handleStartTimeChange} label="" />
+              <span className="">→</span>
+              <TimePicker date={endTimeDate} setDate={handleEndTimeChange} label="" />
+            </div>
           </PopoverContent>
         </Popover>
       )}
