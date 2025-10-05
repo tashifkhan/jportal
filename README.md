@@ -16,7 +16,7 @@ because looking at the jiit web portal is destroying my mental health fr fr (and
 </p>
 
 > [!Note]
-> Usage Analytics are publicly available: https://codeblech.github.io/jportal/#/stats
+> Usage Analytics are publicly available: https://codeblech.github.io/jportal/#/stats \
 > Uses Cloudflare Web Analytics Beacon and Cloudflare [GraphQL Analytics API](https://developers.cloudflare.com/analytics/graphql-api/)
 
 ## what even is this
