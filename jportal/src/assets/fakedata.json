@@ -3,22 +3,22 @@
         "semestersData": {
             "semesters": [
                 {
-                    "registration_id": "2025EVESVEM",
-                    "registration_code": "2025EVESVEM"
+                    "registration_id": "2025EVESEM",
+                    "registration_code": "2025EVESEM"
                 },
                 {
                     "registration_id": "2025ODDSEM",
                     "registration_code": "2025ODDSEM"
                 }
             ],
-            "latest_header": "header2025EVESVEM",
+            "latest_header": "header2025EVESEM",
             "latest_semester": {
-                "registration_id": "2025EVESVEM",
-                "registration_code": "2025EVESVEM"
+                "registration_id": "2025EVESEM",
+                "registration_code": "2025EVESEM"
             }
         },
         "attendanceData": {
-            "2025EVESVEM": {
+            "2025EVESEM": {
                 "studentattendancelist": [
                     {
                         "subjectdesc": "15B11EC611",
@@ -3342,8 +3342,8 @@
         },
         "gradeCardSemesters": [
             {
-                "registration_id": "2025EVESVEM",
-                "registration_code": "2025EVESVEM"
+                "registration_id": "2025EVESEM",
+                "registration_code": "2025EVESEM"
             },
             {
                 "registration_id": "2025ODDSEM",
@@ -3351,7 +3351,7 @@
             }
         ],
         "gradeCards": {
-            "2025EVESVEM": {
+            "2025EVESEM": {
                 "gradecard": [
                     {
                         "subjectcode": "15B11EC611",
@@ -3458,8 +3458,8 @@
         },
         "marksSemesters": [
             {
-                "registration_id": "2025EVESVEM",
-                "registration_code": "2025EVESVEM"
+                "registration_id": "2025EVESEM",
+                "registration_code": "2025EVESEM"
             },
             {
                 "registration_id": "2025ODDSEM",
@@ -3467,7 +3467,7 @@
             }
         ],
         "marksData": {
-            "2025EVESVEM": {
+            "2025EVESEM": {
                 "courses": [
                     {
                         "code": "15B11EC611",
@@ -3745,8 +3745,8 @@
         "semestersData": {
             "semesters": [
                 {
-                    "registration_id": "2025EVESVEM",
-                    "registration_code": "2025EVESVEM"
+                    "registration_id": "2025EVESEM",
+                    "registration_code": "2025EVESEM"
                 },
                 {
                     "registration_id": "2025ODDSEM",
@@ -3754,12 +3754,12 @@
                 }
             ],
             "latest_semester": {
-                "registration_id": "2025EVESVEM",
-                "registration_code": "2025EVESVEM"
+                "registration_id": "2025EVESEM",
+                "registration_code": "2025EVESEM"
             }
         },
         "subjectData": {
-            "2025EVESVEM": {
+            "2025EVESEM": {
                 "total_credits": 23,
                 "subjects": [
                     {
@@ -3969,8 +3969,8 @@
     "exams": {
         "examSemesters": [
             {
-                "registration_id": "2025EVESVEM",
-                "registration_code": "2025EVESVEM"
+                "registration_id": "2025EVESEM",
+                "registration_code": "2025EVESEM"
             },
             {
                 "registration_id": "2025ODDSEM",
@@ -3978,33 +3978,33 @@
             }
         ],
         "examEvents": {
-            "2025EVESVEM": [
+            "2025EVESEM": [
                 {
                     "exameventcode": "T1-2025EVESEM",
                     "eventfrom": 1706659200000,
                     "exameventdesc": "Test 1 - Even Semester 2025",
-                    "registrationid": "2025EVESVEM",
+                    "registrationid": "2025EVESEM",
                     "exameventid": "T1-EVESEM"
                 },
                 {
                     "exameventcode": "T2-2025EVESEM",
                     "eventfrom": 1712188800000,
                     "exameventdesc": "Test 2 - Even Semester 2025",
-                    "registrationid": "2025EVESVEM",
+                    "registrationid": "2025EVESEM",
                     "exameventid": "T2-EVESEM"
                 },
                 {
                     "exameventcode": "MAKEUP-2025EVESEM",
                     "eventfrom": 1714953600000,
                     "exameventdesc": "Make Up Exam for T1 & T2 - Even Semester",
-                    "registrationid": "2025EVESVEM",
+                    "registrationid": "2025EVESEM",
                     "exameventid": "MAKEUP-EVESEM"
                 },
                 {
                     "exameventcode": "ENDTERM-2025EVESEM",
                     "eventfrom": 1717545600000,
                     "exameventdesc": "End Semester Examination - Even Semester 2025",
-                    "registrationid": "2025EVESVEM",
+                    "registrationid": "2025EVESEM",
                     "exameventid": "ENDTERM-EVESEM"
                 }
             ],

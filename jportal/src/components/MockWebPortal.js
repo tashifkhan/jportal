@@ -10,10 +10,38 @@ export default class MockWebPortal {
   }
 
   async get_attendance_meta() {
+    // Reorder semesters based on current month for better demo UX
+    // Jan-July: Even semester first (EVESEM)
+    // Aug-Dec: Odd semester first (ODDSEM)
+    const currentMonth = new Date().getMonth() + 1; // 1-12
+    const isEvenSemesterPeriod = currentMonth >= 1 && currentMonth <= 7;
+
+    let orderedSemesters = [...fakeData.attendance.semestersData.semesters];
+
+    // Sort semesters to put the current academic semester first
+    orderedSemesters.sort((a, b) => {
+      const aIsEven = a.registration_code.includes("EVESEM");
+      const bIsEven = b.registration_code.includes("EVESEM");
+
+      if (isEvenSemesterPeriod) {
+        // Even semester period: EVESEM should come first
+        if (aIsEven && !bIsEven) return -1;
+        if (!aIsEven && bIsEven) return 1;
+      } else {
+        // Odd semester period: ODDSEM should come first
+        if (!aIsEven && bIsEven) return -1;
+        if (aIsEven && !bIsEven) return 1;
+      }
+      return 0;
+    });
+
+    // Set the first semester as the latest (default selected)
+    const latestSemester = orderedSemesters[0];
+
     return {
-      semesters: fakeData.attendance.semestersData.semesters,
+      semesters: orderedSemesters,
       latest_header: () => fakeData.attendance.semestersData.latest_header,
-      latest_semester: () => fakeData.attendance.semestersData.latest_semester,
+      latest_semester: () => latestSemester,
     };
   }
 
@@ -24,7 +52,7 @@ export default class MockWebPortal {
 
   async get_subject_daily_attendance(semester, subjectid, individualsubjectcode, subjectcomponentids) {
     return {
-      studentAttdsummarylist: fakeData.attendance.subjectAttendanceData[individualsubjectcode] || []
+      studentAttdsummarylist: fakeData.attendance.subjectAttendanceData[individualsubjectcode] || [],
     };
   }
 
