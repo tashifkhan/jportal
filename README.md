@@ -15,6 +15,10 @@ because looking at the jiit web portal is destroying my mental health fr fr (and
    <img width="1703" height="1024" alt="image" src="https://github.com/user-attachments/assets/e092aaff-aaba-47bf-98f0-90ac0551c488" />
 </p>
 
+> [!Note]
+> Usage Analytics are publicly available: https://codeblech.github.io/jportal/#/stats
+> Uses Cloudflare Web Analytics Beacon and Cloudflare [GraphQL Analytics API](https://developers.cloudflare.com/analytics/graphql-api/)
+
 ## what even is this
 
 a progressive web app to replace the jiit web portal. one must imagine the developer happy.
