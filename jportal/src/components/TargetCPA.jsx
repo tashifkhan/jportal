@@ -549,23 +549,24 @@ export default function CGPATargetCalculator({
                   </div>
                 ) : sgpaSubjects.length > 0 ? (
                   <>
-                    <div className="space-y-3 max-h-80 overflow-y-auto">
+                    <div className="space-y-2 max-h-80 overflow-y-auto">
                       {sgpaSubjects.map((subject, index) => (
                         <div key={index} className={`${
                           useCardBackgrounds
                             ? "bg-[var(--primary-color)] rounded-[var(--radius)]"
                             : "border-b border-[var(--border-color)]"
-                        } p-3 flex items-center gap-3`}>
+                        } p-2 sm:p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3`}>
                           <div className="flex-1 min-w-0">
-                            <div className="text-sm font-medium text-[var(--text-color)] truncate">
+                            <div className="text-xs sm:text-sm font-medium text-[var(--text-color)] truncate">
                               {subject.name}
                             </div>
-                            <div className="flex items-center gap-2 text-xs text-[var(--label-color)]">
-                              <span className="px-2 py-1 bg-[var(--primary-color)] rounded">{subject.code}</span>
-                              <span>{subject.credits} credits</span>
+                            <div className="flex items-center gap-1 sm:gap-2 text-xs text-[var(--label-color)] flex-wrap">
+                              <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-[var(--primary-color)] rounded text-xs">{subject.code}</span>
+                              <span className="whitespace-nowrap">{subject.credits} credits</span>
                             </div>
                           </div>
-                          <div className="flex-shrink-0 w-24">
+                          <div className="flex-shrink-0 w-full sm:w-24">
+                            <label className="text-xs text-[var(--label-color)] block mb-1 sm:hidden">Grade</label>
                             {useMaterialUI ? (
                               <FormControl fullWidth variant="outlined" size="small">
                                 <MuiSelect
@@ -575,6 +576,7 @@ export default function CGPATargetCalculator({
                                     background: "var(--card-bg)",
                                     color: "var(--text-color)",
                                     borderRadius: "var(--radius)",
+                                    fontSize: { xs: "0.75rem", sm: "0.875rem" },
                                     "& .MuiOutlinedInput-notchedOutline": {
                                       borderColor: "var(--border-color)",
                                     },
@@ -598,7 +600,7 @@ export default function CGPATargetCalculator({
                                 value={subject.grade} 
                                 onValueChange={(grade) => handleGradeChange(index, grade)}
                               >
-                                <SelectTrigger className="bg-[var(--primary-color)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
+                                <SelectTrigger className="bg-[var(--primary-color)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] h-8 sm:h-10 text-xs sm:text-sm">
                                   <SelectValue placeholder="Grade" />
                                 </SelectTrigger>
                                 <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
@@ -614,14 +616,14 @@ export default function CGPATargetCalculator({
                         </div>
                       ))}
                     </div>
-                    <div className="space-y-3 mt-4">
+                    <div className="space-y-2 mt-3 sm:space-y-3 sm:mt-4">
                       <div className={`${
                         useCardBackgrounds
                           ? "bg-[var(--primary-color)] rounded-[var(--radius)]"
                           : ""
-                      } p-4 flex items-center justify-between`}>
-                        <span className="text-sm text-[var(--label-color)] font-medium">Calculated SGPA</span>
-                        <span className="text-2xl font-bold text-[var(--accent-color)]">
+                      } p-2 sm:p-4 flex items-center justify-between gap-2`}>
+                        <span className="text-xs sm:text-sm text-[var(--label-color)] font-medium truncate">Calculated SGPA</span>
+                        <span className="text-lg sm:text-2xl font-bold text-[var(--accent-color)] flex-shrink-0">
                           {calculateSGPA()}
                         </span>
                       </div>
@@ -629,9 +631,9 @@ export default function CGPATargetCalculator({
                         useCardBackgrounds
                           ? "bg-[var(--primary-color)] rounded-[var(--radius)]"
                           : ""
-                      } p-4 flex items-center justify-between`}>
-                        <span className="text-sm text-[var(--label-color)] font-medium">Projected CGPA</span>
-                        <span className="text-2xl font-bold text-[var(--accent-color)]">
+                      } p-2 sm:p-4 flex items-center justify-between gap-2`}>
+                        <span className="text-xs sm:text-sm text-[var(--label-color)] font-medium truncate">Projected CGPA</span>
+                        <span className="text-lg sm:text-2xl font-bold text-[var(--accent-color)] flex-shrink-0">
                           {calculateProjectedCGPA()}
                         </span>
                       </div>
