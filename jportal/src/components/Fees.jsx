@@ -465,37 +465,6 @@ export default function Fees({ w, feesData, setFeesData, guest = false }) {
                     </div>
                   </div>
                 )}
-
-                {/* Status Alert */}
-                {totalDue > 0 ? (
-                  <div className="bg-orange-50 dark:bg-orange-900/20 rounded-[var(--radius)] p-6 shadow-md border-l-4 border-orange-500">
-                    <div className="flex tems-start">
-                      <AlertCircle className="w-6 h-6 text-orange-500 mr-3 t-1 flex-shrink-0" />
-                    <div>
-                        <h4 cassName="text-lg font-semibold text-orange-800 dark:text-orange-300 mb-2">
-                        Payment Requird
-                       </h4>
-                       <p className="text-orange-700 dark:text-orange-400">
-                          You have outstanding dues of {formatCurrency(totalDue)}. Please clear your payments toavoid any inconvenience.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="bg-green-50 dark:bg-green-900/20 rounded-[var(--radius)] p-6 shadow-md border-l-4 border-green-500">
-                    <div className="flex items-start">
-                      <CheckCircle className="w-6 h-6 text-green-500 mr-3 mt-1 flex-shrink-0" />
-                      <div>
-                        <h4 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">
-                          All Clear!
-                        </h4>
-                        <p className="text-green-700 dark:text-green-400">
-                          You have no outstanding dues. All fees have been paid up to date.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             </TabsContent>
           </div>
