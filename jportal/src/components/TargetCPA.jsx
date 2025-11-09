@@ -444,7 +444,7 @@ export default function CGPATargetCalculator({
       </Button>
       
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none max-w-2xl w-full rounded-[var(--radius)]">
+      <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none max-w-2xl w-[95vw] sm:w-full rounded-[var(--radius)] max-h-[90vh] overflow-y-auto p-3 sm:p-6">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-[var(--text-color)]">
             <Calculator className="h-6 w-6" />
@@ -654,16 +654,16 @@ export default function CGPATargetCalculator({
             <div className="space-y-4">
               <div className={`${
                 useCardBackgrounds
-                  ? "bg-[var(--primary-color)] rounded-[var(--radius)] p-4"
-                  : "p-2"
+                  ? "bg-[var(--primary-color)] rounded-[var(--radius)] p-3 sm:p-4"
+                  : "p-2 sm:p-2"
               }`}>
-                <p className="text-sm text-[var(--label-color)] mb-4">
+                <p className="text-xs sm:text-sm text-[var(--label-color)] mb-3 sm:mb-4 leading-relaxed">
                   Enter your desired final CGPA, and we'll calculate the SGPA you need to achieve in the selected semester.
                 </p>
                 
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   <div>
-                    <label className="block text-sm font-medium text-[var(--text-color)] mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-[var(--text-color)] mb-1 sm:mb-2">
                       Select Semester
                     </label>
                     {useMaterialUI ? (
@@ -754,7 +754,7 @@ export default function CGPATargetCalculator({
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[var(--text-color)] mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-[var(--text-color)] mb-1 sm:mb-2">
                       Target CGPA (by end of semester)
                     </label>
                     {useMaterialUI ? (
@@ -826,7 +826,7 @@ export default function CGPATargetCalculator({
                   ) : (
                     <Button
                       variant="secondary"
-                      className="w-full rounded-[var(--radius)] h-12 text-base font-semibold"
+                      className="w-full rounded-[var(--radius)] h-10 sm:h-12 text-sm sm:text-base font-semibold"
                       style={{
                         background: "var(--accent-color)",
                         color: "var(--card-bg)",
@@ -846,44 +846,44 @@ export default function CGPATargetCalculator({
                 )}
 
                 {requiredSGPA !== null && !targetError && (
-                  <div className="mt-6 space-y-4">
+                  <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-4">
                     <div className={`${
                       useCardBackgrounds
                         ? "bg-[var(--card-bg)] rounded-[var(--radius)]"
-                        : "border-t border-[var(--border-color)] pt-4"
-                    } p-4`}>
-                      <div className="text-center space-y-2">
-                        <p className="text-xs text-[var(--label-color)] uppercase tracking-wide">
+                        : "border-t border-[var(--border-color)] pt-3 sm:pt-4"
+                    } p-3 sm:p-4`}>
+                      <div className="text-center space-y-1 sm:space-y-2">
+                        <p className="text-xs text-[var(--label-color)] uppercase tracking-wide break-words px-1">
                           {targetSemester?.registration_code || targetSemester?.coursename || targetSemester?.stynumber || "Selected Semester"}
                         </p>
-                        <p className="text-sm text-[var(--label-color)]">
+                        <p className="text-xs sm:text-sm text-[var(--label-color)]">
                           Required SGPA
                         </p>
                         {requiredSGPA > 10 ? (
                           <div>
-                            <p className="text-3xl font-bold text-red-500">
+                            <p className="text-2xl sm:text-3xl font-bold text-red-500 px-1">
                               Not Achievable
                             </p>
-                            <p className="text-sm text-[var(--label-color)] mt-2">
+                            <p className="text-xs sm:text-sm text-[var(--label-color)] mt-1 sm:mt-2 px-1 leading-snug">
                               Target CGPA of {formatGPA(parseFloat(targetCGPA))} cannot be achieved this semester.
                               The required SGPA ({formatGPA(requiredSGPA)}) exceeds the maximum possible (10.0).
                             </p>
                           </div>
                         ) : requiredSGPA < 0 ? (
                           <div>
-                            <p className="text-3xl font-bold text-[var(--accent-color)]">
+                            <p className="text-2xl sm:text-3xl font-bold text-[var(--accent-color)] px-1">
                               Already Achieved!
                             </p>
-                            <p className="text-sm text-[var(--label-color)] mt-2">
+                            <p className="text-xs sm:text-sm text-[var(--label-color)] mt-1 sm:mt-2 px-1 leading-snug">
                               Your current CGPA already meets or exceeds your target of {formatGPA(parseFloat(targetCGPA))}.
                             </p>
                           </div>
                         ) : (
                           <div>
-                            <p className="text-5xl font-bold text-[var(--accent-color)]">
+                            <p className="text-4xl sm:text-5xl font-bold text-[var(--accent-color)] px-1 break-words">
                               {formatGPA(requiredSGPA)}
                             </p>
-                            <p className="text-sm text-[var(--label-color)] mt-3">
+                            <p className="text-xs sm:text-sm text-[var(--label-color)] mt-2 sm:mt-3 px-1 leading-snug">
                               Achieve an SGPA of {formatGPA(requiredSGPA)} this semester to reach your target CGPA of {formatGPA(parseFloat(targetCGPA))}.
                             </p>
                           </div>
@@ -896,11 +896,11 @@ export default function CGPATargetCalculator({
                         useCardBackgrounds
                           ? "bg-[var(--card-bg)] rounded-[var(--radius)]"
                           : "border-t border-[var(--border-color)]"
-                      } p-4`}>
-                        <p className="text-xs text-[var(--label-color)] space-y-1">
-                          <span className="block">Current Stats:</span>
+                      } p-3 sm:p-4`}>
+                        <p className="text-xs text-[var(--label-color)] space-y-0.5 sm:space-y-1 leading-relaxed">
+                          <span className="block font-medium">Current Stats:</span>
                           <span className="block">• Previous semesters: {sd.length}</span>
-                          <span className="block">• Current CGPA: {
+                          <span className="block truncate">• Current CGPA: {
                             formatGPA(
                               sd.reduce((sum, sem) => sum + (parseFloat(sem.sgpa) * parseFloat(sem.totalcoursecredit)), 0) /
                               sd.reduce((sum, sem) => sum + parseFloat(sem.totalcoursecredit), 0)
