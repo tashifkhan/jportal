@@ -73,7 +73,7 @@ export default function Profile({ w, profileData, setProfileData }) {
           alt="Profile"
           className={`w-28 h-28 rounded-full object-cover shadow-md ${!showProfilePhoto || !hasProfilePhoto ? "border-4 border-primary" : ""}`}
         />
-        <div className="mt-3 text-base font-semibold text-center">
+        <div className="mt-3 text-xl font-semibold text-center">
           {info.studentname || "N/A"}
         </div>
         <div className="text-sm text-muted-foreground font-medium text-center">
@@ -114,7 +114,7 @@ export default function Profile({ w, profileData, setProfileData }) {
         {/* Personal Information */}
         <TabsContent value="personal" className="mt-3 space-y-4">
           <div className="bg-card p-4 rounded-lg shadow-lg">
-            <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
+            <h2 className="text-md font-semibold mb-3">Personal Information</h2>
             <div className="grid">
               <InfoRow label="Date of Birth" value={info.dateofbirth} />
               <InfoRow label="Gender" value={info.gender} />
@@ -128,7 +128,7 @@ export default function Profile({ w, profileData, setProfileData }) {
         {/* Academic Information */}
         <TabsContent value="academic" className="mt-3 space-y-4">
           <div className="bg-card p-4 rounded-lg shadow-lg">
-            <h2 className="text-xl font-semibold mb-4">Academic Information</h2>
+            <h2 className="text-md font-semibold mb-3">Academic Information</h2>
             <div className="grid">
               <InfoRow label="Program" value={info.programcode} />
               <InfoRow label="Branch" value={info.branch} />
@@ -145,7 +145,7 @@ export default function Profile({ w, profileData, setProfileData }) {
         {/* Contact + Family + Address */}
         <TabsContent value="contact" className="mt-3 space-y-4">
           <div className="bg-card p-4 rounded-lg shadow-lg">
-            <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
+            <h2 className="text-xl font-semibold mb-3">Contact Information</h2>
             <div className="grid">
               <InfoRow label="Student Email (College)" value={info.studentemailid} />
               <InfoRow label="Student Email (Personal)" value={info.studentpersonalemailid} />
@@ -155,7 +155,7 @@ export default function Profile({ w, profileData, setProfileData }) {
           </div>
 
           <div className="bg-card p-4 rounded-lg shadow-lg overflow-auto">
-            <h2 className="text-xl font-semibold mb-4">Family Information</h2>
+            <h2 className="text-md font-semibold mb-3">Family Information</h2>
             <div className="grid gap-2">
               <InfoRow label="Father's Name" value={info.fathersname} />
               <InfoRow label="Mother's Name" value={info.mothername} />
@@ -166,7 +166,7 @@ export default function Profile({ w, profileData, setProfileData }) {
           </div>
 
           <div className="bg-card p-4 rounded-lg shadow-lg">
-            <h2 className="text-xl font-semibold mb-4">Current Address</h2>
+            <h2 className="text-md font-semibold mb-3">Current Address</h2>
             <div className="grid">
               <InfoRow label="Address" value={[info.caddress1, info.caddress3].filter(Boolean).join(", ")} />
               <InfoRow label="City" value={info.ccityname} />
@@ -177,7 +177,7 @@ export default function Profile({ w, profileData, setProfileData }) {
           </div>
 
           <div className="bg-card p-4 rounded-lg shadow-lg">
-            <h2 className="text-xl font-semibold mb-4">Permanent Address</h2>
+            <h2 className="text-md font-semibold mb-3">Permanent Address</h2>
             <div className="grid">
               <InfoRow
                 label="Address"
@@ -194,7 +194,7 @@ export default function Profile({ w, profileData, setProfileData }) {
         {/* Educational Qualifications */}
         <TabsContent value="education" className="mt-3 space-y-4">
           <div className="bg-card p-4 rounded-lg shadow-lg">
-            <h2 className="text-xl font-semibold mb-4">Educational Qualifications</h2>
+            <h2 className="text-md font-semibold mb-3">Educational Qualifications</h2>
             {qualifications.map((qual, index) => (
               <div key={index} className="grid">
                 <InfoRow label="Qualification" value={qual.qualificationcode} />
@@ -223,9 +223,9 @@ export default function Profile({ w, profileData, setProfileData }) {
 // Helper component for consistent info display
 function InfoRow({ label, value }) {
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-between py-1">
-      <span className="text-muted-foreground">{label}:</span>
-      <span className="font-medium">{value || "N/A"}</span>
+    <div className="flex flex-row justify-between items-center py-2">
+      <span className="text-base font-medium text-muted-foreground tracking-wide">{label}:</span>
+      <span className="text-base font-semibold text-foreground ml-4 text-right">{value || "N/A"}</span>
     </div>
   );
 }
