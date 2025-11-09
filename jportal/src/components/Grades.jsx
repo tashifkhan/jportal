@@ -50,6 +50,7 @@ import {
 import { useLocation } from "react-router-dom";
 import Toast from "./ui/Toast";
 import fakedata from "../../fakedata.json";
+import CGPATargetCalculator from "./TargetCPA";
 
 const BASE_NAME = "";
 
@@ -1291,22 +1292,11 @@ export default function Grades({
           <span className="sm:hidden">Download</span>
         </Button>
         {/* Targeted GPA Calculator Button */}
-        <Button
-          variant="secondary"
-          className={`
-            rounded-[var(--radius)] shadow-lg flex items-center gap-2 text-[var(--text-color)]
-            bg-[var(--card-bg)] hover:bg-[var(--primary-color)]
-            border-[var(--border-color)] hover:border-[var(--primary-color)]
-            px-3 h-10 text-base font-semibold
-            sm:px-6 sm:h-14 sm:text-lg
-          `}
-          onClick={() => setIsTargetModalOpen(true)}
-          aria-label="Calculate Targeted GPA"
-        >
-          <Calculator className="h-4 w-4 mr-1 sm:h-6 sm:w-6 sm:mr-2" />
-          <span className="hidden sm:inline">Calculate Targeted GPA</span>
-          <span className="sm:hidden">Target GPA</span>
-        </Button>
+        <CGPATargetCalculator 
+          w={w}
+          semesterData={semesterData}
+          guest={guest}
+        />
       </div>
 
       <Dialog
