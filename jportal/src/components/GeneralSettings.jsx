@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { Label } from "./ui/label";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +28,13 @@ const gradesTabs = [
   { value: "marks", label: "Marks" },
 ];
 
-const GeneralSettings = () => {
+const selectTriggerClasses =
+  "w-full rounded-[var(--radius)] bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] text-lg font-normal shadow-md h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]";
+
+const selectContentClasses =
+  "bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] rounded-[var(--radius)] shadow-lg";
+
+const GeneralSettings = ({ availableSemesters = [] }) => {
   const navigate = useNavigate();
   const [entryPoint, setEntryPoint] = useState(
     () => localStorage.getItem("entryPoint") || "/attendance"
@@ -109,17 +121,18 @@ const GeneralSettings = () => {
           <Label className="text-base font-medium text-[var(--label-color)] mb-2 block">
             App Entry Point
           </Label>
-          <select
-            value={entryPoint}
-            onChange={(e) => setEntryPoint(e.target.value)}
-            className="w-full rounded-[var(--radius)] px-4 py-3 bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] focus:ring-2 focus:ring-[var(--accent-color)] outline-none text-lg font-normal shadow-md"
-          >
-            {entryPoints.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+           <Select value={entryPoint} onValueChange={setEntryPoint}>
+            <SelectTrigger className={selectTriggerClasses}>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className={selectContentClasses}>
+              {entryPoints.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div>
           <Label className="text-base font-medium text-[var(--label-color)] mb-2 block">
@@ -197,33 +210,35 @@ const GeneralSettings = () => {
           <Label className="text-base font-medium text-[var(--label-color)] mb-2 block">
             Attendance Entry Tab
           </Label>
-          <select
-            value={attendanceEntryTab}
-            onChange={(e) => setAttendanceEntryTab(e.target.value)}
-            className="w-full rounded-[var(--radius)] px-4 py-3 bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] focus:ring-2 focus:ring-[var(--accent-color)] outline-none text-lg font-normal shadow-md"
-          >
-            {attendanceTabs.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+          <Select value={gradesEntryTab} onValueChange={setGradesEntryTab}>
+            <SelectTrigger className={selectTriggerClasses}>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className={selectContentClasses}>
+              {gradesTabs.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div>
           <Label className="text-base font-medium text-[var(--label-color)] mb-2 block">
             Grades Entry Tab
           </Label>
-          <select
-            value={gradesEntryTab}
-            onChange={(e) => setGradesEntryTab(e.target.value)}
-            className="w-full rounded-[var(--radius)] px-4 py-3 bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--label-color)] focus:ring-2 focus:ring-[var(--accent-color)] outline-none text-lg font-normal shadow-md"
-          >
-            {gradesTabs.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+          <Select value={gradesEntryTab} onValueChange={setGradesEntryTab}>
+            <SelectTrigger className={selectTriggerClasses}>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className={selectContentClasses}>
+              {gradesTabs.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>
