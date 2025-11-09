@@ -10,14 +10,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import {
-  TextField as MuiTextField,
-  Button as MuiButton,
-  Select as MuiSelect,
-  MenuItem as MuiMenuItem,
-  FormControl,
-  InputLabel,
-} from "@mui/material"
 import { useTheme } from "./ThemeProvider"
 import { formatDecimal, getGpaDecimal } from "../lib/utils"
 import fakedata from "../../fakedata.json"
@@ -27,7 +19,7 @@ export default function CGPATargetCalculator({
   semesterData: sd = [],
   guest = false,
 }) {
-  const { useMaterialUI, useCardBackgrounds } = useTheme()
+  const { useCardBackgrounds } = useTheme()
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("sgpa");
   
@@ -470,67 +462,21 @@ export default function CGPATargetCalculator({
 
           <TabsContent value="sgpa" className="space-y-4 py-4">
             <div className="space-y-3">
-              {useMaterialUI ? (
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel
-                    id="sgpa-semester-label"
-                    sx={{ color: "var(--label-color)" }}
-                  >
-                    Select Semester
-                  </InputLabel>
-                  <MuiSelect
-                    labelId="sgpa-semester-label"
-                    label="Select Semester"
-                    value={selectedSemester?.registration_id || ""}
-                    onChange={(e) => handleSemesterChange(e.target.value)}
-                    displayEmpty
-                    variant="outlined"
-                    fullWidth
-                    sx={{
-                      background: "var(--card-bg)",
-                      color: "var(--text-color)",
-                      borderRadius: "var(--radius)",
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "var(--border-color)",
-                      },
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "var(--accent-color)",
-                      },
-                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "var(--accent-color)",
-                      },
-                    }}
-                  >
-                    <MuiMenuItem value="" disabled>
-                      {isLoadingSemesters ? "Loading..." : "Choose semester"}
-                    </MuiMenuItem>
-                    {subjectSemesters.map((semester) => (
-                      <MuiMenuItem
-                        key={semester.registration_id}
-                        value={semester.registration_id}
-                      >
-                        {semester.registration_code}
-                      </MuiMenuItem>
-                    ))}
-                  </MuiSelect>
-                </FormControl>
-              ) : (
-                <Select onValueChange={handleSemesterChange} value={selectedSemester?.registration_id || ""}>
-                  <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
-                    <SelectValue placeholder={isLoadingSemesters ? "Loading..." : "Choose semester"} />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
-                    {subjectSemesters.map((semester) => (
-                      <SelectItem
-                        key={semester.registration_id}
-                        value={semester.registration_id}
-                      >
-                        {semester.registration_code}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
+              <Select onValueChange={handleSemesterChange} value={selectedSemester?.registration_id || ""}>
+                <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
+                  <SelectValue placeholder={isLoadingSemesters ? "Loading..." : "Choose semester"} />
+                </SelectTrigger>
+                <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
+                  {subjectSemesters.map((semester) => (
+                    <SelectItem
+                      key={semester.registration_id}
+                      value={semester.registration_id}
+                    >
+                      {semester.registration_code}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               
               {isLoadingSemesters && (
                 <div className="flex items-center justify-center py-4">
@@ -567,51 +513,21 @@ export default function CGPATargetCalculator({
                           </div>
                           <div className="flex-shrink-0 w-full sm:w-24">
                             <label className="text-xs text-[var(--label-color)] block mb-1 sm:hidden">Grade</label>
-                            {useMaterialUI ? (
-                              <FormControl fullWidth variant="outlined" size="small">
-                                <MuiSelect
-                                  value={subject.grade}
-                                  onChange={(e) => handleGradeChange(index, e.target.value)}
-                                  sx={{
-                                    background: "var(--card-bg)",
-                                    color: "var(--text-color)",
-                                    borderRadius: "var(--radius)",
-                                    fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                                    "& .MuiOutlinedInput-notchedOutline": {
-                                      borderColor: "var(--border-color)",
-                                    },
-                                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                                      borderColor: "var(--accent-color)",
-                                    },
-                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                      borderColor: "var(--accent-color)",
-                                    },
-                                  }}
-                                >
-                                  {gradeOptions.map(grade => (
-                                    <MuiMenuItem key={grade} value={grade}>
-                                      {grade}
-                                    </MuiMenuItem>
-                                  ))}
-                                </MuiSelect>
-                              </FormControl>
-                            ) : (
-                              <Select 
-                                value={subject.grade} 
-                                onValueChange={(grade) => handleGradeChange(index, grade)}
-                              >
-                                <SelectTrigger className="bg-[var(--primary-color)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] h-8 sm:h-10 text-xs sm:text-sm">
-                                  <SelectValue placeholder="Grade" />
-                                </SelectTrigger>
-                                <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
-                                  {gradeOptions.map(grade => (
-                                    <SelectItem key={grade} value={grade}>
-                                      {grade}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            )}
+                            <Select 
+                              value={subject.grade} 
+                              onValueChange={(grade) => handleGradeChange(index, grade)}
+                            >
+                              <SelectTrigger className="bg-[var(--primary-color)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] h-8 sm:h-10 text-xs sm:text-sm">
+                                <SelectValue placeholder="Grade" />
+                              </SelectTrigger>
+                              <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
+                                {gradeOptions.map(grade => (
+                                  <SelectItem key={grade} value={grade}>
+                                    {grade}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                           </div>
                         </div>
                       ))}
@@ -666,177 +582,63 @@ export default function CGPATargetCalculator({
                     <label className="block text-sm font-medium text-[var(--text-color)] mb-2">
                       Select Semester
                     </label>
-                    {useMaterialUI ? (
-                      <FormControl fullWidth>
-                        <MuiSelect
-                          value={targetSemester?.registration_id || ""}
-                          onChange={(e) => handleTargetSemesterChange(e.target.value)}
-                          displayEmpty
-                          sx={{
-                            background: "var(--card-bg)",
-                            color: "var(--text-color)",
-                            borderRadius: "var(--radius)",
-                            "& .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "var(--border-color)",
-                            },
-                            "&:hover .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "var(--accent-color)",
-                            },
-                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "var(--accent-color)",
-                            },
-                          }}
-                        >
-                          <MuiMenuItem value="" disabled>
-                            <span style={{ color: "var(--label-color)" }}>
-                              {isLoadingSemesters ? "Loading semesters..." : "Select a semester"}
-                            </span>
-                          </MuiMenuItem>
-                          {subjectSemesters.map((sem) => {
-                            const credits = getSemesterCredits(sem);
-                            return (
-                              <MuiMenuItem
-                                key={sem.registration_id || sem.stynumber}
-                                value={sem.registration_id}
-                                sx={{
-                                  color: "var(--text-color)",
-                                  "&:hover": {
-                                    backgroundColor: "var(--primary-color)",
-                                  },
-                                  "&.Mui-selected": {
-                                    backgroundColor: "var(--primary-color)",
-                                    "&:hover": {
-                                      backgroundColor: "var(--primary-color)",
-                                    },
-                                  },
-                                }}
-                              >
-                                {sem.registration_code || sem.coursename || sem.stynumber}
-                                {credits > 0 && (
-                                  <span style={{ marginLeft: "8px", color: "var(--label-color)", fontSize: "0.875rem" }}>
-                                    ({credits} credits)
-                                  </span>
-                                )}
-                              </MuiMenuItem>
-                            );
-                          })}
-                        </MuiSelect>
-                      </FormControl>
-                    ) : (
-                      <Select
-                        value={targetSemester?.registration_id || ""}
-                        onValueChange={handleTargetSemesterChange}
-                      >
-                        <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
-                          <SelectValue placeholder={isLoadingSemesters ? "Loading semesters..." : "Select a semester"} />
-                        </SelectTrigger>
-                        <SelectContent className="bg-[var(--card-bg)] border-[var(--border-color)] text-[var(--text-color)] rounded-[var(--radius)]">
-                          {subjectSemesters.map((sem) => {
-                            const credits = getSemesterCredits(sem);
-                            return (
-                              <SelectItem
-                                key={sem.registration_id || sem.stynumber}
-                                value={sem.registration_id}
-                                className="hover:bg-[var(--primary-color)] focus:bg-[var(--primary-color)] rounded-[var(--radius)]"
-                              >
-                                {sem.registration_code || sem.coursename || sem.stynumber}
-                                {credits > 0 && (
-                                  <span className="ml-2 text-[var(--label-color)] text-sm">
-                                    ({credits} credits)
-                                  </span>
-                                )}
-                              </SelectItem>
-                            );
-                          })}
-                        </SelectContent>
-                      </Select>
-                    )}
+                    <Select
+                      value={targetSemester?.registration_id || ""}
+                      onValueChange={handleTargetSemesterChange}
+                    >
+                      <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
+                        <SelectValue placeholder={isLoadingSemesters ? "Loading semesters..." : "Select a semester"} />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[var(--card-bg)] border-[var(--border-color)] text-[var(--text-color)] rounded-[var(--radius)]">
+                        {subjectSemesters.map((sem) => {
+                          const credits = getSemesterCredits(sem);
+                          return (
+                            <SelectItem
+                              key={sem.registration_id || sem.stynumber}
+                              value={sem.registration_id}
+                              className="hover:bg-[var(--primary-color)] focus:bg-[var(--primary-color)] rounded-[var(--radius)]"
+                            >
+                              {sem.registration_code || sem.coursename || sem.stynumber}
+                              {credits > 0 && (
+                                <span className="ml-2 text-[var(--label-color)] text-sm">
+                                  ({credits} credits)
+                                </span>
+                              )}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-[var(--text-color)] mb-2">
                       Target CGPA (by end of semester)
                     </label>
-                    {useMaterialUI ? (
-                      <MuiTextField
-                        type="number"
-                        min="0"
-                        max="10"
-                        step="0.01"
-                        value={targetCGPA}
-                        onChange={(e) => setTargetCGPA(e.target.value)}
-                        placeholder="Enter target CGPA (e.g., 9.0)"
-                        fullWidth
-                        sx={{
-                          background: "var(--card-bg)",
-                          borderRadius: "var(--radius)",
-                          "& .MuiOutlinedInput-root": {
-                            color: "var(--text-color)",
-                            "& fieldset": {
-                              borderColor: "var(--border-color)",
-                            },
-                            "&:hover fieldset": {
-                              borderColor: "var(--accent-color)",
-                            },
-                            "&.Mui-focused fieldset": {
-                              borderColor: "var(--accent-color)",
-                            },
-                          },
-                        }}
-                      />
-                    ) : (
-                      <Input
-                        type="number"
-                        min="0"
-                        max="10"
-                        step="0.01"
-                        value={targetCGPA}
-                        onChange={(e) => setTargetCGPA(e.target.value)}
-                        placeholder="Enter target CGPA (e.g., 9.0)"
-                        className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]"
-                      />
-                    )}
+                    <Input
+                      type="number"
+                      min="0"
+                      max="10"
+                      step="0.01"
+                      value={targetCGPA}
+                      onChange={(e) => setTargetCGPA(e.target.value)}
+                      placeholder="Enter target CGPA (e.g., 9.0)"
+                      className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]"
+                    />
                   </div>
 
-                  {useMaterialUI ? (
-                    <MuiButton
-                      variant="contained"
-                      fullWidth
-                      onClick={calculateRequiredSGPA}
-                      disabled={isLoadingSubjects}
-                      sx={{
-                        borderRadius: "var(--radius)",
-                        height: 48,
-                        fontSize: "1rem",
-                        fontWeight: 600,
-                        background: "var(--accent-color)",
-                        color: "var(--card-bg)",
-                        "&:hover": {
-                          background: "var(--accent-color)",
-                          opacity: 0.9,
-                        },
-                        "&.Mui-disabled": {
-                          background: "var(--border-color)",
-                          color: "var(--label-color)",
-                        },
-                      }}
-                    >
-                      Calculate Required SGPA
-                    </MuiButton>
-                  ) : (
-                    <Button
-                      variant="secondary"
-                      className="w-full rounded-[var(--radius)] h-12 text-base font-semibold"
-                      style={{
-                        background: "var(--accent-color)",
-                        color: "var(--card-bg)",
-                      }}
-                      onClick={calculateRequiredSGPA}
-                      disabled={isLoadingSubjects}
-                    >
-                      Calculate Required SGPA
-                    </Button>
-                  )}
+                  <Button
+                    variant="secondary"
+                    className="w-full rounded-[var(--radius)] h-12 text-base font-semibold"
+                    style={{
+                      background: "var(--accent-color)",
+                      color: "var(--card-bg)",
+                    }}
+                    onClick={calculateRequiredSGPA}
+                    disabled={isLoadingSubjects}
+                  >
+                    Calculate Required SGPA
+                  </Button>
                 </div>
 
                 {targetError && (
