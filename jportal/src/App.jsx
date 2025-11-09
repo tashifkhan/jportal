@@ -15,6 +15,7 @@ import Grades from "./components/Grades";
 import Exams from "./components/Exams";
 import Subjects from "./components/Subjects";
 import Profile from "./components/Profile";
+import Fees from "./components/Fees";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import GeneralSettings from "./components/GeneralSettings";
 import TimeTableIframe from "./components/TimeTableIframe";
@@ -66,6 +67,9 @@ function AuthenticatedApp({ w, setIsAuthenticated, guest }) {
 
   // Add new profile data state
   const [profileData, setProfileData] = useState(null);
+
+  // Add new state for fees
+  const [feesData, setFeesData] = useState(null);
 
   // Add new state for grades component
   const [activeGradesTab, setActiveGradesTab] = useState("overview");
@@ -225,6 +229,17 @@ function AuthenticatedApp({ w, setIsAuthenticated, guest }) {
                 w={w}
                 profileData={profileData}
                 setProfileData={setProfileData}
+                guest={guest}
+              />
+            }
+          />
+          <Route
+            path="/fees"
+            element={
+              <Fees
+                w={w}
+                feesData={feesData}
+                setFeesData={setFeesData}
                 guest={guest}
               />
             }
