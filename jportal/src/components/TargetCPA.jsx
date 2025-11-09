@@ -398,16 +398,16 @@ export default function CGPATargetCalculator({
         </DialogHeader>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-2 w-full rounded-lg h-12">
+          <TabsList className="grid grid-cols-2 w-full bg-muted/50 p-1 rounded-lg h-auto">
             <TabsTrigger 
               value="sgpa" 
-              className="flex items-center gap-2 text-sm font-semibold rounded-md transition-all"
+              className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm py-2"
             >
               SGPA
             </TabsTrigger>
             <TabsTrigger 
               value="target"
-              className="flex items-center gap-2 text-sm font-semibold rounded-md transition-all"
+              className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm py-2"
             >
               Target GPA
             </TabsTrigger>
