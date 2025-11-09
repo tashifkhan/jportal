@@ -264,6 +264,20 @@ export default function Grades({
       if (marksData[value]) {
         setMarksSemesterData(marksData[value]);
       }
+
+      // Fetch grade card if not already cached
+      if (semester && !gradeCards[value]) {
+        try {
+          const data = await w.get_grade_card(semester);
+          data.semesterId = value;
+          setGradeCards((prev) => ({
+            ...prev,
+            [value]: data,
+          }));
+        } catch (error) {
+          console.error("Failed to fetch grade card for marks semester:", error);
+        }
+      }
     } catch (error) {
       console.error("Failed to change marks semester:", error);
     }
@@ -484,7 +498,12 @@ export default function Grades({
                 ) : marksSemesterData && marksSemesterData.courses ? (
                   <div className="space-y-4 mt-4">
                     {marksSemesterData.courses.map((course) => (
-                      <MarksCard key={course.code} course={course} />
+                      <MarksCard 
+                        key={course.code} 
+                        course={course} 
+                        gradeCard={gradeCards[selectedMarksSem?.registration_id]}
+                        useCardBackgrounds={true}
+                      />
                     ))}
                   </div>
                 ) : (
