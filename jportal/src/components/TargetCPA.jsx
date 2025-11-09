@@ -379,7 +379,7 @@ export default function CGPATargetCalculator({
     <>
       <Button
         variant="secondary"
-        className="rounded-lg shadow-lg flex items-center gap-2 px-3 h-10 text-base font-semibold sm:px-6 sm:h-14 sm:text-lg"
+        className="flex items-center gap-3 text-popover-foreground hover:text-accent-foreground border-border bg-background hover:bg-accent px-6 py-3 rounded-lg shadow-md cursor-pointer"
         onClick={() => setIsOpen(true)}
         aria-label="Open GPA Calculator"
       >
@@ -392,7 +392,6 @@ export default function CGPATargetCalculator({
       <DialogContent className="max-w-2xl w-full rounded-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Calculator className="h-6 w-6" />
             GPA Calculator
           </DialogTitle>
         </DialogHeader>
