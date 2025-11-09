@@ -83,18 +83,30 @@ export default function Profile({ w, profileData, setProfileData }) {
       </div>
 
       {/* Tabs Bar (mobile) */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="w-full flex justify-between h-12 overflow-x-auto whitespace-nowrap rounded-md bg-muted p-1">
-          <TabsTrigger value="personal" className="flex-1 min-w-fit text-sm font-semibold data-[state=active]:bg-card data-[state=active]:text-primary">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full px-1">
+        <TabsList className="grid w-full grid-cols-4 bg-background gap-2 sm:gap-3 mb-2">
+          <TabsTrigger
+            value="personal"
+            className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground px-2 py-2 text-xs sm:text-sm font-medium rounded-md"
+          >
             Personal
           </TabsTrigger>
-          <TabsTrigger value="academic" className="flex-1 min-w-fit text-sm font-semibold data-[state=active]:bg-card data-[state=active]:text-primary">
+            <TabsTrigger
+            value="academic"
+            className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground px-2 py-2 text-xs sm:text-sm font-medium rounded-md"
+          >
             Academic
           </TabsTrigger>
-          <TabsTrigger value="contact" className="flex-1 min-w-fit text-sm font-semibold data-[state=active]:bg-card data-[state=active]:text-primary">
+          <TabsTrigger
+            value="contact"
+            className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground px-2 py-2 text-xs sm:text-sm font-medium rounded-md"
+          >
             Contact
           </TabsTrigger>
-          <TabsTrigger value="education" className="flex-1 min-w-fit text-sm font-semibold data-[state=active]:bg-card data-[state=active]:text-primary">
+          <TabsTrigger
+            value="education"
+            className="cursor-pointer text-muted-foreground bg-background data-[state=active]:bg-muted data-[state=active]:text-foreground px-2 py-2 text-xs sm:text-sm font-medium rounded-md"
+          >
             Education
           </TabsTrigger>
         </TabsList>
