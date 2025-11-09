@@ -10,16 +10,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { useTheme } from "./ThemeProvider"
 import { formatDecimal, getGpaDecimal } from "../lib/utils"
-import fakedata from "../../fakedata.json"
 
 export default function CGPATargetCalculator({ 
   w,
   semesterData: sd = [],
   guest = false,
 }) {
-  const { useCardBackgrounds } = useTheme()
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("sgpa");
   
@@ -61,15 +58,10 @@ export default function CGPATargetCalculator({
     setIsLoadingSemesters(true);
     try {
       let semesters = [];
-      if (guest) {
-        // Guest mode: use fakedata
-        semesters = fakedata.semesters || [];
-      } else if (w) {
-        semesters = await w.get_registered_semesters();
-      }
+      semesters = await w.get_registered_semesters();
 
-  semesters = Array.isArray(semesters) ? semesters : [];
-  setSubjectSemesters(semesters);
+      semesters = Array.isArray(semesters) ? semesters : [];
+      setSubjectSemesters(semesters);
 
       if (semesters && semesters.length > 0) {
         const defaultSemester = semesters[0];
@@ -92,38 +84,6 @@ export default function CGPATargetCalculator({
     try {
       const semesterId = semester.registration_id;
 
-      if (guest) {
-        // Guest mode: use fakedata snapshot
-        const guestData = fakedata.subjects?.subjectData?.[semesterId] || null;
-        const guestSubjects = guestData?.subjects || [];
-
-        setSubjectData((prev) => ({
-          ...prev,
-          [semesterId]: guestData || guestSubjects,
-        }));
-
-        if (guestSubjects.length > 0) {
-          const processedSubjects = processSubjectsForSGPA(guestSubjects);
-          const totalCredits = processedSubjects.reduce((sum, subject) => sum + (subject.credits || 0), 0);
-
-          setSemesterCreditsMap((prev) => ({
-            ...prev,
-            [semesterId]: guestData?.total_credits || totalCredits,
-          }));
-
-          if (updateSgpaSubjects) {
-            setSgpaSubjects(processedSubjects);
-          }
-        } else {
-          setSemesterCreditsMap((prev) => ({
-            ...prev,
-            [semesterId]: 0,
-          }));
-          if (updateSgpaSubjects) {
-            setSgpaSubjects([]);
-          }
-        }
-      } else if (w) {
         const subjectsResponse = await w.get_registered_subjects_and_faculties(semester);
 
         setSubjectData((prev) => ({
@@ -164,7 +124,6 @@ export default function CGPATargetCalculator({
             setSgpaSubjects([]);
           }
         }
-      }
     } catch (error) {
       console.error('Failed to fetch subjects:', error);
     } finally {
@@ -420,13 +379,7 @@ export default function CGPATargetCalculator({
     <>
       <Button
         variant="secondary"
-        className={`
-          rounded-[var(--radius)] shadow-lg flex items-center gap-2 text-[var(--text-color)]
-          bg-[var(--card-bg)] hover:bg-[var(--primary-color)]
-          border-[var(--border-color)] hover:border-[var(--primary-color)]
-          px-3 h-10 text-base font-semibold
-          sm:px-6 sm:h-14 sm:text-lg
-        `}
+        className="rounded-lg shadow-lg flex items-center gap-2 px-3 h-10 text-base font-semibold sm:px-6 sm:h-14 sm:text-lg"
         onClick={() => setIsOpen(true)}
         aria-label="Open GPA Calculator"
       >
@@ -436,25 +389,25 @@ export default function CGPATargetCalculator({
       </Button>
       
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-none max-w-2xl w-full rounded-[var(--radius)]">
+      <DialogContent className="max-w-2xl w-full rounded-lg">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-[var(--text-color)]">
+          <DialogTitle className="flex items-center gap-2">
             <Calculator className="h-6 w-6" />
             GPA Calculator
           </DialogTitle>
         </DialogHeader>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-2 w-full bg-[var(--primary-color)] rounded-lg h-12">
+          <TabsList className="grid grid-cols-2 w-full rounded-lg h-12">
             <TabsTrigger 
               value="sgpa" 
-              className="flex items-center gap-2 text-sm font-semibold data-[state=active]:bg-[var(--accent-color)] data-[state=active]:text-[var(--card-bg)] text-[var(--label-color)] rounded-md transition-all"
+              className="flex items-center gap-2 text-sm font-semibold rounded-md transition-all"
             >
               SGPA
             </TabsTrigger>
             <TabsTrigger 
               value="target"
-              className="flex items-center gap-2 text-sm font-semibold data-[state=active]:bg-[var(--accent-color)] data-[state=active]:text-[var(--card-bg)] text-[var(--label-color)] rounded-md transition-all"
+              className="flex items-center gap-2 text-sm font-semibold rounded-md transition-all"
             >
               Target GPA
             </TabsTrigger>
@@ -463,10 +416,10 @@ export default function CGPATargetCalculator({
           <TabsContent value="sgpa" className="space-y-4 py-4">
             <div className="space-y-3">
               <Select onValueChange={handleSemesterChange} value={selectedSemester?.registration_id || ""}>
-                <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
+                <SelectTrigger className="rounded-lg">
                   <SelectValue placeholder={isLoadingSemesters ? "Loading..." : "Choose semester"} />
                 </SelectTrigger>
-                <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
+                <SelectContent>
                   {subjectSemesters.map((semester) => (
                     <SelectItem
                       key={semester.registration_id}
@@ -480,8 +433,8 @@ export default function CGPATargetCalculator({
               
               {isLoadingSemesters && (
                 <div className="flex items-center justify-center py-4">
-                  <Loader2 className="w-5 h-5 animate-spin text-[var(--accent-color)]" />
-                  <span className="ml-2 text-sm text-[var(--label-color)]">Loading semesters...</span>
+                  <Loader2 className="w-5 h-5 animate-spin text-primary" />
+                  <span className="ml-2 text-sm text-muted-foreground">Loading semesters...</span>
                 </div>
               )}
             </div>
@@ -490,37 +443,33 @@ export default function CGPATargetCalculator({
               <>
                 {isLoadingSubjects ? (
                   <div className="flex items-center justify-center py-8">
-                    <Loader2 className="w-6 h-6 animate-spin text-[var(--accent-color)]" />
-                    <span className="ml-2 text-sm text-[var(--label-color)]">Loading subjects...</span>
+                    <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                    <span className="ml-2 text-sm text-muted-foreground">Loading subjects...</span>
                   </div>
                 ) : sgpaSubjects.length > 0 ? (
                   <>
                     <div className="space-y-2 max-h-80 overflow-y-auto">
                       {sgpaSubjects.map((subject, index) => (
-                        <div key={index} className={`${
-                          useCardBackgrounds
-                            ? "bg-[var(--primary-color)] rounded-[var(--radius)]"
-                            : "border-b border-[var(--border-color)]"
-                        } p-2 sm:p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3`}>
+                        <div key={index} className="bg-muted rounded-lg p-2 sm:p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                           <div className="flex-1 min-w-0">
-                            <div className="text-xs sm:text-sm font-medium text-[var(--text-color)] truncate">
+                            <div className="text-xs sm:text-sm font-medium truncate">
                               {subject.name}
                             </div>
-                            <div className="flex items-center gap-1 sm:gap-2 text-xs text-[var(--label-color)] flex-wrap">
-                              <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-[var(--primary-color)] rounded text-xs">{subject.code}</span>
+                            <div className="flex items-center gap-1 sm:gap-2 text-xs text-muted-foreground flex-wrap">
+                              <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-primary/10 rounded text-xs">{subject.code}</span>
                               <span className="whitespace-nowrap">{subject.credits} credits</span>
                             </div>
                           </div>
                           <div className="flex-shrink-0 w-full sm:w-24">
-                            <label className="text-xs text-[var(--label-color)] block mb-1 sm:hidden">Grade</label>
+                            <label className="text-xs text-muted-foreground block mb-1 sm:hidden">Grade</label>
                             <Select 
                               value={subject.grade} 
                               onValueChange={(grade) => handleGradeChange(index, grade)}
                             >
-                              <SelectTrigger className="bg-[var(--primary-color)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)] h-8 sm:h-10 text-xs sm:text-sm">
+                              <SelectTrigger className="h-8 sm:h-10 text-xs sm:text-sm rounded-lg">
                                 <SelectValue placeholder="Grade" />
                               </SelectTrigger>
-                              <SelectContent className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)]">
+                              <SelectContent>
                                 {gradeOptions.map(grade => (
                                   <SelectItem key={grade} value={grade}>
                                     {grade}
@@ -533,23 +482,15 @@ export default function CGPATargetCalculator({
                       ))}
                     </div>
                     <div className="space-y-2 mt-3 sm:space-y-3 sm:mt-4">
-                      <div className={`${
-                        useCardBackgrounds
-                          ? "bg-[var(--primary-color)] rounded-[var(--radius)]"
-                          : ""
-                      } p-2 sm:p-4 flex items-center justify-between gap-2`}>
-                        <span className="text-xs sm:text-sm text-[var(--label-color)] font-medium truncate">Calculated SGPA</span>
-                        <span className="text-lg sm:text-2xl font-bold text-[var(--accent-color)] flex-shrink-0">
+                      <div className="bg-muted rounded-lg p-2 sm:p-4 flex items-center justify-between gap-2">
+                        <span className="text-xs sm:text-sm text-muted-foreground font-medium truncate">Calculated SGPA</span>
+                        <span className="text-lg sm:text-2xl font-bold text-primary flex-shrink-0">
                           {calculateSGPA()}
                         </span>
                       </div>
-                      <div className={`${
-                        useCardBackgrounds
-                          ? "bg-[var(--primary-color)] rounded-[var(--radius)]"
-                          : ""
-                      } p-2 sm:p-4 flex items-center justify-between gap-2`}>
-                        <span className="text-xs sm:text-sm text-[var(--label-color)] font-medium truncate">Projected CGPA</span>
-                        <span className="text-lg sm:text-2xl font-bold text-[var(--accent-color)] flex-shrink-0">
+                      <div className="bg-muted rounded-lg p-2 sm:p-4 flex items-center justify-between gap-2">
+                        <span className="text-xs sm:text-sm text-muted-foreground font-medium truncate">Projected CGPA</span>
+                        <span className="text-lg sm:text-2xl font-bold text-primary flex-shrink-0">
                           {calculateProjectedCGPA()}
                         </span>
                       </div>
@@ -557,7 +498,7 @@ export default function CGPATargetCalculator({
                   </>
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-[var(--label-color)]">
+                    <p className="text-muted-foreground">
                       No subjects found for this semester
                     </p>
                   </div>
@@ -568,39 +509,34 @@ export default function CGPATargetCalculator({
 
           <TabsContent value="target" className="space-y-4 py-4">
             <div className="space-y-4">
-              <div className={`${
-                useCardBackgrounds
-                  ? "bg-[var(--primary-color)] rounded-[var(--radius)] p-4"
-                  : "p-2"
-              }`}>
-                <p className="text-sm text-[var(--label-color)] mb-4">
+              <div className="bg-muted rounded-lg p-4">
+                <p className="text-sm text-muted-foreground mb-4">
                   Enter your desired final CGPA, and we'll calculate the SGPA you need to achieve in the selected semester.
                 </p>
                 
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-sm font-medium text-[var(--text-color)] mb-2">
+                    <label className="block text-sm font-medium mb-2">
                       Select Semester
                     </label>
                     <Select
                       value={targetSemester?.registration_id || ""}
                       onValueChange={handleTargetSemesterChange}
                     >
-                      <SelectTrigger className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]">
+                      <SelectTrigger className="rounded-lg">
                         <SelectValue placeholder={isLoadingSemesters ? "Loading semesters..." : "Select a semester"} />
                       </SelectTrigger>
-                      <SelectContent className="bg-[var(--card-bg)] border-[var(--border-color)] text-[var(--text-color)] rounded-[var(--radius)]">
+                      <SelectContent className="rounded-lg">
                         {subjectSemesters.map((sem) => {
                           const credits = getSemesterCredits(sem);
                           return (
                             <SelectItem
                               key={sem.registration_id || sem.stynumber}
                               value={sem.registration_id}
-                              className="hover:bg-[var(--primary-color)] focus:bg-[var(--primary-color)] rounded-[var(--radius)]"
                             >
                               {sem.registration_code || sem.coursename || sem.stynumber}
                               {credits > 0 && (
-                                <span className="ml-2 text-[var(--label-color)] text-sm">
+                                <span className="ml-2 text-muted-foreground text-sm">
                                   ({credits} credits)
                                 </span>
                               )}
@@ -612,7 +548,7 @@ export default function CGPATargetCalculator({
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[var(--text-color)] mb-2">
+                    <label className="block text-sm font-medium mb-2">
                       Target CGPA (by end of semester)
                     </label>
                     <Input
@@ -623,17 +559,13 @@ export default function CGPATargetCalculator({
                       value={targetCGPA}
                       onChange={(e) => setTargetCGPA(e.target.value)}
                       placeholder="Enter target CGPA (e.g., 9.0)"
-                      className="bg-[var(--card-bg)] text-[var(--text-color)] border-[var(--border-color)] rounded-[var(--radius)]"
+                      className="rounded-lg"
                     />
                   </div>
 
                   <Button
-                    variant="secondary"
-                    className="w-full rounded-[var(--radius)] h-12 text-base font-semibold"
-                    style={{
-                      background: "var(--accent-color)",
-                      color: "var(--card-bg)",
-                    }}
+                    variant="default"
+                    className="w-full rounded-lg h-12 text-base font-semibold"
                     onClick={calculateRequiredSGPA}
                     disabled={isLoadingSubjects}
                   >
@@ -642,50 +574,46 @@ export default function CGPATargetCalculator({
                 </div>
 
                 {targetError && (
-                  <div className="mt-3 text-red-500 text-sm">
+                  <div className="mt-3 text-destructive text-sm">
                     {targetError}
                   </div>
                 )}
 
                 {requiredSGPA !== null && !targetError && (
                   <div className="mt-6 space-y-4">
-                    <div className={`${
-                      useCardBackgrounds
-                        ? "bg-[var(--card-bg)] rounded-[var(--radius)]"
-                        : "border-t border-[var(--border-color)] pt-4"
-                    } p-4`}>
+                    <div className="bg-card border rounded-lg p-4">
                       <div className="text-center space-y-2">
-                        <p className="text-xs text-[var(--label-color)] uppercase tracking-wide">
+                        <p className="text-xs text-muted-foreground uppercase tracking-wide">
                           {targetSemester?.registration_code || targetSemester?.coursename || targetSemester?.stynumber || "Selected Semester"}
                         </p>
-                        <p className="text-sm text-[var(--label-color)]">
+                        <p className="text-sm text-muted-foreground">
                           Required SGPA
                         </p>
                         {requiredSGPA > 10 ? (
                           <div>
-                            <p className="text-3xl font-bold text-red-500">
+                            <p className="text-3xl font-bold text-destructive">
                               Not Achievable
                             </p>
-                            <p className="text-sm text-[var(--label-color)] mt-2">
+                            <p className="text-sm text-muted-foreground mt-2">
                               Target CGPA of {formatGPA(parseFloat(targetCGPA))} cannot be achieved this semester.
                               The required SGPA ({formatGPA(requiredSGPA)}) exceeds the maximum possible (10.0).
                             </p>
                           </div>
                         ) : requiredSGPA < 0 ? (
                           <div>
-                            <p className="text-3xl font-bold text-[var(--accent-color)]">
+                            <p className="text-3xl font-bold text-primary">
                               Already Achieved!
                             </p>
-                            <p className="text-sm text-[var(--label-color)] mt-2">
+                            <p className="text-sm text-muted-foreground mt-2">
                               Your current CGPA already meets or exceeds your target of {formatGPA(parseFloat(targetCGPA))}.
                             </p>
                           </div>
                         ) : (
                           <div>
-                            <p className="text-5xl font-bold text-[var(--accent-color)]">
+                            <p className="text-5xl font-bold text-primary">
                               {formatGPA(requiredSGPA)}
                             </p>
-                            <p className="text-sm text-[var(--label-color)] mt-3">
+                            <p className="text-sm text-muted-foreground mt-3">
                               Achieve an SGPA of {formatGPA(requiredSGPA)} this semester to reach your target CGPA of {formatGPA(parseFloat(targetCGPA))}.
                             </p>
                           </div>
@@ -694,12 +622,8 @@ export default function CGPATargetCalculator({
                     </div>
 
                     {sd && sd.length > 0 && (
-                      <div className={`${
-                        useCardBackgrounds
-                          ? "bg-[var(--card-bg)] rounded-[var(--radius)]"
-                          : "border-t border-[var(--border-color)]"
-                      } p-4`}>
-                        <p className="text-xs text-[var(--label-color)] space-y-1">
+                      <div className="bg-card border rounded-lg p-4">
+                        <p className="text-xs text-muted-foreground space-y-1">
                           <span className="block">Current Stats:</span>
                           <span className="block">• Previous semesters: {sd.length}</span>
                           <span className="block">• Current CGPA: {
