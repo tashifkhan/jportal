@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -89,6 +89,90 @@ export default function Exams({
       month: "long",
       day: "numeric",
     });
+  };
+
+  // Parse "hh:mm am/pm" to {h,m} 24h
+  const parseTime = (t) => {
+    if (!t) return null;
+    const m = String(t).trim().match(/(\d{1,2}):(\d{2})\s*(am|pm)/i);
+    if (!m) return null;
+    let h = Number(m[1]);
+    const min = Number(m[2]);
+    const ap = m[3].toLowerCase();
+    if (ap === "pm" && h !== 12) h += 12;
+    if (ap === "am" && h === 12) h = 0;
+    return { h, min };
+  };
+
+  // Build a Date from exam date (dd/mm/yyyy) and time string
+  const toDateTime = (dateStr, timeStr) => {
+    const [day, month, year] = String(dateStr).split("/");
+    const t = parseTime(timeStr);
+    // Use noon fallback if time missing
+    const h = t ? t.h : 12;
+    const min = t ? t.min : 0;
+    return new Date(Number(year), Number(month) - 1, Number(day), h, min, 0);
+  };
+
+  // A shared ticking clock (only runs for exams within 6 hours)
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => {
+    if (!currentSchedule || currentSchedule.length === 0) return;
+    const SIX_HOURS = 6 * 60 * 60 * 1000;
+    const shouldTick = currentSchedule.some((exam) => {
+      const start = toDateTime(exam.datetime, exam.datetimefrom);
+      const untilStart = start.getTime() - Date.now();
+      return untilStart > 0 && untilStart <= SIX_HOURS; // only future exams within 6h
+    });
+    if (!shouldTick) return; // don't start interval
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, [currentSchedule]);
+
+  const formatDuration = (ms) => {
+    const sec = Math.max(0, Math.floor(ms / 1000));
+    const d = Math.floor(sec / 86400);
+    const h = Math.floor((sec % 86400) / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    const s = sec % 60;
+    if (d > 0) return `${d}d ${h}h ${m}m`;
+    if (h > 0) return `${h}h ${m}m ${s}s`;
+    if (m > 0) return `${m}m ${s}s`;
+    return `${s}s`;
+  };
+
+  const getBanner = (exam) => {
+    const start = toDateTime(exam.datetime, exam.datetimefrom);
+    const endTimeStr = String(exam.datetimeupto || "");
+    // Try to get end time from a range like "01:00 pm to 02:00 pm"
+    const rangeMatch = endTimeStr.match(/to\s*(\d{1,2}:\d{2}\s*[ap]m)/i);
+    const end = rangeMatch
+      ? toDateTime(exam.datetime, rangeMatch[1])
+      : toDateTime(exam.datetime, exam.datetimeupto);
+    const untilStart = start.getTime() - now;
+    const untilEnd = end.getTime() - now;
+
+    if (!isFinite(untilStart)) return null;
+
+    if (untilStart > 0) {
+      // Not started yet
+      const urgent = untilStart <= 2 * 60 * 60 * 1000; // within 2h
+      return {
+        text: `Exam starts in: ${formatDuration(untilStart)}`,
+        variant: urgent ? "urgent" : "upcoming",
+      };
+    }
+    if (untilEnd > 0) {
+      // Ongoing
+      return {
+        text: `Exam is in progress: ends in ${formatDuration(untilEnd)}`,
+        variant: "ongoing",
+      };
+    }
+    return {
+      text: `Exam ended ${formatDuration(-untilEnd)} ago`,
+      variant: "ended",
+    };
   };
 
   if (loading && !examSemesters.length) {
@@ -269,39 +353,76 @@ export default function Exams({
             Loading...
           </div>
         ) : currentSchedule?.length > 0 ? (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {currentSchedule.map((exam) => (
               <div
                 key={`${exam.subjectcode}-${exam.datetime}-${exam.datetimefrom}`}
-                className="w-full max-w-2xl mx-auto bg-[var(--card-bg)] rounded-[var(--radius)] shadow-sm px-6 py-5 flex flex-col gap-2 mb-2"
+                className="w-full max-w-2xl mx-auto overflow-hidden rounded-lg shadow-md bg-[var(--card-bg)]"
               >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-light truncate mb-1 text-[var(--text-color)]">
-                      {exam.subjectdesc.split("(")[0].trim()}
-                    </h3>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-base font-normal text-[var(--label-color)]">
+                {/* Banner */}
+                {(() => {
+                  const b = getBanner(exam);
+                  if (!b) return null;
+                  const variantStyles = {
+                    upcoming:
+                      "text-[var(--text-color)] border-b border-[var(--border-color)]/30",
+                    urgent:
+                      "text-[var(--text-color)] border-b-2 border-[var(--accent-color)]",
+                    ongoing:
+                      "text-[var(--accent-color)] border-b-2 border-[var(--accent-color)]",
+                    ended:
+                      "text-[var(--label-color)] border-b border-[var(--border-color)]/30",
+                  };
+                  return (
+                    <div
+                      className={`w-full px-5 py-3 text-sm md:text-base font-medium flex items-center gap-2 ${variantStyles[b.variant]}`}
+                    >
+                      <span className="truncate">{b.text}</span>
+                    </div>
+                  );
+                })()}
+
+                {/* Body */}
+                <div className="px-5 py-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg md:text-xl font-semibold tracking-tight text-[var(--text-color)]">
+                        {String(exam.subjectdesc).split("(")[0].trim()}
+                      </h3>
+                      <div className="mt-1 text-[13px] text-[var(--label-color)]">
                         {exam.subjectcode}
-                      </span>
+                      </div>
                     </div>
+                    {(exam.roomcode || exam.seatno) && (
+                      <div className="flex flex-col items-end gap-1">
+                        {exam.roomcode && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[var(--accent-color)]/20 border border-[var(--accent-color)]/40 px-3 py-1 text-xs">
+                            <span className="text-[var(--label-color)]">Room:</span>
+                            <span className="font-semibold text-[var(--accent-color)]">{exam.roomcode}</span>
+                          </span>
+                        )}
+                        {exam.seatno && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[var(--accent-color)]/20 border border-[var(--accent-color)]/40 px-3 py-1 text-xs">
+                            <span className="text-[var(--label-color)]">Seat:</span>
+                            <span className="font-semibold text-[var(--accent-color)]">{exam.seatno}</span>
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
-                  {(exam.roomcode || exam.seatno) && (
-                    <div className="flex flex-col items-center justify-center min-w-[48px]">
-                      <div className="text-2xl font-mono font-bold text-[var(--accent-color)] leading-none">
-                        {exam.roomcode && exam.seatno
-                          ? `${exam.roomcode}-${exam.seatno}`
-                          : exam.roomcode || exam.seatno}
-                      </div>
-                      <div className="text-xs text-[var(--label-color)] font-light mt-1">
-                        Room/Seat
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-row gap-6 mt-2 text-sm text-[var(--label-color)]">
-                  <div>{formatDate(exam.datetime)}</div>
-                  <div>{exam.datetimeupto}</div>
+
+                  {/* Meta row */}
+                  <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--primary-color)]/50 border border-[var(--border-color)]/30 px-3 py-1 text-xs text-[var(--text-color)]">
+                      {formatDate(exam.datetime)}
+                    </span>
+
+                    {exam.datetimeupto && (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--primary-color)]/50 border border-[var(--border-color)]/30 px-3 py-1 text-xs text-[var(--text-color)]">
+                        {exam.datetimeupto}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
