@@ -103,16 +103,16 @@ export default function Subjects({ w, subjectData, setSubjectData, semestersData
   }, {}) || {};
 
   return (
-    <div className="text-foreground font-sans">
-      <div className="sticky top-14 bg-background z-20">
-        <div className="py-2 px-3">
+    <div className="text-foreground font-sans max-w-7xl mx-auto">
+      <div className="sticky top-14 bg-background/95 backdrop-blur-sm z-20 border-b border-border">
+        <div className="py-3 px-4 flex items-center justify-between gap-4">
           <Select onValueChange={handleSemesterChange} value={selectedSem?.registration_id} disabled={loading}>
-            <SelectTrigger className="bg-background text-foreground border-foreground cursor-pointer hover:bg-accent hover:text-accent-foreground">
-              <SelectValue placeholder={loading ? "Loading semesters..." : "Select semester"}>
+            <SelectTrigger className="w-48 bg-background text-foreground border-border cursor-pointer hover:bg-accent/50">
+              <SelectValue placeholder={loading ? "Loading..." : "Select semester"}>
                 {selectedSem?.registration_code}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-background text-foreground border-foreground">
+            <SelectContent className="bg-background text-foreground border-border">
               {semestersData?.semesters?.map((sem) => (
                 <SelectItem key={sem.registration_id} value={sem.registration_id}>
                   {sem.registration_code}
@@ -120,21 +120,35 @@ export default function Subjects({ w, subjectData, setSubjectData, semestersData
               ))}
             </SelectContent>
           </Select>
+          <div className="text-sm font-medium tabular-nums">
+            <span className="text-muted-foreground">Total Credits:</span> {currentSubjects?.total_credits || 0}
+          </div>
         </div>
       </div>
 
-      <div className="px-3 pb-4">
-        <p className="text-sm lg:text-base">Total Credits: {currentSubjects?.total_credits || 0}</p>
-
+      <div className="px-4 pb-4">
         {subjectsLoading ? (
-          <div className="flex items-center justify-center py-4 h-[calc(100vh_-_<header_height>-<navbar_height>)]">
+          <div className="flex items-center justify-center py-12 text-muted-foreground">
             Loading subjects...
           </div>
+        ) : Object.keys(groupedSubjects).length === 0 ? (
+          <div className="flex items-center justify-center py-12 text-muted-foreground">
+            No subjects found for this semester
+          </div>
         ) : (
-          <div className="lg:space-y-4">
-            {Object.values(groupedSubjects).map((subject) => (
-              <SubjectInfoCard key={subject.code} subject={subject} />
-            ))}
+          <div className="mt-4">
+            {/* Table Header */}
+            <div className="grid grid-cols-[1fr_auto] gap-4 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground border-b border-border">
+              <div>Subject</div>
+              <div className="text-right min-w-[60px]">Credits</div>
+            </div>
+
+            {/* Table Body */}
+            <div className="divide-y divide-border">
+              {Object.values(groupedSubjects).map((subject) => (
+                <SubjectInfoCard key={subject.code} subject={subject} />
+              ))}
+            </div>
           </div>
         )}
       </div>
