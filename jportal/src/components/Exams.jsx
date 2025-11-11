@@ -124,7 +124,11 @@ export default function Exams({
       const untilStart = start.getTime() - Date.now();
       return untilStart > 0 && untilStart <= SIX_HOURS; // only future exams within 6h
     });
-    if (!shouldTick) return; // don't start interval
+    if (!shouldTick) {
+      // Still update now once to show static countdowns
+      setNow(Date.now());
+      return;
+    }
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, [currentSchedule]);
@@ -134,11 +138,10 @@ export default function Exams({
     const d = Math.floor(sec / 86400);
     const h = Math.floor((sec % 86400) / 3600);
     const m = Math.floor((sec % 3600) / 60);
-    const s = sec % 60;
     if (d > 0) return `${d}d ${h}h ${m}m`;
-    if (h > 0) return `${h}h ${m}m ${s}s`;
-    if (m > 0) return `${m}m ${s}s`;
-    return `${s}s`;
+    if (h > 0) return `${h}h ${m}m`;
+    if (m > 0) return `${m}m`;
+    return `${m}m`;
   };
 
   const getBanner = (exam) => {
