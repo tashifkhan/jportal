@@ -114,6 +114,7 @@ export default function Subjects({
         if (!subjectChoices?.[latestSem.registration_id]) {
           try {
             const choicesData = await w.get_subject_choices(latestSem);
+            console.log("Fetched subject choices:", choicesData);
             setSubjectChoices((prev) => ({
               ...prev,
               [latestSem.registration_id]: choicesData,
@@ -156,6 +157,10 @@ export default function Subjects({
       if (!subjectChoices?.[semester.registration_id]) {
         try {
           const choicesData = await w.get_subject_choices(semester);
+          console.log("=== Subject Choices Fetched ===");
+          console.log("Semester:", semester.registration_code);
+          console.log("Data:", choicesData);
+          console.log("===============================");
           setSubjectChoices((prev) => ({
             ...prev,
             [semester.registration_id]: choicesData,
@@ -163,6 +168,11 @@ export default function Subjects({
         } catch (err) {
           console.error("Error fetching subject choices:", err);
         }
+      } else {
+        console.log("=== Using Cached Subject Choices ===");
+        console.log("Semester:", semester.registration_code);
+        console.log("Data:", subjectChoices[semester.registration_id]);
+        console.log("====================================");
       }
     } catch (err) {
       console.error(err);
@@ -388,26 +398,124 @@ export default function Subjects({
                 <div className="flex items-center justify-center py-4 h-[calc(100vh-200px)]">
                   Loading subject choices...
                 </div>
-              ) : currentChoices ? (
-                <div className="w-full max-w-2xl mx-auto">
+              ) : currentChoices?.subjectpreferencegrid?.length > 0 ? (
+                <div className="w-full max-w-2xl mx-auto space-y-4">
+                  {/* Total Credits Card */}
                   <div
                     className={`${
                       useCardBackgrounds
                         ? "bg-[var(--card-bg)] rounded-2xl shadow-sm"
                         : ""
-                    } px-6 py-4 mb-4`}
+                    } px-6 py-4 flex items-center justify-between mb-4`}
                   >
-                    <h3 className="text-xl font-semibold text-[var(--text-color)] mb-4">
-                      Subject Preferences
-                    </h3>
-                    <pre className="text-sm text-[var(--label-color)] whitespace-pre-wrap overflow-auto">
-                      {JSON.stringify(currentChoices, null, 2)}
-                    </pre>
+                    <span className="text-lg font-semibold text-[var(--label-color)]">
+                      Total Credits
+                    </span>
+                    <span className="text-2xl font-bold text-[var(--accent-color)]">
+                      {currentChoices.total || 0}
+                    </span>
                   </div>
+
+                  {/* Group subjects by basket */}
+                  {Object.entries(
+                    currentChoices.subjectpreferencegrid.reduce((acc, subject) => {
+                      const basket = subject.basketcode;
+                      if (!acc[basket]) {
+                        acc[basket] = {
+                          name: subject.basketdesc,
+                          code: basket,
+                          subjects: [],
+                        };
+                      }
+                      acc[basket].subjects.push(subject);
+                      return acc;
+                    }, {})
+                  ).map(([basketCode, basket]) => (
+                    <div
+                      key={basketCode}
+                      className={`${
+                        useCardBackgrounds
+                          ? "bg-[var(--card-bg)] rounded-2xl shadow-sm"
+                          : "border-b border-[var(--border-color)]"
+                      } p-6 mb-4`}
+                    >
+                      <div className="mb-4">
+                        <h3 className="text-xl font-bold text-[var(--text-color)]">
+                          {basket.name}
+                        </h3>
+                        <p className="text-sm text-[var(--label-color)]">
+                          {basket.code} • Choose {basket.subjects[0]?.maxsubject || 1} subject
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        {basket.subjects
+                          .sort((a, b) => a.preference - b.preference)
+                          .map((subject, idx) => (
+                            <div
+                              key={subject.subjectid}
+                              className={`flex items-start gap-3 p-3 rounded-lg ${
+                                useCardBackgrounds
+                                  ? "bg-[var(--bg-color)]"
+                                  : "bg-[var(--card-bg)]"
+                              } ${
+                                subject.preference === 1
+                                  ? "border-2 border-[var(--accent-color)]"
+                                  : "border border-[var(--border-color)]"
+                              }`}
+                            >
+                              <div
+                                className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                                  subject.preference === 1
+                                    ? "bg-[var(--accent-color)] text-white"
+                                    : "bg-[var(--border-color)] text-[var(--label-color)]"
+                                }`}
+                              >
+                                {subject.preference}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-start justify-between gap-2">
+                                  <div className="flex-1 min-w-0">
+                                    <h4 className="font-semibold text-[var(--text-color)] truncate">
+                                      {subject.subjectdesc}
+                                    </h4>
+                                    <p className="text-sm text-[var(--label-color)] mt-1">
+                                      {subject.subjectcode} • {subject.credits} Credits
+                                    </p>
+                                  </div>
+                                  {subject.preference === 1 && (
+                                    <span className="flex-shrink-0 text-xs font-semibold px-2 py-1 rounded-full bg-[var(--accent-color)] text-white">
+                                      Top Choice
+                                    </span>
+                                  )}
+                                </div>
+                                {subject.electivetype === "Y" && (
+                                  <div className="mt-2 flex items-center gap-2 text-xs text-[var(--label-color)]">
+                                    <span className="px-2 py-0.5 rounded bg-[var(--border-color)]">
+                                      {subject.subjecttypedesc}
+                                    </span>
+                                    {subject.running === "Y" ? (
+                                      <span className="px-2 py-0.5 rounded bg-green-500/20 text-green-600 dark:text-green-400">
+                                        Running
+                                      </span>
+                                    ) : (
+                                      <span className="px-2 py-0.5 rounded bg-red-500/20 text-red-600 dark:text-red-400">
+                                        Not Running
+                                      </span>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ) : (
-                <div className="flex items-center justify-center py-4 h-[calc(100vh-200px)] text-[var(--label-color)]">
-                  No subject choices available for this semester
+                <div className="flex flex-col items-center justify-center py-4 h-[calc(100vh-200px)] text-[var(--label-color)]">
+                  <div className="text-5xl mb-4">📋</div>
+                  <p className="text-lg">No subject choices available for this semester</p>
                 </div>
               )}
             </div>
