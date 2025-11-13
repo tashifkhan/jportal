@@ -7,6 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import TopTabsBar from "./ui/TopTabsBar";
 import Loader from "./Loader";
 import { useTheme } from "./ThemeProvider";
 import {
@@ -28,6 +30,9 @@ export default function Subjects({
 }) {
   const [loading, setLoading] = useState(!semestersData);
   const [subjectsLoading, setSubjectsLoading] = useState(!subjectData);
+  const [activeTab, setActiveTab] = useState("registered");
+  const [subjectChoices, setSubjectChoices] = useState({});
+  const [choicesLoading, setChoicesLoading] = useState(false);
   const {
     useMaterialUI,
     useCardBackgrounds,
@@ -61,12 +66,31 @@ export default function Subjects({
               [semestersData.latest_semester.registration_id]: data,
             }));
           }
+
+          // Fetch subject choices for latest semester
+          if (!subjectChoices?.[semestersData.latest_semester.registration_id]) {
+            try {
+              setChoicesLoading(true);
+              const choicesData = await w.get_subject_choices(
+                semestersData.latest_semester
+              );
+              setSubjectChoices((prev) => ({
+                ...prev,
+                [semestersData.latest_semester.registration_id]: choicesData,
+              }));
+            } catch (err) {
+              console.error("Error fetching subject choices:", err);
+            } finally {
+              setChoicesLoading(false);
+            }
+          }
         }
         return;
       }
 
       setLoading(true);
       setSubjectsLoading(true);
+      setChoicesLoading(true);
       try {
         const registeredSems = await w.get_registered_semesters();
         const latestSem = registeredSems[0];
@@ -85,11 +109,25 @@ export default function Subjects({
             [latestSem.registration_id]: data,
           }));
         }
+
+        // Fetch subject choices for latest semester
+        if (!subjectChoices?.[latestSem.registration_id]) {
+          try {
+            const choicesData = await w.get_subject_choices(latestSem);
+            setSubjectChoices((prev) => ({
+              ...prev,
+              [latestSem.registration_id]: choicesData,
+            }));
+          } catch (err) {
+            console.error("Error fetching subject choices:", err);
+          }
+        }
       } catch (err) {
         console.error(err);
       } finally {
         setLoading(false);
         setSubjectsLoading(false);
+        setChoicesLoading(false);
       }
     };
 
@@ -98,31 +136,46 @@ export default function Subjects({
 
   const handleSemesterChange = async (value) => {
     setSubjectsLoading(true);
+    setChoicesLoading(true);
     try {
       const semester = semestersData?.semesters?.find(
         (sem) => sem.registration_id === value
       );
       setSelectedSem(semester);
 
-      if (subjectData?.[semester.registration_id]) {
-        setSubjectsLoading(false);
-        return;
+      // Fetch registered subjects if not cached
+      if (!subjectData?.[semester.registration_id]) {
+        const data = await w.get_registered_subjects_and_faculties(semester);
+        setSubjectData((prev) => ({
+          ...prev,
+          [semester.registration_id]: data,
+        }));
       }
 
-      const data = await w.get_registered_subjects_and_faculties(semester);
-      setSubjectData((prev) => ({
-        ...prev,
-        [semester.registration_id]: data,
-      }));
+      // Fetch subject choices if not cached
+      if (!subjectChoices?.[semester.registration_id]) {
+        try {
+          const choicesData = await w.get_subject_choices(semester);
+          setSubjectChoices((prev) => ({
+            ...prev,
+            [semester.registration_id]: choicesData,
+          }));
+        } catch (err) {
+          console.error("Error fetching subject choices:", err);
+        }
+      }
     } catch (err) {
       console.error(err);
     } finally {
       setSubjectsLoading(false);
+      setChoicesLoading(false);
     }
   };
 
   const currentSubjects =
     selectedSem && subjectData?.[selectedSem.registration_id];
+  const currentChoices =
+    selectedSem && subjectChoices?.[selectedSem.registration_id];
   const groupedSubjects =
     currentSubjects?.subjects?.reduce((acc, subject) => {
       const baseCode = subject.subject_code;
@@ -233,48 +286,134 @@ export default function Subjects({
         </div>
       </div>
 
-      <div className="px-3 pb-4">
-        <div
-          className={`w-full max-w-2xl mx-auto ${
-            useCardBackgrounds
-              ? "bg-[var(--card-bg)] rounded-2xl shadow-sm"
-              : ""
-          } px-6 py-4 flex items-center justify-between mb-4`}
-        >
-          <span className="text-lg font-semibold text-[var(--label-color)]">
-            Total Credits
-          </span>
-          <span className="text-2xl font-bold text-[var(--accent-color)]">
-            {currentSubjects?.total_credits || 0}
-          </span>
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="flex w-full max-w-6xl mx-auto"
+      >
+        {/* Sidebar Tabs for large screens */}
+        <div className="w-64 flex-shrink-0 hidden lg:block">
+          <TopTabsBar
+            orientation="vertical"
+            className="mb-6 items-center grid grid-cols-1 w-64 h-auto py-4 gap-2"
+          >
+            <TabsTrigger
+              value="registered"
+              className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-2xl data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
+            >
+              Registered Subjects
+            </TabsTrigger>
+            <TabsTrigger
+              value="choices"
+              className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-2xl data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
+            >
+              Subject Choices
+            </TabsTrigger>
+          </TopTabsBar>
         </div>
 
-        {subjectsLoading ? (
-          <div className="flex items-center justify-center py-4 h-[calc(100vh-200px)]">
-            Loading subjects...
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col items-center w-full px-4 sm:px-0">
+          {/* TabsList for mobile only */}
+          <div className="w-full lg:hidden mb-4">
+            <TopTabsBar
+              orientation="horizontal"
+              className="w-full flex flex-row justify-between h-12 overflow-x-auto whitespace-nowrap scrollbar-none"
+            >
+              <TabsTrigger
+                value="registered"
+                className="flex-1 min-w-fit text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
+              >
+                Registered
+              </TabsTrigger>
+              <TabsTrigger
+                value="choices"
+                className="flex-1 min-w-fit text-lg font-semibold data-[state=active]:bg-[var(--card-bg)] data-[state=active]:text-[var(--accent-color)] text-[var(--label-color)] transition-colors"
+              >
+                Choices
+              </TabsTrigger>
+            </TopTabsBar>
           </div>
-        ) : (
-          <div className={useCardBackgrounds ? "lg:space-y-4" : "lg:space-y-1"}>
-            {Object.values(groupedSubjects).map((subject, idx, arr) => (
-              <React.Fragment key={subject.code}>
-                <SubjectInfoCard
-                  subject={subject}
-                  useCardBackgrounds={useCardBackgrounds}
-                />
-                {!useCardBackgrounds && idx < arr.length - 1 && (
+
+          {/* Registered Subjects Tab */}
+          <TabsContent value="registered" className="w-full mt-0">
+            <div className="px-3 pb-4">
+              <div
+                className={`w-full max-w-2xl mx-auto ${
+                  useCardBackgrounds
+                    ? "bg-[var(--card-bg)] rounded-2xl shadow-sm"
+                    : ""
+                } px-6 py-4 flex items-center justify-between mb-4`}
+              >
+                <span className="text-lg font-semibold text-[var(--label-color)]">
+                  Total Credits
+                </span>
+                <span className="text-2xl font-bold text-[var(--accent-color)]">
+                  {currentSubjects?.total_credits || 0}
+                </span>
+              </div>
+
+              {subjectsLoading ? (
+                <div className="flex items-center justify-center py-4 h-[calc(100vh-200px)]">
+                  Loading subjects...
+                </div>
+              ) : (
+                <div className={useCardBackgrounds ? "lg:space-y-4" : "lg:space-y-1"}>
+                  {Object.values(groupedSubjects).map((subject, idx, arr) => (
+                    <React.Fragment key={subject.code}>
+                      <SubjectInfoCard
+                        subject={subject}
+                        useCardBackgrounds={useCardBackgrounds}
+                      />
+                      {!useCardBackgrounds && idx < arr.length - 1 && (
+                        <div
+                          className="w-full max-w-2xl mx-auto"
+                          style={{
+                            borderBottom: `1px solid ${accentSeparator}66`,
+                            margin: "2px 0",
+                          }}
+                        />
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              )}
+            </div>
+          </TabsContent>
+
+          {/* Subject Choices Tab */}
+          <TabsContent value="choices" className="w-full mt-0">
+            <div className="px-3 pb-4">
+              {choicesLoading ? (
+                <div className="flex items-center justify-center py-4 h-[calc(100vh-200px)]">
+                  Loading subject choices...
+                </div>
+              ) : currentChoices ? (
+                <div className="w-full max-w-2xl mx-auto">
                   <div
-                    className="w-full max-w-2xl mx-auto"
-                    style={{
-                      borderBottom: `1px solid ${accentSeparator}66`,
-                      margin: "2px 0",
-                    }}
-                  />
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        )}
-      </div>
+                    className={`${
+                      useCardBackgrounds
+                        ? "bg-[var(--card-bg)] rounded-2xl shadow-sm"
+                        : ""
+                    } px-6 py-4 mb-4`}
+                  >
+                    <h3 className="text-xl font-semibold text-[var(--text-color)] mb-4">
+                      Subject Preferences
+                    </h3>
+                    <pre className="text-sm text-[var(--label-color)] whitespace-pre-wrap overflow-auto">
+                      {JSON.stringify(currentChoices, null, 2)}
+                    </pre>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center py-4 h-[calc(100vh-200px)] text-[var(--label-color)]">
+                  No subject choices available for this semester
+                </div>
+              )}
+            </div>
+          </TabsContent>
+        </div>
+      </Tabs>
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { useSwipeable } from "react-swipeable";
 import TopTabsBar from "./ui/TopTabsBar";
 import { useTheme } from "./ThemeProvider";
-import { AlertCircle, CheckCircle, DollarSign, FileText, TrendingUp } from "lucide-react";
 
 export default function Fees({ w, feesData, setFeesData, guest = false }) {
   const [loading, setLoading] = useState(true);
@@ -112,7 +111,6 @@ export default function Fees({ w, feesData, setFeesData, guest = false }) {
     return (
       <div className="min-h-[calc(100vh-10rem)] md:min-h-[calc(100vh-6rem)] flex items-center justify-center">
         <div className="text-center">
-          <AlertCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
           <p className="text-[var(--text-color)] text-lg">{error}</p>
         </div>
       </div>
@@ -171,14 +169,12 @@ export default function Fees({ w, feesData, setFeesData, guest = false }) {
                 value="fines"
                 className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-2xl data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
               >
-                <DollarSign className="w-5 h-5 mr-2" />
                 Pending Fines
               </TabsTrigger>
               <TabsTrigger
                 value="summary"
                 className="flex items-center justify-start px-6 py-3 w-full rounded-none data-[state=active]:rounded-2xl data-[state=active]:bg-[var(--primary-color)] data-[state=active]:text-[var(--text-color)] text-[var(--label-color)] text-[1.1rem] font-medium transition-colors"
               >
-                <FileText className="w-5 h-5 mr-2" />
                 Fee Summary
               </TabsTrigger>
             </TopTabsBar>
@@ -224,7 +220,6 @@ export default function Fees({ w, feesData, setFeesData, guest = false }) {
                             {formatCurrency(totalFines)}
                           </p>
                         </div>
-                        <AlertCircle className="w-12 h-12 text-orange-500 opacity-50" />
                       </div>
                     </div>
 
@@ -290,7 +285,6 @@ export default function Fees({ w, feesData, setFeesData, guest = false }) {
                   </>
                 ) : (
                   <div className="bg-[var(--card-bg)] rounded-[var(--radius)] p-12 text-center shadow-md">
-                    <CheckCircle className="w-16 h-16 mx-auto mb-4 text-green-500" />
                     <h3 className="text-xl font-semibold text-[var(--text-color)] mb-2">
                       No Pending Fines
                     </h3>
@@ -316,7 +310,6 @@ export default function Fees({ w, feesData, setFeesData, guest = false }) {
                           {formatCurrency(totalFeeAmount)}
                         </p>
                       </div>
-                      <DollarSign className="w-10 h-10 text-blue-500 opacity-30" />
                     </div>
                   </div>
 
@@ -329,7 +322,6 @@ export default function Fees({ w, feesData, setFeesData, guest = false }) {
                           {formatCurrency(totalReceived)}
                         </p>
                       </div>
-                      <CheckCircle className="w-10 h-10 text-green-500 opacity-30" />
                     </div>
                   </div>
 
@@ -342,7 +334,6 @@ export default function Fees({ w, feesData, setFeesData, guest = false }) {
                           {formatCurrency(totalDue)}
                         </p>
                       </div>
-                      <AlertCircle className="w-10 h-10 text-red-500 opacity-30" />
                     </div>
                   </div>
 
@@ -358,7 +349,6 @@ export default function Fees({ w, feesData, setFeesData, guest = false }) {
                             {formatCurrency(advanceAmount > 0 ? advanceAmount : totalRefund)}
                           </p>
                         </div>
-                        <TrendingUp className="w-10 h-10 text-purple-500 opacity-30" />
                       </div>
                     </div>
                   )}
