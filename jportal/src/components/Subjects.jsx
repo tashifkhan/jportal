@@ -445,14 +445,14 @@ export default function Subjects({
                                   ? "bg-[var(--bg-color)]"
                                   : "bg-[var(--card-bg)]"
                               } ${
-                                subject.preference === 1
+                                subject.running === "Y"
                                   ? "border-2 border-[var(--accent-color)]"
                                   : "border border-[var(--border-color)]"
                               }`}
                             >
                               <div
                                 className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                                  subject.preference === 1
+                                  subject.running === "Y"
                                     ? "bg-[var(--accent-color)] text-white"
                                     : "bg-[var(--border-color)] text-[var(--label-color)]"
                                 }`}
@@ -469,9 +469,9 @@ export default function Subjects({
                                       {subject.subjectcode} • {subject.credits} Credits
                                     </p>
                                   </div>
-                                  {subject.preference === 1 && (
+                                  {subject.running === "Y" && (
                                     <span className="flex-shrink-0 text-xs font-semibold px-2 py-1 rounded-full bg-[var(--accent-color)] text-white">
-                                      Top Choice
+                                      Alloted
                                     </span>
                                   )}
                                 </div>
@@ -480,11 +480,6 @@ export default function Subjects({
                                     <span className="px-2 py-0.5 rounded bg-[var(--border-color)]">
                                       {subject.subjecttypedesc}
                                     </span>
-                                    {subject.running === "Y" && (
-                                      <span className="px-2 py-0.5 rounded bg-green-500/20 text-green-600 dark:text-green-400">
-                                        Alloted
-                                      </span>
-                                    ) }
                                   </div>
                                 )}
                               </div>
