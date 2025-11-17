@@ -400,21 +400,7 @@ export default function Subjects({
                 </div>
               ) : currentChoices?.subjectpreferencegrid?.length > 0 ? (
                 <div className="w-full max-w-2xl mx-auto space-y-4">
-                  {/* Total Credits Card */}
-                  <div
-                    className={`${
-                      useCardBackgrounds
-                        ? "bg-[var(--card-bg)] rounded-2xl shadow-sm"
-                        : ""
-                    } px-6 py-4 flex items-center justify-between mb-4`}
-                  >
-                    <span className="text-lg font-semibold text-[var(--label-color)]">
-                      Total Credits
-                    </span>
-                    <span className="text-2xl font-bold text-[var(--accent-color)]">
-                      {currentChoices.total || 0}
-                    </span>
-                  </div>
+                  {/* Total Credits hidden on choices page per user request */}
 
                   {/* Group subjects by basket */}
                   {Object.entries(
@@ -494,15 +480,11 @@ export default function Subjects({
                                     <span className="px-2 py-0.5 rounded bg-[var(--border-color)]">
                                       {subject.subjecttypedesc}
                                     </span>
-                                    {subject.running === "Y" ? (
+                                    {subject.running === "Y" && (
                                       <span className="px-2 py-0.5 rounded bg-green-500/20 text-green-600 dark:text-green-400">
-                                        Running
+                                        Alloted
                                       </span>
-                                    ) : (
-                                      <span className="px-2 py-0.5 rounded bg-red-500/20 text-red-600 dark:text-red-400">
-                                        Not Running
-                                      </span>
-                                    )}
+                                    ) }
                                   </div>
                                 )}
                               </div>
