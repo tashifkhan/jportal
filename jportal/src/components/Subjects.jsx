@@ -429,15 +429,14 @@ export default function Subjects({
                         <h3 className="text-xl font-bold text-[var(--text-color)]">
                           {basket.name}
                         </h3>
-                        <p className="text-sm text-[var(--label-color)]">
-                          {basket.code} • Choose {basket.subjects[0]?.maxsubject || 1} subject
-                        </p>
                       </div>
 
                       <div className="space-y-2">
                         {basket.subjects
                           .sort((a, b) => a.preference - b.preference)
-                          .map((subject, idx) => (
+                          .map((subject, idx) => {
+                            const showNumbering = basket.code !== "CORE" && basket.code !== "CORE-AUDIT";
+                            return (
                             <div
                               key={subject.subjectid}
                               className={`flex items-start gap-3 p-3 rounded-lg ${
@@ -450,6 +449,7 @@ export default function Subjects({
                                   : "border border-[var(--border-color)]"
                               }`}
                             >
+                              {showNumbering && (
                               <div
                                 className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                                   subject.running === "Y"
@@ -459,6 +459,7 @@ export default function Subjects({
                               >
                                 {subject.preference}
                               </div>
+                              )}
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-start justify-between gap-2">
                                   <div className="flex-1 min-w-0">
@@ -484,14 +485,14 @@ export default function Subjects({
                                 )}
                               </div>
                             </div>
-                          ))}
+                            );
+                          })}
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center py-4 h-[calc(100vh-200px)] text-[var(--label-color)]">
-                  <div className="text-5xl mb-4">📋</div>
                   <p className="text-lg">No subject choices available for this semester</p>
                 </div>
               )}
