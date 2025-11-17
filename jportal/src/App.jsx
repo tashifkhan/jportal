@@ -24,7 +24,7 @@ import "./App.css";
 import {
   WebPortal,
   LoginError,
-} from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.22/dist/jsjiit.esm.js";
+} from "./lib/jsjiit.esm.js";
 
 import { useSwipeable } from "react-swipeable";
 
