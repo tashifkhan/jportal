@@ -102,6 +102,11 @@ export default class MockWebPortal {
     return fakeData.fees.fines_msc_charges || [];
   }
 
+  async get_student_choices(semester) {
+    const semKey = semester?.registration_code || semester;
+    return fakeData.choiceSubjects[semKey] || [] ;
+  }
+
   async get_semesters_for_exam_events() {
     return fakeData.exams.examSemesters || [];
   }
