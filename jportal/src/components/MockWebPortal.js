@@ -94,6 +94,14 @@ export default class MockWebPortal {
     return fakeData.profile;
   }
 
+  async get_fee_summary() {
+    return fakeData.fees && fakeData.fees.fee_summary ? fakeData.fees.fee_summary : {status: {responseStatus: "Error", errors: ["no-data"]}, response: {}};
+  }
+
+  async get_fines_msc_charges() {
+    return fakeData.fees && fakeData.fees.fines_msc_charges ? fakeData.fees.fines_msc_charges : {status: {responseStatus: "Error", errors: ["no-data"]}, response: []};
+  }
+
   async get_semesters_for_exam_events() {
     return fakeData.exams.examSemesters || [];
   }
