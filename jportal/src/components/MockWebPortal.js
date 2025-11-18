@@ -95,7 +95,7 @@ export default class MockWebPortal {
   }
 
   async get_fee_summary() {
-    return fakeData.fees || [];
+    return fakeData.fees.fee_summary || [];
   }
 
   async get_fines_msc_charges() {
