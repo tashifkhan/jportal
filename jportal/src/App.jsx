@@ -16,7 +16,7 @@ import { DynamicFontLoader } from "./components/DynamicFontLoader";
 import { Toaster } from "./components/ui/sonner";
 import "./App.css";
 
-import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.22/dist/jsjiit.esm.js";
+import { WebPortal, LoginError } from "https://cdn.jsdelivr.net/npm/jsjiit@0.0.23/dist/jsjiit.esm.js";
 
 import MockWebPortal from "./components/MockWebPortal";
 import { TriangleAlert } from "lucide-react";
