@@ -103,8 +103,16 @@ export default class MockWebPortal {
   }
 
   async get_student_choices(semester) {
-    const semKey = semester?.registration_code || semester;
-    return fakeData.choiceSubjects[semKey] || [] ;
+    let semKey = null;
+    if (!semester) semKey = null;
+    else if (typeof semester === "string") semKey = semester;
+    else semKey = semester.registration_code || semester.registration_id || null;
+
+    const choiceSubjects = fakeData.subjects && fakeData.subjects.choiceSubjects;
+    if (choiceSubjects && semKey && choiceSubjects[semKey]) {
+      return choiceSubjects[semKey];
+    }
+    return [];
   }
 
   async get_semesters_for_exam_events() {
