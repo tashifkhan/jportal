@@ -30,6 +30,8 @@ dist-ssr
 
 jportal/dev-dist
 
+test-jportal/
+
 certs/
 CLAUDE.md
 

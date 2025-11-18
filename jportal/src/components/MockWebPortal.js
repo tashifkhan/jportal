@@ -95,11 +95,11 @@ export default class MockWebPortal {
   }
 
   async get_fee_summary() {
-    return fakeData.fees && fakeData.fees.fee_summary ? fakeData.fees.fee_summary : {status: {responseStatus: "Error", errors: ["no-data"]}, response: {}};
+    return fakeData.fees || [];
   }
 
   async get_fines_msc_charges() {
-    return fakeData.fees && fakeData.fees.fines_msc_charges ? fakeData.fees.fines_msc_charges : {status: {responseStatus: "Error", errors: ["no-data"]}, response: []};
+    return fakeData.fees.fines_msc_charges || [];
   }
 
   async get_semesters_for_exam_events() {
